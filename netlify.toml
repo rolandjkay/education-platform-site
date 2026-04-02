@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Decap CMS requires Netlify Identity + Git Gateway.
+# After first deploy:
+#   1. Enable Identity in Netlify dashboard (Site settings > Identity)
+#   2. Enable Git Gateway under Identity > Services > Git Gateway
+#   3. Invite yourself as a CMS user via Identity > Invite users

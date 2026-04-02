@@ -1,0 +1,161 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="Amersham Film School Online Learning">
+        <span class="footer__logo-mark" aria-hidden="true">AFS</span>
+        <span>Online Learning</span>
+      </a>
+      <p class="footer__tagline">Science, technology, and filmmaking education for young people.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <div class="footer__nav-group">
+        <h3 class="footer__nav-heading">Learn</h3>
+        <ul role="list">
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/apps">Interactive Apps</a></li>
+        </ul>
+      </div>
+      <div class="footer__nav-group">
+        <h3 class="footer__nav-heading">School</h3>
+        <ul role="list">
+          <li><a href="https://amershamfilmschool.co.uk" target="_blank" rel="noopener">Main Site</a></li>
+          <li><a href="https://amershamfilmschool.co.uk/about" target="_blank" rel="noopener">About Us</a></li>
+          <li><a href="https://amershamfilmschool.co.uk/contact" target="_blank" rel="noopener">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>&copy; {year} Amersham Film School. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    margin-top: 4rem;
+    background: var(--color-bg-alt);
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer__brand {
+    max-width: 26ch;
+  }
+
+  .footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-sm);
+  }
+
+  .footer__tagline {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .footer__nav {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .footer__nav-group h3 {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.875rem;
+  }
+
+  .footer__nav-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer__nav-group a {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .footer__nav-group a:hover {
+    color: var(--color-primary);
+  }
+
+  .footer__bottom {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer__bottom-inner {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .footer__bottom p {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .footer__brand {
+      max-width: none;
+    }
+
+    .footer__nav {
+      gap: 2rem;
+    }
+  }
+</style>

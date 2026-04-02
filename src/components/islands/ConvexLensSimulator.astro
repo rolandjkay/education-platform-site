@@ -1,0 +1,69 @@
+---
+// Convex Lens Simulator — HTML5 Canvas 2D
+//
+// TODO: Port the canvas simulator from:
+//   Bootcamp-test/public/apps/convex-lens-simulator/public/script.js  (~498 lines)
+//
+// No external dependencies — pure vanilla JS + Canvas 2D API.
+//
+// Key features to port:
+//   - Thin lens equation: 1/f = 1/v + 1/u
+//   - Drag object left/right (mouse + touch events)
+//   - Real-time ray tracing: parallel ray, focal ray, central ray
+//   - Responsive scaling: MOBILE_SCALING_FACTOR = 0.6 on screens < 600px
+//   - Context labels that update based on object position
+//     (camera, macro, magnifying glass modes)
+//   - Legend overlay in lower-left corner
+//
+// Mount point: canvas#convex-lens-canvas
+---
+
+<div class="island-placeholder" id="convex-lens-mount" role="img" aria-label="Convex lens simulator placeholder">
+  <div class="island-placeholder__label">Canvas 2D Island — pending implementation</div>
+  <h3>Convex Lens Simulator</h3>
+  <p>
+    Drag an object to any position relative to a convex lens and watch the
+    real image (or virtual image) form in real time, with ray diagrams.
+  </p>
+  <ul>
+    <li>HTML5 Canvas 2D — no external dependencies</li>
+    <li>Mouse &amp; touch drag interaction</li>
+    <li>Thin lens equation · ray tracing · responsive scaling</li>
+    <li>Source: <code>Bootcamp-test/apps/convex-lens-simulator/public/script.js</code></li>
+  </ul>
+</div>
+
+<!-- The canvas element is here ready for the script to use -->
+<canvas
+  id="convex-lens-canvas"
+  width="800"
+  height="500"
+  style="display:none; max-width:100%; border-radius: var(--radius-lg);"
+  aria-label="Interactive convex lens ray diagram"
+></canvas>
+
+<script>
+  // TODO: Initialize the Canvas 2D lens simulator.
+  //
+  // Suggested init sequence:
+  //
+  // 1. Copy script.js from Bootcamp-test/apps/convex-lens-simulator/public/
+  //    into src/scripts/convex-lens-simulator.ts (or keep as .js)
+  //
+  // 2. Export an init(canvas: HTMLCanvasElement) function from the script.
+  //
+  // 3. Here, replace the placeholder and show the canvas:
+  //    const mount = document.getElementById('convex-lens-mount');
+  //    const canvas = document.getElementById('convex-lens-canvas') as HTMLCanvasElement;
+  //    mount?.remove();
+  //    canvas.style.display = 'block';
+  //    initConvexLensSimulator(canvas);
+  //
+  // The original script uses these globals to watch for:
+  //   - window resize → recalculate MOBILE_SCALING_FACTOR, redraw
+  //   - mousedown/mousemove/mouseup + touchstart/touchmove/touchend on canvas
+  //
+  // Reference: Bootcamp-test/public/apps/convex-lens-simulator/public/script.js
+
+  console.log('[ConvexLensSimulator] TODO: initialize Canvas 2D simulator');
+</script>

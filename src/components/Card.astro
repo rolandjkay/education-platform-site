@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  image?: string;
+  tag?: string;
+  date?: Date;
+}
+
+const { title, description, href, image, tag, date } = Astro.props;
+
+const formattedDate = date
+  ? date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  : undefined;
+---
+
+<article class="card">
+  <a href={href} class="card__image-link" tabindex="-1" aria-hidden="true">
+    {image ? (
+      <img class="card__image" src={image} alt="" loading="lazy" />
+    ) : (
+      <div class="card__image-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+      </div>
+    )}
+  </a>
+
+  <div class="card__body">
+    {tag && <span class="card__tag">{tag}</span>}
+    <h3 class="card__title">
+      <a href={href} class="card__title-link">{title}</a>
+    </h3>
+    <p class="card__description">{description}</p>
+  </div>
+
+  <div class="card__footer">
+    {formattedDate && <time class="card__date" datetime={date?.toISOString()}>{formattedDate}</time>}
+    <a href={href} class="card__link">Read more</a>
+  </div>
+</article>
+
+<style>
+  .card__image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .card__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card__title-link:hover {
+    color: var(--color-primary);
+  }
+</style>

@@ -1,0 +1,245 @@
+---
+const navLinks = [
+  { label: 'Articles', href: '/articles' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Apps', href: '/apps' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="navbar">
+  <div class="navbar__inner container">
+    <a href="/" class="navbar__logo" aria-label="Amersham Film School Online Learning — home">
+      <span class="navbar__logo-mark" aria-hidden="true">AFS</span>
+      <span class="navbar__logo-text">Online Learning</span>
+    </a>
+
+    <nav class="navbar__nav" aria-label="Main navigation">
+      <ul class="navbar__links" role="list">
+        {navLinks.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class:list={['navbar__link', { 'navbar__link--active': currentPath.startsWith(href) }]}
+              aria-current={currentPath.startsWith(href) ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button class="navbar__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="navbar__drawer" id="nav-menu" hidden>
+    <ul class="navbar__drawer-links" role="list">
+      {navLinks.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class:list={['navbar__drawer-link', { 'navbar__drawer-link--active': currentPath.startsWith(href) }]}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .navbar__inner {
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Logo */
+  .navbar__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .navbar__logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-primary);
+    color: white;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .navbar__logo-text {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  /* Desktop nav */
+  .navbar__nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navbar__links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar__link {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--radius-full);
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .navbar__link:hover {
+    background: var(--color-primary-faint);
+    color: var(--color-primary);
+  }
+
+  .navbar__link--active {
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+
+  /* Hamburger toggle */
+  .navbar__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar__toggle:hover {
+    background: var(--color-primary-faint);
+  }
+
+  .navbar__toggle-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile drawer */
+  .navbar__drawer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .navbar__drawer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .navbar__drawer-link {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .navbar__drawer-link:hover,
+  .navbar__drawer-link--active {
+    background: var(--color-primary-faint);
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .navbar__nav {
+      display: none;
+    }
+
+    .navbar__toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    if (!expanded) {
+      menu?.removeAttribute('hidden');
+    } else {
+      menu?.setAttribute('hidden', '');
+    }
+  });
+</script>

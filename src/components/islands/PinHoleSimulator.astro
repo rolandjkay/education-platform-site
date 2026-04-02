@@ -1,0 +1,62 @@
+---
+// Pin-hole Camera Simulator — HTML5 Canvas 2D
+//
+// TODO: Port the canvas simulator from:
+//   Bootcamp-test/public/apps/pin-hole-simulator/public/script.js  (~30 KB)
+//
+// No external dependencies — pure vanilla JS + Canvas 2D API.
+//
+// Key features to port:
+//   - Adjustable pinhole aperture via slider
+//   - Real-time circle of confusion simulation
+//   - Brightness/sharpness trade-off visualisation
+//   - Diffraction limit indicator
+//   - Mouse & touch interaction
+//
+// Mount point: canvas#pinhole-canvas
+---
+
+<div class="island-placeholder" id="pinhole-mount" role="img" aria-label="Pin-hole camera simulator placeholder">
+  <div class="island-placeholder__label">Canvas 2D Island — pending implementation</div>
+  <h3>Pin-hole Camera Simulator</h3>
+  <p>
+    Adjust the pinhole diameter and watch the trade-off between image
+    sharpness and brightness — including the diffraction limit.
+  </p>
+  <ul>
+    <li>HTML5 Canvas 2D — no external dependencies</li>
+    <li>Aperture slider · circle-of-confusion simulation</li>
+    <li>Diffraction limit indicator</li>
+    <li>Source: <code>Bootcamp-test/apps/pin-hole-simulator/public/script.js</code></li>
+  </ul>
+</div>
+
+<canvas
+  id="pinhole-canvas"
+  width="800"
+  height="500"
+  style="display:none; max-width:100%; border-radius: var(--radius-lg);"
+  aria-label="Interactive pin-hole camera simulator"
+></canvas>
+
+<script>
+  // TODO: Initialize the pin-hole camera simulator.
+  //
+  // Suggested init sequence:
+  //
+  // 1. Copy script.js from Bootcamp-test/apps/pin-hole-simulator/public/
+  //    into src/scripts/pinhole-simulator.ts (or keep as .js)
+  //
+  // 2. Export an init(canvas: HTMLCanvasElement) function.
+  //
+  // 3. Replace the placeholder and show the canvas:
+  //    const mount = document.getElementById('pinhole-mount');
+  //    const canvas = document.getElementById('pinhole-canvas') as HTMLCanvasElement;
+  //    mount?.remove();
+  //    canvas.style.display = 'block';
+  //    initPinholeSimulator(canvas);
+  //
+  // Reference: Bootcamp-test/public/apps/pin-hole-simulator/public/script.js
+
+  console.log('[PinHoleSimulator] TODO: initialize Canvas 2D simulator');
+</script>

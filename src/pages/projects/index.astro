@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Hands-on filmmaking and creative project guides from Amersham Film School."
+>
+  <div class="container">
+    <header class="page-header">
+      <p class="page-header__eyebrow">Online Learning</p>
+      <h1 class="page-header__title">Projects</h1>
+      <p class="page-header__description">
+        Step-by-step guides for creative filmmaking projects you can do at home,
+        at school, or in a workshop.
+      </p>
+    </header>
+
+    {projects.length > 0 ? (
+      <CardGrid>
+        {projects.map(project => (
+          <Card
+            title={project.data.title}
+            description={project.data.description}
+            href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
+            image={project.data.heroImage}
+            tag="Project"
+            date={project.data.pubDate}
+          />
+        ))}
+      </CardGrid>
+    ) : (
+      <p class="empty-state">No projects yet — check back soon.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .empty-state {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 4rem 0;
+    font-family: var(--font-sans);
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Online Learning"
+  description="Interactive science articles, filmmaking project guides, and educational apps from Amersham Film School."
+>
+  <section class="hub-hero">
+    <div class="container">
+      <p class="hub-hero__eyebrow">Amersham Film School</p>
+      <h1 class="hub-hero__title">Online Learning</h1>
+      <p class="hub-hero__subtitle">
+        Explore science through interactive apps, learn filmmaking with hands-on
+        project guides, and dive into educational articles.
+      </p>
+      <nav class="hub-hero__nav" aria-label="Content sections">
+        <a href="/articles" class="btn btn--primary">Articles</a>
+        <a href="/projects" class="btn btn--outline">Projects</a>
+        <a href="/apps" class="btn btn--outline">Interactive Apps</a>
+      </nav>
+    </div>
+  </section>
+
+  <div class="container">
+    <nav class="hub-grid" aria-label="Content section cards">
+      <a href="/articles" class="hub-card">
+        <div class="hub-card__icon" aria-hidden="true">📖</div>
+        <div class="hub-card__title">Articles</div>
+        <p class="hub-card__description">
+          In-depth science and filmmaking articles, from GCSE physics to
+          camera optics, written for curious young learners.
+        </p>
+        <span class="hub-card__cta">Browse articles →</span>
+      </a>
+
+      <a href="/projects" class="hub-card">
+        <div class="hub-card__icon" aria-hidden="true">🎬</div>
+        <div class="hub-card__title">Projects</div>
+        <p class="hub-card__description">
+          Step-by-step filmmaking and creative projects you can do at home —
+          from music videos to animation and beyond.
+        </p>
+        <span class="hub-card__cta">Browse projects →</span>
+      </a>
+
+      <a href="/apps" class="hub-card">
+        <div class="hub-card__icon" aria-hidden="true">⚗️</div>
+        <div class="hub-card__title">Interactive Apps</div>
+        <p class="hub-card__description">
+          Hands-on physics simulators — drag objects, adjust apertures, and
+          watch the science happen in real time.
+        </p>
+        <span class="hub-card__cta">Open apps →</span>
+      </a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .hub-hero__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+</style>
