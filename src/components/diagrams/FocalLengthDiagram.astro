@@ -1,0 +1,89 @@
+---
+// Static SVG: Focal length — 50mm vs 100mm lens, showing where parallel rays converge.
+// Ported verbatim from Bootcamp-test/public/ed/gcse-physics.html
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="-25 0 775 380" aria-label="Diagram comparing 50mm and 100mm focal lengths" role="img">
+
+    <!-- ===== LEFT: 50mm lens — focal point is closer ===== -->
+    <!-- Lens -->
+    <path d="M150,80 C165,175 165,175 150,270 L140,270 C125,175 125,175 140,80 Z" fill="#5577ff" opacity="0.45"/>
+
+    <!-- Parallel incoming rays -->
+    <line x1="0"   y1="120" x2="148" y2="120" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="145" x2="148" y2="145" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="175" x2="148" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="205" x2="148" y2="205" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="230" x2="148" y2="230" stroke="orange" stroke-width="2"/>
+
+    <!-- Converging rays to 50mm focal point -->
+    <line x1="150" y1="120" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="145" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="175" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="205" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="230" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+
+    <!-- Focal point -->
+    <circle cx="252" cy="175" r="5" fill="red"/>
+    <text x="260" y="172" font-family="Arial" font-size="13" fill="red">F</text>
+
+    <!-- 50mm label -->
+    <line x1="150" y1="295" x2="252" y2="295" stroke="#555" stroke-width="1.5" marker-end="url(#fl-endtick)" marker-start="url(#fl-starttick)"/>
+    <text x="200" y="315" font-family="Arial" font-size="13" fill="#444" text-anchor="middle">50 mm</text>
+    <text x="145" y="360" font-family="Arial" font-size="13" fill="#555" text-anchor="middle">Shorter focal length →</text>
+    <text x="145" y="376" font-family="Arial" font-size="12" fill="#888" text-anchor="middle">stronger bend, wider angle</text>
+
+    <!-- ===== RIGHT: 100mm lens — focal point is further ===== -->
+    <!-- Lens -->
+    <path d="M450,80 C465,175 465,175 450,270 L440,270 C425,175 425,175 440,80 Z" fill="#5577ff" opacity="0.45"/>
+
+    <!-- Parallel incoming rays -->
+    <line x1="350" y1="120" x2="448" y2="120" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="145" x2="448" y2="145" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="175" x2="448" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="205" x2="448" y2="205" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="230" x2="448" y2="230" stroke="orange" stroke-width="2"/>
+
+    <!-- Converging rays to 100mm focal point -->
+    <line x1="450" y1="120" x2="652" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="145" x2="652" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="175" x2="652" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="205" x2="652" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="230" x2="652" y2="175" stroke="orange" stroke-width="2"/>
+
+    <!-- Focal point -->
+    <circle cx="652" cy="175" r="5" fill="red"/>
+    <text x="660" y="172" font-family="Arial" font-size="13" fill="red">F</text>
+
+    <!-- 100mm label -->
+    <line x1="450" y1="295" x2="652" y2="295" stroke="#555" stroke-width="1.5"/>
+    <text x="550" y="315" font-family="Arial" font-size="13" fill="#444" text-anchor="middle">100 mm</text>
+    <text x="550" y="360" font-family="Arial" font-size="13" fill="#555" text-anchor="middle">Longer focal length →</text>
+    <text x="550" y="376" font-family="Arial" font-size="12" fill="#888" text-anchor="middle">weaker bend, narrower angle</text>
+  </svg>
+  <figcaption>Focal length is the distance from the lens to where parallel light rays converge. A 50mm lens has a shorter focal length (wider view) than a 100mm lens (narrower view, more magnification).</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 2rem 0;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>

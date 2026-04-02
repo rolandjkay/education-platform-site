@@ -1,0 +1,69 @@
+Build Status — education-platform-site
+=======================================
+Date: 2026-04-02
+
+BUILD: PASSING (10 pages, 0 errors)
+
+Pages generated
+---------------
+/                                        — Hub (links to Articles, Projects, Apps)
+/articles/                               — Article listing
+/articles/gcse-physics-lenses/           — GCSE Physics: lenses article
+/articles/pinhole-camera/                — Pinhole camera article
+/projects/                               — Projects listing
+/projects/make-a-music-video/            — Sample project (seed content)
+/apps/                                   — Apps listing
+/apps/convex-lens-simulator/             — Convex lens app page (placeholder island)
+/apps/pinhole-simulator/                 — Pinhole simulator app page (placeholder island)
+/apps/f-numbers/                         — F-numbers app page (placeholder island)
+
+Interactive diagram components (embedded in articles)
+------------------------------------------------------
+ConvexLensEmbed.astro       — Draggable canvas-based convex lens simulator
+                              Port of apps/convex-lens-simulator/public/script.js
+                              Used in: gcse-physics-lenses article
+
+PinholeBarrelSimulator.astro — Slider-driven SVG pinhole barrel length simulator
+                              Port of apps/pin-hole-simulator/public/script.js
+                              Used in: pinhole-camera article + gcse-physics-lenses article
+
+LightRayAnimation.astro     — GSAP step-by-step animation (3 frames)
+                              Shows how a pinhole separates light rays
+                              Uses gsap npm package (bundled by Vite)
+                              Used in: pinhole-camera article
+
+Static SVG diagram components
+------------------------------
+SensorDistanceDiagram.astro  — Object distance vs image size (two scenarios)
+SensorFocusDiagram.astro     — Sensor too close / too far (with blur filter)
+ConvexConcaveDiagram.astro   — Converging vs diverging rays side-by-side
+FocalLengthDiagram.astro     — 50mm vs 100mm focal length comparison
+All four used in: gcse-physics-lenses article
+
+Known issue fixed during this session
+--------------------------------------
+Having both gcse-physics-lenses.md and gcse-physics-lenses.mdx (or
+pinhole-camera.md and pinhole-camera.mdx) in the same content directory caused
+Astro 5's glob() loader to silently drop all entries from the collection.
+Fix: deleted the stub .md files. The .mdx files are now the sole source of truth.
+
+Pending / not yet done
+-----------------------
+1. Three.js f-numbers simulator
+   - src/components/islands/FNumbersSimulator.astro is a placeholder stub
+   - Needs the Three.js code ported from Bootcamp-test/public/blog/f-numbers.html
+   - The f-number.glb model asset must be copied to public/models/
+
+2. Standalone Canvas simulator islands
+   - src/components/islands/ConvexLensSimulator.astro  — placeholder stub
+   - src/components/islands/PinHoleSimulator.astro     — placeholder stub
+   - These are used by the /apps/ dedicated pages (not the inline article embeds)
+   - The inline article versions (ConvexLensEmbed, PinholeBarrelSimulator) are complete
+
+3. Magnification formula graph
+   - The GCSE Physics article originally contained a matplotlib-generated SVG graph
+   - (m = f/(u-f) curve, ~176 lines of SVG with font glyph paths)
+   - Not yet implemented as a component
+
+4. Git commit
+   - No commit has been made since the diagram components were added

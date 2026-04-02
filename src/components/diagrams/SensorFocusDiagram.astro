@@ -1,0 +1,108 @@
+---
+// Static SVG: Sensor too close vs sensor too far — showing how focus works.
+// Ported verbatim from Bootcamp-test/public/ed/gcse-physics.html
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="-50 50 1000 350" aria-label="Diagram showing sensor too close and sensor too far cause blurry images" role="img">
+    <defs>
+      <filter id="sfd-blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+      </filter>
+    </defs>
+
+    <!-- ===== LEFT: Sensor too close ===== -->
+    <!-- Lens -->
+    <path d="M200,100 C190,200 190,200 200,300 L210,300 C220,200 220,200 210,100 Z" fill="blue" opacity="0.4" />
+    <text x="150" y="320" font-size="16" fill="black" font-family="Arial">Sensor too close</text>
+
+    <!-- Parallel rays to lens -->
+    <line x1="25" y1="150" x2="205" y2="150" stroke="orange" stroke-width="2"/>
+    <line x1="25" y1="175" x2="205" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="25" y1="200" x2="205" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="25" y1="225" x2="205" y2="225" stroke="orange" stroke-width="2"/>
+    <line x1="25" y1="250" x2="205" y2="250" stroke="orange" stroke-width="2"/>
+
+    <!-- Rays converging past sensor -->
+    <line x1="205" y1="250" x2="385" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="205" y1="225" x2="385" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="205" y1="200" x2="385" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="205" y1="175" x2="385" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="205" y1="150" x2="385" y2="200" stroke="orange" stroke-width="2"/>
+
+    <!-- Object point -->
+    <circle cx="25" cy="200" r="5" fill="red"/>
+    <text x="15" y="190" font-size="14" fill="black" font-family="Arial">Object</text>
+
+    <!-- True focal point -->
+    <circle cx="385" cy="200" r="5" fill="green"/>
+    <text x="250" y="280" font-size="14" fill="black" font-family="Arial">Image forms here</text>
+
+    <!-- Sensor (too close — rays haven't converged yet) -->
+    <line x1="300" y1="100" x2="300" y2="300" stroke="grey" stroke-width="2" stroke-dasharray="8,4" />
+    <text x="235" y="90" font-size="13" fill="#888" font-family="Arial">Camera Sensor</text>
+
+    <!-- Blur circle on sensor -->
+    <circle cx="300" cy="200" r="1" fill="green" transform="scale(3 8) translate(65 -150)" filter="url(#sfd-blur)" opacity="0.6"/>
+
+    <!-- ===== RIGHT: Sensor too far ===== -->
+    <g transform="translate(440,0)">
+      <!-- Lens -->
+      <path d="M200,100 C190,200 190,200 200,300 L210,300 C220,200 220,200 210,100 Z" fill="blue" opacity="0.4" />
+      <text x="150" y="320" font-size="16" fill="black" font-family="Arial">Sensor too far</text>
+
+      <!-- Parallel rays to lens -->
+      <line x1="25" y1="150" x2="205" y2="150" stroke="orange" stroke-width="2"/>
+      <line x1="25" y1="175" x2="205" y2="175" stroke="orange" stroke-width="2"/>
+      <line x1="25" y1="200" x2="205" y2="200" stroke="orange" stroke-width="2"/>
+      <line x1="25" y1="225" x2="205" y2="225" stroke="orange" stroke-width="2"/>
+      <line x1="25" y1="250" x2="205" y2="250" stroke="orange" stroke-width="2"/>
+
+      <!-- Rays converging then diverging again past focal point -->
+      <line x1="205" y1="250" x2="435" y2="265" stroke="orange" stroke-width="2"/>
+      <line x1="205" y1="225" x2="435" y2="255" stroke="orange" stroke-width="2"/>
+      <line x1="205" y1="200" x2="435" y2="200" stroke="orange" stroke-width="2"/>
+      <line x1="205" y1="175" x2="435" y2="145" stroke="orange" stroke-width="2"/>
+      <line x1="205" y1="150" x2="435" y2="135" stroke="orange" stroke-width="2"/>
+
+      <!-- Object point -->
+      <circle cx="25" cy="200" r="5" fill="red"/>
+      <text x="15" y="190" font-size="14" fill="black" font-family="Arial">Object</text>
+
+      <!-- True focal point -->
+      <circle cx="385" cy="200" r="5" fill="green"/>
+      <text x="240" y="280" font-size="14" fill="black" font-family="Arial">Image forms here</text>
+
+      <!-- Sensor (too far — rays have already passed focal point) -->
+      <line x1="432" y1="100" x2="432" y2="300" stroke="grey" stroke-width="2" stroke-dasharray="8,4" />
+      <text x="365" y="90" font-size="13" fill="#888" font-family="Arial">Camera Sensor</text>
+
+      <!-- Blur circle on sensor -->
+      <circle cx="432" cy="200" r="1" fill="green" transform="translate(432 -1600) scale(1 8) translate(-432 200)" filter="url(#sfd-blur)" opacity="0.6"/>
+    </g>
+  </svg>
+  <figcaption>The rays of light only converge at one exact distance from the lens. Move the sensor closer or further away and the image blurs.</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 2rem 0;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>

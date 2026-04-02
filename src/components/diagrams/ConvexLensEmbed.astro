@@ -1,0 +1,183 @@
+---
+// Inline embed of the Convex Lens Simulator for use within articles.
+// The script is the verbatim port of:
+//   Bootcamp-test/public/apps/convex-lens-simulator/public/script.js
+// DOM contract: canvas#convex-lens-simulator-canvas + div#convex-lens-simulator-description-box
+---
+
+<div class="lens-embed">
+  <div class="convex-lens-simulator-app">
+    <div id="convex-lens-simulator-description-box" aria-live="polite">
+      Move the object to see how the image changes.
+    </div>
+    <canvas id="convex-lens-simulator-canvas"></canvas>
+  </div>
+</div>
+
+<style>
+  .lens-embed {
+    margin: 2rem 0;
+  }
+
+  .convex-lens-simulator-app {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  #convex-lens-simulator-description-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px 16px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    max-width: 480px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #convex-lens-simulator-canvas {
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+  }
+</style>
+
+<script>
+  // Verbatim port of Bootcamp-test/public/apps/convex-lens-simulator/public/script.js
+  const canvas = document.getElementById("convex-lens-simulator-canvas") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+
+  const MOBILE_SCALING_FACTOR = 0.6;
+  const OBJECT_HEIGHT = 50;
+  const MARGIN = 10;
+  const focalLength = 100;
+  let objectPosition = -250;
+
+  let scaleFactor = 1.0;
+  let displayInstructions = true;
+
+  function toCanvasCoords(worldX: number, worldY: number) {
+    return { x: (canvas.width / 2) + worldX * scaleFactor, y: (canvas.height / 2) - worldY * scaleFactor };
+  }
+  function toWorldCoords(canvasX: number, canvasY: number) {
+    return { x: (canvasX - (canvas.width / 2)) / scaleFactor, y: (canvasY - (canvas.width / 2)) / -scaleFactor };
+  }
+  function dimensionToCanvas(worldDimension: number) { return worldDimension * scaleFactor; }
+
+  (ctx as any).moveTo_World = (x: number, y: number) => { const c = toCanvasCoords(x, y); return ctx.moveTo(c.x, c.y); };
+  (ctx as any).lineTo_World = (x: number, y: number) => { const c = toCanvasCoords(x, y); return ctx.lineTo(c.x, c.y); };
+  (ctx as any).quadraticCurveTo_World = (cx: number, cy: number, ex: number, ey: number) => { const c1 = toCanvasCoords(cx, cy); const c2 = toCanvasCoords(ex, ey); return ctx.quadraticCurveTo(c1.x, c1.y, c2.x, c2.y); };
+  (ctx as any).arc_World = (x: number, y: number, r: number, s: number, e: number) => { const c = toCanvasCoords(x, y); return ctx.arc(c.x, c.y, dimensionToCanvas(r), s, e); };
+  (ctx as any).fillText_World = (t: string, x: number, y: number) => { const c = toCanvasCoords(x, y); return ctx.fillText(t, c.x, c.y); };
+
+  let lowerRightWorld: {x:number,y:number}, upperLeftWorld: {x:number,y:number}, canvasLimits: {left:number,right:number};
+
+  function resizeCanvas() {
+    const containerWidth = canvas.parentElement!.offsetWidth;
+    scaleFactor = containerWidth > 600 ? 1 : MOBILE_SCALING_FACTOR;
+    canvas.width = containerWidth - 20;
+    canvas.height = 600 * scaleFactor;
+    ctx.font = scaleFactor === 1 ? "14px Arial" : "12px Arial";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    lowerRightWorld = toWorldCoords(canvas.width, canvas.height);
+    upperLeftWorld = toWorldCoords(0, 0);
+    canvasLimits = { left: upperLeftWorld.x, right: lowerRightWorld.x };
+    if (objectPosition < canvasLimits.left + 5) objectPosition = canvasLimits.left + 5;
+    draw();
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  objectPosition = -2.5 * focalLength;
+  draw();
+
+  let isDragging = false;
+  let touchStartPosition = -10000;
+  const TOUCH_SENSITIVITY = 0.03;
+
+  canvas.addEventListener("mousedown", handleMouseDown);
+  canvas.addEventListener("mousemove", handleMouseMove);
+  canvas.addEventListener("mouseup", handleMouseUp);
+  canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+  canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+  function handleMouseDown(event: MouseEvent) {
+    const mouseX = event.offsetX;
+    const objectCanvasPosition = toCanvasCoords(objectPosition, 0).x;
+    if (Math.abs(mouseX - objectCanvasPosition) < 20) { isDragging = true; displayInstructions = false; event.stopPropagation(); }
+  }
+  function handleMouseMove(event: MouseEvent) {
+    if (isDragging) { event.stopPropagation(); document.body.style.userSelect = "none"; const mouseWorldX = toWorldCoords(event.offsetX, 0).x; objectPosition = Math.max(canvasLimits.left + 5, Math.min(-10, mouseWorldX)); draw(); }
+  }
+  function handleMouseUp() { document.body.style.userSelect = ""; isDragging = false; }
+  function handleTouchStart(event: TouchEvent) { touchStartPosition = toWorldCoords(event.touches[0].clientX, 0).x; displayInstructions = false; }
+  function handleTouchMove(event: TouchEvent) {
+    if (touchStartPosition !== -10000) { event.stopPropagation(); const mouseWorldX = toWorldCoords(event.touches[0].clientX, 0).x; objectPosition = Math.max(canvasLimits.left + 5, Math.min(-10, objectPosition + (mouseWorldX - touchStartPosition) * TOUCH_SENSITIVITY)); draw(); }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (displayInstructions) { ctx.save(); ctx.textAlign = "left"; ctx.fillStyle = "#f00"; ctx.font = scaleFactor === 1.0 ? "24px Arial, sans-serif" : "16px Arial, sans-serif"; (ctx as any).fillText_World("<- Drag me ->", objectPosition, OBJECT_HEIGHT + 20); ctx.restore(); }
+    drawLegend_Canvas(20, 20);
+    ctx.beginPath(); (ctx as any).moveTo_World(canvasLimits.left, 0); (ctx as any).lineTo_World(canvasLimits.right, 0); ctx.strokeStyle = "#000"; ctx.stroke();
+    ctx.beginPath(); (ctx as any).moveTo_World(0, 80); (ctx as any).quadraticCurveTo_World(-30, 0, 0, -80); (ctx as any).moveTo_World(0, 80); (ctx as any).quadraticCurveTo_World(30, 0, 0, -80); ctx.strokeStyle = "#00f"; ctx.lineWidth = 2; ctx.stroke();
+    drawPoint(-focalLength, 0, "F"); drawPoint(-2*focalLength, 0, "2F"); drawPoint(focalLength, 0, "F"); drawPoint(2*focalLength, 0, "2F");
+    drawArrow(objectPosition, 0, OBJECT_HEIGHT, "#f00");
+    const imagePosition = calculateImagePosition(objectPosition);
+    const slope1 = -OBJECT_HEIGHT / focalLength;
+    const endY1 = slope1 * (canvasLimits.right - focalLength);
+    ctx.beginPath(); (ctx as any).moveTo_World(objectPosition, OBJECT_HEIGHT); (ctx as any).lineTo_World(0, OBJECT_HEIGHT); (ctx as any).lineTo_World(focalLength, 0); ctx.strokeStyle = "#7799ff"; ctx.stroke();
+    ctx.beginPath(); (ctx as any).moveTo_World(focalLength, 0); (ctx as any).lineTo_World(canvasLimits.right, endY1); ctx.strokeStyle = "#7799ff"; ctx.stroke();
+    if (objectPosition > -focalLength) { ctx.setLineDash([5, 10]); const startY1 = OBJECT_HEIGHT + slope1 * canvasLimits.left; ctx.beginPath(); (ctx as any).moveTo_World(0, OBJECT_HEIGHT); (ctx as any).lineTo_World(canvasLimits.left, startY1); ctx.strokeStyle = "#7799ff"; ctx.stroke(); ctx.setLineDash([]); }
+    if (objectPosition > -2*focalLength - MARGIN && objectPosition < -2*focalLength + MARGIN) { ctx.beginPath(); (ctx as any).moveTo_World(objectPosition, OBJECT_HEIGHT); (ctx as any).lineTo_World(0, -OBJECT_HEIGHT); (ctx as any).lineTo_World(canvasLimits.right, -OBJECT_HEIGHT); ctx.save(); ctx.lineWidth = 1; ctx.strokeStyle = "#7799ff"; ctx.stroke(); ctx.restore(); }
+    const slope2 = OBJECT_HEIGHT / objectPosition;
+    const endY2 = slope2 * canvasLimits.right;
+    ctx.beginPath(); (ctx as any).moveTo_World(objectPosition, OBJECT_HEIGHT); (ctx as any).lineTo_World(canvasLimits.right, endY2); ctx.strokeStyle = "#ff9900"; ctx.stroke();
+    if (objectPosition > -focalLength) { ctx.setLineDash([5, 10]); const startY1 = slope2 * canvasLimits.left; ctx.beginPath(); (ctx as any).moveTo_World(0, 0); (ctx as any).lineTo_World(canvasLimits.left, startY1); ctx.strokeStyle = "#ff9900"; ctx.stroke(); ctx.setLineDash([]); }
+    drawArrow(imagePosition, 0, imagePosition / -objectPosition * -OBJECT_HEIGHT, "rgba(0, 128, 0, 0.5)");
+    updateDescription();
+    ctx.restore();
+  }
+
+  function drawPoint(x: number, y: number, label: string) { ctx.beginPath(); (ctx as any).arc_World(x, y, 5, 0, 2 * Math.PI); ctx.fillStyle = "#000"; ctx.fill(); (ctx as any).fillText_World(label, x - 10, y - 20); }
+  function calculateImagePosition(op: number) { const u = -op; const v = 1 / (1 / focalLength - 1 / u); return v; }
+
+  function updateDescription() {
+    const box = document.getElementById("convex-lens-simulator-description-box")!;
+    if (objectPosition < -2*focalLength - MARGIN) box.innerHTML = "<strong>Used for: building a camera</strong><p>When the object is further away than 2F, the image is between F and 2F and is smaller than the object.</p>";
+    else if (objectPosition < -2*focalLength + MARGIN) box.innerHTML = "<strong>Used for: macro photography</strong><p>When the object is exactly at 2F, the image is the same distance behind the lens and the same size.</p>";
+    else if (objectPosition < -focalLength - MARGIN) box.innerHTML = "<strong>Used for: macro photography or building a projector</strong><p>When the object is between 2F and F, the image is further than 2F and is larger than the object.</p>";
+    else if (objectPosition < -focalLength + MARGIN) box.innerHTML = "<strong>Used for: nothing; no image</strong><p>When the object is at F exactly, the light rays are parallel and never meet; there is no image.</p>";
+    else box.innerHTML = "<strong>Used for: a magnifying glass</strong><p>When the object is closer to the lens than F, the rays never cross but appear to come from a point behind the object — a &ldquo;virtual&rdquo; image.</p>";
+  }
+
+  function drawLegend_Canvas(xMargin: number, yMargin: number) {
+    const TEXT_OFFSET = 40; const oldTA = ctx.textAlign; const oldTBL = ctx.textBaseline;
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    const lineHeight = 20; const yPos = canvas.height - yMargin - 6 * lineHeight; const xPos = xMargin;
+    ctx.fillStyle = "#f00"; ctx.fillText("Object (Red Arrow)", xPos + TEXT_OFFSET, yPos); drawArrow_Canvas(xPos + 10, yPos, -15, "#f00");
+    ctx.fillStyle = "rgba(0,128,0,0.5)"; ctx.fillText("Image of the object", xPos + TEXT_OFFSET, yPos + lineHeight); drawArrow_Canvas(xPos + 10, yPos + lineHeight, -15, "rgba(0,128,0,0.5)");
+    ctx.fillStyle = "#00f"; ctx.fillText("Lens", xPos + TEXT_OFFSET, yPos + 2*lineHeight); ctx.beginPath(); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos+20,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.strokeStyle="#00f"; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle="#7799ff"; ctx.fillText("Light Ray 1", xPos+TEXT_OFFSET, yPos+3*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+3*lineHeight-5); ctx.lineTo(xPos+10,yPos+3*lineHeight-5); ctx.lineTo(xPos+20,yPos+3*lineHeight+5); ctx.strokeStyle="#7799ff"; ctx.lineWidth=1; ctx.setLineDash([]); ctx.stroke();
+    ctx.strokeStyle="#ff9900"; ctx.fillStyle="#ff9900"; ctx.fillText("Light Ray 2", xPos+TEXT_OFFSET, yPos+4*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+4*lineHeight); ctx.lineTo(xPos+20,yPos+4*lineHeight); ctx.stroke();
+    ctx.fillStyle="#000"; ctx.fillText("Principle Focal Points", xPos+TEXT_OFFSET, yPos+5*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+5*lineHeight,3,0,2*Math.PI); ctx.fill();
+    ctx.fillText("Twice as far as focal points", xPos+TEXT_OFFSET, yPos+6*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+6*lineHeight,3,0,2*Math.PI); ctx.fill();
+    ctx.fillText("F", xPos+10, yPos+5*lineHeight); ctx.fillText("2F", xPos+10, yPos+6*lineHeight);
+    ctx.textAlign = oldTA; ctx.textBaseline = oldTBL as CanvasTextBaseline;
+  }
+
+  function drawArrow(x: number, y: number, height: number, color: string) {
+    ctx.beginPath(); (ctx as any).moveTo_World(x,y); (ctx as any).lineTo_World(x, y+height); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+    ctx.beginPath(); (ctx as any).moveTo_World(x-5,y+height+(height>0?-5:5)); (ctx as any).lineTo_World(x,y+height); (ctx as any).lineTo_World(x+5,y+height+(height>0?-5:5)); ctx.stroke();
+  }
+
+  function drawArrow_Canvas(x: number, y: number, height: number, color: string) {
+    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,y+height); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x-5,y+height+(height>0?-5:5)); ctx.lineTo(x,y+height); ctx.lineTo(x+5,y+height+(height>0?-5:5)); ctx.stroke();
+  }
+</script>

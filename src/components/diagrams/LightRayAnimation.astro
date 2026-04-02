@@ -1,0 +1,306 @@
+---
+// GSAP-animated 3-frame explainer: how a pinhole works.
+// Verbatim port of the animation from Bootcamp-test/public/ed/pinhole.html
+// Dependencies: gsap (npm package, installed)
+// Frames:
+//   1 - Light from object scatters in all directions
+//   2 - Without pinhole, each sensor pixel receives light from whole scene
+//   3 - Pinhole blocks all but one ray per pixel → sharp image
+---
+
+<div class="lra-wrap">
+  <svg id="svgCanvas1" viewBox="0 0 500 280" preserveAspectRatio="xMinYMin meet" aria-label="Animated diagram showing how a pinhole camera works">
+    <defs>
+      <!-- Simple red flower -->
+      <g id="lra-red-flower">
+        <circle cx="15" cy="15" r="14" fill="#ff4d4d"/>
+        <circle cx="15" cy="3"  r="5"  fill="#ff8080"/>
+        <circle cx="15" cy="27" r="5"  fill="#ff8080"/>
+        <circle cx="3"  cy="15" r="5"  fill="#ff8080"/>
+        <circle cx="27" cy="15" r="5"  fill="#ff8080"/>
+        <circle cx="15" cy="15" r="6"  fill="#ffe066"/>
+      </g>
+      <!-- Simple yellow flower -->
+      <g id="lra-yellow-flower">
+        <circle cx="15" cy="15" r="14" fill="#ffe066"/>
+        <circle cx="15" cy="3"  r="5"  fill="#fff4a0"/>
+        <circle cx="15" cy="27" r="5"  fill="#fff4a0"/>
+        <circle cx="3"  cy="15" r="5"  fill="#fff4a0"/>
+        <circle cx="27" cy="15" r="5"  fill="#fff4a0"/>
+        <circle cx="15" cy="15" r="6"  fill="#ff9900"/>
+      </g>
+      <!-- Sun -->
+      <g id="lra-sun">
+        <circle cx="33" cy="33" r="22" fill="#fff35f" stroke="#54596e" stroke-width="2"/>
+        <path d="M37.69,5.1h0a6.33,6.33,0,0,1,11,4.56h0a6.33,6.33,0,0,0,6.64,6.64h0a6.33,6.33,0,0,1,4.56,11h0a6.32,6.32,0,0,0,0,9.38h0a6.33,6.33,0,0,1-4.56,11h0a6.33,6.33,0,0,0-6.64,6.64h0a6.33,6.33,0,0,1-11,4.56h0a6.32,6.32,0,0,0-9.38,0h0a6.33,6.33,0,0,1-11-4.56h0a6.33,6.33,0,0,0-6.64-6.64h0a6.33,6.33,0,0,1-4.56-11h0a6.32,6.32,0,0,0,0-9.38h0a6.33,6.33,0,0,1,4.56-11h0A6.33,6.33,0,0,0,17.3,9.66h0a6.33,6.33,0,0,1,11-4.56h0A6.32,6.32,0,0,0,37.69,5.1Z" fill="#ff927d"/>
+      </g>
+
+      <marker id="lra-purpleArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="4,3 9,4.5 9,1.5" fill="#927dff"/></marker>
+      <marker id="lra-purpleEndArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="9,3 4,4.5 4,1.5" fill="#927dff"/></marker>
+      <marker id="lra-blueArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="4,3 9,4.5 9,1.5" fill="#7d92ff"/></marker>
+      <marker id="lra-blueEndArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="9,3 4,4.5 4,1.5" fill="#7d92ff"/></marker>
+      <marker id="lra-greyArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="4,3 9,4.5 9,1.5" fill="#aaaaaa"/></marker>
+    </defs>
+
+    <!-- Scene flowers -->
+    <use href="#lra-yellow-flower" x="400" y="75"/>
+    <use href="#lra-red-flower"    x="440" y="115"/>
+    <use href="#lra-yellow-flower" x="370" y="160"/>
+
+    <!-- Camera body -->
+    <rect id="svg1_cameraBody" x="5" y="82.5" width="200" height="115" fill="none" stroke-width="2" stroke="black"/>
+    <line id="svg1_sensor" x1="10" y1="110" x2="10" y2="170" stroke="#555555" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
+    <rect id="svg1_pinhole" x="195" y="135" width="20" height="10" fill="white" stroke="none"/>
+    <line x1="15" y1="120" x2="35" y2="100" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
+    <text x="40" y="100" font-family="Arial" font-size="12" fill="#aaaaaa">Camera sensor</text>
+
+    <!-- ===== FRAME 1: scattered rays, no pinhole ===== -->
+    <g id="svg1_frame1">
+      <rect x="195" y="90" width="20" height="100" fill="white" stroke="none"/>
+      <line id="svg1_1_incidentRay" x1="310" y1="40" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-purpleEndArrow)"/>
+      <line id="svg1_1_reflectedRay"  x1="10"  y1="140" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)"/>
+      <line id="svg1_1_reflectedRay1" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-20,470,144)"/>
+      <line id="svg1_1_reflectedRay2" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-10,470,144)"/>
+      <line id="svg1_1_reflectedRay3" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(10,470,144)"/>
+      <line id="svg1_1_reflectedRay4" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(20,470,144)"/>
+      <text id="svg1_1_desc" x="250" y="270" font-family="Arial" font-size="14" fill="black" text-anchor="middle">1. Light falling on the flower is scattered in all directions.</text>
+    </g>
+
+    <!-- ===== FRAME 2: two colours, pixel receives both ===== -->
+    <g id="svg1_frame2">
+      <rect x="195" y="90" width="20" height="100" fill="white" stroke="none"/>
+      <line id="svg1_2_pixel" x1="10" y1="140" x2="10" y2="150" stroke="red" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
+      <line x1="15" y1="150" x2="35" y2="170" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
+      <text x="40" y="180" font-family="Arial" font-size="12" fill="#aaaaaa">Pixel</text>
+      <line id="svg1_2_incidentRay1" x1="310" y1="40" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-blueEndArrow)"/>
+      <line id="svg1_2_incidentRay2" x1="310" y1="40" x2="470" y2="116" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-purpleEndArrow)"/>
+      <line id="svg1_2_reflectedRay11" x1="205" y1="144" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)" transform="rotate(-20,470,144)"/>
+      <line id="svg1_2_reflectedRay13" x1="205" y1="144" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)" transform="rotate(10,470,144)"/>
+      <g transform="translate(12,-28)">
+        <line id="svg1_2_reflectedRay21" x1="205" y1="140" x2="465" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-20,470,144)"/>
+        <line id="svg1_2_reflectedRay23" x1="205" y1="140" x2="465" y2="146" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(10,470,144)"/>
+      </g>
+      <line id="svg1_2_reflectedRay15" x1="20"  y1="145" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)"/>
+      <line id="svg1_2_reflectedRay25" x1="20"  y1="116" x2="470" y2="116" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-3,482,116)"/>
+      <text id="svg1_2_desc" x="250" y="250" font-family="Arial" font-size="14" fill="black" text-anchor="middle">
+        <tspan x="250">2. Each sensor pixel receives light from all parts of the scene.</tspan>
+      </text>
+    </g>
+
+    <!-- ===== FRAME 3: pinhole present, rays separated ===== -->
+    <g id="svg1_frame3">
+      <line id="svg1_3_incidentRay1" x1="310" y1="40" x2="472" y2="151" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-blueEndArrow)"/>
+      <line id="svg1_3_incidentRay2" x1="310" y1="40" x2="482" y2="120" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-purpleEndArrow)"/>
+      <line id="svg1_3_reflectedRay1" x1="470" y1="140" x2="20"  y2="140" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)"   transform="rotate(2.5,205,140)"/>
+      <line id="svg1_3_reflectedRay2" x1="482" y1="120" x2="20"  y2="113" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-5,482,116)"/>
+      <line id="svg1_3_stoppedRay1"   x1="472" y1="151" x2="206" y2="151" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)"   transform="rotate(-8,472,151)"/>
+      <line id="svg1_3_stoppedRay2"   x1="480" y1="120" x2="209" y2="120" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(2,482,115)"/>
+      <line id="svg1_3_pinkPixel" x1="10" y1="125" x2="10" y2="140" stroke="#ffda42" stroke-width="4" stroke-dasharray="10,5" stroke-linecap="round"/>
+      <line id="svg1_3_greyPixel" x1="10" y1="155" x2="10" y2="165" stroke="#ff4242" stroke-width="4" stroke-dasharray="10,5" stroke-linecap="round"/>
+      <text id="svg1_3_desc" x="250" y="225" font-family="Arial" font-size="13" fill="black" text-anchor="middle">
+        <tspan x="250">3. The pinhole blocks rays coming from the wrong direction.</tspan>
+        <tspan x="250" dy="18">Now each pixel sees only one part of the scene.</tspan>
+      </text>
+    </g>
+
+    <use href="#lra-sun" x="275" y="0"/>
+  </svg>
+
+  <div class="lra-controls">
+    <button id="aniControlBtn" class="lra-btn" type="button">Start Animation</button>
+  </div>
+</div>
+
+<style>
+  .lra-wrap {
+    margin: 2rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-alt);
+    overflow: hidden;
+  }
+
+  #svgCanvas1 {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .lra-controls {
+    padding: 0.75rem 1.25rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .lra-btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.5rem 1.5rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background 200ms ease, transform 200ms ease;
+  }
+
+  .lra-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .lra-btn.hopping {
+    animation: hop 1s infinite ease-in-out;
+  }
+
+  @keyframes hop {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40%  { transform: translateY(-12px); }
+    60%  { transform: translateY(-4px); }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  let currentFrame = 0;
+  let currentTimeline: gsap.core.Timeline | null = null;
+
+  const aniControlBtn = document.getElementById('aniControlBtn')!;
+  aniControlBtn.classList.add('hopping');
+
+  const frames       = ['#svg1_frame1', '#svg1_frame1', '#svg1_frame2', '#svg1_frame3'];
+  const buttonLabels = ['Start Animation', 'Next Slide ➜', 'Next Slide ➜', '⟲ Restart'];
+
+  function hideAllFrames() {
+    frames.forEach(f => gsap.set(f, { opacity: 0 }));
+  }
+
+  function initFrame1(tl: gsap.core.Timeline) {
+    return tl.set('#svg1_1_desc',         { opacity: 0 })
+             .set('#svg1_1_reflectedRay',  { opacity: 0 })
+             .set('#svg1_1_reflectedRay1', { opacity: 0 })
+             .set('#svg1_1_reflectedRay2', { opacity: 0 })
+             .set('#svg1_1_reflectedRay3', { opacity: 0 })
+             .set('#svg1_1_reflectedRay4', { opacity: 0 })
+             .set('#svg1_1_incidentRay',   { attr: { 'marker-end': 'url(#lra-purpleEndArrow)' } });
+  }
+
+  function animateFrame1(tl: gsap.core.Timeline) {
+    return tl
+      .to('#svg1_1_desc', { opacity: 1, duration: 2, ease: 'power1.out' })
+      .from('#svg1_1_incidentRay', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
+      .set('#svg1_1_incidentRay', { attr: { 'marker-end': '' } })
+      .add('f1_rays')
+      .to('#svg1_1_reflectedRay',  { opacity: 1, duration: 0.2 })
+      .to('#svg1_1_reflectedRay1', { opacity: 1, duration: 0.2 })
+      .to('#svg1_1_reflectedRay2', { opacity: 1, duration: 0.2 })
+      .to('#svg1_1_reflectedRay3', { opacity: 1, duration: 0.2 })
+      .to('#svg1_1_reflectedRay4', { opacity: 1, duration: 0.2 })
+      .from('#svg1_1_reflectedRay',  { attr: { x1: 470 },        duration: 2, ease: 'power1.out' }, 'f1_rays')
+      .from('#svg1_1_reflectedRay1', { attr: { x1: 470, y1: 144 }, duration: 2, ease: 'power1.out' }, 'f1_rays')
+      .from('#svg1_1_reflectedRay2', { attr: { x1: 470, y1: 144 }, duration: 2, ease: 'power1.out' }, 'f1_rays')
+      .from('#svg1_1_reflectedRay3', { attr: { x1: 470, y1: 144 }, duration: 2, ease: 'power1.out' }, 'f1_rays')
+      .from('#svg1_1_reflectedRay4', { attr: { x1: 470, y1: 144 }, duration: 2, ease: 'power1.out' }, 'f1_rays');
+  }
+
+  function initFrame2(tl: gsap.core.Timeline) {
+    return tl
+      .set('#svg1_2_desc',          { opacity: 0 })
+      .set('#svg1_2_reflectedRay11', { attr: { x1: 460 }, opacity: 0 })
+      .set('#svg1_2_reflectedRay13', { attr: { x1: 460 }, opacity: 0 })
+      .set('#svg1_2_reflectedRay15', { attr: { x1: 460 }, opacity: 0 })
+      .set('#svg1_2_reflectedRay21', { attr: { x1: 450 }, opacity: 0 })
+      .set('#svg1_2_reflectedRay23', { attr: { x1: 450 }, opacity: 0 })
+      .set('#svg1_2_reflectedRay25', { attr: { x1: 450 }, opacity: 0 })
+      .set('#svg1_2_incidentRay1', { attr: { 'marker-end': 'url(#lra-blueEndArrow)' } })
+      .set('#svg1_2_incidentRay2', { attr: { 'marker-end': 'url(#lra-purpleEndArrow)' } });
+  }
+
+  function animateFrame2(tl: gsap.core.Timeline) {
+    return tl
+      .to('#svg1_2_desc', { opacity: 1, duration: 2, ease: 'power1.out' })
+      .from('#svg1_2_incidentRay1', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
+      .set('#svg1_2_incidentRay1', { attr: { 'marker-end': '' } })
+      .add('f2_r1')
+      .to('#svg1_2_reflectedRay11', { opacity: 1, duration: 0.2 }, 'f2_r1')
+      .to('#svg1_2_reflectedRay13', { opacity: 1, duration: 0.2 }, 'f2_r1')
+      .to('#svg1_2_reflectedRay15', { opacity: 1, duration: 0.2 }, 'f2_r1')
+      .to('#svg1_2_reflectedRay11', { attr: { x1: 205 }, duration: 2, ease: 'power1.out' }, 'f2_r1')
+      .to('#svg1_2_reflectedRay13', { attr: { x1: 205 }, duration: 2, ease: 'power1.out' }, 'f2_r1')
+      .to('#svg1_2_reflectedRay15', { attr: { x1: 20  }, duration: 2, ease: 'power1.out' }, 'f2_r1')
+      .add('f2_fade1')
+      .to('#svg1_2_reflectedRay11', { opacity: 0, duration: 0.5 }, 'f2_fade1')
+      .to('#svg1_2_reflectedRay13', { opacity: 0, duration: 0.5 }, 'f2_fade1')
+      .from('#svg1_2_incidentRay2', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
+      .set('#svg1_2_incidentRay2', { attr: { 'marker-end': '' } })
+      .add('f2_r2')
+      .to('#svg1_2_reflectedRay21', { opacity: 1, duration: 0.2 }, 'f2_r2')
+      .to('#svg1_2_reflectedRay23', { opacity: 1, duration: 0.2 }, 'f2_r2')
+      .to('#svg1_2_reflectedRay25', { opacity: 1, duration: 0.2 }, 'f2_r2')
+      .to('#svg1_2_reflectedRay21', { attr: { x1: 205 }, duration: 2, ease: 'power1.out' }, 'f2_r2')
+      .to('#svg1_2_reflectedRay23', { attr: { x1: 205 }, duration: 2, ease: 'power1.out' }, 'f2_r2')
+      .to('#svg1_2_reflectedRay25', { attr: { x1: 20  }, duration: 2, ease: 'power1.out' }, 'f2_r2')
+      .add('f2_fade2')
+      .to('#svg1_2_reflectedRay21', { opacity: 0, duration: 0.5 }, 'f2_fade2')
+      .to('#svg1_2_reflectedRay23', { opacity: 0, duration: 0.5 }, 'f2_fade2');
+  }
+
+  function initFrame3(tl: gsap.core.Timeline) {
+    return tl
+      .set('#svg1_3_desc',         { opacity: 0 })
+      .set('#svg1_3_reflectedRay1', { attr: { x1: 470 }, opacity: 0 })
+      .set('#svg1_3_reflectedRay2', { attr: { x1: 470 }, opacity: 0 })
+      .set('#svg1_3_stoppedRay1',   { attr: { x1: 472 }, opacity: 0 })
+      .set('#svg1_3_stoppedRay2',   { attr: { x1: 470 }, opacity: 0 })
+      .set('#svg1_3_incidentRay1', { attr: { 'marker-end': 'url(#lra-blueEndArrow)' } })
+      .set('#svg1_3_incidentRay2', { attr: { 'marker-end': 'url(#lra-purpleEndArrow)' } });
+  }
+
+  function animateFrame3(tl: gsap.core.Timeline) {
+    return tl
+      .to('#svg1_3_desc', { opacity: 1, duration: 2, ease: 'power1.out' })
+      .from('#svg1_3_incidentRay1', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
+      .set('#svg1_3_incidentRay1', { attr: { 'marker-end': '' } })
+      .add('f3_r1')
+      .to('#svg1_3_reflectedRay1', { opacity: 1, duration: 0.2 }, 'f3_r1')
+      .to('#svg1_3_reflectedRay1', { attr: { x1: 20  }, duration: 2, ease: 'power1.out' }, 'f3_r1')
+      .to('#svg1_3_stoppedRay1',   { opacity: 1, duration: 0.2 }, 'f3_r1')
+      .to('#svg1_3_stoppedRay1',   { attr: { x1: 206 }, duration: 2, ease: 'power1.out' }, 'f3_r1')
+      .add('f3_fade1')
+      .to('#svg1_3_stoppedRay1', { opacity: 0, duration: 0.5 }, 'f3_fade1')
+      .from('#svg1_3_incidentRay2', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
+      .set('#svg1_3_incidentRay2', { attr: { 'marker-end': '' } })
+      .add('f3_r2')
+      .to('#svg1_3_reflectedRay2', { opacity: 1, duration: 0.2 }, 'f3_r2')
+      .to('#svg1_3_reflectedRay2', { attr: { x1: 20  }, duration: 2, ease: 'power1.out' }, 'f3_r2')
+      .to('#svg1_3_stoppedRay2',   { opacity: 1, duration: 0.2 }, 'f3_r2')
+      .to('#svg1_3_stoppedRay2',   { attr: { x1: 206 }, duration: 2, ease: 'power1.out' }, 'f3_r2')
+      .add('f3_fade2')
+      .to('#svg1_3_stoppedRay2', { opacity: 0, duration: 0.5 }, 'f3_fade2');
+  }
+
+  const initFns    = [initFrame1, initFrame1, initFrame2, initFrame3];
+  const animateFns = [animateFrame1, animateFrame1, animateFrame2, animateFrame3];
+
+  hideAllFrames();
+
+  aniControlBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    aniControlBtn.classList.remove('hopping');
+    if (currentTimeline) currentTimeline.progress(1);
+    gsap.set(frames[currentFrame], { opacity: 1 });
+    currentFrame = currentFrame < 3 ? currentFrame + 1 : 1;
+    hideAllFrames();
+    gsap.set(frames[currentFrame], { opacity: 1 });
+
+    let tl = gsap.timeline({ paused: true });
+    tl = initFns[currentFrame](tl);
+    tl.to('#aniControlBtn', { innerHTML: buttonLabels[currentFrame], duration: 0 });
+    tl = animateFns[currentFrame](tl);
+    tl.to('#aniControlBtn', { opacity: 0, duration: 0.1, repeat: 5, yoyo: true });
+    currentTimeline = tl;
+    tl.play();
+  });
+</script>
