@@ -9,6 +9,7 @@ import SecondaryCamera from './SecondaryCamera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Resources from './Utils/Resources.js'
+import LoadingScreen from './LoadingScreen.js'
 
 import sources from './sources.js'
 
@@ -61,6 +62,7 @@ export default class Experience
         this.mouseEvents = new MouseEvents()
         this.scene = new THREE.Scene()
         this.resources = new Resources(sources)
+        this.loadingScreen = new LoadingScreen()
         this.camera = new Camera()
         this.secondaryCamera = new SecondaryCamera()
         this.renderer = new Renderer()
