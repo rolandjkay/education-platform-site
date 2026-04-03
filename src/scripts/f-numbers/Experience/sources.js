@@ -70,6 +70,6 @@ export default [
     {
         name: 'droidSans',
         type: 'font',
-        path: 'https://threejs.org/examples/fonts/droid/droid_sans_regular.typeface.json'
+        path: '/apps/f-numbers/fonts/droid_sans_regular.typeface.json'
     }
 ]
