@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ConvexLensSimulator from '../../components/islands/ConvexLensSimulator.astro';
+import ConvexLensEmbed from '../../components/diagrams/ConvexLensEmbed.astro';
 
 const apps = await getCollection('apps');
 const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'convex-lens-simulator');
@@ -23,7 +23,7 @@ const { Content } = await render(entry);
   </div>
 
   <div class="app-container container">
-    <ConvexLensSimulator />
+    <ConvexLensEmbed />
   </div>
 
   <div class="container article-body prose">
