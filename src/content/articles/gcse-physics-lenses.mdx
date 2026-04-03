@@ -11,6 +11,7 @@ import SensorDistanceDiagram from '../../components/diagrams/SensorDistanceDiagr
 import SensorFocusDiagram from '../../components/diagrams/SensorFocusDiagram.astro';
 import ConvexConcaveDiagram from '../../components/diagrams/ConvexConcaveDiagram.astro';
 import FocalLengthDiagram from '../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../components/diagrams/MagnificationGraph.astro';
 
 Ever wondered how one lens can turn into a camera, a microscope, or even a magnifying glass? Let's break it down in a way that makes sense – and way more fun than reading a textbook!
 
@@ -29,7 +30,7 @@ Before diving into the details, have a go with the Lens Simulator below:
 
 If you or your friends are studying **AQA GCSE Physics**, this tool is perfect for understanding lenses — it's taken straight from the syllabus — and building your own cool projects is a lot more fun than revising from notes!
 
-Don't forget to follow us on socials (@amershamfs) and subscribe to our mailing list for more cool science hacks.
+Don't forget to follow us on socials and subscribe to our mailing list for more cool science hacks.
 
 ## Ready to explore?
 
@@ -122,6 +123,102 @@ The defining characteristic of a camera lens is its "focal length". When people 
 What the focal length actually tells you is how strongly the lens bends light; it tells you the distance behind the lens that light rays travelling parallel to the axis of the lens will be brought together. A 50mm lens will bring parallel rays together 50mm behind the lens, whereas, for a 100mm lens, this distance will be 100mm. The point at which parallel rays meet is called the "focal point"; this point is labelled "F" in the Lens Simulator.
 
 <FocalLengthDiagram />
+
+In addition to the focal points "F", we've also marked points which are twice as far as the focal length on either side of the lens. So, for example, for a 50mm lens, the two points labelled "F" are 50mm in front and behind the lens and those labelled "2F" are 100mm in front and behind the lens.
+
+<figure>
+  <img src="/images/post-11-orange-blue-rays-md.webp" alt="Two important rays passing through the lens" loading="lazy" style="width:100%;border-radius:8px"/>
+  <figcaption style="text-align:center">Two important rays passing through the lens</figcaption>
+</figure>
+
+The orange and the blue lines represent two light rays coming from the top of the arrow. We've chosen these two light rays because it is easy to work out what happens to them when they hit the lens.
+
+Remember these two rules:
+
+1. A ray that hits the centre of the lens will continue in a straight line, without being bent.
+2. A ray travelling parallel to the axis of the lens will be bent so that it passes through the "principal focal point" of the lens; that is the dot "F" behind the lens.
+
+These rules mean that we know where the orange and the blue ray will cross, and we can see where the image of the top of the arrow must be. We know that the base of the arrow will be on the axis, so we can draw the image of the arrow from the axis to the point where these two rays cross. All other rays coming from the top of the arrow will cross at the same place.
+
+Try dragging the object left and right and see what happens to the image.
+
+## Explanation
+
+To understand what is happening, it's best to start by thinking about what happens when the object is at "2F"; exactly twice the focal length from the lens. Then we can think about what happens as we move it closer or further away.
+
+### The object is exactly at 2F
+
+Can you see the symmetry that occurs when the object is at a distance of exactly 2F from the lens? If you can pick up your computer and rotate it by 180&deg; you'll see that nothing has changed, except the the object and image have swapped places.
+
+<figure>
+  <img src="/images/post-11-orange-blue-rays-2f-md.webp" alt="The symmetry that occurs when the object is at 2F" loading="lazy" style="width:100%;border-radius:8px"/>
+  <figcaption style="text-align:center">The symmetry that occurs when the object is at 2F</figcaption>
+</figure>
+
+This is because the gradient (slope) of the blue rays is exactly twice that of the orange ray; the orange ray travels a distance equal to the height of the object in a distance of 2F, whereas the (non-parallel) blue ray travels the same vertical distance in only F. However, the blue ray is horizontal for a distance of 2F. As a result, both rays take a total distance of 4F to travel a vertical distance of twice the height of the object, and so they meet at the same distance behind the lens as object is in front.
+
+Because of the symmetry, the object and the image are exactly the same size. This is useful for "macro photography". For instance, a large bumble bee is about the size of the camera sensor, so at 2F from the lens, it would take up most of the frame.
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <img src="/images/post-11-bumble-md.webp" alt="Macro photograph of a bumble bee" loading="lazy" style="width:100%;border-radius:8px"/>
+  </a>
+  <figcaption style="text-align:center">Macro photograph of a bumble bee - Photo by Michelle Reeves</figcaption>
+</figure>
+
+Most camera lenses cannot move as far as twice the focal length away from the sensor; you need to move the lens away yourself, by using an "extension tube" or a simple cardboard tube.
+
+### The object is further than 2F
+
+When the object is further from the lens than 2F, the gradient of the orange line is less then when the object is at 2F. The further away the object is, the closer to the axis the orange ray is, and so the blue lines crosses it closer to the lens and the image is smaller than the object.
+
+This is the usual setup in a camera; when you're taking a family photo, you want to fit an image of everyone onto a sensor that is only a couple of centimeters wide, so you want the image to be smaller than real life.
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <img src="/images/post-11-family-md.webp" alt="Keeping the family further than 2F for a photo" loading="lazy" style="width:100%;border-radius:8px"/>
+  </a>
+  <figcaption style="text-align:center">Keeping the family further than 2F for a photo - Photo by RDNE Stock project</figcaption>
+</figure>
+
+### The object is between 2F and F
+
+Now, the orange line is much steeper; the two lines cross much further behind the lens and the image is much larger than the object.
+
+This is macro photography; we're taking pictures of things much smaller than the sensor and enlarging them to fill the frame. For example, this tiny succulent, a few centimeters tall in reality, looks like a monster!
+
+<iframe src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+If we move the object even closer to F, then the image becomes very large indeed. In fact, as we approach F it becomes enormous. It also moves a lot further from the lens. This is useful if we want to project an image onto a building; the image could be tens of meters from the lens and ginormous!
+
+<iframe src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+As the object approaches F, the image moves **much** further back and becomes much larger. Now we've built a microscope, and can look at things too small to see with the naked eye. For example, this insect head, which is about 1mm across.
+
+<iframe src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+### The object is closer than F
+
+Now, the orange line is steeper than the blue one; they never cross. However, to an observer on the right hand side, looking through the lens, the rays appear to be coming from a point behind the object. This is called a "virtual" image. A "virtual" image cannot be projected onto a piece of paper or the camera sensor, but it looks real to someone looking through the lens.
+
+Have you ever noticed that, when you look at text through a magnifying glass, the letters get bigger as you move the magnifying glass away from the paper and then suddenly disappear? That's because image gets larger as you approach F, and then disappears off to infinity as soon as you hit F.
+
+<figure>
+  <img src="/images/post-11-banner-md.webp" alt="Putting text closer to a camera lens than F, so that we can use it as a magnifying glass" loading="lazy" style="width:100%;border-radius:8px"/>
+  <figcaption style="text-align:center">Putting text closer to a camera lens than F, so that we can use it as a magnifying glass</figcaption>
+</figure>
+
+### The object is exactly at F
+
+This is the least interesting case, the orange and blue lines are exactly parallel; they never cross and don't appear to cross anywhere, so there is no image.
+
+## Graph of magnification
+
+Don't stress too much about graphs and formulas! It's useful though to look at a graph of how the magnification of the image changes as we move the object. By "magnification" we mean how much bigger the image is than the object; a magnification of *m*=2 means that the image is twice as large. A magnification of *m*=0.5 means that the image is half as large as the object.
+
+You probably noticed when playing with the Lens Simulator that, as you approach F with the object, the image gets really big very quickly. You can see this in the graph; *m* increases slowly as the distance from the lens (*u*) moves towards the focal length (*f*=100mm) and then explodes as we get really close.
+
+<MagnificationGraph />
 
 ## Over to you
 
