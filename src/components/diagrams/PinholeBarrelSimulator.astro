@@ -149,8 +149,9 @@
   function setImagePosition(x: number, y: number, scale: number, el: SVGUseElement) {
     el.setAttribute('x', String(x));
     el.setAttribute('y', String(y));
-    const ax = x + OBJECT_WIDTH / 2, ay = y + OBJECT_HEIGHT / 2;
-    el.setAttribute('transform', `rotate(180,${ax},${ay}) translate(${ax},${ay}) scale(${scale},${scale}) translate(${-ax},${-ay})`);
+    const rotCx = x + OBJECT_WIDTH / 2, rotCy = y + OBJECT_HEIGHT / 2;
+    const ax = x + OBJECT_WIDTH / 2, ay = y; // anchor at top (matches original)
+    el.setAttribute('transform', `rotate(180,${rotCx},${rotCy}) translate(${ax},${ay}) scale(${scale},${scale}) translate(${-ax},${-ay})`);
   }
 
   function setViewfinderPosition(x: number, y: number, scale: number, el: SVGUseElement) {
