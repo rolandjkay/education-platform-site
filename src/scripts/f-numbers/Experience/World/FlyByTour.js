@@ -89,7 +89,7 @@ export default class FlyByTour
       this.annotationContainer.style.padding = '10px 20px';
       this.annotationContainer.style.borderRadius = '8px';
       this.annotationContainer.style.opacity = 0; // Start hidden
-      document.body.appendChild(this.annotationContainer);
+      window.experience.container.appendChild(this.annotationContainer);
     }
   
     startFlyBy() 

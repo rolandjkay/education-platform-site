@@ -52,7 +52,7 @@ export default class StatsDisplay
                 </div>
             </div>
         `;
-        document.body.appendChild(statusBar);
+        this.experience.container.appendChild(statusBar);
 
         const colourHex = rgbToHex(this.colour);
 
@@ -60,7 +60,7 @@ export default class StatsDisplay
         style.textContent = `
         
         .status-bar {
-            position: fixed;
+            position: absolute;
             bottom: 0;
             width: 100%;
             display: flex;

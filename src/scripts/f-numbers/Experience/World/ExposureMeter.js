@@ -31,8 +31,7 @@ export default class ExposureMeter
             </div>
         `;
 
-        // Append the thermometer to the body or a specific parent element
--       document.body.appendChild(outerDiv); 
+        this.experience.container.appendChild(outerDiv);
 
         const style = document.createElement('style');
         style.innerHTML = `

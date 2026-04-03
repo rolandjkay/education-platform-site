@@ -30,6 +30,7 @@ export default class Experience
 
         // Options
         this.canvas = _canvas
+        this.container = _canvas.parentElement
 
         /*
          * Control parameters

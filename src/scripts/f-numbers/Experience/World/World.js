@@ -135,7 +135,7 @@ export default class World
             const buttonContainer = document.createElement('div');
             buttonContainer.id = "button-container";
             buttonContainer.style = "display:flex;gap:20px;position:absolute;right:0px;padding:5px;"
-            document.body.appendChild(buttonContainer);
+            this.experience.container.appendChild(buttonContainer);
 
             this.isCameraBodyVisibleControl = new ToggleControl({camera: this.experience.camera,
                                                                  parentId:      "button-container",

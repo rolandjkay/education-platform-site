@@ -147,12 +147,12 @@ export default class ExposureGraph
             </svg>
         `;
 
-        document.body.appendChild(graphContainer);
+        this.experience.container.appendChild(graphContainer);
 
         const style = document.createElement('style');
         style.innerHTML = `
             #graphContainer {
-                position: fixed;
+                position: absolute;
                 right: 0px;
                 bottom: 100px;
             }
