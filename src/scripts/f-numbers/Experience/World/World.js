@@ -184,6 +184,11 @@ export default class World
              * Fly-bys
              */
             const objects = [this.objectPlane.mesh, this.cameraBody.mesh, this.foil.mesh]; // Objects to fly to
+            const offsets = [
+                new THREE.Vector3(0, 2, 5),
+                new THREE.Vector3(0, 1, 3),
+                new THREE.Vector3(0, 1, 2),
+            ];
             const annotations = [
             'This is the object plane',
             'This is the camera body.',
@@ -194,6 +199,7 @@ export default class World
             this.flyByTour = new FlyByTour(this.experience.camera.instance,
                                            this.experience.camera.controls,
                                            objects,
+                                           offsets,
                                            annotations);
 
 

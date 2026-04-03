@@ -31,15 +31,15 @@ export default class FlyByTour
         {
             console.error("FlyByTour: 'controls' should be a OrbitControls; got: ", controls);
         }
-        if (!isArrayOfX({objects, hasAttributes: ["isObject3D"]}))
+        if (!isArrayOfX({variable: objects, hasAttributes: ["isObject3D"]}))
         {
             console.error("FlyByTour: 'objects' should be an Array of THREE.Object3D; got: ", objects);
         }
-        if (!isArrayOfX({offsets, cls: THREE.Object3D, n: objects.length}))
+        if (!isArrayOfX({variable: offsets, cls: THREE.Vector3, n: objects.length}))
         {
             console.error("FlyByTour: 'offsets' should be an Array of THREE.Vector3 of the same length of objects; got: ", offsets);
         }
-        if (!isArrayOfX({annotations, n: annotations.length}))
+        if (!isArrayOfX({variable: annotations, n: annotations.length}))
         {
             console.error("FlyByTour: 'annotations' should be an Array of str of the same length of objects; got: ", annotations);
         }

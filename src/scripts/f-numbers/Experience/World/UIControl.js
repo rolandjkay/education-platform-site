@@ -126,8 +126,9 @@ export default class UIControl
         const camera = this.experience.camera.instance;
 
         // Raycast to check if the user clicked on the point
-        this.mouse.x = (event.clientX / this.experience.sizes.width) * 2 - 1;
-        this.mouse.y = -(event.clientY / this.experience.sizes.height) * 2 + 1;
+        const rect = this.experience.canvas.getBoundingClientRect();
+        this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
         this.raycaster.setFromCamera(this.mouse, camera);
 
         const intersects = this.raycaster.intersectObject(this.mesh);
@@ -157,11 +158,12 @@ export default class UIControl
     onMouseMove(event)
     {
         const camera = this.experience.camera.instance;
-        if (this.dragging) 
+        if (this.dragging)
         {
             // Convert mouse position to normalized device coordinates (-1 to +1)
-            this.mouse.x = (event.clientX / this.experience.sizes.width) * 2 - 1;
-            this.mouse.y = -(event.clientY / this.experience.sizes.height) * 2 + 1;
+            const rect = this.experience.canvas.getBoundingClientRect();
+            this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
             // Update the raycaster based on the camera and mouse position
             this.raycaster.setFromCamera(this.mouse, camera);

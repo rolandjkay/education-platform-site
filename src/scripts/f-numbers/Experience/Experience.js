@@ -55,7 +55,7 @@ export default class Experience
 
         // Setup
         this.controls = new Controls()
-        this.sizes = new Sizes()
+        this.sizes = new Sizes(this.canvas)
         this.time = new Time()
         this.mouseEvents = new MouseEvents()
         this.scene = new THREE.Scene()
