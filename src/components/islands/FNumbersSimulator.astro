@@ -1,69 +1,18 @@
 ---
-// Three.js F-Numbers & Depth of Field Simulator
-//
-// TODO: Port the Three.js visualization from:
-//   Bootcamp-test/public/blog/f-numbers.html
-//
-// Dependencies (add to package.json or load from CDN):
-//   - three@^0.169.0
-//   - dat.gui@^0.7.9
-//
-// Assets to copy into public/:
-//   - Bootcamp-test/public/blog/f-number.glb  →  public/models/f-number.glb
-//
-// Key Three.js modules used in original:
-//   - THREE.WebGLRenderer (ACES Filmic tone mapping, shadow mapping)
-//   - GLTFLoader         (loads f-number.glb with ray geometry)
-//   - OrbitControls      (mouse/touch camera orbit)
-//   - EffectComposer     (post-processing pipeline)
-//   - UnrealBloomPass    (bloom/glow effect)
-//   - dat.GUI            (aperture + focal length sliders)
-//
-// Mount point: #fnumbers-mount  (used by the script below)
 ---
 
-<div class="island-placeholder" id="fnumbers-mount" role="img" aria-label="F-Numbers 3D simulator placeholder">
-  <div class="island-placeholder__label">Three.js Island — pending implementation</div>
-  <h3>F-Numbers &amp; Depth of Field</h3>
-  <p>
-    Interactive 3D visualisation of how aperture (f-number) and focal length
-    control depth of field and light ray paths through a lens system.
-  </p>
-  <ul>
-    <li>Three.js v0.169 · GLTFLoader · OrbitControls</li>
-    <li>EffectComposer + UnrealBloomPass (glow)</li>
-    <li>dat.GUI — aperture &amp; focal length controls</li>
-    <li>Asset required: <code>public/models/f-number.glb</code></li>
-  </ul>
-</div>
+<canvas class="webgl" aria-label="Interactive f-numbers and depth of field 3D simulator"></canvas>
+
+<style>
+  canvas.webgl {
+    display: block;
+    width: 100%;
+    outline: none;
+  }
+</style>
 
 <script>
-  // TODO: Replace placeholder with live Three.js scene.
-  //
-  // Suggested init sequence:
-  //
-  // 1. Import Three.js (npm or CDN importmap):
-  //    import * as THREE from 'three';
-  //    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-  //    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-  //    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-  //    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-  //    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-  //    import * as dat from 'dat.gui';
-  //
-  // 2. Create renderer and attach to #fnumbers-mount:
-  //    const mount = document.getElementById('fnumbers-mount');
-  //    mount.innerHTML = '';  // remove placeholder content
-  //    const renderer = new THREE.WebGLRenderer({ antialias: true });
-  //    mount.appendChild(renderer.domElement);
-  //
-  // 3. Load model: new GLTFLoader().load('/models/f-number.glb', ...)
-  //
-  // 4. Set up EffectComposer → RenderPass → UnrealBloomPass
-  //
-  // 5. Add OrbitControls, dat.GUI, animation loop.
-  //
-  // Reference: Bootcamp-test/public/blog/f-numbers.html (inline <script type="module">)
-
-  console.log('[FNumbersSimulator] TODO: initialize Three.js scene');
+  import Experience from '../../scripts/f-numbers/Experience/Experience.js';
+  const canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement;
+  new Experience(canvas);
 </script>
