@@ -185,9 +185,9 @@ export default class World
              */
             const objects = [this.objectPlane.mesh, this.cameraBody.mesh, this.foil.mesh]; // Objects to fly to
             const offsets = [
-                new THREE.Vector3(0, 2, 5),
-                new THREE.Vector3(0, 1, 3),
-                new THREE.Vector3(0, 1, 2),
+                new THREE.Vector3(5, 2, 5),
+                new THREE.Vector3(-0.75, 0.375, 0.75),
+                new THREE.Vector3(-1, 0.5, 1),
             ];
             const annotations = [
             'This is the object plane',
