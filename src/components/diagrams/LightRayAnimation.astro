@@ -24,16 +24,22 @@
     <image href="/images/red-flower.svg"    x="440" y="115" width="51" height="51"/>
     <image href="/images/yellow-flower.svg" x="370" y="160" width="51" height="51"/>
 
-    <!-- Camera body -->
-    <rect id="svg1_cameraBody" x="5" y="82.5" width="200" height="115" fill="none" stroke-width="2" stroke="black"/>
+    <!-- Camera body: top, left, bottom edges -->
+    <line x1="5" y1="82.5" x2="205" y2="82.5"  stroke="black" stroke-width="2"/>
+    <line x1="5" y1="82.5" x2="5"   y2="197.5" stroke="black" stroke-width="2"/>
+    <line x1="5" y1="197.5" x2="205" y2="197.5" stroke="black" stroke-width="2"/>
+    <!-- Right wall: permanent stubs (always visible) -->
+    <line x1="205" y1="82.5" x2="205" y2="90"    stroke="black" stroke-width="2"/>
+    <line x1="205" y1="190"  x2="205" y2="197.5" stroke="black" stroke-width="2"/>
+    <!-- Right wall: animated sections (fade out in frame 1, back in for frame 3) -->
+    <line id="svg1_wall_upper" x1="205" y1="90"  x2="205" y2="135" stroke="black" stroke-width="2"/>
+    <line id="svg1_wall_lower" x1="205" y1="145" x2="205" y2="190" stroke="black" stroke-width="2"/>
     <line id="svg1_sensor" x1="10" y1="110" x2="10" y2="170" stroke="#555555" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
-    <rect id="svg1_pinhole" x="195" y="135" width="20" height="10" fill="white" stroke="none"/>
     <line x1="15" y1="120" x2="35" y2="100" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
     <text x="40" y="100" font-family="Arial" font-size="12" fill="#aaaaaa">Camera sensor</text>
 
     <!-- ===== FRAME 1: scattered rays, no pinhole ===== -->
     <g id="svg1_frame1">
-      <rect x="195" y="90" width="20" height="100" fill="white" stroke="none"/>
       <line id="svg1_1_incidentRay" x1="310" y1="40" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-purpleEndArrow)"/>
       <line id="svg1_1_reflectedRay"  x1="10"  y1="140" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)"/>
       <line id="svg1_1_reflectedRay1" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-20,470,144)"/>
@@ -45,7 +51,6 @@
 
     <!-- ===== FRAME 2: two colours, pixel receives both ===== -->
     <g id="svg1_frame2">
-      <rect x="195" y="90" width="20" height="100" fill="white" stroke="none"/>
       <line id="svg1_2_pixel" x1="10" y1="140" x2="10" y2="150" stroke="red" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
       <line x1="15" y1="150" x2="35" y2="170" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
       <text x="40" y="180" font-family="Arial" font-size="12" fill="#aaaaaa">Pixel</text>
@@ -162,11 +167,14 @@
              .set('#svg1_1_reflectedRay2', { opacity: 0 })
              .set('#svg1_1_reflectedRay3', { opacity: 0 })
              .set('#svg1_1_reflectedRay4', { opacity: 0 })
-             .set('#svg1_1_incidentRay',   { attr: { 'marker-end': 'url(#lra-purpleEndArrow)' } });
+             .set('#svg1_1_incidentRay',   { attr: { 'marker-end': 'url(#lra-purpleEndArrow)' } })
+             .set('#svg1_wall_upper',      { opacity: 1 })
+             .set('#svg1_wall_lower',      { opacity: 1 });
   }
 
   function animateFrame1(tl: gsap.core.Timeline) {
     return tl
+      .to(['#svg1_wall_upper', '#svg1_wall_lower'], { opacity: 0, duration: 0.5, ease: 'power1.out' }, 0)
       .to('#svg1_1_desc', { opacity: 1, duration: 2, ease: 'power1.out' })
       .from('#svg1_1_incidentRay', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
       .set('#svg1_1_incidentRay', { attr: { 'marker-end': '' } })
@@ -238,6 +246,7 @@
 
   function animateFrame3(tl: gsap.core.Timeline) {
     return tl
+      .to(['#svg1_wall_upper', '#svg1_wall_lower'], { opacity: 1, duration: 0.5, ease: 'power1.out' }, 0)
       .to('#svg1_3_desc', { opacity: 1, duration: 2, ease: 'power1.out' })
       .from('#svg1_3_incidentRay1', { attr: { x2: 310, y2: 40 }, duration: 2, ease: 'power1.out' })
       .set('#svg1_3_incidentRay1', { attr: { 'marker-end': '' } })
