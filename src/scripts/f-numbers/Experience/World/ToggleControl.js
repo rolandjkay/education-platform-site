@@ -79,7 +79,7 @@ export default class ToggleControl
     {
         const div = document.createElement('div');
         div.innerHTML = `
-            <button id="sci-fi-button-${ToggleControl.buttonId}" class="sci-fi-btn">${this.label.on}</button>
+            <button id="sci-fi-button-${ToggleControl.buttonId}" class="top-bar-btn">${this.label.on}</button>
         `;
 
         document.getElementById(this.parentId).appendChild(div);
@@ -96,45 +96,6 @@ export default class ToggleControl
             this.onClick();
         });
 
-        if (!ToggleControl.doneStlyes)
-        {
-            ToggleControl.doneStlyes=true;
-
-            const style = document.createElement('style');
-            style.textContent = `
-                .sci-fi-btn {
-                    font-family: "Space Grotesk", sans-serif;
-                    position: relative;
-                    display: inline-block;
-                    padding: 7px 20px;
-                    font-size: 10px;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    color: ${colourHex};
-                    background: #222;
-                    border: 2px solid ${colourHex};
-                    border-radius: 5px;
-                    box-shadow: 0 0 15px rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b}, 0.3);
-                    text-shadow: 0 0 8px rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b}, 0.6);
-                    cursor: pointer;
-                    overflow: hidden;
-                    transition: all 0.3s ease-in-out;
-                }
-
-                .sci-fi-btn:hover {
-                    color: #000;
-                    background: ${colourHex};
-                    text-shadow: none;
-                    box-shadow: 0 0 25px rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b}, 0.8), inset 0 0 20px rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b}, 0.6);
-                    border-color: ${colourHex};
-                }
-
-              
-            `;
-
-            document.head.appendChild(style);
-        }
 
         this.updateLabel();
     }

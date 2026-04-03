@@ -21,6 +21,7 @@ import ExposureGraph from './ExposureGraph.js'
 import StatsDisplay from './StatsDisplay.js'
 import MainMenu from './MainMenu.js'
 import FlyByTour from './FlyByTour.js'
+import TopBar from './TopBar.js'
 
 export default class World
 {
@@ -130,31 +131,30 @@ export default class World
             this.lightRayControl = new LightPathControl(this.objectPlane, this.lightpath);
 
             /*
-             * Make a container for our buttons.
+             * Top bar — created early so ToggleControls can append to it.
+             * TopBar.js will find this div and prepend the Tour/Fullscreen buttons.
              */
-            const buttonContainer = document.createElement('div');
-            buttonContainer.id = "button-container";
-            buttonContainer.style = "display:flex;gap:20px;position:absolute;right:0px;padding:5px;"
-            this.experience.container.appendChild(buttonContainer);
+            const topBarEl = document.createElement('div');
+            topBarEl.id = "top-bar";
+            this.experience.container.appendChild(topBarEl);
 
             this.isCameraBodyVisibleControl = new ToggleControl({camera: this.experience.camera,
-                                                                 parentId:      "button-container",
+                                                                 parentId:      "top-bar",
                                                                  colour:        {r: 50, g: 220, b: 50},
-                                                                 label:         {on: "Hide Camara Body", off: "Show camara Body"},
+                                                                 label:         {on: "Hide Camera Body", off: "Show Camera Body"},
                                                                  params:        this.experience.controlParams,
                                                                  attributeName: "isCameraBodyVisible",
                                                                 });
 
-
             this.isTubeVisibleControl = new ToggleControl({camera: this.experience.camera,
-                parentId:      "button-container",
+                parentId:      "top-bar",
                 label:         {on: "Hide Tube", off: "Show Tube"},
                 params:        this.experience.controlParams,
                 attributeName: "isTubeVisible",
                 });
-            
-            this.isTubeVisibleControl = new ToggleControl({camera: this.experience.camera,
-                    parentId:      "button-container",
+
+            this.isHemisphereVisibleControl = new ToggleControl({camera: this.experience.camera,
+                    parentId:      "top-bar",
                     label:         {on: "Hide Image Hemisphere", off: "Show Image Hemisphere"},
                     params:        this.experience.controlParams,
                     attributeName: "isHemisphereVisible",
@@ -203,10 +203,12 @@ export default class World
                                            annotations);
 
 
-            // Show the menu after some event, e.g., a button click
+            this.topBar = new TopBar({ flyByTour: this.flyByTour });
+
+            // Keyboard shortcut kept as a convenience
             document.addEventListener('keydown', (e) => {
-                if (e.key === 't') { // Press 'M' to toggle menu
-                this.flyByTour.startFlyBy();
+                if (e.key === 't') {
+                    this.flyByTour.startFlyBy();
                 }
             });
 
