@@ -11,24 +11,6 @@
 <div class="lra-wrap">
   <svg id="svgCanvas1" viewBox="0 0 500 280" preserveAspectRatio="xMinYMin meet" aria-label="Animated diagram showing how a pinhole camera works">
     <defs>
-      <!-- Simple red flower -->
-      <g id="lra-red-flower">
-        <circle cx="15" cy="15" r="14" fill="#ff4d4d"/>
-        <circle cx="15" cy="3"  r="5"  fill="#ff8080"/>
-        <circle cx="15" cy="27" r="5"  fill="#ff8080"/>
-        <circle cx="3"  cy="15" r="5"  fill="#ff8080"/>
-        <circle cx="27" cy="15" r="5"  fill="#ff8080"/>
-        <circle cx="15" cy="15" r="6"  fill="#ffe066"/>
-      </g>
-      <!-- Simple yellow flower -->
-      <g id="lra-yellow-flower">
-        <circle cx="15" cy="15" r="14" fill="#ffe066"/>
-        <circle cx="15" cy="3"  r="5"  fill="#fff4a0"/>
-        <circle cx="15" cy="27" r="5"  fill="#fff4a0"/>
-        <circle cx="3"  cy="15" r="5"  fill="#fff4a0"/>
-        <circle cx="27" cy="15" r="5"  fill="#fff4a0"/>
-        <circle cx="15" cy="15" r="6"  fill="#ff9900"/>
-      </g>
 
       <marker id="lra-purpleArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="4,3 9,4.5 9,1.5" fill="#927dff"/></marker>
       <marker id="lra-purpleEndArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="9,3 4,4.5 4,1.5" fill="#927dff"/></marker>
@@ -38,9 +20,9 @@
     </defs>
 
     <!-- Scene flowers -->
-    <use href="#lra-yellow-flower" x="400" y="75"/>
-    <use href="#lra-red-flower"    x="440" y="115"/>
-    <use href="#lra-yellow-flower" x="370" y="160"/>
+    <image href="/images/yellow-flower.svg" x="400" y="75"  width="51" height="51"/>
+    <image href="/images/red-flower.svg"    x="440" y="115" width="51" height="51"/>
+    <image href="/images/yellow-flower.svg" x="370" y="160" width="51" height="51"/>
 
     <!-- Camera body -->
     <rect id="svg1_cameraBody" x="5" y="82.5" width="200" height="115" fill="none" stroke-width="2" stroke="black"/>
