@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PinHoleSimulator from '../../components/islands/PinHoleSimulator.astro';
+import PinholeBarrelSimulator from '../../components/diagrams/PinholeBarrelSimulator.astro';
 
 const apps = await getCollection('apps');
 const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'pinhole-simulator');
@@ -23,7 +23,7 @@ const { Content } = await render(entry);
   </div>
 
   <div class="app-container container">
-    <PinHoleSimulator />
+    <PinholeBarrelSimulator />
   </div>
 
   <div class="container article-body prose">
