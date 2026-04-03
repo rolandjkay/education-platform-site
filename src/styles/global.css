@@ -192,6 +192,18 @@ tr:last-child td {
   margin-bottom: 0.5rem;
 }
 
+.prose figure {
+  margin: 2rem 0;
+}
+
+.prose figure figcaption {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
 /* ===== Card Grid ===== */
 .card-grid {
   display: grid;
