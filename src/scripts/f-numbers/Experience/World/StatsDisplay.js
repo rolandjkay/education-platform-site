@@ -56,7 +56,7 @@ export default class StatsDisplay
             padding: 8px 12px;
             box-sizing: border-box;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-            border-top: 1px solid rgba(255,255,255,0.15);
+            border-top: 1px solid rgba(255,255,255,0.55);
             z-index: 10;
         }
 
