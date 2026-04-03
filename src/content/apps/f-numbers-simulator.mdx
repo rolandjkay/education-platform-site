@@ -1,0 +1,75 @@
+---
+title: "F-Numbers & Depth of Field Simulator"
+description: "An interactive 3D visualisation showing how aperture (f-number) and focal length affect depth of field and light rays in a camera lens system."
+appType: threejs
+---
+
+Explore how changing the distance between the aperture and the sensor of a camera affects which parts of a scene are in focus, and how much light reaches the sensor.
+
+## How to navigate
+
+<div class="controls-touch">
+
+| Gesture | Action |
+|---|---|
+| One finger drag | Rotate the view |
+| Two finger pinch | Zoom in / out |
+| Two finger drag | Pan the view |
+
+</div>
+
+<div class="controls-mouse">
+
+| Input | Action |
+|---|---|
+| Left drag | Rotate the view |
+| Right drag | Pan the view |
+| Scroll wheel | Zoom in / out |
+
+</div>
+
+## Interactive controls
+
+**Blue arrow (on the image plane)** — Drag it left or right to change the distance between the aperture and the sensor. Moving it closer shrinks the effective focal length; further away increases it.
+
+**Object distance arrow** — Drag to move the subject closer to or further from the camera.
+
+## Top bar buttons
+
+| Button | What it does |
+|---|---|
+| Guided Tour | Flies the camera to each key component with a short annotation |
+| Full Screen | Expands the app to fill the browser window |
+| Hide / Show Camera Body | Toggles the camera body mesh so you can see inside |
+| Hide / Show Tube | Toggles the lens barrel |
+| Hide / Show Image Hemisphere | Toggles the hemisphere that visualises the field of view |
+
+## Status bar (bottom)
+
+| Readout | Meaning |
+|---|---|
+| Aperture | The f-number — ratio of focal length to aperture diameter |
+| ISO | Equivalent sensor sensitivity needed to maintain exposure |
+| Fraction of light hitting sensor | How much of the available light actually reaches the sensor, relative to the shortest focal length |
+
+## Light meter and graph
+
+The **Light Falling on Sensor** bar (bottom-right) gives a quick visual read of the current exposure level. The **graph** beside it shows the full curve — how exposure falls off as the aperture-sensor distance increases. The white dot marks your current position on that curve.
+
+## Background
+
+The **f-number** (or f-stop) is the ratio of the lens focal length to the diameter of the entrance pupil:
+
+**N = f / D**
+
+A low f-number (e.g. f/1.4) means a wide aperture, letting in lots of light but producing a shallow depth of field. A high f-number (e.g. f/16) gives a deep depth of field but requires more light or a longer exposure.
+
+<style>{`
+  .controls-touch { display: none; }
+  .controls-mouse { display: block; }
+
+  @media (pointer: coarse) {
+    .controls-touch { display: block; }
+    .controls-mouse { display: none; }
+  }
+`}</style>
