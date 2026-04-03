@@ -149,11 +149,11 @@
 
   function updateDescription() {
     const box = document.getElementById("convex-lens-simulator-description-box")!;
-    if (objectPosition < -2*focalLength - MARGIN) box.innerHTML = "<strong>Used for: building a camera</strong><p>When the object is further away than 2F, the image is between F and 2F and is smaller than the object.</p>";
-    else if (objectPosition < -2*focalLength + MARGIN) box.innerHTML = "<strong>Used for: macro photography</strong><p>When the object is exactly at 2F, the image is the same distance behind the lens and the same size.</p>";
-    else if (objectPosition < -focalLength - MARGIN) box.innerHTML = "<strong>Used for: macro photography or building a projector</strong><p>When the object is between 2F and F, the image is further than 2F and is larger than the object.</p>";
-    else if (objectPosition < -focalLength + MARGIN) box.innerHTML = "<strong>Used for: nothing; no image</strong><p>When the object is at F exactly, the light rays are parallel and never meet; there is no image.</p>";
-    else box.innerHTML = "<strong>Used for: a magnifying glass</strong><p>When the object is closer to the lens than F, the rays never cross but appear to come from a point behind the object — a &ldquo;virtual&rdquo; image.</p>";
+    if (objectPosition < -2*focalLength - MARGIN) box.innerHTML = "<h3>Used for: building a camera</h3><p>When the object is further away than 2F, the image is between F and 2F and is smaller than the object.</p>";
+    else if (objectPosition < -2*focalLength + MARGIN) box.innerHTML = "<h3>Used for: macro photography</h3><p>When the object is exactly at 2F, the image is the same distance behind the lens and the same size.</p>";
+    else if (objectPosition < -focalLength - MARGIN) box.innerHTML = "<h3>Used for: macro photography or building a projector</h3><p>When the object is between 2F and F, the image is further than 2F and is larger than the object.</p>";
+    else if (objectPosition < -focalLength + MARGIN) box.innerHTML = "<h3>Used for: nothing; no image</h3><p>When the object is at F exactly, the light rays on the right of the lens are parallel and so never meet each other; there is no image.</p><p>You could imagine that the image is infinitely far away and infinitely large</p>.";
+    else box.innerHTML = "<h3>Used for: a magnifying glass</h3><p>When the object is closer to the lens than F, the light rays never cross but, to an observer on the right of the lens, it appears as though they are both coming from a point behind the object. This is called a &ldquo;virtual&rdquo; image.</p>";
   }
 
   function drawLegend_Canvas(xMargin: number, yMargin: number) {

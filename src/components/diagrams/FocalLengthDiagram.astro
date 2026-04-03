@@ -1,68 +1,50 @@
 ---
 // Static SVG: Focal length — 50mm vs 100mm lens, showing where parallel rays converge.
-// Ported verbatim from Bootcamp-test/public/ed/gcse-physics.html
+// Verbatim from Bootcamp-test/public/ed/gcse-physics.html lines 805-850.
 ---
 
 <figure class="diagram">
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="-25 0 775 380" aria-label="Diagram comparing 50mm and 100mm focal lengths" role="img">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="-25 0 775 400" aria-label="Diagram comparing 50mm and 100mm focal lengths" role="img">
 
-    <!-- ===== LEFT: 50mm lens — focal point is closer ===== -->
-    <!-- Lens -->
-    <path d="M150,80 C165,175 165,175 150,270 L140,270 C125,175 125,175 140,80 Z" fill="#5577ff" opacity="0.45"/>
+    <!-- Lens 1 (focal length 50mm) -->
+    <path d="M150,100 C165,200 165,200 150,300 L140,300 C125,200 125,200 140,100 Z" fill="blue" opacity="0.5"/>
 
-    <!-- Parallel incoming rays -->
-    <line x1="0"   y1="120" x2="148" y2="120" stroke="orange" stroke-width="2"/>
-    <line x1="0"   y1="145" x2="148" y2="145" stroke="orange" stroke-width="2"/>
-    <line x1="0"   y1="175" x2="148" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="0"   y1="205" x2="148" y2="205" stroke="orange" stroke-width="2"/>
-    <line x1="0"   y1="230" x2="148" y2="230" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="150" x2="150" y2="150" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="175" x2="150" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="200" x2="150" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="225" x2="150" y2="225" stroke="orange" stroke-width="2"/>
+    <line x1="0"   y1="250" x2="150" y2="250" stroke="orange" stroke-width="2"/>
 
-    <!-- Converging rays to 50mm focal point -->
-    <line x1="150" y1="120" x2="252" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="150" y1="145" x2="252" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="150" y1="175" x2="252" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="150" y1="205" x2="252" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="150" y1="230" x2="252" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="150" x2="250" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="175" x2="250" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="200" x2="250" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="225" x2="250" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="150" y1="250" x2="250" y2="200" stroke="orange" stroke-width="2"/>
 
-    <!-- Focal point -->
-    <circle cx="252" cy="175" r="5" fill="red"/>
-    <text x="260" y="172" font-family="Arial" font-size="13" fill="red">F</text>
+    <circle cx="250" cy="200" r="4" fill="red"/>
+    <text x="255" y="190" font-size="14" fill="black">F</text>
+    <text x="175" y="190" font-size="14" fill="black">50mm</text>
 
-    <!-- 50mm label -->
-    <line x1="150" y1="295" x2="252" y2="295" stroke="#555" stroke-width="1.5" marker-end="url(#fl-endtick)" marker-start="url(#fl-starttick)"/>
-    <text x="200" y="315" font-family="Arial" font-size="13" fill="#444" text-anchor="middle">50 mm</text>
-    <text x="145" y="360" font-family="Arial" font-size="13" fill="#555" text-anchor="middle">Shorter focal length →</text>
-    <text x="145" y="376" font-family="Arial" font-size="12" fill="#888" text-anchor="middle">stronger bend, wider angle</text>
+    <!-- Lens 2 (focal length 100mm) -->
+    <path d="M450,100 C460,200 460,200 450,300 L440,300 C430,200 430,200 440,100 Z" fill="blue" opacity="0.5"/>
 
-    <!-- ===== RIGHT: 100mm lens — focal point is further ===== -->
-    <!-- Lens -->
-    <path d="M450,80 C465,175 465,175 450,270 L440,270 C425,175 425,175 440,80 Z" fill="#5577ff" opacity="0.45"/>
+    <line x1="350" y1="150" x2="450" y2="150" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="175" x2="450" y2="175" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="200" x2="450" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="225" x2="450" y2="225" stroke="orange" stroke-width="2"/>
+    <line x1="350" y1="250" x2="450" y2="250" stroke="orange" stroke-width="2"/>
 
-    <!-- Parallel incoming rays -->
-    <line x1="350" y1="120" x2="448" y2="120" stroke="orange" stroke-width="2"/>
-    <line x1="350" y1="145" x2="448" y2="145" stroke="orange" stroke-width="2"/>
-    <line x1="350" y1="175" x2="448" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="350" y1="205" x2="448" y2="205" stroke="orange" stroke-width="2"/>
-    <line x1="350" y1="230" x2="448" y2="230" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="150" x2="650" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="175" x2="650" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="200" x2="650" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="225" x2="650" y2="200" stroke="orange" stroke-width="2"/>
+    <line x1="450" y1="250" x2="650" y2="200" stroke="orange" stroke-width="2"/>
 
-    <!-- Converging rays to 100mm focal point -->
-    <line x1="450" y1="120" x2="652" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="450" y1="145" x2="652" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="450" y1="175" x2="652" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="450" y1="205" x2="652" y2="175" stroke="orange" stroke-width="2"/>
-    <line x1="450" y1="230" x2="652" y2="175" stroke="orange" stroke-width="2"/>
-
-    <!-- Focal point -->
-    <circle cx="652" cy="175" r="5" fill="red"/>
-    <text x="660" y="172" font-family="Arial" font-size="13" fill="red">F</text>
-
-    <!-- 100mm label -->
-    <line x1="450" y1="295" x2="652" y2="295" stroke="#555" stroke-width="1.5"/>
-    <text x="550" y="315" font-family="Arial" font-size="13" fill="#444" text-anchor="middle">100 mm</text>
-    <text x="550" y="360" font-family="Arial" font-size="13" fill="#555" text-anchor="middle">Longer focal length →</text>
-    <text x="550" y="376" font-family="Arial" font-size="12" fill="#888" text-anchor="middle">weaker bend, narrower angle</text>
+    <circle cx="650" cy="200" r="4" fill="red"/>
+    <text x="650" y="190" font-size="14" fill="black">F</text>
+    <text x="515" y="190" font-size="14" fill="black">100mm</text>
   </svg>
-  <figcaption>Focal length is the distance from the lens to where parallel light rays converge. A 50mm lens has a shorter focal length (wider view) than a 100mm lens (narrower view, more magnification).</figcaption>
+  <figcaption>Focal length is the distance from the lens to the point where parallel rays converge. A longer focal length means a weaker, narrower lens.</figcaption>
 </figure>
 
 <style>
