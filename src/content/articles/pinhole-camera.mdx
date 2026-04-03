@@ -8,17 +8,28 @@ tags: ["physics", "cameras", "optics", "DIY"]
 import LightRayAnimation from '../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../components/diagrams/PinholeBarrelSimulator.astro';
 
-Learn the science of how a camera works by building your own pin-hole lens and using it to shoot your own film!
+<figure>
+  <img src="/images/post-10-banner-md.webp" alt="200mm pin-hole camera" />
+</figure>
+
+Learn the science of how a camera works by building your own pin-hole lenses and using them to shoot your own film!
 
 ## So you want to build a camera?
 
-Why, hi there! I hear you want to build your own camera? That's great and, if you wanted to go fully analogue, like back in the old days, you could totally do that. Digital cameras are hard to build at home though, but they are great for being able to see results instantly.
+Why. Hi there? I hear you want to build your own camera? That's great and, if you wanted to go fully analogue, like back in the old days, you could totally do that. Digital cameras are hard to build at home though, but they are great for being able to see results instantly.
 
 You can totally build out the optics yourself though, and once you're on top of that, you can get some photographic film and a dark room so you can build out the rest of the camera.
 
 So, how about you go grab a digital camera and we get started? Deal? Great!
 
-Just make sure you grab a camera with a removable lens, because otherwise, whoever owns the camera might not be too happy when you break the lens off; broken glass is also a bummer!
+Just make sure you grab a camera with a removeable lens, 'cos otherwise, whoever owns the camera might not be too happy when you break the lens off; broken glass is also a bummer!
+
+It should look like this:
+
+<figure>
+  <img src="/images/post-10-EOSR5-md.webp" alt="Digital Camera with lens removed" />
+  <figcaption>A digital camera with the lens removed</figcaption>
+</figure>
 
 If it's a mirrorless camera you'll be able to see the sensor. If it's an older DSLR (Digital Single-Lens Reflex) you'll see a mirror inside and the sensor will be behind that. The sensor is the part of the camera that is sensitive to light; it converts the light it sees into a digital picture that you can view on your computer. Try not to touch it or get it dirty!
 
@@ -32,9 +43,18 @@ So, what would you say if I told you that, strictly speaking, the lens is comple
 
 So, step one. Let's just take the lens off, and see what happens. The best way to figure out what it does is to see what happens without it, right?
 
-Take off the lens and hold the camera up and try to film something. The sensor is sensitive to light and, with nothing in front of it, all the light reflected off our scene is landing directly on the sensor. The sensor is so sensitive that every part of the sensor is receiving more than the maximum amount of light it can record, and so we just get a white screen.
+Take off the lens and hold the camera up and try to film something. What do you see on the screen? You probably see something like this:
 
-What we want is for light from one part of our scene to only land on one part of the sensor. Here's what's happening — press **Start Animation** to see it step by step:
+<figure>
+  <img src="/images/post-10-whitescreen-md.webp" alt="White screen on the back of digital camera" />
+  <figcaption>The screen on the back of a digital camera showing a completely white (over exposed) screen</figcaption>
+</figure>
+
+The sensor is sensitive to light and, with nothing in front of it, all the light reflected off our scene is landing directly on the sensor. The sensor is so sensitive that every part of the sensor is receiving more than the maximum amount of light it can record, and so we just get a white screen.
+
+What we want is for light from one part of our scene to only land on one part of the sensor. For example, imagine that there is a single red flower in our scene. If we're going to see a red flower in our image, then the red light that the flower is reflecting must arrive at the sensor only at the place where the flower will be in our image. But, at the moment, it's not the case. Light from the flower is hitting every part of the sensor.
+
+You can see this happening in the first two slides of the animation below.
 
 <LightRayAnimation />
 
@@ -55,6 +75,11 @@ Why don't you try it for yourself? All you need is:
 
 Make as small a hole as you can in the foil and use the tape to stick it over the opening in the camera so that no light leaks through; be careful not to touch the sensor or get anything on it.
 
+<figure>
+  <img src="/images/post-10-pinhole-md.webp" alt="Digital camera with foil taped over the front" />
+  <figcaption>Digital camera with foil taped over the front</figcaption>
+</figure>
+
 Now, go outside and turn your camera on. This is best on a bright sunny day around noon. Do you see anything? The image will be very dark, so turn your camera up to the maximum ISO setting. "ISO" controls how sensitive the camera is to light — you want to set this to maximum and then reduce it if the image is too bright.
 
 If you don't see anything on the screen, then it may be that you don't have the ISO turned up enough or the maximum ISO of the camera isn't high enough. To check, try pointing your camera at something bright like a light bulb (not the sun!). You should see an image of the light bulb, even if everything else is dark.
@@ -63,9 +88,14 @@ Congratulations! You have just built your own "lens"! I bet that was easier than
 
 ## Can I make different types of pin-hole "lens"?
 
-Yes! The biggest difference between one lens and another is the length. Some are really short and others are very long.
+Yes! The biggest difference between one lens and another is the length. Some are really short and others are very long. Compare these two!
 
-What difference does the length of the lens make? Drag the slider below to change the distance between the camera sensor and the pin-hole:
+<figure>
+  <img src="/images/post-10-longlens-md.webp" alt="Comparison of 600mm and 10mm lenses" />
+  <figcaption>Comparison of 600mm and 10mm lenses</figcaption>
+</figure>
+
+What difference does the length of the lens make? Take a look at the interactive animation below. You can change the distance between the camera sensor and the pin-hole by dragging the slider&hellip;
 
 <PinholeBarrelSimulator />
 
@@ -74,6 +104,11 @@ As the lens barrel gets longer, the closer to parallel the light rays have to be
 You can do this yourself by finding a tube that you can tape to the front of the camera and then taping the foil with the pin-hole over the end of it. If the tube is at all shiny or a light colour, make sure to line it with some black sugar paper. Otherwise, light will reflect off the sides and mess up the image.
 
 Be careful not to make the tube too long though. The longer it is, the darker the image will get, so you may not be able to see anything if you make it too long! Here's one we made out of a coffee tin. We drilled a hole in one end, which we covered with foil. The hole isn't too large, so we can patch it with some tape and put the tin back into service in the kitchen when we've finished with it.
+
+<figure>
+  <img src="/images/post-10-coffeelens-md.webp" alt="200mm pinhole lens build from a coffee tin" />
+  <figcaption>200mm pinhole lens build from a coffee tin</figcaption>
+</figure>
 
 ## Over to you!
 
