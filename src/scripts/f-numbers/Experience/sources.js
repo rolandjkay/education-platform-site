@@ -15,17 +15,12 @@ export default [
     {
         name: 'grassColorTexture',
         type: 'texture',
-        path: '/apps/f-numbers/textures/dirt/color.jpg'
+        path: '/apps/f-numbers/textures/dirt/color.webp'
     },
     {
         name: 'grassNormalTexture',
         type: 'texture',
-        path: '/apps/f-numbers/textures/dirt/normal.jpg'
-    },
-    {
-        name: 'foxModel',
-        type: 'gltfModel',
-        path: '/apps/f-numbers/models/Fox/glTF/Fox.gltf'
+        path: '/apps/f-numbers/textures/dirt/normal.webp'
     },
     {
         name: 'blenderModel',
@@ -45,27 +40,27 @@ export default [
     {
         name: 'treeImage',
         type: 'texture',
-        path: '/apps/f-numbers/textures/treeTexture/color.png'
+        path: '/apps/f-numbers/textures/treeTexture/color.webp'
     },
     {
         name: 'foilColor',
         type: 'texture',
-        path: '/apps/f-numbers/textures/foilTexture/Foil001_1K-JPG_Color.jpg'
+        path: '/apps/f-numbers/textures/foilTexture/Foil001_1K-JPG_Color.webp'
     },
     {
         name: 'foilNormal',
         type: 'texture',
-        path: '/apps/f-numbers/textures/foilTexture/Foil001_1K-JPG_NormalDX.jpg'
+        path: '/apps/f-numbers/textures/foilTexture/Foil001_1K-JPG_NormalDX.webp'
     },
     {
         name: 'cardboardColor',
         type: 'texture',
-        path: '/apps/f-numbers/textures/cardboardTexture/Cardboard003_1K-JPG_Color.jpg'
+        path: '/apps/f-numbers/textures/cardboardTexture/Cardboard003_1K-JPG_Color.webp'
     },
     {
         name: 'cardboardNormal',
         type: 'texture',
-        path: '/apps/f-numbers/textures/cardboardTexture/Cardboard003_1K-JPG_NormalDX.jpg'
+        path: '/apps/f-numbers/textures/cardboardTexture/Cardboard003_1K-JPG_NormalDX.webp'
     },
     {
         name: 'droidSans',
