@@ -1,17 +1,81 @@
 import { gsap } from 'gsap';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { isArrayOfX } from '../Utils/utils.js';
 
 export default class FlyByTour 
 {
-    constructor(camera, controls, objects, annotations) {
+    /* 
+     * camera: threejs camera 
+     * controls: the threejs OrbitControls
+     *
+     * objects:  [object1, object2]
+     *    the objects to visit
+     * 
+     * offsets:  [new Vector3(0.5, 0.5, 1), new Vector3(1, 1, 1), null]
+     *    the offsets from the objects to stop at.
+     *  
+     * annotations: [ "The is the first object", "This is the next objects"]
+     *    The annotations to display on screen.
+     */
+    constructor(camera, controls, objects, offsets, annotations) 
+    {
+        /*
+         * Arg checking
+         */
+        if (!camera instanceof THREE.PerspectiveCamera)
+        {
+            console.error("FlyByTour: 'camera' should be a camera; got: ", camera);
+        }
+        if (!controls instanceof OrbitControls)
+        {
+            console.error("FlyByTour: 'controls' should be a OrbitControls; got: ", controls);
+        }
+        if (!isArrayOfX({objects, hasAttributes: ["isObject3D"]}))
+        {
+            console.error("FlyByTour: 'objects' should be an Array of THREE.Object3D; got: ", objects);
+        }
+        if (!isArrayOfX({offsets, cls: THREE.Object3D, n: objects.length}))
+        {
+            console.error("FlyByTour: 'offsets' should be an Array of THREE.Vector3 of the same length of objects; got: ", offsets);
+        }
+        if (!isArrayOfX({annotations, n: annotations.length}))
+        {
+            console.error("FlyByTour: 'annotations' should be an Array of str of the same length of objects; got: ", annotations);
+        }
+
       this.camera = camera;
       this.controls = controls;
       this.objects = objects;
+      this.offsets = offsets;
       this.annotations = annotations;
       this.createUI();
+
+
+      const defaultOffset = new THREE.Vector3(0.5, 0.5, 1);
+
+      // Fill in any missing offsets with a default of (0.5, 0.5, 1)
+      if (!offsets)
+      {
+        this.offsets = Array.from({ length: objects.length }, () => defaultOffset);
+      }
+      else
+      {
+        this.offsets = this.offsets.map((offset) => {
+            if (!offset)
+            {
+                return defaultOffset;
+            }
+            else 
+            {
+                return offset;
+            }
+        });
+      }
     }
   
-    createUI() {
+    createUI() 
+    {
       // Create a text container for annotations (you can style this with CSS)
       this.annotationContainer = document.createElement('div');
       this.annotationContainer.classList.add('annotation');
@@ -28,7 +92,8 @@ export default class FlyByTour
       document.body.appendChild(this.annotationContainer);
     }
   
-    startFlyBy() {
+    startFlyBy() 
+    {
       const timeline = gsap.timeline({ repeat: 0 });
       this.lastTarget = this.controls.target.clone(); // Holds the current interpolated target position
 
@@ -49,9 +114,9 @@ export default class FlyByTour
         // Fly to the position near the object
         timeline.to(this.camera.position, {
           duration: 3,
-          x: object.position.x + 0.5, // Adjust x-offset for better view
-          y: object.position.y + 0.5, // Adjust y-offset for better view
-          z: object.position.z + 1, // Adjust z-offset for better view
+          x: object.position.x + this.offsets[index].x, // Adjust x-offset for better view
+          y: object.position.y + this.offsets[index].y, // Adjust y-offset for better view
+          z: object.position.z + this.offsets[index].z, // Adjust z-offset for better view
           ease: "power1.inOut", // Add easing here
           onUpdateParams: [this], // Pass necesary context to onUpdate()
           // Have to use a "functio ()" here, not an arrow function, so that 'this'
