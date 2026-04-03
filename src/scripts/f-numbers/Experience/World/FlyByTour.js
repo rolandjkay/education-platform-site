@@ -83,7 +83,10 @@ export default class FlyByTour
       this.annotationContainer.style.bottom = '10%';
       this.annotationContainer.style.left = '50%';
       this.annotationContainer.style.transform = 'translateX(-50%)';
-      this.annotationContainer.style.fontSize = '24px';
+      this.annotationContainer.style.fontFamily = '"Space Grotesk", Helvetica, sans-serif';
+      this.annotationContainer.style.fontSize = '16px';
+      this.annotationContainer.style.fontWeight = '600';
+      this.annotationContainer.style.letterSpacing = '0.5px';
       this.annotationContainer.style.color = 'white';
       this.annotationContainer.style.background = 'rgba(0, 0, 0, 0.6)';
       this.annotationContainer.style.padding = '10px 20px';
