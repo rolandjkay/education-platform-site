@@ -8,7 +8,7 @@
   --color-navy-mid: #161b22;
 
   --color-text: #111827;
-  --color-text-body: #1f2937;
+  --color-text-body: #111827;
   --color-text-muted: #6b7280;
   --color-bg: #ffffff;
   --color-bg-alt: #f9fafb;
@@ -541,7 +541,12 @@ tr:last-child td {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+}
+
+.hub-card__icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .hub-card__title {
