@@ -1,15 +1,17 @@
 /* ===== CSS Custom Properties ===== */
 :root {
-  --color-primary: #6c63ff;
-  --color-primary-dark: #5a52d5;
-  --color-primary-light: #ede9ff;
-  --color-primary-faint: #f8f7ff;
+  --color-primary: #e8a020;
+  --color-primary-dark: #c47d0e;
+  --color-primary-light: #fdefc8;
+  --color-primary-faint: #fef9f0;
+  --color-navy: #0d1117;
+  --color-navy-mid: #161b22;
 
-  --color-text: #1e1b4b;
-  --color-text-body: #374151;
+  --color-text: #111827;
+  --color-text-body: #1f2937;
   --color-text-muted: #6b7280;
   --color-bg: #ffffff;
-  --color-bg-alt: #f8f7ff;
+  --color-bg-alt: #f9fafb;
   --color-border: #e5e7eb;
 
   --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
@@ -21,9 +23,9 @@
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 3px rgba(108, 99, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow: 0 4px 16px rgba(108, 99, 255, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
-  --shadow-hover: 0 8px 32px rgba(108, 99, 255, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
 
   --nav-height: 64px;
   --content-width: 1200px;
@@ -393,12 +395,12 @@ tr:last-child td {
 
 .btn--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-navy);
 }
 
 .btn--primary:hover {
   background: var(--color-primary-dark);
-  color: white;
+  color: var(--color-navy);
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
@@ -468,21 +470,33 @@ tr:last-child td {
 
 /* ===== Hero Sections ===== */
 .hub-hero {
-  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-faint) 60%, var(--color-bg) 100%);
+  background: var(--color-navy);
   padding: 5rem 0 4rem;
   text-align: center;
 }
 
 .hub-hero__title {
   margin-bottom: 1.25rem;
+  color: #ffffff;
 }
 
 .hub-hero__subtitle {
   font-size: 1.125rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   max-width: 52ch;
   margin-inline: auto;
   margin-bottom: 2.5rem;
+}
+
+.hub-hero .btn--outline {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hub-hero .btn--outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .hub-hero__nav {
