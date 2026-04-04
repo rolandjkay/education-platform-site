@@ -31,7 +31,7 @@ export default class ViewfinderOverlay
         // "Camera Sensor" label above the centred red rectangle
         this.sensorLabel = document.createElement('div');
         this.sensorLabel.id = 'viewfinder-sensor-label';
-        this.sensorLabel.textContent = 'Camera Sensor';
+        this.sensorLabel.textContent = 'Sensor';
         this.el.appendChild(this.sensorLabel);
 
         const style = document.createElement('style');
@@ -47,7 +47,7 @@ export default class ViewfinderOverlay
             }
             #viewfinder-title {
                 position: absolute;
-                bottom: 4px;
+                top: 4px;
                 left: 0;
                 right: 0;
                 text-align: center;
@@ -59,15 +59,13 @@ export default class ViewfinderOverlay
             }
             #viewfinder-sensor-label {
                 position: absolute;
-                /* Sits just above the centre of the viewfinder where the
-                   sensor rectangle appears */
                 top: 32%;
                 left: 0;
                 right: 0;
                 text-align: center;
                 font-family: "Space Grotesk", Helvetica, sans-serif;
                 font-weight: 600;
-                color: #ff4444;
+                color: rgba(255,255,255,0.6);
                 letter-spacing: 0.3px;
                 white-space: nowrap;
             }
@@ -83,9 +81,8 @@ export default class ViewfinderOverlay
         this.el.style.width  = size + 'px';
         this.el.style.height = size + 'px';
 
-        // Scale font proportionally with the viewfinder
-        const fontSize = Math.max(8, Math.round(size / 18)) + 'px';
-        this.titleLabel.style.fontSize  = fontSize;
-        this.sensorLabel.style.fontSize = fontSize;
+        // Scale fonts proportionally with the viewfinder
+        this.titleLabel.style.fontSize  = Math.max(8,  Math.round(size / 18)) + 'px';
+        this.sensorLabel.style.fontSize = Math.max(7,  Math.round(size / 26)) + 'px';
     }
 }
