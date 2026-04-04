@@ -3,9 +3,11 @@ title: "GCSE Physics: Everything you need to know about lenses"
 description: "Ever wondered how one lens can turn into a camera, a microscope, or even a magnifying glass? Let's break it down in a way that makes sense – and way more fun than reading a textbook!"
 pubDate: 2024-11-01
 tags: ["physics", "optics", "GCSE", "lenses"]
-heroImage: "/images/post-11-banner-md.webp"
+heroImage: "./images/post-11-banner-md.webp"
 ---
 
+import { Image } from 'astro:assets';
+import bannerImg from './images/post-11-banner-md.webp';
 import ConvexLensEmbed from '../../components/diagrams/ConvexLensEmbed.astro';
 import PinholeBarrelSimulator from '../../components/diagrams/PinholeBarrelSimulator.astro';
 import SensorDistanceDiagram from '../../components/diagrams/SensorDistanceDiagram.astro';
@@ -204,7 +206,7 @@ Now, the orange line is steeper than the blue one; they never cross. However, to
 Have you ever noticed that, when you look at text through a magnifying glass, the letters get bigger as you move the magnifying glass away from the paper and then suddenly disappear? That's because image gets larger as you approach F, and then disappears off to infinity as soon as you hit F.
 
 <figure>
-  <img src="/images/post-11-banner-md.webp" alt="Putting text closer to a camera lens than F, so that we can use it as a magnifying glass" loading="lazy" style="width:100%;border-radius:8px"/>
+  <Image src={bannerImg} alt="Putting text closer to a camera lens than F, so that we can use it as a magnifying glass" style="width:100%;border-radius:8px" />
   <figcaption>Putting text closer to a camera lens than F, so that we can use it as a magnifying glass</figcaption>
 </figure>
 

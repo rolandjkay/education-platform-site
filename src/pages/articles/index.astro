@@ -25,7 +25,7 @@ const articles = (await getCollection('articles'))
 
     {articles.length > 0 ? (
       <CardGrid>
-        {articles.map(article => (
+        {articles.map((article, i) => (
           <Card
             title={article.data.title}
             description={article.data.description}
@@ -33,6 +33,7 @@ const articles = (await getCollection('articles'))
             image={article.data.heroImage}
             tag={article.data.tags?.[0]}
             date={article.data.pubDate}
+            loading={i < 3 ? 'eager' : 'lazy'}
           />
         ))}
       </CardGrid>
