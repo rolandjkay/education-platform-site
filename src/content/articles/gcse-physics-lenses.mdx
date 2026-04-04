@@ -8,6 +8,10 @@ heroImage: "./images/post-11-banner-md.webp"
 
 import { Image } from 'astro:assets';
 import bannerImg from './images/post-11-banner-md.webp';
+import imgOrangeBlueRays from './images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from './images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from './images/post-11-bumble-md.webp';
+import imgFamily from './images/post-11-family-md.webp';
 import ConvexLensEmbed from '../../components/diagrams/ConvexLensEmbed.astro';
 import PinholeBarrelSimulator from '../../components/diagrams/PinholeBarrelSimulator.astro';
 import SensorDistanceDiagram from '../../components/diagrams/SensorDistanceDiagram.astro';
@@ -129,7 +133,7 @@ What the focal length actually tells you is how strongly the lens bends light; i
 In addition to the focal points "F", we've also marked points which are twice as far as the focal length on either side of the lens. So, for example, for a 50mm lens, the two points labelled "F" are 50mm in front and behind the lens and those labelled "2F" are 100mm in front and behind the lens.
 
 <figure>
-  <img src="/images/post-11-orange-blue-rays-md.webp" alt="Two important rays passing through the lens" loading="lazy" style="width:100%;border-radius:8px"/>
+  <Image src={imgOrangeBlueRays} alt="Two important rays passing through the lens" style="width:100%;border-radius:8px" />
   <figcaption>Two important rays passing through the lens</figcaption>
 </figure>
 
@@ -153,7 +157,7 @@ To understand what is happening, it's best to start by thinking about what happe
 Can you see the symmetry that occurs when the object is at a distance of exactly 2F from the lens? If you can pick up your computer and rotate it by 180° you'll see that nothing has changed, except the the object and image have swapped places.
 
 <figure>
-  <img src="/images/post-11-orange-blue-rays-2f-md.webp" alt="The symmetry that occurs when the object is at 2F" loading="lazy" style="width:100%;border-radius:8px"/>
+  <Image src={imgOrangeBlueRays2f} alt="The symmetry that occurs when the object is at 2F" style="width:100%;border-radius:8px" />
   <figcaption>The symmetry that occurs when the object is at 2F</figcaption>
 </figure>
 
@@ -163,7 +167,7 @@ Because of the symmetry, the object and the image are exactly the same size. Thi
 
 <figure>
   <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
-    <img src="/images/post-11-bumble-md.webp" alt="Macro photograph of a bumble bee" loading="lazy" style="width:100%;border-radius:8px"/>
+    <Image src={imgBumble} alt="Macro photograph of a bumble bee" style="width:100%;border-radius:8px" />
   </a>
   <figcaption>Macro photograph of a bumble bee - Photo by Michelle Reeves</figcaption>
 </figure>
@@ -178,7 +182,7 @@ This is the usual setup in a camera; when you're taking a family photo, you want
 
 <figure>
   <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
-    <img src="/images/post-11-family-md.webp" alt="Keeping the family further than 2F for a photo" loading="lazy" style="width:100%;border-radius:8px"/>
+    <Image src={imgFamily} alt="Keeping the family further than 2F for a photo" style="width:100%;border-radius:8px" />
   </a>
   <figcaption>Keeping the family further than 2F for a photo - Photo by RDNE Stock project</figcaption>
 </figure>

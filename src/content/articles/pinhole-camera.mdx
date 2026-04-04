@@ -6,6 +6,12 @@ tags: ["physics", "cameras", "optics", "DIY"]
 heroImage: "./images/post-10-banner-md.webp"
 ---
 
+import { Image } from 'astro:assets';
+import imgEOSR5 from './images/post-10-EOSR5-md.webp';
+import imgWhitescreen from './images/post-10-whitescreen-md.webp';
+import imgPinhole from './images/post-10-pinhole-md.webp';
+import imgLonglens from './images/post-10-longlens-md.webp';
+import imgCoffeelens from './images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../components/diagrams/PinholeBarrelSimulator.astro';
 
@@ -24,7 +30,7 @@ Just make sure you grab a camera with a removeable lens, 'cos otherwise, whoever
 It should look like this:
 
 <figure>
-  <img src="/images/post-10-EOSR5-md.webp" alt="Digital Camera with lens removed" />
+  <Image src={imgEOSR5} alt="Digital Camera with lens removed" style="width:100%" />
   <figcaption>A digital camera with the lens removed</figcaption>
 </figure>
 
@@ -43,7 +49,7 @@ So, step one. Let's just take the lens off, and see what happens. Best way to fi
 Take off the lens and hold the camera up and try to film something. What do you see on the screen? You probably see something like this:
 
 <figure>
-  <img src="/images/post-10-whitescreen-md.webp" alt="White screen on the back of digital camera" />
+  <Image src={imgWhitescreen} alt="White screen on the back of digital camera" style="width:100%" />
   <figcaption>The screen on the back of a digital camera showing a completely white (over exposed) screen</figcaption>
 </figure>
 
@@ -73,7 +79,7 @@ Why don't you try it for yourself? All you need is…
 Make as small a hole as you can in the foil and use the tape to stick it over the opening in the camera so that no light leaks through; be careful not to touch the sensor or get anything on it. It should look like this:
 
 <figure>
-  <img src="/images/post-10-pinhole-md.webp" alt="Digital camera with foil taped over the front" />
+  <Image src={imgPinhole} alt="Digital camera with foil taped over the front" style="width:100%" />
   <figcaption>Digital camera with foil taped over the front</figcaption>
 </figure>
 
@@ -88,7 +94,7 @@ Congratulations! You have just built your own "lens"! I bet that was easier than
 Yes! The biggest difference between one lens and another is the length. Some are really short and others are very long. Compare these two!
 
 <figure>
-  <img src="/images/post-10-longlens-md.webp" alt="Comparison of 600mm and 10mm lenses" />
+  <Image src={imgLonglens} alt="Comparison of 600mm and 10mm lenses" style="width:100%" />
   <figcaption>Comparison of 600mm and 10mm lenses</figcaption>
 </figure>
 
@@ -103,7 +109,7 @@ You can do this yourself by finding a tube that you can tape to the front of the
 Be careful not to make the tube too long though. The longer it is, the darker the image will get, so you may not be able to see anything if you make it too long! Here's one we made out of a coffee tin. We drilled a hole in one end, which we covered with foil. The hole isn't too large, so we can patch it with some tape and put the tin back into service in the kitchen when we've finished with it.
 
 <figure>
-  <img src="/images/post-10-coffeelens-md.webp" alt="200mm pinhole lens build from a coffee tin" />
+  <Image src={imgCoffeelens} alt="200mm pinhole lens build from a coffee tin" style="width:100%" />
   <figcaption>200mm pinhole lens build from a coffee tin</figcaption>
 </figure>
 
