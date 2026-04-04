@@ -1,4 +1,5 @@
 import Experience from '../Experience.js'
+import HelpOverlay from './HelpOverlay.js'
 
 export default class TopBar
 {
@@ -38,8 +39,17 @@ export default class TopBar
         fsBtn.textContent = '⛶ Full Screen';
         fsBtn.addEventListener('click', () => this.toggleFullscreen());
 
-        // Prepend Tour button; append fsBtn last so it sits at the far right
+        const helpOverlay = new HelpOverlay();
+
+        const helpBtn = document.createElement('button');
+        helpBtn.className = 'top-bar-btn';
+        helpBtn.textContent = '?';
+        helpBtn.setAttribute('aria-label', 'Help');
+        helpBtn.addEventListener('click', () => helpOverlay.toggle());
+
+        // Layout: ? | Tour | [toggle buttons] | ✕
         bar.insertBefore(tourBtn, bar.firstChild);
+        bar.insertBefore(helpBtn, bar.firstChild);
         bar.appendChild(fsBtn);
 
         // On mobile, fullscreen is requested before the Experience initialises,
