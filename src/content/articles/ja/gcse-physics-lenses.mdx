@@ -1,0 +1,232 @@
+---
+title: "物理学：レンズについて知っておくべきすべてのこと"
+description: "同じレンズがカメラにも顕微鏡にも虫眼鏡にもなれる理由を知っていますか？教科書を読むよりずっと楽しく、わかりやすく解説します！"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["physics", "optics", "lenses"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+同じレンズがカメラにも顕微鏡にも虫眼鏡にもなれる理由を知っていますか？教科書を読むよりずっと楽しく、わかりやすく解説します！
+
+## まずはレンズシミュレーターで遊ぼう！
+
+細かい話に入る前に、以下のレンズシミュレーターを試してみてください。
+
+1. **赤い矢印**が撮影している物体です。
+2. **緑の矢印**がレンズによって形成された像で、カメラの画面に映るものに相当します。
+
+**試してみよう：** 赤い矢印を左右にドラッグして、像（緑の矢印）がどう変わるかを見てみよう。
+
+<ConvexLensEmbed />
+
+## 友達とシェアしよう
+
+**光学物理**を学んでいる友達がいたら、このツールはレンズの理解にぴったりです。教科書を見直すよりも、自分でクールな実験をする方がずっと楽しいですよ！
+
+SNSでフォローして、メーリングリストに登録すると、もっと面白いサイエンスのヒントが届きます。
+
+## 探求する準備はできていますか？
+
+### 詳しく見ていきましょう……
+
+最近SNSで私たちをフォローしていたなら、「マクロ」写真をたくさん投稿しているのを見てきたでしょう。「マクロ」写真とは、とても小さなものを撮影することです。数ミリしかないものを撮影した動画もあり、それはもはやマクロ写真の域を超えて、顕微鏡を作るようなことです！
+
+**小さな多肉植物を怪物に：**
+
+<iframe title="マクロ写真：小さな多肉植物を怪物に" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**DIY顕微鏡：**
+
+<iframe title="DIY顕微鏡の動画" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+まったく逆のこともやっています。カメラレンズを使って古いカラースライドを建物や葉っぱ、金粉の小瓶などの小物に投影したり、画家のキャンバスに投影したりしています。
+
+また近々、カメラレンズを虫眼鏡として使う方法や、虫眼鏡をカメラレンズとして使う方法の動画も投稿予定です。
+
+**葉っぱを投影：**
+
+<iframe title="カメラレンズで葉っぱを投影" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**スライドを壁に投影：**
+
+<iframe title="カメラレンズでスライドを壁に投影" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**レンズを虫眼鏡として使う：**
+
+<iframe title="カメラレンズを虫眼鏡として使う" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 顕微鏡、カメラ、虫眼鏡、プロジェクターに共通するものは？
+
+どういうことでしょう？なぜカメラレンズでこんなにいろいろなことができるのでしょうか？
+
+上のレンズシミュレーターをすでに試したなら、像を好きな大きさに変えられて、物体と同じ側や反対側に配置できることに気づいたかもしれません。それはすべて物体とレンズの距離によって決まります。
+
+もっと詳しく見ていきましょう。何が起きているのかを理解するために。
+
+## ピンホールカメラを振り返る
+
+ピンホールカメラのことを思い出すと、とても参考になります。レンズがあると複雑に見えますが、物理の多くの部分はピンホールカメラでもまったく同じであり、何が起きているかを理解しやすいのです。時間があれば、[自分のピンホールカメラを作る](/articles/pinhole-camera)という記事もぜひ読んでみてください。
+
+以下はその記事のアプリです。スライダーをドラッグして、バレルを延ばす（カメラセンサーを絞り、つまりピンホールから遠ざける）と、倍率が上がって像が大きくなることを確認してください。
+
+<PinholeBarrelSimulator />
+
+上のアプリでは、画像のさまざまな部分からの光線が発散しているのがわかります。物体からセンサーに向かうにつれて、互いに遠ざかっています。したがって、センサーをピンホールから遠ざけることで距離を伸ばすと、光線はさらに広がって像が大きくなります。
+
+また、物体をピンホールに近づけても像が大きくなることに注意してください。物体が近いほど、ピンホールを通過する光線の角度が急になります。急な角度の光線は、同じ水平距離でより大きな垂直距離を進むため、像が大きくなります。
+
+<SensorDistanceDiagram />
+
+## レンズを加えるとどうなるか
+
+レンズを使う場合も同じことが当てはまります。倍率を上げたいなら、センサーをレンズから遠ざけるか、物体を近づけるか、あるいはその両方が必要です。だから、カメラレンズを段ボール管に巻いてレンズとセンサーの距離を増やすことで顕微鏡を作ることができるのです。
+
+ピンホールカメラではフォーカスは問題になりません。物体と絞り（ピンホール）の距離や絞りとセンサーの距離に関わらず、像はピントが合っています。
+
+レンズを使う場合はそうではありません。レンズは物体の一点から発散する光線を集めて（曲げて）、再び一点に集める（像を作る）ことで機能します。光線はレンズからある特定の距離でのみ集まります。近すぎると十分な距離を進んでいないので集まれません。遠すぎると集まった後に再び広がり始めています。
+
+<SensorFocusDiagram />
+
+<iframe title="レンズが光線を集める様子のデモ" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+つまり、像を大きくしようとセンサーをレンズから遠ざけると、像は確かに大きくなりますが、どんどんピンぼけになっていきます。
+
+クリアな像が欲しければ、光線が集まる場所を見つけてそこにセンサーを置く必要があります。だから、像を大きくしたければ、光線がレンズから**より遠く**で集まるように物体を移動させる必要があります。レンズからの距離が増えることで、欲しい追加の倍率が得られます。
+
+## 凸レンズと凹レンズ
+
+カメラや虫眼鏡で使われるレンズの種類は「凸」レンズと呼ばれます。これは単に、端より中央が厚いことを意味します。凸レンズは光を曲げて、光線を集めて像を作ります。だからこそ写真撮影にとても便利なのです。
+
+凸レンズの反対は「凹」レンズです。中央が薄く端が厚く、光線を広げる方向に曲げます。
+
+<ConvexConcaveDiagram />
+
+今日は凸レンズの話をしているので、凹レンズはとりあえず置いておきましょう。
+
+ちなみに、実際のカメラ「レンズ」は通常、多くの個別のガラスレンズから作られており、凸のものも凹のものもある場合があります。でも、合わせると単一の凸レンズと同じ効果を持つので、単一の凸レンズとして扱うことができます。
+
+### レンズシミュレーターで何が起きているの？
+
+上のレンズシミュレーターでは、赤い矢印が撮影している物体を表しています。緑の矢印は、物体の一点から発した光線が再び集まって作られた像です。
+
+カメラレンズの決定的な特徴は「焦点距離」です。レンズについて話すとき、よく「50mmレンズ」や「100mmレンズ」と表現します。知らなくても、焦点距離を指しているのです 😉
+
+焦点距離は実際にはレンズが光を曲げる強さを伝えています。レンズの軸に平行に進む光線がレンズの後ろのどの距離で集まるかを示します。50mmレンズはレンズの後ろ50mmで平行光線を集め、100mmレンズではこの距離が100mmになります。平行光線が集まる点を「焦点」と言い、レンズシミュレーターでは「F」と表示しています。
+
+<FocalLengthDiagram />
+
+焦点「F」に加えて、レンズの両側に焦点距離の2倍の距離にある点も示しています。例えば、50mmレンズなら、「F」と表示された2つの点はレンズの前後50mmにあり、「2F」と表示された点はレンズの前後100mmにあります。
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="レンズを通過する2本の重要な光線" style="width:100%;border-radius:8px" />
+  <figcaption>レンズを通過する2本の重要な光線</figcaption>
+</figure>
+
+オレンジと青の線は矢印の先端から来る2本の光線を表しています。これら2本の光線を選んだのは、レンズに当たるとどうなるかを簡単に計算できるからです。
+
+この2つのルールを覚えておいてください。
+
+1. レンズの中心に当たる光線はまっすぐ進み、曲がりません。
+2. レンズの軸に平行に進む光線は、レンズの「主焦点」（レンズの後ろの点「F」）を通るように曲げられます。
+
+これらのルールから、オレンジと青の光線がどこで交差するかがわかり、矢印の先端の像がどこにあるかが見えます。矢印の根元は軸上にあることがわかるので、軸からこの2本の光線が交差する点まで矢印の像を描くことができます。矢印の先端から来るすべての他の光線も同じ場所で交差します。
+
+物体を左右にドラッグして、像がどう変わるかを見てみましょう。
+
+## 解説
+
+何が起きているかを理解するには、物体が「2F」にある場合から考え始めるのが一番です。焦点距離のちょうど2倍の距離です。それから近づけたり遠ざけたりするとどうなるかを考えます。
+
+### 物体がちょうど2Fにある場合
+
+物体がちょうど2Fの距離にあるとき、対称性が生じているのがわかりますか？コンピュータを180°回転できれば、物体と像が入れ替わっただけで何も変わっていないことがわかります。
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="物体が2Fにあるときの対称性" style="width:100%;border-radius:8px" />
+  <figcaption>物体が2Fにあるときの対称性</figcaption>
+</figure>
+
+これは、青い光線の傾き（勾配）がオレンジの光線のちょうど2倍だからです。オレンジの光線は2Fの距離で物体の高さに等しい垂直距離を進みますが、（平行でない）青い光線はFの距離だけで同じ垂直距離を進みます。ただし青い光線は2Fの距離を水平に進みます。その結果、両方の光線とも物体の高さの2倍の垂直距離を進むのに合計4Fかかり、物体がレンズの前にある距離と同じ距離だけ後ろで交わります。
+
+対称性から、物体と像はまったく同じ大きさです。これは「マクロ写真」に便利です。例えば、大きなマルハナバチはカメラセンサーとほぼ同じ大きさなので、レンズから2Fの距離ではフレームのほとんどを占めます。
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="マルハナバチのマクロ写真" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>マルハナバチのマクロ写真 - 撮影：Michelle Reeves</figcaption>
+</figure>
+
+ほとんどのカメラレンズは焦点距離の2倍の距離までセンサーから離れることができません。「エクステンションチューブ」や簡単な段ボール管を使って自分でレンズを離す必要があります。
+
+### 物体が2Fより遠い場合
+
+物体がレンズから2Fより遠い場合、オレンジの線の傾きは物体が2Fのときより小さくなります。物体が遠ければ遠いほど、オレンジの光線は軸に近くなり、青い光線はレンズに近い場所で交差するため、像は物体より小さくなります。
+
+これがカメラの通常の使い方です。家族写真を撮るとき、全員をわずか数センチの幅のセンサーに収めたいので、像が実物より小さくなってほしいのです。
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="写真のために家族を2Fより遠くに保つ" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>写真のために家族を2Fより遠くに保つ - 撮影：RDNE Stock project</figcaption>
+</figure>
+
+### 物体が2FとFの間にある場合
+
+今度は、オレンジの線がずっと急になっています。2本の線はレンズのずっと後ろで交差し、像は物体よりずっと大きくなります。
+
+これがマクロ写真です。センサーよりずっと小さなものを撮影して、フレームを埋めるまで拡大しています。例えば、この小さな多肉植物は実際には数センチの高さですが、まるで怪物のように見えます！
+
+<iframe title="マクロ写真：フレームを埋めるまで拡大された多肉植物" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+物体をさらにFに近づけると、像はとても大きくなります。実際、Fに近づくにつれて巨大になります。レンズからもずっと離れた場所に移動します。建物に像を投影したい場合に便利です。像はレンズから数十メートル離れた場所に、巨大なサイズで！
+
+<iframe title="カメラレンズでスライドを壁に投影" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+物体がFに近づくにつれ、像は**ずっと**後ろに移動してずっと大きくなります。これで顕微鏡を作りました。肉眼では見えないものが見えます。例えば、約1mm幅のこの昆虫の頭。
+
+<iframe title="DIY顕微鏡：拡大された昆虫の頭部" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 物体がFより近い場合
+
+今度はオレンジの線が青の線より急になっています。2本の線は交わりません。ただし、レンズを通して右側から見ている観察者には、光線が物体の後ろの点から来ているように見えます。これを「虚像」と言います。虚像は紙やカメラセンサーに投影することはできませんが、レンズを通して見ている人には本物に見えます。
+
+虫眼鏡で文字を見るとき、虫眼鏡を紙から離すにつれて文字が大きくなり、突然消えてしまうことに気づいたことがありますか？それは、Fに近づくにつれて像が大きくなり、Fに達した瞬間に無限遠に消えてしまうからです。
+
+<figure>
+  <Image src={bannerImg} alt="Fより近くにテキストを置いてレンズを虫眼鏡として使う" style="width:100%;border-radius:8px" />
+  <figcaption>Fより近くにテキストを置いてレンズを虫眼鏡として使う</figcaption>
+</figure>
+
+### 物体がちょうどFにある場合
+
+これが最もつまらないケースです。オレンジと青の線がちょうど平行になっています。交わることも、交わるように見える場所もないので、像は作られません。
+
+## 倍率のグラフ
+
+グラフや数式はあまり気にしなくて大丈夫！ただ、物体を動かしたときに像の倍率がどう変わるかを示すグラフを見ておくと参考になります。「倍率」とは像が物体よりどれだけ大きいかを意味します。倍率 *m*=2 は像が2倍の大きさということです。倍率 *m*=0.5 は像が物体の半分の大きさということです。
+
+レンズシミュレーターで遊んでいたとき、物体がFに近づくにつれて像が急速に大きくなることに気づいたでしょう。これはグラフでも確認できます。物体の距離（*u*）が焦点距離（*f*=100mm）に近づくにつれて *m* はゆっくり増加し、かなり近づくと爆発的に大きくなります。
+
+<MagnificationGraph />
+
+## あなたの番です
+
+これで凸レンズの仕組みがわかりました！どんなクールなプロジェクトに使えると思いますか？古いレンズはeBayやヴィンテージカメラショップで安く手に入ります。アイデアが欲しければ、SNSをフォローするかメーリングリストを購読してみてください！
