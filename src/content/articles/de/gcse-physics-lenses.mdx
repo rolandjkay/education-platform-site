@@ -1,0 +1,232 @@
+---
+title: "Physik: Alles, was du über Linsen wissen musst"
+description: "Hast du dich jemals gefragt, wie eine einzige Linse als Kamera, Mikroskop oder sogar als Lupe funktionieren kann? Lass uns das auf eine Art erklären, die Sinn ergibt – und viel mehr Spaß macht als ein Lehrbuch!"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["physics", "optics", "lenses"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+Hast du dich jemals gefragt, wie eine einzige Linse als Kamera, Mikroskop oder sogar als Lupe funktionieren kann? Lass uns das auf eine Art erklären, die Sinn ergibt – und viel mehr Spaß macht als ein Lehrbuch!
+
+## Spiele mit unserem Linsen-Simulator!
+
+Bevor wir in die Details eintauchen, probier den Linsen-Simulator unten aus:
+
+1. Der **rote Pfeil** ist das Objekt, das du fotografierst.
+2. Der **grüne Pfeil** ist das Bild, das durch die Linse entsteht, ähnlich wie das, was du auf einem Kamerabildschirm siehst.
+
+**Probiere das aus:** Ziehe den roten Pfeil nach links oder rechts und sieh, wie sich das Bild (grüner Pfeil) verändert.
+
+<ConvexLensEmbed />
+
+## Teile es mit deinen Freunden
+
+Wenn du oder deine Freunde Optik und Lichtphysik studieren, ist dieses Werkzeug perfekt zum Verständnis von Linsen – es zeigt direkt die Prinzipien aus dem Lehrplan – und eigene coole Projekte zu bauen macht viel mehr Spaß als aus Notizen zu lernen!
+
+Vergiss nicht, uns in den sozialen Medien zu folgen und unsere Mailingliste zu abonnieren, um mehr coole Wissenschaftstricks zu erhalten.
+
+## Bereit zum Erkunden?
+
+### Hier sind alle Details…
+
+Wenn du uns in letzter Zeit in den sozialen Medien gefolgt bist, hast du gesehen, dass wir viele „Makro"-Fotos gepostet haben; „Makro"-Fotografie bedeutet, Fotos von sehr kleinen Dingen zu machen. Einige unserer Videos zeigen Dinge, die nur ein paar Millimeter groß sind, was über Makrofotografie hinausgeht und eher dem Bau eines Mikroskops entspricht!
+
+**Eine kleine Sukkulente in ein Monster verwandeln:**
+
+<iframe title="Makrofotografie: eine kleine Sukkulente in ein Monster verwandeln" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**DIY-Mikroskop:**
+
+<iframe title="DIY-Mikroskop-Video" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Einige unserer Videos zeigen das genaue Gegenteil; wir nutzen ein Kameraobjektiv, um ein altes Farb-Dia auf ein Gebäude oder kleine Objekte wie ein Blatt oder ein kleines Glas mit Goldflöckchen auf eine Malerleinwand zu projizieren.
+
+Demnächst werden wir Videos veröffentlichen, in denen wir ein Kameraobjektiv als Lupe und eine Lupe als Kameraobjektiv verwenden.
+
+**Ein Blatt projizieren:**
+
+<iframe title="Ein Blatt mit einem Kameraobjektiv projizieren" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Ein Dia auf eine Wand projizieren:**
+
+<iframe title="Ein Dia mit einem Kameraobjektiv auf eine Wand projizieren" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Ein Objektiv als Lupe verwenden:**
+
+<iframe title="Ein Kameraobjektiv als Lupe verwenden" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### Was ist der Zusammenhang zwischen Mikroskop, Kamera, Lupe und Projektor?
+
+Was passiert da eigentlich? Wie kann man ein Kameraobjektiv für all diese verschiedenen Dinge verwenden?
+
+Wenn du bereits mit dem Linsen-Simulator oben gespielt hast, hast du vielleicht bemerkt, dass wir das Bild so klein oder so groß machen können wie wir wollen, und wir können es auf der gleichen Seite der Linse wie das Objekt platzieren oder auf der gegenüberliegenden Seite. Es hängt alles vom Abstand zwischen dem Objekt und der Linse ab.
+
+Lass uns die Dinge genauer betrachten, damit wir verstehen, was passiert.
+
+## Die Lochkamera noch einmal
+
+Es ist sehr hilfreich, an unsere Lochkamera zurückzudenken. Linsen können die Dinge kompliziert erscheinen lassen, aber viele der physikalischen Prinzipien sind in einer Lochkamera genau dieselben, und es ist viel einfacher zu verstehen, was passiert. Wenn du Zeit hast, schau dir unseren Artikel über den [Bau einer eigenen Lochkamera](/articles/pinhole-camera) an.
+
+Hier ist die App aus diesem Artikel – ziehe den Schieberegler und sieh, wie die Verlängerung des Rohrs, was dasselbe ist wie das Entfernen des Kamerasensors von der Blende (dem Loch), die Vergrößerung erhöht und das Bild größer macht.
+
+<PinholeBarrelSimulator />
+
+In der App oben kannst du sehen, dass Lichtstrahlen, die von verschiedenen Teilen des Bildes kommen, divergieren; sie entfernen sich voneinander, wenn sie vom Objekt zum Sensor wandern. Wenn wir sie also weiter reisen lassen, indem wir den Sensor vom Loch weg bewegen, spreizen sie sich mehr und das Bild wird größer.
+
+Beachte auch, dass wenn du das Objekt näher an das Loch bewegst, das Bild ebenfalls größer wird. Je näher das Objekt ist, desto steiler ist der Winkel des Lichtstrahls, der durch das Loch geht. Ein steiler einfallender Lichtstrahl legt in derselben horizontalen Strecke eine größere vertikale Strecke zurück als ein flach einfallender Strahl, was zu einem größeren Bild führt.
+
+<SensorDistanceDiagram />
+
+## Was passiert, wenn wir eine Linse hinzufügen
+
+Dasselbe gilt, wenn wir eine Linse verwenden; wenn wir eine größere Vergrößerung wollen, müssen wir entweder den Sensor weiter von der Linse entfernen oder das Objekt näher bringen oder beides – deshalb können wir ein Mikroskop bauen, indem wir das Kameraobjektiv in ein Pappröhrchen einwickeln und so den Abstand zwischen Linse und Sensor vergrößern.
+
+Fokus ist bei einer Lochkamera kein Problem; das Bild ist in Fokus, unabhängig vom Abstand zwischen dem Objekt und der Blende (dem Loch) und dem Abstand zwischen der Blende und dem Sensor.
+
+Das ist anders, wenn man eine Linse verwendet. Eine Linse funktioniert, indem sie die Lichtstrahlen, die von einem Punkt des Objekts ausstrahlen, bündelt (ablenkt), sodass sie wieder zusammenkommen und das Bild formen. Die Strahlen kommen nur in einem bestimmten Abstand hinter der Linse zusammen; ist der Abstand zu gering, sind sie noch nicht weit genug gereist, um zusammenzukommen; ist er zu groß, sind sie bereits zusammengekommen und fangen an, sich wieder auseinanderzubewegen.
+
+<SensorFocusDiagram />
+
+<iframe title="Demonstration, wie eine Linse Lichtstrahlen bündelt" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Wenn wir also versuchen, den Sensor weiter von der Linse zu entfernen, um das Bild zu vergrößern, wird es größer, aber es wird auch immer unschärfer.
+
+Wenn wir ein scharfes Bild wollen, müssen wir herausfinden, wo die Strahlen zusammenkommen und den Sensor dort platzieren. Wenn wir also das Bild größer machen wollen, müssen wir das Objekt so bewegen, dass die Strahlen **weiter** hinter der Linse zusammenkommen. Der größere Abstand von der Linse gibt uns dann die gewünschte zusätzliche Vergrößerung.
+
+## Konvexe und konkave Linsen
+
+Die Linsenart, die in Kameras und Lupen verwendet wird, nennt man „konvex"; das bedeutet einfach, dass sie in der Mitte dicker ist als an den Rändern. Konvexe Linsen bündeln Licht so, dass die Strahlen wieder zusammenkommen und ein Bild formen, weshalb sie in der Fotografie so nützlich sind.
+
+Das Gegenteil einer konvexen Linse nennt man „konkave" Linse. Diese sind in der Mitte dünn und an den Rändern dick, und sie lenken Lichtstrahlen so ab, dass sie sich auseinanderbreiten.
+
+<ConvexConcaveDiagram />
+
+Heute sprechen wir über konvexe Linsen, also können wir konkave Linsen vorerst vergessen.
+
+Übrigens ist dir vielleicht aufgefallen, dass echte Kamera-„Objektive" typischerweise aus vielen einzelnen Glaslinsen bestehen, von denen einige konvex und einige konkav sein können. Zusammen haben sie jedoch denselben Effekt wie eine einzelne konvexe Linse, also können wir sie einfach als eine einzelne konvexe Linse behandeln.
+
+### Was hat es also mit unserem Linsen-Simulator auf sich?
+
+Im Linsen-Simulator oben stellt der rote Pfeil das Objekt dar, das wir fotografieren. Der grüne Pfeil ist das Bild, das entsteht, wenn die Lichtstrahlen, die von einem Punkt des Objekts kommen, wieder zusammenkommen.
+
+Das bestimmende Merkmal eines Kameraobjektivs ist seine „Brennweite". Wenn Leute über ihre Objektive sprechen, hört man sie oft ein Objektiv als „50-mm-Objektiv" oder „100-mm-Objektiv" beschreiben. Sie sprechen über die Brennweite, auch wenn sie es nicht wissen 😉
+
+Was die Brennweite dir tatsächlich sagt, ist, wie stark die Linse das Licht bündelt; sie gibt dir den Abstand hinter der Linse an, in dem Lichtstrahlen, die parallel zur Achse der Linse verlaufen, zusammengeführt werden. Ein 50-mm-Objektiv führt parallele Strahlen 50 mm hinter der Linse zusammen, während dieser Abstand bei einem 100-mm-Objektiv 100 mm beträgt. Der Punkt, an dem parallele Strahlen zusammentreffen, heißt „Brennpunkt"; dieser Punkt ist im Linsen-Simulator mit „F" gekennzeichnet.
+
+<FocalLengthDiagram />
+
+Zusätzlich zu den Brennpunkten „F" haben wir auch Punkte markiert, die doppelt so weit wie die Brennweite auf beiden Seiten der Linse sind. Für ein 50-mm-Objektiv befinden sich die beiden mit „F" markierten Punkte also 50 mm vor und hinter der Linse, und die mit „2F" markierten Punkte 100 mm vor und hinter der Linse.
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="Zwei wichtige Strahlen, die durch die Linse verlaufen" style="width:100%;border-radius:8px" />
+  <figcaption>Zwei wichtige Strahlen, die durch die Linse verlaufen</figcaption>
+</figure>
+
+Die orangefarbenen und blauen Linien stellen zwei Lichtstrahlen dar, die von der Spitze des Pfeils kommen. Wir haben diese beiden Lichtstrahlen gewählt, weil es einfach ist, herauszufinden, was mit ihnen passiert, wenn sie auf die Linse treffen.
+
+Merke dir diese zwei Regeln:
+
+1. Ein Strahl, der die Mitte der Linse trifft, geht in einer geraden Linie weiter, ohne abgelenkt zu werden.
+2. Ein Strahl, der parallel zur Achse der Linse verläuft, wird so abgelenkt, dass er durch den „Hauptbrennpunkt" der Linse geht; das ist der Punkt „F" hinter der Linse.
+
+Diese Regeln bedeuten, dass wir wissen, wo sich der orangefarbene und der blaue Strahl kreuzen, und wir können sehen, wo das Bild der Pfeilspitze sein muss. Wir wissen, dass die Basis des Pfeils auf der Achse liegt, also können wir das Bild des Pfeils von der Achse bis zu dem Punkt zeichnen, wo sich diese beiden Strahlen kreuzen. Alle anderen Strahlen, die von der Spitze des Pfeils kommen, kreuzen sich an derselben Stelle.
+
+Versuche, das Objekt nach links und rechts zu ziehen, und sieh, was mit dem Bild passiert.
+
+## Erklärung
+
+Um zu verstehen, was passiert, ist es am besten, zuerst darüber nachzudenken, was passiert, wenn sich das Objekt bei „2F" befindet; genau doppelt so weit wie die Brennweite von der Linse entfernt. Dann können wir überlegen, was passiert, wenn wir es näher oder weiter weg bewegen.
+
+### Das Objekt befindet sich genau bei 2F
+
+Siehst du die Symmetrie, die auftritt, wenn sich das Objekt in einem Abstand von genau 2F von der Linse befindet? Wenn du deinen Computer nehmen und um 180° drehen könntest, würdest du sehen, dass sich nichts geändert hat, außer dass Objekt und Bild die Plätze getauscht haben.
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="Die Symmetrie, die auftritt, wenn sich das Objekt bei 2F befindet" style="width:100%;border-radius:8px" />
+  <figcaption>Die Symmetrie, die auftritt, wenn sich das Objekt bei 2F befindet</figcaption>
+</figure>
+
+Das liegt daran, dass die Steigung (Gradient) der blauen Strahlen genau doppelt so groß ist wie die des orangefarbenen Strahls; der orangefarbene Strahl legt in einer Strecke von 2F eine Strecke gleich der Höhe des Objekts zurück, während der (nicht-parallele) blaue Strahl dieselbe vertikale Strecke in nur F zurücklegt. Der blaue Strahl ist jedoch über eine Strecke von 2F horizontal. Infolgedessen benötigen beide Strahlen insgesamt eine Strecke von 4F, um eine vertikale Strecke vom doppelten der Objekthöhe zurückzulegen, und so treffen sie sich im selben Abstand hinter der Linse, wie das Objekt davor ist.
+
+Aufgrund der Symmetrie sind Objekt und Bild genau gleich groß. Das ist nützlich für die „Makrofotografie". Zum Beispiel ist eine große Hummel ungefähr so groß wie der Kamerasensor, sodass sie bei 2F von der Linse den größten Teil des Bildrahmens ausfüllen würde.
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="Makrofotografie einer Hummel" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Makrofotografie einer Hummel – Foto von Michelle Reeves</figcaption>
+</figure>
+
+Die meisten Kameraobjektive können sich nicht so weit bewegen wie doppelt die Brennweite vom Sensor entfernt; du musst das Objektiv selbst wegbewegen, indem du ein „Verlängerungsrohr" oder ein einfaches Pappröhrchen verwendest.
+
+### Das Objekt ist weiter als 2F entfernt
+
+Wenn das Objekt weiter von der Linse entfernt ist als 2F, ist die Steigung der orangefarbenen Linie kleiner als wenn das Objekt bei 2F ist. Je weiter das Objekt entfernt ist, desto näher ist der orangefarbene Strahl an der Achse, sodass die blaue Linie ihn näher an der Linse kreuzt und das Bild kleiner als das Objekt ist.
+
+Das ist die übliche Einstellung in einer Kamera; wenn du ein Familienfoto machst, möchtest du ein Bild von allen auf einem Sensor unterbringen, der nur ein paar Zentimeter breit ist, also möchtest du, dass das Bild kleiner als die Realität ist.
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="Die Familie weiter als 2F halten für ein Foto" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Die Familie weiter als 2F halten für ein Foto – Foto von RDNE Stock project</figcaption>
+</figure>
+
+### Das Objekt befindet sich zwischen 2F und F
+
+Jetzt ist die orangefarbene Linie viel steiler; die beiden Linien kreuzen sich viel weiter hinter der Linse und das Bild ist viel größer als das Objekt.
+
+Das ist Makrofotografie; wir fotografieren Dinge, die viel kleiner als der Sensor sind, und vergrößern sie, um den Bildrahmen zu füllen. Zum Beispiel sieht diese winzige Sukkulente, die in der Realität nur ein paar Zentimeter groß ist, wie ein Monster aus!
+
+<iframe title="Makrofotografie: Sukkulente vergrößert um den Bildrahmen zu füllen" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Wenn wir das Objekt noch näher an F heranrücken, wird das Bild sehr groß. Wenn wir uns F nähern, wird es riesig. Es entfernt sich auch viel weiter von der Linse. Das ist nützlich, wenn wir ein Bild auf ein Gebäude projizieren wollen; das Bild könnte Dutzende von Metern von der Linse entfernt und gigantisch sein!
+
+<iframe title="Ein Dia mit einem Kameraobjektiv auf eine Wand projizieren" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Wenn sich das Objekt F nähert, bewegt sich das Bild **viel** weiter nach hinten und wird viel größer. Jetzt haben wir ein Mikroskop gebaut und können Dinge betrachten, die zu klein sind, um sie mit bloßem Auge zu sehen. Zum Beispiel dieser Insektenkopf, der etwa 1 mm breit ist.
+
+<iframe title="DIY-Mikroskop: vergrößerter Insektenkopf" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### Das Objekt ist näher als F
+
+Jetzt ist die orangefarbene Linie steiler als die blaue; sie kreuzen sich nie. Für einen Beobachter auf der rechten Seite, der durch die Linse schaut, scheinen die Strahlen jedoch von einem Punkt hinter dem Objekt zu kommen. Das nennt man ein „virtuelles" Bild. Ein „virtuelles" Bild kann nicht auf ein Blatt Papier oder den Kamerasensor projiziert werden, sieht aber für jemanden, der durch die Linse schaut, real aus.
+
+Hast du bemerkt, dass beim Betrachten von Text durch eine Lupe die Buchstaben größer werden, wenn man die Lupe vom Papier weg bewegt, und dann plötzlich verschwinden? Das liegt daran, dass das Bild größer wird, wenn man sich F nähert, und dann verschwindet, sobald man F erreicht.
+
+<figure>
+  <Image src={bannerImg} alt="Text näher an ein Kameraobjektiv halten als F, um es als Lupe zu verwenden" style="width:100%;border-radius:8px" />
+  <figcaption>Text näher an ein Kameraobjektiv halten als F, um es als Lupe zu verwenden</figcaption>
+</figure>
+
+### Das Objekt befindet sich genau bei F
+
+Das ist der uninteressanteste Fall: Die orangefarbene und die blaue Linie sind genau parallel; sie kreuzen sich nie und scheinen sich nirgendwo zu kreuzen, also gibt es kein Bild.
+
+## Graph der Vergrößerung
+
+Mach dir nicht zu viele Gedanken über Graphen und Formeln! Es ist jedoch nützlich, einen Graphen zu betrachten, der zeigt, wie sich die Vergrößerung des Bildes ändert, wenn wir das Objekt bewegen. Mit „Vergrößerung" meinen wir, wie viel größer das Bild als das Objekt ist; eine Vergrößerung von *m*=2 bedeutet, dass das Bild doppelt so groß ist. Eine Vergrößerung von *m*=0,5 bedeutet, dass das Bild halb so groß ist wie das Objekt.
+
+Du hast beim Spielen mit dem Linsen-Simulator sicher bemerkt, dass das Bild sehr schnell sehr groß wird, wenn du das Objekt F näherst. Das siehst du im Graphen; *m* steigt langsam an, wenn der Abstand vom Objektiv (*u*) sich der Brennweite (*f*=100 mm) nähert, und explodiert dann, wenn wir sehr nahe kommen.
+
+<MagnificationGraph />
+
+## Jetzt bist du dran
+
+Jetzt verstehst du, wie konvexe Linsen funktionieren! Was für coole Projekte kannst du damit umsetzen? Du kannst alte Objektive günstig auf eBay oder in Vintage-Kameraläden kaufen. Wenn du Inspiration suchst, folge uns doch auf unseren Social-Media-Kanälen oder abonniere unsere Mailingliste!

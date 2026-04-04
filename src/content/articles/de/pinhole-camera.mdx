@@ -1,0 +1,119 @@
+---
+title: "Eine Kamera ohne Objektiv? Unmöglich!"
+description: "Lerne, wie eine Kamera funktioniert, indem du dein eigenes Lochkamera-Objektiv baust und damit deinen eigenen Film drehst!"
+pubDate: 2024-10-01
+subjects: [science, filmmaking]
+tags: ["physics", "cameras", "optics", "DIY"]
+heroImage: "../images/post-10-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import imgEOSR5 from '../images/post-10-EOSR5-md.webp';
+import imgWhitescreen from '../images/post-10-whitescreen-md.webp';
+import imgPinhole from '../images/post-10-pinhole-md.webp';
+import imgLonglens from '../images/post-10-longlens-md.webp';
+import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
+import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+
+Lerne, wie eine Kamera funktioniert, indem du deine eigenen Lochkamera-Objektive baust und damit deinen eigenen Film drehst!
+
+## Du möchtest also eine Kamera bauen?
+
+Hallo! Ich höre, du möchtest deine eigene Kamera bauen? Das ist großartig, und wenn du es vollständig analog machen wolltest, wie in alten Zeiten, wäre das absolut möglich. Digitalkameras sind zu Hause schwer zu bauen, aber sie sind super, weil man die Ergebnisse sofort sehen kann.
+
+Du kannst die Optik jedoch problemlos selbst bauen, und wenn du das gemeistert hast, kannst du Fotofilm und eine Dunkelkammer besorgen, um den Rest der Kamera zu bauen.
+
+Also, wie wäre es, wenn du dir eine Digitalkamera schnappst und wir loslegen? Abgemacht? Großartig!
+
+Stell nur sicher, dass du eine Kamera mit einem abnehmbaren Objektiv nimmst, sonst könnte der Besitzer nicht sehr erfreut sein, wenn du das Objektiv abbrichst; kaputtes Glas ist außerdem gefährlich!
+
+Sie sollte so aussehen:
+
+<figure>
+  <Image src={imgEOSR5} alt="Digitalkamera ohne Objektiv" style="width:100%" />
+  <figcaption>Eine Digitalkamera ohne Objektiv</figcaption>
+</figure>
+
+Wenn es eine spiegellose Kamera ist, wirst du den Sensor sehen können. Bei einer älteren DSLR (Digital Single-Lens Reflex) siehst du einen Spiegel im Inneren, und der Sensor befindet sich dahinter. Der Sensor ist der Teil der Kamera, der lichtempfindlich ist; er wandelt das einfallende Licht in ein digitales Bild um, das du auf deinem Computer anzeigen kannst. Versuche, ihn nicht zu berühren oder zu verschmutzen!
+
+Du musst deine Kamera so einrichten, dass sie direkt auf dem hinteren Display anzeigt, was der Sensor sieht. Manche Kameras machen das automatisch. Andere (z. B. Canon DSLRs) zeigen möglicherweise eine Fehlermeldung, weil das Objektiv fehlt. Oft kannst du die Warnung einfach wegklicken und die Kamera funktioniert dann trotzdem.
+
+## Wer braucht schon ein Objektiv?
+
+Wenn du eine Kamera anschaust, was siehst du? Das Objektiv, richtig? Dieses große, unblinkende Stück Glas, das dich anstarrt, wenn du ein TikTok aufnehmen möchtest. Sogar dein Smartphone hat ein Objektiv, auch wenn es viel kleiner ist. Wenn du an eine Kamera denkst, ist das Erste, woran du denkst, das Objektiv, oder?
+
+Was würdest du also sagen, wenn ich dir sagen würde, dass das Objektiv im Grunde völlig unnötig ist? Du brauchst definitiv etwas, um das Bild aufzunehmen: den digitalen Sensor oder ein Stück Fotofilm. Aber du brauchst eigentlich *kein* Objektiv. Verrückt, oder?
+
+Also, Schritt eins. Lass uns einfach das Objektiv abnehmen und sehen, was passiert. Am besten findet man heraus, was etwas tut, indem man schaut, was ohne es passiert, oder?
+
+Nimm das Objektiv ab, halte die Kamera hoch und versuche, etwas zu filmen. Was siehst du auf dem Display? Du siehst wahrscheinlich so etwas:
+
+<figure>
+  <Image src={imgWhitescreen} alt="Weißes Bild auf dem Display einer Digitalkamera" style="width:100%" />
+  <figcaption>Das Display einer Digitalkamera zeigt einen vollständig weißen (überbelichteten) Bildschirm</figcaption>
+</figure>
+
+Der Sensor ist lichtempfindlich, und da nichts vor ihm ist, fällt das gesamte Licht, das von unserer Szene reflektiert wird, direkt auf den Sensor. Der Sensor ist so empfindlich, dass jeder Teil des Sensors mehr als die maximale Lichtmenge empfängt, die er aufzeichnen kann, und deshalb sehen wir nur einen weißen Bildschirm.
+
+Was wir wollen, ist, dass Licht von einem Teil unserer Szene nur auf einen Teil des Sensors fällt. Stell dir zum Beispiel vor, es gibt eine einzelne rote Blume in unserer Szene. Wenn wir eine rote Blume in unserem Bild sehen wollen, muss das rote Licht, das die Blume reflektiert, nur an der Stelle auf den Sensor treffen, wo die Blume im Bild erscheinen soll. Aber im Moment ist das nicht der Fall. Das Licht von der Blume trifft auf jeden Teil des Sensors.
+
+Du kannst das in den ersten beiden Folien der folgenden Animation sehen.
+
+<LightRayAnimation />
+
+## Lochkamera zur Rettung!
+
+Was passiert also, wenn wir etwas Alufolie mit einem Nadelloch vor unseren Sensor halten? Nun... die Folie blockiert den größten Teil des Lichts aus unserer Szene; es wird also im Inneren der Kamera viel dunkler sein und der empfindliche Sensor wird nicht mehr mit Licht überflutet. Aber was noch wichtiger ist: Es lässt nur Licht von der roten Blume an einer Stelle auf den Sensor. Rotes Licht, das auf andere Teile des Sensors gerichtet ist, wird von der Folie blockiert.
+
+Du kannst sehen, wie das in Folie 3 der Animation funktioniert. Jetzt ist das Licht von den roten und weißen Blumen getrennt und fällt auf verschiedene Teile des Sensors.
+
+## Probiere es selbst aus!
+
+Warum probierst du es nicht selbst aus? Alles, was du brauchst, ist…
+
+- Ein Blatt Aluminiumfolie
+- Eine Nadel; je dünner, desto besser
+- Etwas Klebeband, um die Folie über der Kamera zu befestigen
+- Eine Digitalkamera mit abnehmbarem Objektiv
+
+Mache das kleinstmögliche Loch in die Folie und klebe sie mit dem Klebeband über die Öffnung der Kamera, sodass kein Licht durchdringt; sei vorsichtig, den Sensor nicht zu berühren oder etwas darauf zu bringen. Es sollte so aussehen:
+
+<figure>
+  <Image src={imgPinhole} alt="Digitalkamera mit über die Vorderseite geklebter Folie" style="width:100%" />
+  <figcaption>Digitalkamera mit über die Vorderseite geklebter Folie</figcaption>
+</figure>
+
+Geh jetzt nach draußen und schalte deine Kamera ein. Am besten geht das an einem strahlend sonnigen Tag um die Mittagszeit. Siehst du etwas? Das Bild wird sehr dunkel sein, also stelle deine Kamera auf die maximale ISO-Einstellung. „ISO" steuert, wie lichtempfindlich die Kamera ist; du möchtest dies auf Maximum stellen und es dann reduzieren, wenn das Bild zu hell ist.
+
+Wenn du nichts auf dem Display siehst, ist es möglicherweise so, dass dein ISO nicht hoch genug eingestellt ist oder das maximale ISO der Kamera nicht hoch genug ist. Richte zum Test die Kamera auf etwas Helles wie eine Glühbirne (nicht die Sonne!). Du solltest ein Bild der Glühbirne sehen, auch wenn alles andere dunkel ist.
+
+Herzlichen Glückwunsch! Du hast gerade dein eigenes „Objektiv" gebaut! Ich wette, das war einfacher als erwartet.
+
+## Kann ich verschiedene Arten von Lochkamera-„Objektiven" bauen?
+
+Ja! Der größte Unterschied zwischen einem Objektiv und einem anderen ist die Länge. Manche sind sehr kurz und andere sehr lang. Vergleiche diese beiden!
+
+<figure>
+  <Image src={imgLonglens} alt="Vergleich von 600-mm- und 10-mm-Objektiven" style="width:100%" />
+  <figcaption>Vergleich von 600-mm- und 10-mm-Objektiven</figcaption>
+</figure>
+
+Welchen Unterschied macht die Länge des Objektivs? Sieh dir die interaktive Animation unten an. Du kannst den Abstand zwischen dem Kamerasensor und dem Loch ändern, indem du den Schieberegler ziehst…
+
+<PinholeBarrelSimulator />
+
+Siehst du, dass, wenn das Objektivrohr länger wird, die Lichtstrahlen immer paralleler sein müssen, um den Sensor zu erreichen? Das bedeutet, dass nur der zentrale Teil der Szene sichtbar ist und das Bild des Kürbisses größer wird. Wenn du das Objektivrohr so lang wie möglich machst, ist nur der Bereich zwischen den Augen des Kürbisses sichtbar. Wenn du es so kurz wie möglich machst, ist der Kürbis winzig.
+
+Du kannst das selbst ausprobieren, indem du ein Rohr findest, das du vor der Kamera befestigen kannst, und dann die Folie mit dem Loch am Ende des Rohrs befestigst. Wenn das Rohr glänzend oder hell ist, leg auf jeden Fall schwarzes Papier hinein. Sonst reflektiert das Licht von den Seiten und trübt das Bild.
+
+Sei aber vorsichtig, das Rohr nicht zu lang zu machen. Je länger es ist, desto dunkler wird das Bild, sodass du möglicherweise nichts mehr sehen kannst, wenn es zu lang ist! Hier ist ein Objektiv aus einer Kaffeedose. Wir haben ein Loch in ein Ende gebohrt, das wir mit Folie abgedeckt haben. Das Loch ist nicht zu groß, also können wir es mit etwas Klebeband abdichten und die Dose nach Gebrauch wieder in der Küche verwenden.
+
+<figure>
+  <Image src={imgCoffeelens} alt="200-mm-Lochkamera-Objektiv aus einer Kaffeedose gebaut" style="width:100%" />
+  <figcaption>200-mm-Lochkamera-Objektiv aus einer Kaffeedose gebaut</figcaption>
+</figure>
+
+## Jetzt bist du dran!
+
+Du weißt jetzt, wie du dein eigenes Objektiv bauen kannst! Was könntest du sonst noch als Objektiv verwenden? Was ist das längste Objektiv, das du bauen kannst und trotzdem noch ein Bild erhältst? Findest du es nicht faszinierend, dass du dein eigenes Objektiv nur aus einem Rohr und etwas Folie bauen kannst?? 🤯🤯

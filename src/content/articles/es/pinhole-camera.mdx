@@ -1,0 +1,119 @@
+---
+title: "¿Una cámara sin objetivo? ¡Imposible!"
+description: "Aprende cómo funciona una cámara construyendo tu propio objetivo de estenopo y usándolo para rodar tu propia película."
+pubDate: 2024-10-01
+subjects: [science, filmmaking]
+tags: ["physics", "cameras", "optics", "DIY"]
+heroImage: "../images/post-10-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import imgEOSR5 from '../images/post-10-EOSR5-md.webp';
+import imgWhitescreen from '../images/post-10-whitescreen-md.webp';
+import imgPinhole from '../images/post-10-pinhole-md.webp';
+import imgLonglens from '../images/post-10-longlens-md.webp';
+import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
+import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+
+Aprende cómo funciona una cámara construyendo tus propios objetivos de estenopo y usándolos para rodar tu propia película.
+
+## ¿Así que quieres construir una cámara?
+
+¡Hola! ¿Me han dicho que quieres construir tu propia cámara? ¡Genial! Si quisieras hacerlo completamente analógico, como en los viejos tiempos, podrías hacerlo perfectamente. Las cámaras digitales son difíciles de construir en casa, pero son estupendas porque puedes ver los resultados al instante.
+
+Sin embargo, puedes construir la óptica tú mismo, y una vez que domines eso, puedes conseguir película fotográfica y un cuarto oscuro para construir el resto de la cámara.
+
+¿Qué tal si vas a buscar una cámara digital y empezamos? ¿Trato? ¡Genial!
+
+Solo asegúrate de coger una cámara con un objetivo desmontable, de lo contrario, al dueño de la cámara puede que no le haga mucha gracia que le rompas el objetivo; ¡los cristales rotos también son peligrosos!
+
+Debería verse así:
+
+<figure>
+  <Image src={imgEOSR5} alt="Cámara digital con el objetivo retirado" style="width:100%" />
+  <figcaption>Una cámara digital sin objetivo</figcaption>
+</figure>
+
+Si es una cámara sin espejo, podrás ver el sensor. Si es una DSLR (Réflex Digital de un solo objetivo) más antigua, verás un espejo en el interior y el sensor estará detrás de él. El sensor es la parte de la cámara que es sensible a la luz; convierte la luz que recibe en una imagen digital que puedes ver en tu ordenador. ¡Intenta no tocarlo ni ensuciarlo!
+
+Debes configurar tu cámara para que muestre directamente en la pantalla trasera lo que el sensor ve. Algunas cámaras lo hacen automáticamente. Otras (por ejemplo, las DSLR de Canon) pueden quejarse de que falta el objetivo. A menudo puedes simplemente omitir el aviso y funcionará de todos modos.
+
+## ¿Quién necesita un objetivo?
+
+Cuando miras una cámara, ¿qué ves? El objetivo, ¿verdad? Ese gran trozo de vidrio que te mira fijamente cuando intentas grabar un TikTok. Incluso tu teléfono tiene un objetivo, aunque sea mucho más pequeño. Cuando piensas en una cámara, lo primero en lo que piensas es en el objetivo, ¿a que sí?
+
+¿Entonces qué dirías si te dijera que, en sentido estricto, el objetivo es completamente innecesario? Definitivamente necesitas algo para capturar la imagen: el sensor digital o un trozo de película fotográfica. Pero en realidad *no necesitas* un objetivo. ¿Una locura, verdad?
+
+Entonces, paso uno. Simplemente quitemos el objetivo y veamos qué pasa. La mejor manera de averiguar qué hace algo es ver qué pasa sin ello, ¿no?
+
+Quita el objetivo, levanta la cámara y trata de grabar algo. ¿Qué ves en la pantalla? Probablemente veas algo así:
+
+<figure>
+  <Image src={imgWhitescreen} alt="Pantalla blanca en la parte trasera de una cámara digital" style="width:100%" />
+  <figcaption>La pantalla trasera de una cámara digital mostrando una pantalla completamente blanca (sobreexpuesta)</figcaption>
+</figure>
+
+El sensor es sensible a la luz y, sin nada delante, toda la luz reflejada por nuestra escena cae directamente sobre él. El sensor es tan sensible que cada parte recibe más que la cantidad máxima de luz que puede registrar, por lo que simplemente obtenemos una pantalla blanca.
+
+Lo que queremos es que la luz de una parte de nuestra escena solo caiga sobre una parte del sensor. Por ejemplo, imagina que hay una flor roja en nuestra escena. Si vamos a ver una flor roja en nuestra imagen, la luz roja que la flor refleja debe llegar al sensor solo en el lugar donde la flor aparecerá en la imagen. Pero ahora mismo no es así. La luz de la flor está golpeando cada parte del sensor.
+
+Puedes ver esto en las primeras dos diapositivas de la animación siguiente.
+
+<LightRayAnimation />
+
+## ¡El estenopo al rescate!
+
+¿Entonces qué pasa si ponemos papel de aluminio con un pequeño agujero delante de nuestro sensor? Pues… el papel bloqueará la mayor parte de la luz de nuestra escena; por lo que el interior de la cámara estará mucho más oscuro y el sensible sensor no se verá saturado de luz. Pero, más importante aún, solo permitirá que la luz de la flor roja llegue al sensor en un único punto. Cualquier luz roja que vaya hacia otras partes del sensor será bloqueada por el aluminio.
+
+Puedes ver cómo funciona esto en la diapositiva 3 de la animación. Ahora la luz de las flores rojas y blancas está separada y cae sobre diferentes partes del sensor.
+
+## ¡Pruébalo tú mismo!
+
+¿Por qué no lo intentas? Todo lo que necesitas es…
+
+- Un trozo de papel de aluminio de cocina
+- Un alfiler; cuanto más fino, mejor
+- Un poco de cinta para fijar el papel de aluminio sobre la cámara
+- Una cámara digital con objetivo desmontable
+
+Haz el agujero más pequeño que puedas en el papel de aluminio y usa la cinta para pegarlo sobre la apertura de la cámara de modo que no entre luz; ten cuidado de no tocar el sensor ni ensuciar nada. Debería verse así:
+
+<figure>
+  <Image src={imgPinhole} alt="Cámara digital con papel de aluminio pegado en la parte delantera" style="width:100%" />
+  <figcaption>Cámara digital con papel de aluminio pegado en la parte delantera</figcaption>
+</figure>
+
+Ahora sal al exterior y enciende tu cámara. Esto funciona mejor en un día soleado alrededor del mediodía. ¿Ves algo? La imagen estará muy oscura, así que sube tu cámara al máximo ajuste de ISO. El «ISO» controla la sensibilidad de la cámara a la luz; quieres ponerlo al máximo y luego reducirlo si la imagen es demasiado brillante.
+
+Si no ves nada en la pantalla, puede ser que no tengas el ISO suficientemente alto o que el ISO máximo de la cámara no sea lo bastante alto. Para comprobarlo, apunta la cámara hacia algo brillante como una bombilla (¡no el sol!). Deberías ver una imagen de la bombilla, aunque todo lo demás esté oscuro.
+
+¡Felicidades! ¡Acabas de construir tu propio «objetivo»! Apuesto a que fue más fácil de lo que esperabas.
+
+## ¿Puedo hacer diferentes tipos de «objetivos» de estenopo?
+
+¡Sí! La mayor diferencia entre un objetivo y otro es la longitud. Algunos son muy cortos y otros muy largos. ¡Compara estos dos!
+
+<figure>
+  <Image src={imgLonglens} alt="Comparación de objetivos de 600mm y 10mm" style="width:100%" />
+  <figcaption>Comparación de objetivos de 600mm y 10mm</figcaption>
+</figure>
+
+¿Qué diferencia hace la longitud del objetivo? Echa un vistazo a la animación interactiva siguiente. Puedes cambiar la distancia entre el sensor de la cámara y el agujero arrastrando el control deslizante…
+
+<PinholeBarrelSimulator />
+
+¿Puedes ver que, a medida que el tubo del objetivo se alarga, los rayos de luz tienen que ser más paralelos para llegar al sensor? Eso significa que solo la parte central de la escena es visible y la imagen de la calabaza se hace más grande. Si haces el tubo tan largo como sea posible, solo el área entre los ojos de la calabaza es visible. Si lo haces tan corto como sea posible, la calabaza es tiny.
+
+Puedes hacer esto tú mismo encontrando un tubo que puedas pegar en la parte delantera de la cámara y luego pegando el papel de aluminio con el agujero en el extremo. Si el tubo es brillante o de color claro, asegúrate de forrar el interior con papel negro. De lo contrario, la luz se reflejará en los lados y estropeará la imagen.
+
+Pero ten cuidado de no hacer el tubo demasiado largo. Cuanto más largo sea, más oscura se volverá la imagen, ¡así que puede que no veas nada si lo haces demasiado largo! Aquí hay uno que hicimos con una lata de café. Perforamos un agujero en un extremo, que cubrimos con papel de aluminio. El agujero no es demasiado grande, así que podemos taparlo con un poco de cinta y volver a poner la lata en servicio en la cocina cuando hayamos terminado.
+
+<figure>
+  <Image src={imgCoffeelens} alt="Objetivo de estenopo de 200mm construido con una lata de café" style="width:100%" />
+  <figcaption>Objetivo de estenopo de 200mm construido con una lata de café</figcaption>
+</figure>
+
+## ¡Ahora te toca a ti!
+
+¡Ahora sabes cómo construir tu propio objetivo! ¿De qué más podrías hacer un objetivo? ¿Cuál es el objetivo más largo que puedes hacer y aún obtener una imagen? ¿No te parece increíble que puedas construir tu propio objetivo con nada más que un tubo y papel de aluminio?? 🤯🤯

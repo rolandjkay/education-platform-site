@@ -1,0 +1,232 @@
+---
+title: "Física: Todo lo que necesitas saber sobre las lentes"
+description: "¿Alguna vez te has preguntado cómo una sola lente puede convertirse en una cámara, un microscopio o incluso una lupa? ¡Vamos a explicarlo de una forma que tenga sentido y sea mucho más divertida que leer un libro de texto!"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["physics", "optics", "lenses"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+¿Alguna vez te has preguntado cómo una sola lente puede convertirse en una cámara, un microscopio o incluso una lupa? ¡Vamos a explicarlo de una forma que tenga sentido y sea mucho más divertida que leer un libro de texto!
+
+## ¡Juega con nuestro Simulador de Lentes!
+
+Antes de entrar en los detalles, prueba el Simulador de Lentes aquí abajo:
+
+1. La **flecha roja** es el objeto que estás fotografiando.
+2. La **flecha verde** es la imagen formada por la lente, como lo que ves en la pantalla de una cámara.
+
+**Prueba esto:** Arrastra la flecha roja hacia la izquierda o la derecha y observa cómo cambia la imagen (la flecha verde).
+
+<ConvexLensEmbed />
+
+## Compártelo con tus amigos
+
+Si tú o tus amigos estáis estudiando física y óptica, esta herramienta es perfecta para entender las lentes — muestra directamente los principios del temario — y construir tus propios proyectos geniales es mucho más divertido que estudiar desde los apuntes.
+
+No olvides seguirnos en las redes sociales y suscribirte a nuestra lista de correo para obtener más trucos científicos interesantes.
+
+## ¿Listo para explorar?
+
+### Aquí están todos los detalles…
+
+Si nos has seguido recientemente en las redes sociales, habrás visto que hemos publicado mucha fotografía «macro»; la fotografía «macro» significa tomar fotos de cosas muy pequeñas. Algunos de nuestros vídeos son de cosas que miden solo un par de milímetros, lo que va más allá de la fotografía macro y se parece más a construir un microscopio.
+
+**Convirtiendo una pequeña suculenta en un monstruo:**
+
+<iframe title="Fotografía macro: convirtiendo una pequeña suculenta en un monstruo" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Microscopio casero:**
+
+<iframe title="Vídeo de microscopio casero" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Algunos de nuestros vídeos han sido exactamente lo contrario; usando un objetivo de cámara para proyectar una vieja diapositiva en color sobre un edificio o pequeños objetos, como una hoja o un pequeño frasco con escamas de oro sobre el lienzo de un pintor.
+
+Próximamente publicaremos vídeos usando un objetivo de cámara como lupa y una lupa como objetivo de cámara.
+
+**Proyectando una hoja:**
+
+<iframe title="Proyectando una hoja usando un objetivo de cámara" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Proyectando una diapositiva en una pared:**
+
+<iframe title="Proyectando una diapositiva en una pared usando un objetivo de cámara" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Usando un objetivo como lupa:**
+
+<iframe title="Usando un objetivo de cámara como lupa" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### ¿Cuál es la conexión entre un microscopio, una cámara, una lupa y un proyector?
+
+¿Qué está pasando aquí? ¿Cómo podemos usar un objetivo de cámara para hacer todas estas cosas tan diferentes?
+
+Si ya has jugado con el Simulador de Lentes, puede que hayas notado que podemos hacer la imagen tan pequeña o tan grande como queramos, y podemos colocarla en el mismo lado de la lente que el objeto, o en el lado opuesto. Todo depende de la distancia entre el objeto y la lente.
+
+Profundicemos en los detalles para entender qué está ocurriendo.
+
+## Revisitando la cámara de estenopo
+
+Es muy útil recordar nuestra cámara de estenopo. Las lentes pueden hacer las cosas parecer complicadas, pero gran parte de la física es exactamente la misma en una cámara de estenopo y es mucho más fácil entender lo que está pasando. Si tienes tiempo, echa un vistazo a nuestro artículo sobre [construir tu propia cámara de estenopo](/articles/pinhole-camera).
+
+Aquí está la aplicación de ese artículo — arrastra el control deslizante y observa cómo alargar el tubo, que es lo mismo que alejar el sensor de la apertura (el agujero), aumenta la magnificación y hace la imagen más grande.
+
+<PinholeBarrelSimulator />
+
+En la aplicación anterior, puedes ver que los rayos de luz que provienen de diferentes partes de la imagen divergen; se alejan entre sí a medida que viajan del objeto al sensor. Por lo tanto, si los hacemos viajar más lejos, alejando el sensor del agujero, se esparcen más y la imagen se hace más grande.
+
+Nota también que, si acercas el objeto al agujero, la imagen también se hace más grande. Cuanto más cerca esté el objeto, más pronunciado es el ángulo del rayo de luz que pasa por el agujero. Un rayo que entra con un ángulo más pronunciado recorre una mayor distancia vertical en la misma distancia horizontal en comparación con un rayo que entra con un ángulo más suave, lo que resulta en una imagen más grande.
+
+<SensorDistanceDiagram />
+
+## ¿Qué pasa cuando añadimos una lente?
+
+Lo mismo es cierto cuando usamos una lente; si queremos mayor magnificación debemos alejar el sensor de la lente, o acercar el objeto, o ambas cosas — por eso podemos construir un microscopio envolviendo el objetivo de la cámara en un tubo de cartón, aumentando la distancia entre la lente y el sensor.
+
+El enfoque no es un problema con una cámara de estenopo; la imagen estará enfocada independientemente de la distancia entre el objeto y la apertura y la distancia entre la apertura y el sensor.
+
+Esto no ocurre cuando se usa una lente. Una lente funciona enfocando (curvando) los rayos de luz que emanan de un punto del objeto para que vuelvan a juntarse y formen la imagen. Los rayos solo se juntan a cierta distancia de la lente; demasiado cerca y no habrán viajado suficiente distancia para juntarse; demasiado lejos y ya se habrán juntado y habrán comenzado a separarse de nuevo.
+
+<SensorFocusDiagram />
+
+<iframe title="Demostración de cómo una lente enfoca los rayos de luz" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Entonces, si intentamos alejar el sensor de la lente para hacer la imagen más grande, sí se hará más grande, pero también se desenfocará cada vez más.
+
+Si queremos una imagen nítida, necesitamos averiguar dónde se juntan los rayos y colocar el sensor ahí. Y así, si queremos hacer la imagen más grande, necesitamos mover el objeto de modo que los rayos se junten **más lejos** de la lente. La mayor distancia de la lente nos dará entonces la magnificación extra que deseamos.
+
+## Lentes convexas y cóncavas
+
+El tipo de lente utilizado en cámaras y lupas se llama lente «convexa»; eso simplemente significa que es más gruesa en el centro que en los bordes. Las lentes convexas doblan la luz de modo que los rayos vuelven a juntarse y forman una imagen, por eso son tan útiles en fotografía.
+
+Lo opuesto de una lente convexa se llama lente «cóncava». Son delgadas en el centro y gruesas en los bordes y doblan los rayos de luz de modo que se separan.
+
+<ConvexConcaveDiagram />
+
+Hoy hablamos de lentes convexas, así que podemos olvidarnos de las cóncavas por ahora.
+
+Por cierto, puede que hayas notado que los «objetivos» de las cámaras reales suelen estar formados por muchas lentes de vidrio individuales, algunas de las cuales pueden ser convexas y otras cóncavas. Juntas, sin embargo, tienen el mismo efecto que una única lente convexa, así que podemos tratarlas simplemente como una sola lente convexa.
+
+### ¿Qué hay de nuestro Simulador de Lentes?
+
+En el Simulador de Lentes, la flecha roja representa el objeto que estamos fotografiando. La flecha verde es la imagen que se forma cuando los rayos de luz que provienen de un punto del objeto vuelven a juntarse.
+
+La característica definitoria de un objetivo de cámara es su «distancia focal». Cuando la gente habla de sus objetivos, a menudo los describes como «objetivo de 50mm» o «objetivo de 100mm». Están hablando de la distancia focal, aunque no lo sepan 😉
+
+Lo que la distancia focal te dice realmente es con qué fuerza la lente dobla la luz; te dice la distancia detrás de la lente a la que los rayos de luz que viajan paralelos al eje de la lente serán reunidos. Un objetivo de 50mm reunirá los rayos paralelos a 50mm detrás de la lente, mientras que para un objetivo de 100mm, esta distancia será de 100mm. El punto en el que se reúnen los rayos paralelos se llama «punto focal»; este punto está marcado como «F» en el Simulador de Lentes.
+
+<FocalLengthDiagram />
+
+Además de los puntos focales «F», también hemos marcado puntos que están el doble de la distancia focal a cada lado de la lente. Así, por ejemplo, para un objetivo de 50mm, los dos puntos marcados como «F» están a 50mm delante y detrás de la lente, y los marcados como «2F» están a 100mm delante y detrás de la lente.
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="Dos rayos importantes que pasan por la lente" style="width:100%;border-radius:8px" />
+  <figcaption>Dos rayos importantes que pasan por la lente</figcaption>
+</figure>
+
+Las líneas naranja y azul representan dos rayos de luz que provienen de la punta de la flecha. Hemos elegido estos dos rayos de luz porque es fácil calcular qué les ocurre cuando golpean la lente.
+
+Recuerda estas dos reglas:
+
+1. Un rayo que golpea el centro de la lente continuará en línea recta, sin ser desviado.
+2. Un rayo que viaja paralelo al eje de la lente será desviado de modo que pase por el «punto focal principal» de la lente; ese es el punto «F» detrás de la lente.
+
+Estas reglas significan que sabemos dónde se cruzarán el rayo naranja y el azul, y podemos ver dónde debe estar la imagen de la punta de la flecha. Sabemos que la base de la flecha estará en el eje, así que podemos dibujar la imagen de la flecha desde el eje hasta el punto donde se cruzan estos dos rayos. Todos los demás rayos que provengan de la punta de la flecha se cruzarán en el mismo lugar.
+
+Intenta arrastrar el objeto hacia la izquierda y la derecha y observa qué le ocurre a la imagen.
+
+## Explicación
+
+Para entender lo que está pasando, es mejor empezar pensando en lo que ocurre cuando el objeto está en «2F»; exactamente el doble de la distancia focal de la lente. Luego podemos pensar en lo que ocurre cuando lo acercamos o alejamos.
+
+### El objeto está exactamente en 2F
+
+¿Puedes ver la simetría que se produce cuando el objeto está a una distancia exactamente de 2F de la lente? Si pudieras coger tu ordenador y girarlo 180°, verías que nada ha cambiado, excepto que el objeto y la imagen han intercambiado posiciones.
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="La simetría que se produce cuando el objeto está en 2F" style="width:100%;border-radius:8px" />
+  <figcaption>La simetría que se produce cuando el objeto está en 2F</figcaption>
+</figure>
+
+Esto se debe a que la pendiente (inclinación) de los rayos azules es exactamente el doble que la del rayo naranja; el rayo naranja recorre una distancia igual a la altura del objeto en una distancia de 2F, mientras que el rayo azul (no paralelo) recorre la misma distancia vertical en solo F. Sin embargo, el rayo azul es horizontal durante una distancia de 2F. Como resultado, ambos rayos recorren una distancia total de 4F para viajar una distancia vertical del doble de la altura del objeto, y así se reúnen a la misma distancia detrás de la lente que el objeto está delante.
+
+Debido a la simetría, el objeto y la imagen tienen exactamente el mismo tamaño. Esto es útil para la «fotografía macro». Por ejemplo, un abejorro grande es aproximadamente del tamaño del sensor de la cámara, así que a 2F de la lente, ocuparía la mayor parte del encuadre.
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="Fotografía macro de un abejorro" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Fotografía macro de un abejorro — Foto de Michelle Reeves</figcaption>
+</figure>
+
+La mayoría de los objetivos de cámara no pueden moverse tan lejos como el doble de la distancia focal del sensor; necesitas alejar el objetivo tú mismo, usando un «tubo de extensión» o un simple tubo de cartón.
+
+### El objeto está más lejos que 2F
+
+Cuando el objeto está más lejos de la lente que 2F, la pendiente de la línea naranja es menor que cuando el objeto está en 2F. Cuanto más lejos está el objeto, más cerca del eje está el rayo naranja, y así la línea azul lo cruza más cerca de la lente y la imagen es más pequeña que el objeto.
+
+Esta es la configuración habitual en una cámara; cuando haces una foto de familia, quieres que la imagen de todos quepa en un sensor que solo tiene un par de centímetros de ancho, así que quieres que la imagen sea más pequeña que la realidad.
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="Mantener a la familia más lejos que 2F para una foto" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Mantener a la familia más lejos que 2F para una foto — Foto de RDNE Stock project</figcaption>
+</figure>
+
+### El objeto está entre 2F y F
+
+Ahora la línea naranja es mucho más pronunciada; las dos líneas se cruzan mucho más lejos detrás de la lente y la imagen es mucho más grande que el objeto.
+
+Esto es fotografía macro; estamos fotografiando cosas mucho más pequeñas que el sensor y ampliándolas para llenar el encuadre. Por ejemplo, esta pequeña suculenta, que en la realidad mide solo unos centímetros, ¡parece un monstruo!
+
+<iframe title="Fotografía macro: suculenta ampliada para llenar el encuadre" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Si acercamos el objeto aún más a F, la imagen se vuelve muy grande. De hecho, a medida que nos acercamos a F se vuelve enorme. También se aleja mucho más de la lente. Esto es útil si queremos proyectar una imagen en un edificio; ¡la imagen podría estar a decenas de metros de la lente y ser gigantesca!
+
+<iframe title="Proyectando una diapositiva en una pared usando un objetivo de cámara" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+A medida que el objeto se acerca a F, la imagen se desplaza **mucho** más atrás y se vuelve mucho más grande. Ahora hemos construido un microscopio y podemos ver cosas demasiado pequeñas para verlas a simple vista. Por ejemplo, esta cabeza de insecto, que mide aproximadamente 1mm de ancho.
+
+<iframe title="Microscopio casero: cabeza de insecto ampliada" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### El objeto está más cerca que F
+
+Ahora la línea naranja es más pronunciada que la azul; nunca se cruzan. Sin embargo, para un observador en el lado derecho mirando a través de la lente, los rayos parecen provenir de un punto detrás del objeto. Esto se llama imagen «virtual». Una imagen «virtual» no puede proyectarse sobre un papel o el sensor de la cámara, pero parece real para alguien que mira a través de la lente.
+
+¿Has notado alguna vez que, cuando miras texto a través de una lupa, las letras se hacen más grandes a medida que alejas la lupa del papel y luego desaparecen de repente? Eso es porque la imagen se hace más grande a medida que te acercas a F, y luego desaparece al infinito en el momento en que alcanzas F.
+
+<figure>
+  <Image src={bannerImg} alt="Poniendo texto más cerca de un objetivo de cámara que F, para poder usarlo como lupa" style="width:100%;border-radius:8px" />
+  <figcaption>Poniendo texto más cerca de un objetivo de cámara que F, para poder usarlo como lupa</figcaption>
+</figure>
+
+### El objeto está exactamente en F
+
+Este es el caso menos interesante: las líneas naranja y azul son exactamente paralelas; nunca se cruzan y no parecen cruzarse en ningún lugar, así que no hay imagen.
+
+## Gráfica de magnificación
+
+¡No te estreses demasiado con las gráficas y fórmulas! Sin embargo, es útil ver una gráfica de cómo cambia la magnificación de la imagen a medida que movemos el objeto. Por «magnificación» entendemos cuánto más grande es la imagen que el objeto; una magnificación de *m*=2 significa que la imagen es el doble de grande. Una magnificación de *m*=0,5 significa que la imagen es la mitad del tamaño del objeto.
+
+Probablemente notaste al jugar con el Simulador de Lentes que, al acercarse a F con el objeto, la imagen se hace muy grande muy rápidamente. Puedes verlo en la gráfica; *m* aumenta lentamente a medida que la distancia desde la lente (*u*) se acerca a la distancia focal (*f*=100mm) y luego explota cuando nos acercamos mucho.
+
+<MagnificationGraph />
+
+## Te toca a ti
+
+¡Ahora entiendes cómo funcionan las lentes convexas! ¿Qué proyectos geniales puedes crear con ellas? Puedes conseguir objetivos viejos de forma barata en eBay o en tiendas de cámaras vintage. Si quieres inspiración, ¿por qué no sigues nuestras redes sociales o te suscribes a nuestra lista de correo?
