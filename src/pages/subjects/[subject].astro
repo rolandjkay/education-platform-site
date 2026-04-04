@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+
+export async function getStaticPaths() {
+  const subjects = ['maths', 'science', 'finance', 'filmmaking'] as const;
+  return subjects.map(subject => ({ params: { subject } }));
+}
+
+const subjectMeta: Record<string, { label: string; description: string }> = {
+  maths:      { label: 'Maths',       description: 'From elegant proofs to the numbers that appear everywhere in nature — maths as it was meant to be understood.' },
+  science:    { label: 'Science',     description: 'Physics, optics, and the science behind the world around you — explored with interactive tools.' },
+  finance:    { label: 'Finance',     description: 'How money actually works: compound interest, valuation, risk, and the maths behind smart decisions.' },
+  filmmaking: { label: 'Filmmaking',  description: 'Cameras, lenses, light, and storytelling — the craft and science of making films.' },
+};
+
+const { subject } = Astro.params;
+const meta = subjectMeta[subject];
+
+const articles = (await getCollection('articles'))
+  .filter(a => !a.data.draft && a.data.subjects.includes(subject as any))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const apps = (await getCollection('apps'))
+  .filter(a => a.data.subjects?.includes(subject as any));
+
+const projects = (await getCollection('projects'))
+  .filter(p => p.data.subjects?.includes(subject as any))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title={meta.label}
+  description={meta.description}
+>
+  <div class="container">
+    <header class="page-header">
+      <p class="page-header__eyebrow"><a href="/">Online Learning</a></p>
+      <h1 class="page-header__title">{meta.label}</h1>
+      <p class="page-header__description">{meta.description}</p>
+    </header>
+
+    {articles.length > 0 && (
+      <section class="subject-section">
+        <h2 class="subject-section__heading">Articles</h2>
+        <CardGrid>
+          {articles.map((article, i) => (
+            <Card
+              title={article.data.title}
+              description={article.data.description}
+              href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}
+              image={article.data.heroImage}
+              tag={article.data.tags?.[0]}
+              date={article.data.pubDate}
+              loading={i < 3 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </CardGrid>
+      </section>
+    )}
+
+    {apps.length > 0 && (
+      <section class="subject-section">
+        <h2 class="subject-section__heading">Interactive Apps</h2>
+        <CardGrid>
+          {apps.map((app, i) => (
+            <Card
+              title={app.data.title}
+              description={app.data.description}
+              href={`/apps/${app.id.replace(/\.mdx?$/, '')}`}
+              loading={i < 3 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </CardGrid>
+      </section>
+    )}
+
+    {projects.length > 0 && (
+      <section class="subject-section">
+        <h2 class="subject-section__heading">Projects</h2>
+        <CardGrid>
+          {projects.map((project, i) => (
+            <Card
+              title={project.data.title}
+              description={project.data.description}
+              href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
+              image={project.data.heroImage}
+              loading={i < 3 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </CardGrid>
+      </section>
+    )}
+
+    {articles.length === 0 && apps.length === 0 && projects.length === 0 && (
+      <p class="empty-state">Nothing here yet — check back soon.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header__eyebrow a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .page-header__eyebrow a:hover {
+    text-decoration: underline;
+  }
+
+  .subject-section {
+    margin-bottom: 4rem;
+  }
+
+  .subject-section__heading {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 4rem 0;
+    font-family: var(--font-sans);
+  }
+</style>

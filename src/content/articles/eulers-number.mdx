@@ -1,0 +1,131 @@
+---
+title: "Why is Euler's number 2.71828...?"
+description: "It shows up in nature, in finance, in physics, and at the heart of calculus. But where does e come from, and why is it that specific, slightly odd number? The answer starts with a question about money."
+pubDate: 2025-01-15
+subjects: [maths]
+tags: ["maths", "calculus", "euler", "exponentials"]
+---
+
+There's a number that turns up absolutely everywhere in mathematics. You'll find it in the formula for how populations grow, how radioactive atoms decay, how heat spreads through a material, and — as we'll see — buried inside the compound interest formula from our article on the [time value of money](/articles/time-value-of-money).
+
+That number is **e**, and it's approximately 2.71828.
+
+But why that number? Why not 3, or 2.5, or some other tidy value? The answer is surprisingly satisfying — and it starts with a question about a bank.
+
+## The world's most generous bank
+
+Imagine a bank that pays 100% interest per year. (Stick with us — it's a thought experiment.) You deposit £1. After one year, you have:
+
+$$
+£1 \times (1 + 1)^1 = £2
+$$
+
+Not bad. Now suppose instead the bank compounds twice a year — 50% every six months:
+
+$$
+£1 \times \left(1 + \frac{1}{2}\right)^2 = 1.5^2 = £2.25
+$$
+
+Even better. What if they compound quarterly — 25% every three months?
+
+$$
+£1 \times \left(1 + \frac{1}{4}\right)^4 = 1.25^4 \approx £2.4414
+$$
+
+You can see where this is going. The more frequently the bank compounds, the more you end up with. So what if they compound *every second*, or *every millisecond*, or even *continuously* — infinitely often?
+
+Let's see what happens as we increase the number of compounding periods, $n$:
+
+| Compounding periods ($n$) | Formula | Result |
+|---|---|---|
+| 1 (annually)    | $(1 + 1)^1$          | 2.00000 |
+| 2 (twice/year)  | $(1 + ½)^2$          | 2.25000 |
+| 4 (quarterly)   | $(1 + ¼)^4$          | 2.44141 |
+| 12 (monthly)    | $(1 + 1/12)^{12}$    | 2.61304 |
+| 52 (weekly)     | $(1 + 1/52)^{52}$    | 2.69260 |
+| 365 (daily)     | $(1 + 1/365)^{365}$  | 2.71457 |
+| 8760 (hourly)   | $(1 + 1/8760)^{8760}$| 2.71813 |
+| 1,000,000       | $(1 + 1/n)^n$        | 2.71828 |
+
+The values are converging. They're creeping up, but they're clearly heading somewhere — and that somewhere is **e**.
+
+## The definition of e
+
+Mathematically, $e$ is defined as the limit of that expression as $n$ goes to infinity:
+
+$$
+e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n \approx 2.71828...
+$$
+
+This is where $e$ *comes from*. It's not a number someone invented. It's the number that falls out naturally when you ask: "what happens to compound interest if you compound it infinitely often?"
+
+## Why does it keep showing up everywhere?
+
+Here's the deeper reason $e$ is so important — and it's one of those ideas that, once you see it, stays with you forever.
+
+$e$ is the unique number such that the function $e^x$ is its own derivative. In other words:
+
+$$
+\frac{d}{dx} e^x = e^x
+$$
+
+If you've not met calculus yet, here's what that means in plain English: $e^x$ is the only function whose *rate of change* at any point is equal to its *value* at that point. The bigger it gets, the faster it grows — and it grows at exactly the right rate to keep that relationship true.
+
+This is why $e$ shows up wherever growth or decay is proportional to current size:
+
+- **Populations** grow faster when there are more individuals to reproduce.
+- **Radioactive atoms** decay at a rate proportional to how many atoms remain.
+- **Investments** grow proportionally to their current value (compound interest).
+- **Heat** dissipates at a rate proportional to the temperature difference.
+
+All of these follow the same underlying pattern, and all of them involve $e$.
+
+## The exponential function in action
+
+When a quantity grows continuously at a constant rate $r$, its value after time $t$ is:
+
+$$
+A = A_0 \cdot e^{rt}
+$$
+
+where $A_0$ is the starting amount. Compare this with the compound interest formula from the time value of money:
+
+$$
+FV = PV \times (1 + r)^n
+$$
+
+These are the same idea, just expressed differently. When compounding happens continuously rather than at fixed intervals, $(1 + r)^n$ becomes $e^{rt}$. The connection is exact.
+
+## e is irrational (and transcendental)
+
+Like $\pi$, $e$ is irrational — it cannot be written as a fraction, and its decimal expansion goes on forever without repeating. In fact, $e$ is even more "unusual" than that: it is **transcendental**, which means it is not the solution to any polynomial equation with integer coefficients. In other words, $e$ isn't just hard to write down — it's fundamentally unlike the sorts of numbers that come out of ordinary algebra.
+
+We can write $e$ as an infinite sum, which converges remarkably quickly:
+
+$$
+e = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \cdots = \sum_{k=0}^{\infty} \frac{1}{k!}
+$$
+
+Let's check the first few terms:
+
+$$
+1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} = 2.71667...
+$$
+
+Just six terms gets us to within 0.001 of the true value. The factorials in the denominator make the terms shrink so fast that the series converges almost immediately.
+
+## Euler's identity: the most beautiful equation in mathematics
+
+We'd be doing $e$ a disservice if we didn't mention what is often called the most beautiful equation in mathematics:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+This is **Euler's identity**, and it connects five of the most fundamental constants in all of mathematics — $e$, $i$ (the imaginary unit, $\sqrt{-1}$), $\pi$, 1, and 0 — in a single, impossibly elegant equation. If that feels like magic, that's because it kind of is.
+
+We'll save the full explanation for another article. For now, just appreciate that the strange number 2.71828... sits at the centre of some of the most profound mathematics ever discovered.
+
+## Over to you
+
+Next time you see exponential growth mentioned in the news — a virus spreading, a country's debt compounding, a technology improving at pace — you'll know what's really going on underneath. It's $e$, doing what it always does.

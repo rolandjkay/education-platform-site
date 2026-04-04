@@ -2,6 +2,7 @@
 title: "Pin-hole Camera Simulator"
 description: "Adjust the pinhole size and see how it affects sharpness and brightness of the projected image. Demonstrates the physics of image formation without a lens."
 appType: canvas
+subjects: [science, filmmaking]
 ---
 
 Explore how changing the distance of the pinhole from the sensor affects the magnification of the image.

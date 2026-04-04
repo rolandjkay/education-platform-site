@@ -2,6 +2,7 @@
 title: "Convex Lens Simulator"
 description: "Drag an object to any position relative to a convex lens and see the image form in real time. Demonstrates the thin lens equation and ray diagrams for GCSE Physics."
 appType: canvas
+subjects: [science, filmmaking]
 ---
 
 An interactive ray diagram tool for exploring how a convex (converging) lens forms images.

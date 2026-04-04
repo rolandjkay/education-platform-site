@@ -15,32 +15,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Explore science through interactive apps, learn filmmaking with hands-on
         project guides, and dive into educational articles.
       </p>
-      <nav class="hub-hero__nav" aria-label="Content sections">
-        <a href="/articles" class="btn btn--primary">Articles</a>
-        <a href="/projects" class="btn btn--outline">Projects</a>
-        <a href="/apps" class="btn btn--outline">Interactive Apps</a>
-      </nav>
     </div>
   </section>
 
   <div class="container">
-    <nav class="hub-grid" aria-label="Content section cards">
-      <a href="/articles" class="hub-card">
+    <nav class="hub-grid" aria-label="Subjects">
+      <a href="/subjects/maths" class="hub-card">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <line x1="12" y1="3" x2="12" y2="21"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </div>
-        <div class="hub-card__title">Articles</div>
+        <div class="hub-card__title">Maths</div>
         <p class="hub-card__description">
-          In-depth science and filmmaking articles, from GCSE physics to
-          camera optics, written for curious young learners.
+          From Euler's number to the logic of proof — maths as it was meant to be understood.
         </p>
-        <span class="hub-card__cta">Browse articles →</span>
+        <span class="hub-card__cta">Browse Maths →</span>
       </a>
 
-      <a href="/projects" class="hub-card">
+      <a href="/subjects/science" class="hub-card">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="2"/>
+            <ellipse cx="12" cy="12" rx="10" ry="2.5"/>
+            <ellipse cx="12" cy="12" rx="10" ry="2.5" transform="rotate(60 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="2.5" transform="rotate(120 12 12)"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">Science</div>
+        <p class="hub-card__description">
+          Physics, optics, and the science behind the world around you — with interactive tools.
+        </p>
+        <span class="hub-card__cta">Browse Science →</span>
+      </a>
+
+      <a href="/subjects/finance" class="hub-card">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="22"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">Finance</div>
+        <p class="hub-card__description">
+          How money actually works: compound interest, valuation, and the maths behind smart decisions.
+        </p>
+        <span class="hub-card__cta">Browse Finance →</span>
+      </a>
+
+      <a href="/subjects/filmmaking" class="hub-card">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4a2 2 0 0 1 2.5 1.3Z"/>
@@ -49,27 +74,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
           </svg>
         </div>
-        <div class="hub-card__title">Projects</div>
+        <div class="hub-card__title">Filmmaking</div>
         <p class="hub-card__description">
-          Step-by-step filmmaking and creative projects you can do at home —
-          from music videos to animation and beyond.
+          Cameras, lenses, light, and storytelling — the craft and science of making films.
         </p>
-        <span class="hub-card__cta">Browse projects →</span>
-      </a>
-
-      <a href="/apps" class="hub-card">
-        <div class="hub-card__icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4.25" y="3.5" width="3.5" height="17" fill="none"/>
-            <polygon points="11,3 24,12 11,21" fill="none" stroke="currentColor"/>
-          </svg>
-        </div>
-        <div class="hub-card__title">Interactive Apps</div>
-        <p class="hub-card__description">
-          Hands-on physics simulators — drag objects, adjust apertures, and
-          watch the science happen in real time.
-        </p>
-        <span class="hub-card__cta">Open apps →</span>
+        <span class="hub-card__cta">Browse Filmmaking →</span>
       </a>
     </nav>
   </div>
