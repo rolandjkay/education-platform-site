@@ -40,7 +40,7 @@ export default class TopBar
             // by the placeholder). Reveal it only while in fullscreen so the user
             // has a way to exit.
             if (window.matchMedia('(pointer: coarse)').matches) {
-                fsBtn.style.display = isFs ? '' : 'none';
+                fsBtn.style.display = isFs ? 'block' : 'none';
             }
 
             // Let Sizes re-measure the canvas now it has new dimensions
