@@ -1,8 +1,27 @@
 ---
 ---
 
-<div class="f-numbers-container">
+<div class="f-numbers-container" id="f-numbers-container">
   <canvas class="webgl" aria-label="Interactive f-numbers and depth of field 3D simulator"></canvas>
+
+  <div class="mobile-placeholder" id="mobile-placeholder">
+    <!--
+      TODO: add a screenshot of the app as a background image here once available.
+      Set it as a CSS background-image on .mobile-placeholder, e.g.:
+        background-image: url('/apps/f-numbers/preview.webp');
+        background-size: cover;
+        background-position: center;
+    -->
+    <div class="placeholder-content">
+      <p class="placeholder-title">F-Numbers &amp; Depth of Field Simulator</p>
+      <p class="placeholder-desc">An interactive 3D simulator — best experienced fullscreen in landscape mode.</p>
+      <button class="launch-btn" id="launch-btn">&#9654; Launch App</button>
+    </div>
+  </div>
+
+  <div class="rotate-hint" id="rotate-hint">
+    <p>&#8635; Please rotate your device to landscape</p>
+  </div>
 </div>
 
 <style>
@@ -11,6 +30,7 @@
     width: 100%;
     height: 70vh;
     overflow: hidden;
+    background: #111;
   }
 
   canvas.webgl {
@@ -19,10 +39,139 @@
     height: 100%;
     outline: none;
   }
+
+  /* --- Mobile placeholder (hidden on desktop) --- */
+  .mobile-placeholder {
+    display: none;
+  }
+
+  @media (pointer: coarse) {
+    .mobile-placeholder {
+      display: flex;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+    }
+  }
+
+  .placeholder-content {
+    text-align: center;
+    padding: 24px;
+    font-family: "Space Grotesk", Helvetica, sans-serif;
+    color: #fff;
+    max-width: 320px;
+  }
+
+  .placeholder-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  .placeholder-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    margin: 0 0 28px;
+    line-height: 1.5;
+  }
+
+  .launch-btn {
+    font-family: "Space Grotesk", Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 8px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-height: 44px;
+  }
+
+  .launch-btn:active {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* --- Rotate hint (shown in fullscreen portrait on touch devices) --- */
+  .rotate-hint {
+    display: none;
+  }
 </style>
 
 <script>
   import Experience from '../../scripts/f-numbers/Experience/Experience.js';
-  const canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement;
-  new Experience(canvas);
+
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+  const canvas        = document.querySelector('canvas.webgl') as HTMLCanvasElement;
+  const container     = document.getElementById('f-numbers-container')!;
+  const placeholder   = document.getElementById('mobile-placeholder')!;
+  const launchBtn     = document.getElementById('launch-btn')!;
+  const rotateHint    = document.getElementById('rotate-hint')!;
+
+  let experienceStarted = false;
+
+  function startExperience() {
+    if (experienceStarted) return;
+    experienceStarted = true;
+    new Experience(canvas);
+  }
+
+  function isPortrait() {
+    return window.matchMedia('(orientation: portrait)').matches;
+  }
+
+  function updateRotateHint() {
+    if (document.fullscreenElement && isPortrait()) {
+      rotateHint.style.cssText =
+        'display:flex;position:absolute;inset:0;align-items:center;justify-content:center;' +
+        'background:rgba(0,0,0,0.75);color:#fff;font-family:"Space Grotesk",sans-serif;' +
+        'font-size:16px;z-index:20;';
+    } else {
+      rotateHint.style.display = 'none';
+    }
+  }
+
+  if (!isTouchDevice) {
+    // Desktop: start immediately, no placeholder needed
+    startExperience();
+  } else {
+    // Mobile: hide canvas until the user launches the app
+    canvas.style.display = 'none';
+
+    launchBtn.addEventListener('click', async () => {
+      // Hide placeholder and reveal canvas
+      placeholder.style.display = 'none';
+      canvas.style.display = 'block';
+
+      // Request fullscreen on the container
+      try {
+        await container.requestFullscreen();
+      } catch (_) {}
+
+      // Try to lock orientation to landscape (works on Android Chrome; iOS ignores it)
+      try {
+        await (screen.orientation as any).lock('landscape');
+      } catch (_) {}
+
+      updateRotateHint();
+      startExperience();
+    });
+
+    // Show rotate hint if the user is in fullscreen portrait (e.g. on iOS)
+    document.addEventListener('fullscreenchange', () => {
+      updateRotateHint();
+
+      // If the user exits fullscreen, show the placeholder again
+      if (!document.fullscreenElement) {
+        placeholder.style.display = 'flex';
+        canvas.style.display = 'none';
+      }
+    });
+
+    window.addEventListener('orientationchange', updateRotateHint);
+    window.addEventListener('resize', updateRotateHint);
+  }
 </script>
