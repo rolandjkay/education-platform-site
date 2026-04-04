@@ -95,7 +95,7 @@ export default class FlyByTour
       window.experience.container.appendChild(this.annotationContainer);
     }
   
-    startFlyBy() 
+    startFlyBy()
     {
       const timeline = gsap.timeline({ repeat: 0 });
       this.lastTarget = this.controls.target.clone(); // Holds the current interpolated target position
@@ -103,6 +103,14 @@ export default class FlyByTour
       // Store the original position and target
       this.originalPosition = this.camera.position.clone();
       this.originalTarget = this.controls.target.clone();
+
+      // Collect UI overlays to hide during the tour
+      const overlays = ['#top-bar', '.status-bar', '#graphContainer', '#thermometer-display']
+        .map(sel => document.querySelector(sel))
+        .filter(Boolean);
+
+      // Fade overlays out at the start
+      gsap.to(overlays, { duration: 0.5, opacity: 0, pointerEvents: 'none' });
 
       // Used to ease our camera targeting, rather than just doing a straight linear 
       // interp between old and new object positions.
@@ -173,5 +181,8 @@ export default class FlyByTour
         z: this.originalTarget.z,
         ease: "power1.inOut",
       });
+
+      // Fade overlays back in once the camera has returned
+      timeline.to(overlays, { duration: 0.5, opacity: 1, pointerEvents: 'auto' });
     }
   }
