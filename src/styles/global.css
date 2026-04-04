@@ -577,6 +577,11 @@ tr:last-child td {
   margin-bottom: 3rem;
 }
 
+.article-header h1 {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+}
+
 .article-header__meta {
   display: flex;
   flex-wrap: wrap;
