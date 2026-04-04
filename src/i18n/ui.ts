@@ -49,6 +49,7 @@ export const ui = {
     'subject.empty': 'Nothing here yet — check back soon.',
     'card.readMore': 'Read more',
     'article.back': '← Articles',
+    'project.back': '← Projects',
   },
   fr: {
     'site.name': 'Apprentissage en ligne',
@@ -85,6 +86,7 @@ export const ui = {
     'subject.empty': 'Rien ici pour l\'instant — revenez bientôt.',
     'card.readMore': 'Lire la suite',
     'article.back': '← Articles',
+    'project.back': '← Projets',
   },
   de: {
     'site.name': 'Online-Lernen',
@@ -121,6 +123,7 @@ export const ui = {
     'subject.empty': 'Noch nichts hier — schau bald wieder rein.',
     'card.readMore': 'Weiterlesen',
     'article.back': '← Artikel',
+    'project.back': '← Projekte',
   },
   es: {
     'site.name': 'Aprendizaje en línea',
@@ -157,6 +160,7 @@ export const ui = {
     'subject.empty': 'Nada aquí todavía — vuelve pronto.',
     'card.readMore': 'Leer más',
     'article.back': '← Artículos',
+    'project.back': '← Proyectos',
   },
   it: {
     'site.name': 'Apprendimento online',
@@ -193,6 +197,7 @@ export const ui = {
     'subject.empty': 'Niente ancora qui — torna presto.',
     'card.readMore': 'Leggi di più',
     'article.back': '← Articoli',
+    'project.back': '← Progetti',
   },
   'zh-CN': {
     'site.name': '在线学习',
@@ -229,6 +234,7 @@ export const ui = {
     'subject.empty': '暂无内容——请稍后再来。',
     'card.readMore': '阅读更多',
     'article.back': '← 文章',
+    'project.back': '← 项目',
   },
   'zh-TW': {
     'site.name': '線上學習',
@@ -265,6 +271,7 @@ export const ui = {
     'subject.empty': '目前尚無內容——請稍後再來。',
     'card.readMore': '閱讀更多',
     'article.back': '← 文章',
+    'project.back': '← 專案',
   },
   ja: {
     'site.name': 'オンライン学習',
@@ -301,5 +308,6 @@ export const ui = {
     'subject.empty': 'まだコンテンツがありません――また後で確認してください。',
     'card.readMore': '続きを読む',
     'article.back': '← 記事',
+    'project.back': '← プロジェクト',
   },
 } as const;
