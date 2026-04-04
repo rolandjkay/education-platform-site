@@ -35,7 +35,7 @@ const projects = (await getCollection('projects'))
   title={meta.label}
   description={meta.description}
 >
-  <div class="container">
+  <div class="container" style={`--subject-color: var(--color-${subject}); --subject-faint: var(--color-${subject}-faint)`}>
     <header class="page-header">
       <p class="page-header__eyebrow"><a href="/">Online Learning</a></p>
       <h1 class="page-header__title">{meta.label}</h1>
@@ -54,6 +54,7 @@ const projects = (await getCollection('projects'))
               image={article.data.heroImage}
               tag={article.data.tags?.[0]}
               date={article.data.pubDate}
+              accentColor={`var(--color-${subject})`}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -70,6 +71,7 @@ const projects = (await getCollection('projects'))
               title={app.data.title}
               description={app.data.description}
               href={`/apps/${app.id.replace(/\.mdx?$/, '')}`}
+              accentColor={`var(--color-${subject})`}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -87,6 +89,7 @@ const projects = (await getCollection('projects'))
               description={project.data.description}
               href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
               image={project.data.heroImage}
+              accentColor={`var(--color-${subject})`}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -102,7 +105,7 @@ const projects = (await getCollection('projects'))
 
 <style>
   .page-header__eyebrow a {
-    color: var(--color-primary);
+    color: var(--subject-color, var(--color-primary));
     text-decoration: none;
     font-family: var(--font-sans);
     font-size: 0.8125rem;
@@ -128,7 +131,7 @@ const projects = (await getCollection('projects'))
     letter-spacing: 0.08em;
     margin-bottom: 1.5rem;
     padding-bottom: 0.625rem;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 2px solid var(--subject-color, var(--color-border));
   }
 
   .empty-state {

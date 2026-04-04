@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import CardGrid from '../components/CardGrid.astro';
+
+const latest = (await getCollection('articles', a => !a.data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
 <BaseLayout
   title="Online Learning"
-  description="Interactive science articles, filmmaking project guides, and educational apps from Amersham Film School."
+  description="Maths, science, finance, and filmmaking — explored through articles, interactive apps, and hands-on projects."
 >
   <section class="hub-hero">
     <div class="container">
@@ -12,15 +19,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="hub-hero__eyebrow">Amersham Film School</p>
       <h1 class="hub-hero__title">Online Learning</h1>
       <p class="hub-hero__subtitle">
-        Explore science through interactive apps, learn filmmaking with hands-on
-        project guides, and dive into educational articles.
+        Maths, science, finance, and filmmaking — explained clearly,
+        explored interactively, and always worth your time.
       </p>
     </div>
   </section>
 
   <div class="container">
     <nav class="hub-grid" aria-label="Subjects">
-      <a href="/subjects/maths" class="hub-card">
+      <a href="/subjects/maths" class="hub-card hub-card--maths">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="3" x2="12" y2="21"/>
@@ -35,7 +42,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="hub-card__cta">Browse Maths →</span>
       </a>
 
-      <a href="/subjects/science" class="hub-card">
+      <a href="/subjects/science" class="hub-card hub-card--science">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="2"/>
@@ -51,7 +58,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="hub-card__cta">Browse Science →</span>
       </a>
 
-      <a href="/subjects/finance" class="hub-card">
+      <a href="/subjects/finance" class="hub-card hub-card--finance">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="2" x2="12" y2="22"/>
@@ -65,7 +72,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="hub-card__cta">Browse Finance →</span>
       </a>
 
-      <a href="/subjects/filmmaking" class="hub-card">
+      <a href="/subjects/filmmaking" class="hub-card hub-card--filmmaking">
         <div class="hub-card__icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4a2 2 0 0 1 2.5 1.3Z"/>
@@ -81,6 +88,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="hub-card__cta">Browse Filmmaking →</span>
       </a>
     </nav>
+
+    {latest.length > 0 && (
+      <section class="latest-section">
+        <h2 class="latest-section__heading">Latest Articles</h2>
+        <CardGrid>
+          {latest.map((article, i) => (
+            <Card
+              title={article.data.title}
+              description={article.data.description}
+              href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}
+              image={article.data.heroImage}
+              date={article.data.pubDate}
+              accentColor={`var(--color-${article.data.subjects[0]})`}
+              loading={i < 2 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </CardGrid>
+      </section>
+    )}
   </div>
 </BaseLayout>
 
@@ -101,5 +127,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-transform: uppercase;
     color: var(--color-primary);
     margin-bottom: 0.75rem;
+  }
+
+  .latest-section {
+    padding-bottom: 5rem;
+  }
+
+  .latest-section__heading {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--color-border);
   }
 </style>

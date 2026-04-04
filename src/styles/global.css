@@ -4,6 +4,16 @@
   --color-primary-dark: #c2410c;
   --color-primary-light: #ffedd5;
   --color-primary-faint: #fff7ed;
+
+  /* Subject accent colours */
+  --color-maths: #6366f1;
+  --color-maths-faint: #eef2ff;
+  --color-science: #0891b2;
+  --color-science-faint: #ecfeff;
+  --color-finance: #16a34a;
+  --color-finance-faint: #f0fdf4;
+  --color-filmmaking: #ea580c;
+  --color-filmmaking-faint: #fff7ed;
   --color-navy: #0d1117;
   --color-navy-mid: #161b22;
 
@@ -227,6 +237,14 @@ tr:last-child td {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
+}
+
+.card--accented .card__link {
+  color: var(--card-top-color);
+}
+
+.card--accented .card__link:hover {
+  color: var(--card-top-color);
 }
 
 .card__image {
@@ -471,6 +489,8 @@ tr:last-child td {
 /* ===== Hero Sections ===== */
 .hub-hero {
   background: var(--color-navy);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
   padding: 6rem 0 5rem;
 }
 
@@ -529,19 +549,19 @@ tr:last-child td {
 .hub-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--color-primary);
+  border-color: var(--card-accent, var(--color-primary));
   color: inherit;
 }
 
 .hub-card__icon {
   width: 48px;
   height: 48px;
-  background: var(--color-primary-light);
+  background: var(--card-faint, var(--color-primary-light));
   border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary-dark);
+  color: var(--card-accent, var(--color-primary-dark));
 }
 
 .hub-card__icon svg {
@@ -566,9 +586,15 @@ tr:last-child td {
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--card-accent, var(--color-primary));
   margin-top: auto;
 }
+
+/* Subject-specific hub card accents */
+.hub-card--maths      { --card-accent: var(--color-maths);      --card-faint: var(--color-maths-faint); }
+.hub-card--science    { --card-accent: var(--color-science);    --card-faint: var(--color-science-faint); }
+.hub-card--finance    { --card-accent: var(--color-finance);    --card-faint: var(--color-finance-faint); }
+.hub-card--filmmaking { --card-accent: var(--color-filmmaking); --card-faint: var(--color-filmmaking-faint); }
 
 /* ===== Article / prose page ===== */
 .article-header {
