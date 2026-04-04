@@ -1,61 +1,61 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Card from '../../components/Card.astro';
-import CardGrid from '../../components/CardGrid.astro';
-import { getContentLocale } from '../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Card from '../../../components/Card.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import { useTranslations, localePath, locales, defaultLocale, getContentLocale, getContentSlug, type Locale } from '../../../i18n/utils';
+
+type Subject = 'maths' | 'science' | 'finance' | 'filmmaking';
 
 export async function getStaticPaths() {
-  const subjects = ['maths', 'science', 'finance', 'filmmaking'] as const;
-  return subjects.map(subject => ({ params: { subject } }));
+  const subjects: Subject[] = ['maths', 'science', 'finance', 'filmmaking'];
+  return locales
+    .filter(l => l !== defaultLocale)
+    .flatMap(locale => subjects.map(subject => ({ params: { locale, subject } })));
 }
 
-const subjectMeta: Record<string, { label: string; description: string }> = {
-  maths:      { label: 'Maths',       description: 'From elegant proofs to the numbers that appear everywhere in nature — maths as it was meant to be understood.' },
-  science:    { label: 'Science',     description: 'Physics, optics, and the science behind the world around you — explored with interactive tools.' },
-  finance:    { label: 'Finance',     description: 'How money actually works: compound interest, valuation, risk, and the maths behind smart decisions.' },
-  filmmaking: { label: 'Filmmaking',  description: 'Cameras, lenses, light, and storytelling — the craft and science of making films.' },
-};
-
-const { subject } = Astro.params;
-const meta = subjectMeta[subject];
+const { locale, subject } = Astro.params as { locale: Locale; subject: Subject };
+const t = useTranslations(locale);
 
 const articles = (await getCollection('articles'))
-  .filter(a => !a.data.draft && getContentLocale(a.id) === 'en' && a.data.subjects.includes(subject as any))
+  .filter(a => !a.data.draft && getContentLocale(a.id) === locale && a.data.subjects.includes(subject))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const apps = (await getCollection('apps'))
-  .filter(a => a.data.subjects?.includes(subject as any));
+  .filter(a => a.data.subjects?.includes(subject));
 
 const projects = (await getCollection('projects'))
-  .filter(p => p.data.subjects?.includes(subject as any))
+  .filter(p => p.data.subjects?.includes(subject))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout
-  title={meta.label}
-  description={meta.description}
+  title={t(`subjects.${subject}.label` as any)}
+  description={t(`subjects.${subject}.description` as any)}
+  locale={locale}
+  canonicalPath={`/subjects/${subject}`}
 >
   <div class="container" style={`--subject-color: var(--color-${subject}); --subject-faint: var(--color-${subject}-faint)`}>
     <header class="page-header">
-      <p class="page-header__eyebrow"><a href="/">Online Learning</a></p>
-      <h1 class="page-header__title">{meta.label}</h1>
-      <p class="page-header__description">{meta.description}</p>
+      <p class="page-header__eyebrow"><a href={localePath('/', locale)}>{t('subject.breadcrumb')}</a></p>
+      <h1 class="page-header__title">{t(`subjects.${subject}.label` as any)}</h1>
+      <p class="page-header__description">{t(`subjects.${subject}.description` as any)}</p>
     </header>
 
     {articles.length > 0 && (
       <section class="subject-section">
-        <h2 class="subject-section__heading">Articles</h2>
+        <h2 class="subject-section__heading">{t('subject.articles')}</h2>
         <CardGrid>
           {articles.map((article, i) => (
             <Card
               title={article.data.title}
               description={article.data.description}
-              href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}
+              href={localePath(`/articles/${getContentSlug(article.id)}`, locale)}
               image={article.data.heroImage}
               tag={article.data.tags?.[0]}
               date={article.data.pubDate}
               accentColor={`var(--color-${subject})`}
+              locale={locale}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -65,7 +65,7 @@ const projects = (await getCollection('projects'))
 
     {apps.length > 0 && (
       <section class="subject-section">
-        <h2 class="subject-section__heading">Interactive Apps</h2>
+        <h2 class="subject-section__heading">{t('subject.apps')}</h2>
         <CardGrid>
           {apps.map((app, i) => (
             <Card
@@ -73,6 +73,7 @@ const projects = (await getCollection('projects'))
               description={app.data.description}
               href={`/apps/${app.id.replace(/\.mdx?$/, '')}`}
               accentColor={`var(--color-${subject})`}
+              locale={locale}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -82,7 +83,7 @@ const projects = (await getCollection('projects'))
 
     {projects.length > 0 && (
       <section class="subject-section">
-        <h2 class="subject-section__heading">Projects</h2>
+        <h2 class="subject-section__heading">{t('subject.projects')}</h2>
         <CardGrid>
           {projects.map((project, i) => (
             <Card
@@ -91,6 +92,7 @@ const projects = (await getCollection('projects'))
               href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
               image={project.data.heroImage}
               accentColor={`var(--color-${subject})`}
+              locale={locale}
               loading={i < 3 ? 'eager' : 'lazy'}
             />
           ))}
@@ -99,7 +101,7 @@ const projects = (await getCollection('projects'))
     )}
 
     {articles.length === 0 && apps.length === 0 && projects.length === 0 && (
-      <p class="empty-state">Nothing here yet — check back soon.</p>
+      <p class="empty-state">{t('subject.empty')}</p>
     )}
   </div>
 </BaseLayout>
@@ -114,15 +116,8 @@ const projects = (await getCollection('projects'))
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-
-  .page-header__eyebrow a:hover {
-    text-decoration: underline;
-  }
-
-  .subject-section {
-    margin-bottom: 4rem;
-  }
-
+  .page-header__eyebrow a:hover { text-decoration: underline; }
+  .subject-section { margin-bottom: 4rem; }
   .subject-section__heading {
     font-family: var(--font-sans);
     font-size: 1.125rem;
@@ -134,7 +129,6 @@ const projects = (await getCollection('projects'))
     padding-bottom: 0.625rem;
     border-bottom: 2px solid var(--subject-color, var(--color-border));
   }
-
   .empty-state {
     text-align: center;
     color: var(--color-text-muted);

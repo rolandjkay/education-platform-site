@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import { useTranslations, localePath, locales, defaultLocale, getContentLocale, getContentSlug, type Locale } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  return locales
+    .filter(l => l !== defaultLocale)
+    .map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
+
+const latest = (await getCollection('articles', a => !a.data.draft && getContentLocale(a.id) === locale))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={t('home.title')}
+  description={t('home.subtitle')}
+  locale={locale}
+  canonicalPath="/"
+>
+  <section class="hub-hero">
+    <div class="container">
+      <div class="hub-hero__accent" aria-hidden="true"></div>
+      <p class="hub-hero__eyebrow">{t('home.eyebrow')}</p>
+      <h1 class="hub-hero__title">{t('home.title')}</h1>
+      <p class="hub-hero__subtitle">{t('home.subtitle')}</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <nav class="hub-grid" aria-label={t('nav.maths')}>
+      <a href={localePath('/subjects/maths', locale)} class="hub-card hub-card--maths">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">{t('subjects.maths.label')}</div>
+        <p class="hub-card__description">{t('home.maths.description')}</p>
+        <span class="hub-card__cta">{t('home.maths.cta')}</span>
+      </a>
+
+      <a href={localePath('/subjects/science', locale)} class="hub-card hub-card--science">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="2.5"/><ellipse cx="12" cy="12" rx="10" ry="2.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="2.5" transform="rotate(120 12 12)"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">{t('subjects.science.label')}</div>
+        <p class="hub-card__description">{t('home.science.description')}</p>
+        <span class="hub-card__cta">{t('home.science.cta')}</span>
+      </a>
+
+      <a href={localePath('/subjects/finance', locale)} class="hub-card hub-card--finance">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">{t('subjects.finance.label')}</div>
+        <p class="hub-card__description">{t('home.finance.description')}</p>
+        <span class="hub-card__cta">{t('home.finance.cta')}</span>
+      </a>
+
+      <a href={localePath('/subjects/filmmaking', locale)} class="hub-card hub-card--filmmaking">
+        <div class="hub-card__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4a2 2 0 0 1 2.5 1.3Z"/><path d="m6.2 5.3 3.1 3.9"/><path d="m12.4 3.4 3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+          </svg>
+        </div>
+        <div class="hub-card__title">{t('subjects.filmmaking.label')}</div>
+        <p class="hub-card__description">{t('home.filmmaking.description')}</p>
+        <span class="hub-card__cta">{t('home.filmmaking.cta')}</span>
+      </a>
+    </nav>
+
+    {latest.length > 0 && (
+      <section class="latest-section">
+        <h2 class="latest-section__heading">{t('home.latest')}</h2>
+        <CardGrid>
+          {latest.map((article, i) => (
+            <Card
+              title={article.data.title}
+              description={article.data.description}
+              href={localePath(`/articles/${getContentSlug(article.id)}`, locale)}
+              image={article.data.heroImage}
+              date={article.data.pubDate}
+              accentColor={`var(--color-${article.data.subjects[0]})`}
+              locale={locale}
+              loading={i < 2 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </CardGrid>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .hub-hero__accent {
+    width: 3rem;
+    height: 3px;
+    background: var(--color-primary);
+    margin-bottom: 1.5rem;
+    border-radius: 2px;
+  }
+  .hub-hero__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+  .latest-section {
+    padding-bottom: 5rem;
+  }
+  .latest-section__heading {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+</style>

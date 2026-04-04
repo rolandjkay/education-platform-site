@@ -1,17 +1,27 @@
 ---
-const navLinks = [
-  { label: 'Maths', href: '/subjects/maths' },
-  { label: 'Science', href: '/subjects/science' },
-  { label: 'Finance', href: '/subjects/finance' },
-  { label: 'Filmmaking', href: '/subjects/filmmaking' },
-];
+import { useTranslations, localePath, languages, defaultLocale, type Locale } from '../i18n/utils';
 
+interface Props {
+  locale?: Locale;
+  canonicalPath?: string;
+}
+
+const { locale = defaultLocale, canonicalPath = '/' } = Astro.props;
+const t = useTranslations(locale);
+
+const subjects = ['maths', 'science', 'finance', 'filmmaking'] as const;
+const navLinks = subjects.map(s => ({
+  label: t(`nav.${s}` as any),
+  href: localePath(`/subjects/${s}`, locale),
+}));
+
+const homeHref = localePath('/', locale);
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="navbar">
   <div class="navbar__inner container">
-    <a href="/" class="navbar__logo" aria-label="Amersham Film School Online Learning — home">
+    <a href={homeHref} class="navbar__logo" aria-label="Amersham Film School Online Learning — home">
       <span class="navbar__logo-mark" aria-hidden="true">AFS</span>
       <span class="navbar__logo-text">Online Learning</span>
     </a>
@@ -32,7 +42,18 @@ const currentPath = Astro.url.pathname;
       </ul>
     </nav>
 
-    <button class="navbar__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+    <div class="lang-switcher" aria-label={t('lang.label')}>
+      {Object.entries(languages).map(([code, label]) => (
+        <a
+          href={localePath(canonicalPath, code as Locale)}
+          class:list={['lang-switcher__link', { 'lang-switcher__link--active': code === locale }]}
+          aria-current={code === locale ? 'true' : undefined}
+          title={label}
+        >{code === 'zh-CN' ? '简' : code === 'zh-TW' ? '繁' : code.toUpperCase().slice(0, 2)}</a>
+      ))}
+    </div>
+
+    <button class="navbar__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label={t('nav.toggle')}>
       <span class="navbar__toggle-bar"></span>
       <span class="navbar__toggle-bar"></span>
       <span class="navbar__toggle-bar"></span>
@@ -141,6 +162,43 @@ const currentPath = Astro.url.pathname;
   .navbar__link--active {
     color: var(--color-primary);
     background: rgba(234, 88, 12, 0.12);
+  }
+
+  /* Language switcher */
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    margin-left: 0.5rem;
+  }
+
+  .lang-switcher__link {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    padding: 0.25rem 0.375rem;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition), background var(--transition);
+    line-height: 1;
+  }
+
+  .lang-switcher__link:hover {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .lang-switcher__link--active {
+    color: var(--color-primary);
+    background: rgba(234, 88, 12, 0.12);
+  }
+
+  @media (max-width: 640px) {
+    .lang-switcher {
+      display: none;
+    }
   }
 
   /* Hamburger toggle */

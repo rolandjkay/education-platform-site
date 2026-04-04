@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { useTranslations, defaultLocale, type Locale } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -11,9 +12,11 @@ interface Props {
   date?: Date;
   loading?: 'eager' | 'lazy';
   accentColor?: string;
+  locale?: Locale;
 }
 
-const { title, description, href, image, tag, date, loading = 'lazy', accentColor } = Astro.props;
+const { title, description, href, image, tag, date, loading = 'lazy', accentColor, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
 
 const formattedDate = date
   ? date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -43,7 +46,7 @@ const formattedDate = date
 
   <div class="card__footer">
     {formattedDate && <time class="card__date" datetime={date?.toISOString()}>{formattedDate}</time>}
-    <a href={href} class="card__link">Read more</a>
+    <a href={href} class="card__link">{t('card.readMore')}</a>
   </div>
 </article>
 

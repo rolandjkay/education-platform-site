@@ -2,24 +2,31 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { localeToBcp47, defaultLocale, type Locale } from '../i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  locale?: Locale;
+  /** The locale-stripped path, used by the language switcher. */
+  canonicalPath?: string;
 }
 
 const {
   title,
-  description = 'Interactive science articles, filmmaking projects, and educational apps from Amersham Film School.',
+  description = 'Maths, science, finance, and filmmaking — explained clearly and explored interactively.',
   image = '/images/og-default.png',
+  locale = defaultLocale,
+  canonicalPath = Astro.url.pathname,
 } = Astro.props;
 
+const langAttr = localeToBcp47[locale];
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://learn.amershamfilmschool.co.uk');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={langAttr}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,7 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://learn.am
     <title>{title} | Amersham Film School</title>
   </head>
   <body>
-    <Navbar />
+    <Navbar locale={locale} canonicalPath={canonicalPath} />
     <main>
       <slot />
     </main>

@@ -9,4 +9,11 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex],
   })],
   output: 'static',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr', 'de', 'es', 'it', 'zh-CN', 'zh-TW', 'ja'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });
