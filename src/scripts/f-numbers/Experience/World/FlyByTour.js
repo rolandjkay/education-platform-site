@@ -104,12 +104,17 @@ export default class FlyByTour
       this.originalPosition = this.camera.position.clone();
       this.originalTarget = this.controls.target.clone();
 
-      // Collect UI overlays to hide during the tour
-      const overlays = ['#top-bar', '.status-bar', '#graphContainer', '#thermometer-display']
-        .map(sel => document.querySelector(sel))
-        .filter(Boolean);
+      // Collect UI overlays to hide during the tour.
+      // Fade individual top-bar buttons (not the bar itself) so #fs-btn can be
+      // excluded and remain visible for the user to exit mid-tour.
+      const overlays = [
+        ...document.querySelectorAll('#top-bar .top-bar-btn:not(#fs-btn)'),
+        document.querySelector('.status-bar'),
+        document.querySelector('#graphContainer'),
+        document.querySelector('#thermometer-display'),
+      ].filter(Boolean);
 
-      // Fade overlays out at the start
+      // Fade overlays out concurrently with the tour starting (not before)
       gsap.to(overlays, { duration: 0.5, opacity: 0, pointerEvents: 'none' });
 
       // Used to ease our camera targeting, rather than just doing a straight linear 
@@ -173,7 +178,10 @@ export default class FlyByTour
         z: this.originalPosition.z,
         ease: "power1.inOut",
       });
-    
+
+      // Fade overlays back in concurrently with the camera return
+      timeline.to(overlays, { duration: 1, opacity: 1, pointerEvents: 'auto' }, '<');
+
       timeline.to(this.controls.target, {
         duration: 3,
         x: this.originalTarget.x,
@@ -181,8 +189,5 @@ export default class FlyByTour
         z: this.originalTarget.z,
         ease: "power1.inOut",
       });
-
-      // Fade overlays back in once the camera has returned
-      timeline.to(overlays, { duration: 0.5, opacity: 1, pointerEvents: 'auto' });
     }
   }
