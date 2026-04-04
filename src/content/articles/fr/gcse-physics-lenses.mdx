@@ -1,0 +1,232 @@
+---
+title: "Physique niveau lycée : Tout ce que vous devez savoir sur les lentilles"
+description: "Vous êtes-vous déjà demandé comment une seule lentille peut devenir un appareil photo, un microscope ou même une loupe ? Expliquons tout ça de façon claire — et bien plus amusante que de lire un manuel !"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["physique", "optique", "lycée", "lentilles"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+Vous êtes-vous déjà demandé comment une seule lentille peut devenir un appareil photo, un microscope ou même une loupe ? Expliquons tout ça de façon claire — et bien plus amusante que de lire un manuel !
+
+## Jouez avec notre simulateur de lentille !
+
+Avant de plonger dans les détails, amusez-vous avec le Simulateur de lentille ci-dessous :
+
+1. La **flèche rouge** représente l'objet que vous photographiez.
+2. La **flèche verte** est l'image formée par la lentille, comme ce que vous voyez sur l'écran d'un appareil photo.
+
+**Essayez ceci :** Faites glisser la flèche rouge vers la gauche ou la droite et observez comment l'image (flèche verte) change.
+
+<ConvexLensEmbed />
+
+## Partagez avec vos amis
+
+Si vous ou vos amis étudiez la **physique au lycée**, cet outil est parfait pour comprendre les lentilles — il est directement tiré du programme — et construire ses propres projets sympas est bien plus amusant que de réviser à partir de notes !
+
+N'oubliez pas de nous suivre sur les réseaux sociaux et de vous abonner à notre liste de diffusion pour plus d'astuces scientifiques cool.
+
+## Prêt à explorer ?
+
+### Voici tous les détails…
+
+Si vous nous avez suivis sur les réseaux sociaux récemment, vous avez vu que nous avons beaucoup publié de photographies « macro » ; la photographie « macro » consiste à prendre des photos de très petits objets. Certaines de nos vidéos portent sur des sujets de seulement quelques millimètres de long, ce qui dépasse la macro-photographie et ressemble davantage à la construction d'un microscope !
+
+**Transformer une petite plante succulente en monstre :**
+
+<iframe title="Photographie macro : transformer une petite plante succulente en monstre" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Microscope fait maison :**
+
+<iframe title="Vidéo microscope fait maison" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Certaines de nos vidéos sont tout le contraire ; elles utilisent un objectif d'appareil photo pour projeter une ancienne diapositive couleur sur un bâtiment ou de petits objets, comme une feuille ou un petit bocal de paillettes d'or sur la toile d'un peintre.
+
+Nous allons bientôt publier des vidéos utilisant un objectif d'appareil photo comme loupe, et une loupe comme objectif d'appareil photo.
+
+**Projeter une feuille :**
+
+<iframe title="Projeter une feuille avec un objectif d'appareil photo" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Projeter une diapositive sur un mur :**
+
+<iframe title="Projeter une diapositive sur un mur avec un objectif d'appareil photo" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Utiliser un objectif comme loupe :**
+
+<iframe title="Utiliser un objectif d'appareil photo comme loupe" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### Quel est le lien entre un microscope, un appareil photo, une loupe et un projecteur ?
+
+Alors, que se passe-t-il ? Comment peut-on utiliser un objectif d'appareil photo pour toutes ces choses différentes ?
+
+Si vous avez déjà joué avec le Simulateur de lentille ci-dessus, vous avez peut-être remarqué que nous pouvons rendre l'image aussi petite ou aussi grande que nous le souhaitons, et que nous pouvons la placer du même côté de la lentille que l'objet, ou du côté opposé. Tout dépend de la distance entre l'objet et la lentille.
+
+Plongeons dans les détails pour comprendre ce qui se passe.
+
+## Retour sur l'appareil photo à sténopé
+
+Il est très utile de repenser à notre appareil photo à sténopé. Les lentilles peuvent sembler compliquées, mais une grande partie de la physique est exactement la même dans un appareil photo à sténopé et il est bien plus facile de comprendre ce qui se passe. Si vous en avez le temps, consultez notre article sur la [construction de votre propre appareil photo à sténopé](/articles/pinhole-camera).
+
+Voici l'application tirée de cet article — faites glisser le curseur et voyez comment l'allongement du barillet, ce qui revient à éloigner le capteur de l'appareil de l'ouverture (le sténopé), augmente le grossissement et agrandit l'image.
+
+<PinholeBarrelSimulator />
+
+Dans l'application ci-dessus, vous pouvez voir que les rayons lumineux provenant de différentes parties de l'image divergent ; ils s'éloignent les uns des autres au fur et à mesure qu'ils voyagent de l'objet vers le capteur. Donc, si nous leur faisons parcourir une plus grande distance, en éloignant le capteur du sténopé, ils s'écartent davantage et l'image devient plus grande.
+
+Remarquez également que, si vous rapprochez l'objet du sténopé, l'image devient aussi plus grande. Plus l'objet est proche, plus l'angle du rayon lumineux passant par le sténopé est prononcé. Un rayon lumineux arrivant à un angle plus prononcé parcourt une plus grande distance verticale pour la même distance horizontale, par rapport à un rayon arrivant à un angle moins prononcé, ce qui donne une image plus grande.
+
+<SensorDistanceDiagram />
+
+## Ce qui se passe quand on ajoute une lentille
+
+La même chose est vraie quand on utilise une lentille ; si nous voulons un grossissement plus important, nous devons soit éloigner le capteur de la lentille, soit rapprocher l'objet, soit les deux — c'est pourquoi nous pouvons construire un microscope en enveloppant l'objectif de l'appareil dans un tube en carton, augmentant ainsi la distance entre la lentille et le capteur.
+
+La mise au point n'est pas un problème avec un appareil photo à sténopé ; l'image sera nette quelle que soit la distance entre l'objet et l'ouverture (le sténopé) et la distance entre l'ouverture et le capteur.
+
+Ce n'est pas le cas avec une lentille. Une lentille fonctionne en focalisant (en déviant) les rayons lumineux qui rayonnent depuis un point de l'objet pour qu'ils se rejoignent à nouveau et forment l'image. Les rayons ne se rejoignent qu'à une certaine distance de la lentille ; trop près, et ils n'ont pas parcouru suffisamment de distance pour se rejoindre ; trop loin et ils se sont déjà rejoints et commencent à nouveau à diverger.
+
+<SensorFocusDiagram />
+
+<iframe title="Démonstration d'une lentille focalisant des rayons lumineux" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Donc, si nous essayons d'éloigner le capteur de la lentille pour agrandir l'image, elle deviendra plus grande, mais elle sera aussi de plus en plus floue.
+
+Si nous voulons une image nette, nous devons trouver où les rayons se rejoignent et placer le capteur à cet endroit. Ainsi, si nous voulons agrandir l'image, nous devons déplacer l'objet de façon à ce que les rayons se rejoignent **plus loin** de la lentille. La distance accrue par rapport à la lentille nous donnera alors le grossissement supplémentaire souhaité.
+
+## Lentilles convexes et concaves
+
+Le type de lentille utilisé dans les appareils photo et les loupes s'appelle une lentille « convexe » ; cela signifie simplement qu'elle est plus épaisse au milieu qu'aux bords. Les lentilles convexes courbent la lumière de façon à ce que les rayons se rejoignent et forment une image, ce qui les rend si utiles en photographie.
+
+L'opposé d'une lentille convexe s'appelle une lentille « concave ». Ces dernières sont minces au milieu et épaisses aux bords, et elles courbent les rayons lumineux de façon à les écarter.
+
+<ConvexConcaveDiagram />
+
+Aujourd'hui, nous parlons des lentilles convexes, donc nous pouvons oublier les lentilles concaves pour l'instant.
+
+D'ailleurs, vous avez peut-être remarqué que les vrais « objectifs » d'appareil photo sont généralement composés de nombreuses lentilles individuelles en verre, certaines convexes et d'autres concaves. Ensemble, elles ont le même effet qu'une seule lentille convexe, et nous pouvons donc les traiter comme une seule lentille convexe.
+
+### Alors, qu'en est-il de notre Simulateur de lentille ?
+
+Dans le Simulateur de lentille ci-dessus, la flèche rouge représente l'objet que nous photographions. La flèche verte est l'image qui se forme quand les rayons lumineux provenant d'un point de l'objet se rejoignent à nouveau.
+
+La caractéristique définissant un objectif d'appareil photo est sa « distance focale ». Quand les gens parlent de leurs objectifs, vous les entendrez souvent décrire un objectif comme un « objectif 50mm » ou un « objectif 100mm ». Ils parlent de la distance focale, même s'ils ne le savent pas.
+
+Ce que la distance focale vous dit réellement, c'est à quel point la lentille courbent la lumière ; elle vous indique la distance derrière la lentille à laquelle les rayons lumineux voyageant parallèlement à l'axe de la lentille seront rassemblés. Un objectif de 50mm rassemblera les rayons parallèles à 50mm derrière la lentille, alors que pour un objectif de 100mm, cette distance sera de 100mm. Le point où les rayons parallèles se rejoignent s'appelle le « foyer » ; ce point est étiqueté « F » dans le Simulateur de lentille.
+
+<FocalLengthDiagram />
+
+En plus des foyers « F », nous avons également marqué des points qui sont deux fois plus loin que la distance focale de chaque côté de la lentille. Ainsi, par exemple, pour un objectif de 50mm, les deux points étiquetés « F » sont à 50mm devant et derrière la lentille, et ceux étiquetés « 2F » sont à 100mm devant et derrière la lentille.
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="Deux rayons importants passant à travers la lentille" style="width:100%;border-radius:8px" />
+  <figcaption>Deux rayons importants passant à travers la lentille</figcaption>
+</figure>
+
+Les lignes orange et bleue représentent deux rayons lumineux provenant du sommet de la flèche. Nous avons choisi ces deux rayons parce qu'il est facile de déterminer ce qui leur arrive quand ils frappent la lentille.
+
+Retenez ces deux règles :
+
+1. Un rayon qui frappe le centre de la lentille continue en ligne droite, sans être dévié.
+2. Un rayon voyageant parallèlement à l'axe de la lentille sera dévié de façon à passer par le « foyer principal » de la lentille ; c'est le point « F » derrière la lentille.
+
+Ces règles signifient que nous savons où le rayon orange et le rayon bleu vont se croiser, et nous pouvons voir où se trouve l'image du sommet de la flèche. Nous savons que la base de la flèche sera sur l'axe, donc nous pouvons dessiner l'image de la flèche depuis l'axe jusqu'au point où ces deux rayons se croisent. Tous les autres rayons provenant du sommet de la flèche se croiseront au même endroit.
+
+Essayez de faire glisser l'objet vers la gauche et la droite et observez ce qui arrive à l'image.
+
+## Explication
+
+Pour comprendre ce qui se passe, il est préférable de commencer par réfléchir à ce qui se passe quand l'objet est à « 2F » ; exactement deux fois la distance focale depuis la lentille. Ensuite, nous pouvons réfléchir à ce qui se passe quand nous le rapprochons ou l'éloignons.
+
+### L'objet est exactement à 2F
+
+Voyez-vous la symétrie qui se produit quand l'objet est à une distance exactement égale à 2F de la lentille ? Si vous pouvez prendre votre ordinateur et le faire pivoter de 180°, vous verrez que rien n'a changé, sauf que l'objet et l'image ont échangé leurs places.
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="La symétrie qui se produit quand l'objet est à 2F" style="width:100%;border-radius:8px" />
+  <figcaption>La symétrie qui se produit quand l'objet est à 2F</figcaption>
+</figure>
+
+C'est parce que la pente du rayon bleu est exactement deux fois celle du rayon orange ; le rayon orange parcourt une distance égale à la hauteur de l'objet sur une distance de 2F, alors que le rayon bleu (non parallèle) parcourt la même distance verticale en seulement F. Cependant, le rayon bleu est horizontal sur une distance de 2F. En conséquence, les deux rayons prennent une distance totale de 4F pour parcourir une distance verticale égale à deux fois la hauteur de l'objet, et ils se rejoignent donc à la même distance derrière la lentille que l'objet est devant elle.
+
+Grâce à cette symétrie, l'objet et l'image ont exactement la même taille. C'est utile pour la « macro-photographie ». Par exemple, un grand bourdon a à peu près la taille du capteur de l'appareil photo, donc à 2F de la lentille, il occuperait la majeure partie du cadre.
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="Photographie macro d'un bourdon" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Photographie macro d'un bourdon - Photo de Michelle Reeves</figcaption>
+</figure>
+
+La plupart des objectifs d'appareil photo ne peuvent pas se déplacer jusqu'à deux fois la distance focale depuis le capteur ; vous devez éloigner l'objectif vous-même, en utilisant un « tube allonge » ou un simple tube en carton.
+
+### L'objet est plus loin que 2F
+
+Quand l'objet est plus loin de la lentille que 2F, la pente de la ligne orange est moins prononcée que lorsque l'objet est à 2F. Plus l'objet est éloigné, plus le rayon orange est proche de l'axe, et donc le rayon bleu le croise plus près de la lentille et l'image est plus petite que l'objet.
+
+C'est la configuration habituelle d'un appareil photo ; quand vous prenez une photo de famille, vous voulez faire tenir l'image de tout le monde sur un capteur de seulement quelques centimètres de large, donc vous voulez que l'image soit plus petite que la réalité.
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="Garder la famille plus loin que 2F pour une photo" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Garder la famille plus loin que 2F pour une photo - Photo de RDNE Stock project</figcaption>
+</figure>
+
+### L'objet est entre 2F et F
+
+Maintenant, la ligne orange est beaucoup plus inclinée ; les deux lignes se croisent bien plus loin derrière la lentille et l'image est bien plus grande que l'objet.
+
+C'est la macro-photographie ; nous prenons des photos d'objets bien plus petits que le capteur et nous les agrandissons pour remplir le cadre. Par exemple, cette minuscule plante succulente, haute de quelques centimètres en réalité, ressemble à un monstre !
+
+<iframe title="Photographie macro : succulente agrandie pour remplir le cadre" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Si nous rapprochons encore l'objet de F, l'image devient très grande. En fait, à mesure que nous approchons de F, elle devient énorme. Elle se déplace aussi beaucoup plus loin de la lentille. C'est utile si nous voulons projeter une image sur un bâtiment ; l'image pourrait être à des dizaines de mètres de la lentille et gigantesque !
+
+<iframe title="Projeter une diapositive sur un mur avec un objectif d'appareil photo" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+À mesure que l'objet se rapproche de F, l'image se déplace **beaucoup** plus loin et devient bien plus grande. Nous avons maintenant construit un microscope, et nous pouvons observer des choses trop petites pour être vues à l'œil nu. Par exemple, cette tête d'insecte, qui fait environ 1mm de large.
+
+<iframe title="Microscope fait maison : tête d'insecte agrandie" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### L'objet est plus près que F
+
+Maintenant, la ligne orange est plus inclinée que la bleue ; elles ne se croisent jamais. Cependant, pour un observateur situé à droite, regardant à travers la lentille, les rayons semblent provenir d'un point derrière l'objet. On appelle cela une image « virtuelle ». Une image « virtuelle » ne peut pas être projetée sur une feuille de papier ou sur le capteur de l'appareil photo, mais elle paraît réelle à quelqu'un qui regarde à travers la lentille.
+
+Avez-vous déjà remarqué que, lorsque vous regardez du texte à travers une loupe, les lettres grossissent à mesure que vous éloignez la loupe du papier, puis disparaissent soudainement ? C'est parce que l'image grossit à mesure qu'on approche de F, puis disparaît à l'infini dès qu'on atteint F.
+
+<figure>
+  <Image src={bannerImg} alt="Placer du texte plus près d'un objectif d'appareil photo que F, pour l'utiliser comme une loupe" style="width:100%;border-radius:8px" />
+  <figcaption>Placer du texte plus près d'un objectif d'appareil photo que F, pour l'utiliser comme une loupe</figcaption>
+</figure>
+
+### L'objet est exactement à F
+
+C'est le cas le moins intéressant : les lignes orange et bleue sont exactement parallèles ; elles ne se croisent jamais et ne semblent se croiser nulle part, donc il n'y a pas d'image.
+
+## Graphique du grossissement
+
+Ne vous inquiétez pas trop des graphiques et des formules ! Il est cependant utile de regarder un graphique montrant comment le grossissement de l'image évolue quand nous déplaçons l'objet. Par « grossissement », nous entendons de combien l'image est plus grande que l'objet ; un grossissement de *m*=2 signifie que l'image est deux fois plus grande. Un grossissement de *m*=0,5 signifie que l'image est deux fois plus petite que l'objet.
+
+Vous avez probablement remarqué en jouant avec le Simulateur de lentille que, à mesure que vous approchez l'objet de F, l'image grossit très rapidement. Vous pouvez le voir sur le graphique ; *m* augmente lentement à mesure que la distance de l'objet à la lentille (*u*) se rapproche de la distance focale (*f*=100mm), puis explose quand on s'en approche vraiment.
+
+<MagnificationGraph />
+
+## À vous de jouer
+
+Vous comprenez maintenant comment fonctionnent les lentilles convexes ! Quels projets sympas pensez-vous pouvoir réaliser avec elles ? Vous pouvez trouver de vieilles lentilles à bas prix sur eBay ou dans les boutiques d'appareils photo vintage. Si vous voulez de l'inspiration, pourquoi ne pas nous suivre sur les réseaux sociaux ou vous abonner à notre liste de diffusion ?

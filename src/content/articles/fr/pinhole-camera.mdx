@@ -1,0 +1,119 @@
+---
+title: "Un appareil photo sans objectif ? Impossible !"
+description: "Apprenez la science du fonctionnement d'un appareil photo en construisant votre propre objectif à sténopé et en l'utilisant pour tourner votre propre film !"
+pubDate: 2024-10-01
+subjects: [science, filmmaking]
+tags: ["physique", "appareils photo", "optique", "DIY"]
+heroImage: "../images/post-10-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import imgEOSR5 from '../images/post-10-EOSR5-md.webp';
+import imgWhitescreen from '../images/post-10-whitescreen-md.webp';
+import imgPinhole from '../images/post-10-pinhole-md.webp';
+import imgLonglens from '../images/post-10-longlens-md.webp';
+import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
+import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+
+Apprenez la science du fonctionnement d'un appareil photo en construisant vos propres objectifs à sténopé et en les utilisant pour tourner votre propre film !
+
+## Vous voulez construire un appareil photo ?
+
+Bonjour ! J'ai entendu dire que vous vouliez construire votre propre appareil photo ? C'est super et, si vous vouliez aller totalement en analogique, comme au bon vieux temps, vous pourriez tout à fait le faire. Les appareils photo numériques sont difficiles à construire à la maison, mais ils ont l'avantage de permettre de voir les résultats immédiatement.
+
+Vous pouvez tout à fait construire l'optique vous-même, et une fois que vous maîtrisez ça, vous pouvez vous procurer du film photographique et une chambre noire pour compléter le reste de l'appareil.
+
+Alors, et si vous alliez chercher un appareil photo numérique pour qu'on commence ? Marché conclu ? Parfait !
+
+Assurez-vous juste de prendre un appareil avec un objectif amovible, sinon le propriétaire de l'appareil ne sera peut-être pas très content quand vous lui casserez l'objectif ; les éclats de verre, c'est aussi dangereux !
+
+Il devrait ressembler à ceci :
+
+<figure>
+  <Image src={imgEOSR5} alt="Appareil photo numérique avec l'objectif retiré" style="width:100%" />
+  <figcaption>Un appareil photo numérique avec l'objectif retiré</figcaption>
+</figure>
+
+S'il s'agit d'un appareil sans miroir (mirrorless), vous pourrez voir le capteur. S'il s'agit d'un ancien reflex numérique (DSLR), vous verrez un miroir à l'intérieur et le capteur sera derrière. Le capteur est la partie de l'appareil sensible à la lumière ; il convertit la lumière qu'il reçoit en image numérique que vous pouvez voir sur votre ordinateur. Essayez de ne pas le toucher et de ne pas le salir !
+
+Configurez votre appareil de façon à ce qu'il affiche directement sur l'écran arrière ce que voit le capteur. Certains appareils le font automatiquement. D'autres (par exemple les reflex Canon) peuvent se plaindre que l'objectif est manquant. Vous pouvez souvent simplement passer le message d'avertissement et l'appareil fonctionnera normalement.
+
+## Qui a besoin d'un objectif, de toute façon ?
+
+Quand vous regardez un appareil photo, qu'est-ce que vous voyez ? L'objectif, n'est-ce pas ? Ce grand morceau de verre impassible qui vous fixe quand vous essayez d'enregistrer une vidéo. Même votre téléphone a un objectif, bien qu'il soit beaucoup plus petit. Si vous pensez à un appareil photo, je parie que la première chose à laquelle vous pensez c'est l'objectif, non ?
+
+Alors, que diriez-vous si je vous disais que, à strictement parler, l'objectif est complètement inutile ? Vous avez certainement besoin de quelque chose pour capturer l'image : le capteur numérique ou un morceau de film photographique. Mais vous n'avez pas réellement *besoin* d'un objectif. Dingue, non ?
+
+Donc, première étape. Retirons l'objectif et voyons ce qui se passe. La meilleure façon de comprendre ce qu'il fait, c'est de voir ce qui se passe sans lui, non ?
+
+Retirez l'objectif et tenez l'appareil en essayant de filmer quelque chose. Que voyez-vous sur l'écran ? Vous voyez probablement quelque chose comme ceci :
+
+<figure>
+  <Image src={imgWhitescreen} alt="Écran blanc à l'arrière d'un appareil photo numérique" style="width:100%" />
+  <figcaption>L'écran à l'arrière d'un appareil photo numérique affichant un écran complètement blanc (surexposé)</figcaption>
+</figure>
+
+Le capteur est sensible à la lumière et, sans rien devant lui, toute la lumière réfléchie par notre scène arrive directement sur le capteur. Le capteur est tellement sensible que chaque partie du capteur reçoit plus que la quantité maximale de lumière qu'il peut enregistrer, et nous obtenons donc simplement un écran blanc.
+
+Ce que nous voulons, c'est que la lumière provenant d'une partie de notre scène n'arrive que sur une partie du capteur. Par exemple, imaginez qu'il y a une seule fleur rouge dans notre scène. Si nous voulons voir une fleur rouge dans notre image, la lumière rouge que la fleur réfléchit doit arriver sur le capteur uniquement à l'endroit où la fleur apparaîtra dans notre image. Mais pour l'instant, ce n'est pas le cas. La lumière de la fleur frappe chaque partie du capteur.
+
+Vous pouvez voir ce phénomène dans les deux premières diapositives de l'animation ci-dessous.
+
+<LightRayAnimation />
+
+## Le sténopé à la rescousse !
+
+Alors, que se passe-t-il si on place un morceau de papier aluminium avec un minuscule trou d'épingle devant notre capteur ? Eh bien… le papier aluminium bloque la plupart de la lumière de notre scène ; l'intérieur de l'appareil sera donc bien plus sombre et le capteur sensible ne sera plus submergé de lumière. Mais, plus important encore, il ne permettra à la lumière de la fleur rouge d'atteindre le capteur qu'en un seul endroit. Toute la lumière rouge réfléchie vers d'autres parties du capteur sera bloquée par le papier aluminium.
+
+Vous pouvez voir comment cela fonctionne dans la diapositive 3 de l'animation. Maintenant, la lumière des fleurs rouge et blanche est séparée et tombe sur différentes parties du capteur.
+
+## Essayez vous-même !
+
+Pourquoi ne pas essayer par vous-même ? Tout ce dont vous avez besoin, c'est…
+
+- Une feuille de papier aluminium de cuisine
+- Une épingle ; plus elle est fine, mieux c'est
+- Du scotch pour fixer le papier aluminium sur l'appareil
+- Un appareil photo numérique avec un objectif amovible
+
+Faites le plus petit trou possible dans le papier aluminium et utilisez le scotch pour le coller sur l'ouverture de l'appareil de façon à ce qu'aucune lumière ne passe ; faites attention de ne pas toucher le capteur ni d'y déposer quoi que ce soit. Ça devrait ressembler à ceci :
+
+<figure>
+  <Image src={imgPinhole} alt="Appareil photo numérique avec du papier aluminium scotché sur l'avant" style="width:100%" />
+  <figcaption>Appareil photo numérique avec du papier aluminium scotché sur l'avant</figcaption>
+</figure>
+
+Maintenant, sortez et allumez votre appareil. C'est idéal par une belle journée ensoleillée aux alentours de midi. Voyez-vous quelque chose ? L'image sera très sombre, alors réglez votre appareil au réglage ISO maximum. L'« ISO » contrôle la sensibilité de l'appareil à la lumière ; réglez-le au maximum, puis réduisez-le si l'image est trop lumineuse.
+
+Si vous ne voyez rien sur l'écran, il se peut que l'ISO ne soit pas assez élevé ou que le maximum ISO de l'appareil ne soit pas suffisant. Pour vérifier, essayez de pointer votre appareil vers quelque chose de lumineux comme une ampoule (pas le soleil !). Vous devriez voir une image de l'ampoule, même si tout le reste est sombre.
+
+Félicitations ! Vous venez de construire votre propre « objectif » ! Ça a été plus facile que vous ne le pensiez, j'imagine.
+
+## Peut-on fabriquer différents types d'objectifs à sténopé ?
+
+Oui ! La plus grande différence entre un objectif et un autre, c'est la longueur. Certains sont vraiment courts et d'autres très longs. Comparez ces deux-là !
+
+<figure>
+  <Image src={imgLonglens} alt="Comparaison d'un objectif 600mm et d'un objectif 10mm" style="width:100%" />
+  <figcaption>Comparaison d'un objectif 600mm et d'un objectif 10mm</figcaption>
+</figure>
+
+Quelle différence la longueur de l'objectif fait-elle ? Regardez l'animation interactive ci-dessous. Vous pouvez modifier la distance entre le capteur de l'appareil et le sténopé en faisant glisser le curseur…
+
+<PinholeBarrelSimulator />
+
+Vous voyez que, plus le barillet de l'objectif s'allonge, plus les rayons lumineux doivent être parallèles pour atteindre le capteur ? Cela signifie que seule la partie centrale de la scène est visible et que l'image de la citrouille devient plus grande. Si vous rendez le barillet aussi long que possible, seule la zone entre les yeux de la citrouille est visible. Si vous le raccourcissez au maximum, la citrouille est minuscule.
+
+Vous pouvez faire cela vous-même en trouvant un tube que vous pouvez coller sur l'avant de l'appareil, puis en collant le papier aluminium avec le sténopé à l'autre extrémité. Si le tube est brillant ou de couleur claire, pensez à le tapisser de papier noir. Sinon, la lumière se réfléchira sur les parois et gâchera l'image.
+
+Faites attention à ne pas rendre le tube trop long. Plus il est long, plus l'image sera sombre, et vous ne verrez peut-être rien si vous le faites trop long ! En voici un que nous avons fabriqué avec une boîte de café. Nous avons percé un trou à une extrémité, que nous avons recouvert de papier aluminium. Le trou n'est pas trop grand, donc on peut le reboucher avec du scotch et remettre la boîte dans la cuisine une fois qu'on a terminé.
+
+<figure>
+  <Image src={imgCoffeelens} alt="Objectif à sténopé 200mm construit à partir d'une boîte de café" style="width:100%" />
+  <figcaption>Objectif à sténopé 200mm construit à partir d'une boîte de café</figcaption>
+</figure>
+
+## À vous de jouer !
+
+Maintenant vous savez comment construire votre propre objectif ! Avec quoi d'autre pourriez-vous fabriquer un objectif ? Quel est l'objectif le plus long que vous pouvez construire tout en obtenant encore une image ? Ne trouvez-vous pas incroyable de pouvoir construire votre propre objectif avec rien de plus qu'un tube et du papier aluminium ??
