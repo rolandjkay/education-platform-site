@@ -22,6 +22,7 @@ import StatsDisplay from './StatsDisplay.js'
 import MainMenu from './MainMenu.js'
 import FlyByTour from './FlyByTour.js'
 import TopBar from './TopBar.js'
+import ViewfinderOverlay from './ViewfinderOverlay.js'
 
 export default class World
 {
@@ -204,6 +205,7 @@ export default class World
 
 
             this.topBar = new TopBar({ flyByTour: this.flyByTour });
+            this.viewfinderOverlay = new ViewfinderOverlay();
 
             // Keyboard shortcut kept as a convenience
             document.addEventListener('keydown', (e) => {
