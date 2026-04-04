@@ -1,0 +1,232 @@
+---
+title: "物理學：關於鏡頭你需要知道的一切"
+description: "想知道同一個鏡頭如何能變成相機、顯微鏡，甚至放大鏡？讓我們用有趣的方式把這一切說清楚——絕對比讀教科書好玩！"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["physics", "optics", "lenses"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+想知道同一個鏡頭如何能變成相機、顯微鏡，甚至放大鏡？讓我們用有趣的方式把這一切說清楚——絕對比讀教科書好玩！
+
+## 先玩玩我們的鏡頭模擬器！
+
+在深入細節之前，先試試下面的鏡頭模擬器：
+
+1. **紅色箭頭**是你正在拍攝的物體。
+2. **綠色箭頭**是鏡頭所成的像，就像你在相機螢幕上看到的畫面。
+
+**試試這個：** 左右拖動紅色箭頭，看看像（綠色箭頭）如何變化。
+
+<ConvexLensEmbed />
+
+## 分享給你的朋友
+
+如果你和朋友們正在學習**光學物理**，這個工具非常適合幫助理解鏡頭——而且自己動手做有趣的實驗，比從筆記本上複習要有趣得多！
+
+別忘了在社群媒體上追蹤我們，並訂閱我們的電子報，獲取更多有趣的科學技巧。
+
+## 準備好深入探索了嗎？
+
+### 以下是所有細節……
+
+如果你最近有在社群媒體上追蹤我們，你就會看到我們發了很多「微距」攝影的作品；「微距」攝影是指拍攝非常小的物體。我們有些影片拍的是只有幾毫米長的東西，這已經超越了微距攝影的範疇，更像是在自製顯微鏡！
+
+**把一棵小多肉植物拍成怪物：**
+
+<iframe title="微距攝影：把一棵小多肉植物拍成怪物" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**自製顯微鏡：**
+
+<iframe title="自製顯微鏡影片" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+我們有些影片則正好相反；用相機鏡頭把一張老舊的幻燈片投影到建築物上，或投影到小物體上，比如一片葉子，或一小瓶金箔投影到畫家的畫布上。
+
+我們即將發布一些影片，展示如何把相機鏡頭當作放大鏡使用，以及如何把放大鏡當作相機鏡頭使用。
+
+**投影一片葉子：**
+
+<iframe title="用相機鏡頭投影一片葉子" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**把幻燈片投影到牆上：**
+
+<iframe title="用相機鏡頭把幻燈片投影到牆上" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**把鏡頭當作放大鏡使用：**
+
+<iframe title="把相機鏡頭當作放大鏡使用" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 顯微鏡、相機、放大鏡和投影機有什麼共同點？
+
+所以，這是怎麼回事？為什麼我們可以用相機鏡頭做這麼多不同的事情？
+
+如果你已經試過上面的鏡頭模擬器，你可能已經注意到，我們可以把像變得多大或多小都行，也可以把它放在鏡頭的同側或對側。這完全取決於物體和鏡頭之間的距離。
+
+讓我們深入了解一下細節，這樣我們就能明白其中的原理。
+
+## 回顧針孔相機
+
+回想一下針孔相機非常有幫助。鏡頭可能讓事情看起來很複雜，但很多物理原理在針孔相機中是完全一樣的，而且更容易理解。如果你有時間，請參閱我們關於[製作針孔相機](/articles/pinhole-camera)的文章。
+
+這裡是那篇文章中的互動工具——拖動滑桿，看看加長鏡筒（即把感光元件從光圈也就是針孔移得更遠）如何增加放大倍率，讓圖像變大。
+
+<PinholeBarrelSimulator />
+
+在上面的互動工具中，你可以看到來自圖像不同部分的光線是發散的；它們從物體到感光元件的過程中彼此越來越遠。所以，如果我們讓它們傳播更遠的距離，把感光元件移離針孔更遠，它們就會分散更多，圖像就變大了。
+
+還要注意，如果你把物體移近針孔，圖像也會變大。物體越近，穿過針孔的光線角度就越陡。角度更陡的光線在相同的水平距離內走過更大的垂直距離，從而形成更大的圖像。
+
+<SensorDistanceDiagram />
+
+## 加入鏡頭後會發生什麼
+
+使用鏡頭時同樣適用這個原理；如果我們想要更大的放大倍率，就必須把感光元件移離鏡頭更遠，或者把物體移近，或兩者兼施——這就是為什麼我們可以把相機鏡頭包在紙板管裡，增加鏡頭和感光元件之間的距離，來製作顯微鏡。
+
+針孔相機不存在對焦問題；無論物體和光圈（針孔）之間的距離，以及光圈和感光元件之間的距離是多少，圖像都是清晰的。
+
+使用鏡頭就不一樣了。鏡頭的工作原理是把從物體某一點發散出去的光線聚焦（彎曲），使它們重新匯聚成像。這些光線只在距離鏡頭一定距離的地方才會匯聚；太近，它們沒有走過足夠的距離，不能匯聚；太遠，它們已經匯聚並開始再次分散。
+
+<SensorFocusDiagram />
+
+<iframe title="展示鏡頭如何聚焦光線" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+所以，如果我們試著把感光元件移離鏡頭更遠，以讓圖像變大，圖像確實會變大，但也會越來越模糊。
+
+如果我們想要清晰的圖像，就需要找出光線匯聚的地方，並把感光元件放在那裡。因此，如果我們想讓圖像更大，就需要移動物體，讓光線匯聚在距鏡頭**更遠**的地方。離鏡頭更遠的距離就能給我們想要的額外放大倍率。
+
+## 凸透鏡和凹透鏡
+
+相機和放大鏡中使用的鏡頭類型稱為「凸」透鏡；這只是說它中間比邊緣厚。凸透鏡彎曲光線，使光線重新匯聚並成像，這就是它們在攝影中如此有用的原因。
+
+凸透鏡的相對物稱為「凹」透鏡。凹透鏡中間薄、邊緣厚，會使光線發散。
+
+<ConvexConcaveDiagram />
+
+今天我們討論的是凸透鏡，所以暫時先不管凹透鏡。
+
+順便說一下，你可能已經注意到，真正的相機「鏡頭」通常由許多單獨的玻璃鏡片組成，其中一些可能是凸的，一些可能是凹的。但組合在一起，它們的效果與單個凸透鏡相同，所以我們可以把它們當作一個凸透鏡來處理。
+
+### 那麼，我們的鏡頭模擬器是怎麼回事？
+
+在上面的鏡頭模擬器中，紅色箭頭代表我們正在拍攝的物體。綠色箭頭是當來自物體某一點的光線再次匯聚時所形成的像。
+
+相機鏡頭的決定性特徵是它的「焦距」。當人們談論他們的鏡頭時，你經常會聽到他們描述「50mm鏡頭」或「100mm鏡頭」。他們說的是焦距，即使他們自己不知道也一樣 😉
+
+焦距實際上告訴你鏡頭彎曲光線的強度；它告訴你平行於鏡頭軸線傳播的光線在鏡頭後方多遠的地方匯聚。50mm鏡頭會在鏡頭後50mm處匯聚平行光線，而100mm鏡頭的這個距離是100mm。平行光線匯聚的點稱為「焦點」；這個點在鏡頭模擬器中標記為「F」。
+
+<FocalLengthDiagram />
+
+除了焦點「F」，我們還標記了鏡頭兩側焦距兩倍距離的點。例如，對於50mm鏡頭，標記為「F」的兩個點在鏡頭前方和後方各50mm處，標記為「2F」的點在鏡頭前方和後方各100mm處。
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="兩條重要光線穿過鏡頭" style="width:100%;border-radius:8px" />
+  <figcaption>兩條重要光線穿過鏡頭</figcaption>
+</figure>
+
+橙色和藍色線代表來自箭頭頂端的兩條光線。我們選擇這兩條光線是因為很容易計算它們撞上鏡頭時會發生什麼。
+
+記住這兩條規則：
+
+1. 打到鏡頭中心的光線會沿直線繼續，不會被彎曲。
+2. 平行於鏡頭軸線傳播的光線會被彎曲，使其穿過鏡頭的「主焦點」，即鏡頭後方的點「F」。
+
+這些規則意味著我們知道橙色和藍色光線會在哪裡相交，可以看出箭頭頂端的像在哪裡。我們知道箭頭的底端在軸上，所以可以從軸畫到這兩條光線相交的點，從而畫出箭頭的像。來自箭頭頂端的所有其他光線都會在同一個地方相交。
+
+試著左右拖動物體，看看像如何變化。
+
+## 解釋
+
+要理解發生了什麼，最好從思考物體在「2F」時的情況開始；恰好在焦距兩倍遠的地方。然後我們可以思考當我們把它移近或移遠時會發生什麼。
+
+### 物體恰好在2F處
+
+你能看到當物體恰好在2F距離時出現的對稱性嗎？如果你能拿起電腦轉動180°，你會看到什麼都沒有改變，只是物體和像互換了位置。
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="物體在2F處時出現的對稱性" style="width:100%;border-radius:8px" />
+  <figcaption>物體在2F處時出現的對稱性</figcaption>
+</figure>
+
+這是因為藍色光線的斜率（坡度）恰好是橙色光線的兩倍；橙色光線在2F的距離內走過等於物體高度的垂直距離，而（非平行的）藍色光線在只有F的距離內走過相同的垂直距離。然而，藍色光線水平行進了2F的距離。因此，兩條光線都需要總共4F的距離才能走過物體高度兩倍的垂直距離，所以它們在鏡頭後方的距離與物體在鏡頭前方的距離相同的地方相交。
+
+由於對稱性，物體和像的大小完全相同。這對「微距攝影」很有用。例如，一隻大熊蜂大約與相機感光元件一樣大，所以在距鏡頭2F處，它幾乎可以佔滿整個畫面。
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="熊蜂的微距照片" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>熊蜂的微距照片 - 攝影：Michelle Reeves</figcaption>
+</figure>
+
+大多數相機鏡頭無法移到距感光元件焦距兩倍那麼遠；你需要自己移動鏡頭，通過使用「延伸管」或簡單的紙板管。
+
+### 物體在2F以外
+
+當物體距鏡頭超過2F時，橙色線的斜率比物體在2F時更小。物體越遠，橙色光線越接近軸線，所以藍色光線在更接近鏡頭的地方與之相交，像也比物體小。
+
+這是相機通常的使用情況；拍家庭照片時，你想把所有人的像縮小到只有幾公分寬的感光元件上，所以你希望像比真實人物小。
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="把家人保持在2F以外來拍照" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>把家人保持在2F以外來拍照 - 攝影：RDNE Stock project</figcaption>
+</figure>
+
+### 物體在2F和F之間
+
+現在，橙色線的斜率更陡；兩條線在鏡頭後方更遠的地方相交，像比物體大得多。
+
+這就是微距攝影；我們拍攝比感光元件小得多的東西，並把它們放大以填滿畫面。例如，這棵小多肉植物，現實中只有幾公分高，看起來像個怪物！
+
+<iframe title="微距攝影：多肉植物放大填滿畫面" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+如果我們把物體移得更近，靠近F，那麼像就會變得非常大。事實上，當我們接近F時，像會變得巨大，而且也會移到距鏡頭更遠的地方。這在我們想把圖像投影到建築物上時很有用；像可以距鏡頭數十米，大得驚人！
+
+<iframe title="用相機鏡頭把幻燈片投影到牆上" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+當物體接近F時，像移到**更遠**的後方並變得更大。現在我們建造了一台顯微鏡，可以看到肉眼看不見的東西。例如，這個昆蟲的頭，大約只有1mm寬。
+
+<iframe title="自製顯微鏡：放大的昆蟲頭部" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 物體在F以內
+
+現在，橙色線比藍色線更陡；它們永遠不會相交。然而，對於右側通過鏡頭觀看的觀察者來說，光線看起來像是來自物體後方的一個點。這被稱為「虛像」。「虛像」無法投影到一張紙或相機感光元件上，但對透過鏡頭觀看的人來說它看起來是真實的。
+
+你有沒有注意到，當你透過放大鏡看文字時，字母隨著你把放大鏡移離紙面而變大，然後突然消失了？這是因為像在你接近F時變大，然後在你達到F的瞬間消失到無限遠處。
+
+<figure>
+  <Image src={bannerImg} alt="把文字放在比F更近的地方，讓我們可以把鏡頭當作放大鏡使用" style="width:100%;border-radius:8px" />
+  <figcaption>把文字放在比F更近的地方，讓我們可以把鏡頭當作放大鏡使用</figcaption>
+</figure>
+
+### 物體恰好在F處
+
+這是最無趣的情況，橙色和藍色線完全平行；它們永遠不會相交，也沒有任何地方看起來像是相交，所以沒有成像。
+
+## 放大倍率的圖表
+
+不必太在意圖表和公式！不過看一看放大倍率如何隨著我們移動物體而變化的圖表是有用的。「放大倍率」是指像比物體大多少；放大倍率 *m*=2 意味著像是物體的兩倍大。放大倍率 *m*=0.5 意味著像是物體的一半大。
+
+你在玩鏡頭模擬器時可能注意到，當物體接近F時，像很快就變得非常大。你可以在圖表中看到這一點；當物體距離鏡頭（*u*）趨近焦距（*f*=100mm）時，*m* 緩慢增加，然後在我們非常接近時爆炸性地增長。
+
+<MagnificationGraph />
+
+## 輪到你了
+
+現在你理解了凸透鏡的工作原理！你認為可以用它們做哪些有趣的項目？你可以在eBay或老式相機店以低廉的價格購買舊鏡頭。如果你想要一些靈感，何不追蹤我們的社群媒體或訂閱我們的電子報？

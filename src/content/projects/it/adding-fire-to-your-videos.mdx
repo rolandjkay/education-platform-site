@@ -1,0 +1,77 @@
+---
+title: "Aggiungere il fuoco ai tuoi video"
+description: "Non vogliamo accendere un vero fuoco nel salotto, quindi cosa possiamo fare? In questo articolo ti mostriamo come aggiungere il fuoco da un video stock al tuo filmato."
+pubDate: 2024-06-09
+heroImage: "../images/post-7-md.webp"
+subjects: [filmmaking]
+---
+
+import { Image } from 'astro:assets';
+import imgScene from '../images/post-7-scene-md.webp';
+import imgOverhead from '../images/post-7-overhead-bts-md.webp';
+import imgFire from '../images/post-7-fire-md.webp';
+
+Quando Scabbers non sta prendendo il tè con Lavender al circolo, sgattaiola nel bosco per tramare come CONQUISTARE IL MONDO. Ma fa freddo nel bosco, e trammare al freddo non è un granché, quindi Scabbers ha bisogno di un bel fuoco per tenersi al caldo. Non vogliamo però accendere un vero fuoco nel salotto, quindi cosa possiamo fare? In questo articolo ti mostriamo come aggiungere il fuoco da un video stock al tuo filmato.
+
+## Costruisci la scena tenendo il fuoco in mente
+
+È importante pensare al fuoco mentre costruiamo la scena. Abbiamo tutti visto video in cui è ovvio che alcuni elementi sono stati aggiunti digitalmente perché stonano vistosamente. Vogliamo evitarlo. Non vogliamo che lo spettatore si accorga che il fuoco è stato aggiunto in post-produzione, ma piuttosto che creda che il fuoco fosse davvero presente nella scena quando l'abbiamo girata.
+
+Ovviamente non possiamo avere del vero fuoco nella scena, ma possiamo usare della legna e un braciere. Abbiamo usato il coperchio di un barattolo come braciere e lo abbiamo riempito di fiammiferi lunghi (quelli da cucina), ovviamente non accesi. Le estremità infiammabili sono in basso, così non si vedono. Potete usare qualsiasi cosa trovate in giro che assomigli un po' alla legna.
+
+<figure>
+  <Image src={imgScene} alt="La scena con i fiammiferi disposti come legna in un braciere ricavato dal coperchio di un barattolo" style="width:100%;border-radius:8px" />
+  <figcaption>La scena — i fiammiferi fanno da legna</figcaption>
+</figure>
+
+Non avevamo molto tempo, quindi abbiamo usato i fiammiferi così come uscivano dalla scatola, ma sarebbe meglio colorarli con un pennarello nero/grigio, in modo che sembrino bruciati dal fuoco.
+
+## Simula la luce del fuoco
+
+Un fuoco reale proietterebbe una luce tremolante su Scabbers, ma senza fuoco nella scena questo effetto sarebbe assente. Non vogliamo che lo spettatore percepisca inconsciamente l'assenza della luce del fuoco.
+
+Per risolvere questo problema, abbiamo simulato la luce del fuoco tenendo una luce arancione tremolante dietro la fotocamera. Le economiche luci NEEWER TL96 che abbiamo menzionato nel [nostro progetto precedente](/projects/turn-your-cuddly-toys-into-film-stars) hanno un'impostazione "FUOCO" che fornisce una luce arancione tremolante. Ma se non hai una luce del genere, potresti usare una torcia avvolta in un sacchetto di plastica arancione o un sacchetto trasparente colorato con una penna arancione. Se la muovi o agiti le dita davanti ad essa, puoi far tremare la luce.
+
+## Aggiungi il fumo
+
+È una notte fredda e nebbiosa nella foresta, e ci sarebbe molto fumo che si diffonde dal fuoco, quindi abbiamo usato la stessa macchina del fumo che abbiamo usato nel [nostro progetto precedente](/projects/turn-your-cuddly-toys-into-film-stars) per aggiungere del fumo sullo sfondo. Ne abbiamo messo abbastanza, dato che puntavamo a un look piuttosto esagerato, ma potresti essere più sottile se è quello l'effetto che cerchi.
+
+## Configurazione di fotocamera e luci
+
+Abbiamo usato due luci RGB NEEWER TL96 impostate su rosso ad alta intensità come controluce, mantenendole in alto per tenerle fuori inquadratura. Abbiamo posizionato la fotocamera in basso, sotto Scabbers, e inclinato l'obiettivo verso l'alto per dare loro un aspetto potente e minaccioso.
+
+<figure>
+  <Image src={imgOverhead} alt="Ripresa dall'alto della configurazione di ripresa" style="width:100%;border-radius:8px" />
+  <figcaption>Vista dall'alto della nostra configurazione di fotocamera e luci</figcaption>
+</figure>
+
+## Aggiungere il fuoco
+
+L'ultimo passaggio è trasferire il video dalla fotocamera al computer per poter aggiungere il fuoco.
+
+Prima di tutto, trova un video di fuoco adatto alla tua scena. Devi trovare una clip che si abbini alla tua scena e in cui la fotocamera non si muova — se la fotocamera si muove, sarà molto difficile abbinarla al tuo video.
+
+**Consiglio:** Trova il footage del fuoco **prima** di girare la tua scena. In questo modo puoi assicurarti che siano ripresi con angoli di ripresa sufficientemente simili e adattare la tua scena al footage.
+
+Abbiamo usato la clip qui sotto; potreste usare qualsiasi cosa troviate che abbia l'aspetto che cercate. Le clip di fuoco sono molto comuni; per esempio [questa](https://www.pexels.com/video/burning-charcoal-fire-854692/), disponibile gratuitamente su Pexels, potrebbe essere adatta; se cercate "Fire" su Pexels e siti simili, ci sono molte opzioni.
+
+<figure>
+  <Image src={imgFire} alt="Footage di fuoco stock usato come sovrapposizione" style="width:100%;border-radius:8px" />
+  <figcaption>La clip di fuoco stock usata come sovrapposizione</figcaption>
+</figure>
+
+Se sei fortunato, potresti trovare una clip con solo il fuoco su sfondo nero; in questo caso, puoi semplicemente sovrapporla nel tuo programma di editing, posizionarla dove vuoi e impostare la modalità di fusione/composizione su "Aggiungi" o "Schermo" e potrebbe già bastare.
+
+Abbiamo usato una clip con il fuoco su uno sfondo abbastanza scuro. Poiché il fuoco è molto più luminoso di ciò che lo circonda, possiamo usare un **Luma key** (o Luminance key) per inserirlo nella scena. Questo imposta la trasparenza di ogni pixel in base alla sua luminosità — i pixel neri diventano completamente trasparenti e i pixel luminosi completamente opachi. Fatto questo, puoi sovrapporre il footage del fuoco e i pixel dello sfondo saranno sufficientemente trasparenti da non notarsi nemmeno.
+
+Usare una tecnica semplice come questa per fondere il fuoco dà un risultato molto più naturale rispetto ad altre tecniche di rimozione dello sfondo ed è molto più semplice da applicare.
+
+## La musica!
+
+Infine, aggiungi della musica adeguatamente malvagia. Se stai realizzando un video per TikTok o Instagram, c'è molta musica con copyright disponibile direttamente nell'app. Se pubblichi altrove (ad es. su YouTube), la musica classica è un'ottima opzione — viene spesso usata nei film horror e molte registrazioni sono di dominio pubblico, libere da utilizzare.
+
+Abbiamo usato una registrazione di dominio pubblico di ["O Fortuna"](https://archive.org/details/OFortuna_377) di Carl Orff, che suona in modo molto simile alla colonna sonora del film horror di culto *The Omen*.
+
+## Modifica e carica
+
+Ora non ti resta che finalizzare il montaggio e caricare sui tuoi piattaforme preferite. Buone riprese!

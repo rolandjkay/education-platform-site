@@ -1,0 +1,232 @@
+---
+title: "物理学：关于镜头你需要知道的一切"
+description: "你有没有想过，同一块镜头是如何变成相机、显微镜甚至放大镜的？让我们用通俗易懂的方式来解释——比教科书有趣多了！"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["物理", "光学", "镜头"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+你有没有想过，同一块镜头是如何变成相机、显微镜甚至放大镜的？让我们用通俗易懂的方式来解释——比教科书有趣多了！
+
+## 玩玩我们的镜头模拟器！
+
+在深入细节之前，先来试试下面的镜头模拟器：
+
+1. **红色箭头**是你正在拍摄的物体。
+2. **绿色箭头**是镜头形成的像，就像你在相机屏幕上看到的那样。
+
+**试试这个：** 左右拖动红色箭头，看看像（绿色箭头）如何变化。
+
+<ConvexLensEmbed />
+
+## 分享给你的朋友
+
+如果你或你的朋友正在学习光学和物理，这个工具非常适合理解镜头——而且自己动手做项目比从笔记本上复习有趣多了！
+
+别忘了在社交媒体上关注我们，并订阅我们的邮件列表，获取更多有趣的科学技巧。
+
+## 准备好探索了吗？
+
+### 这里是所有细节……
+
+如果你最近关注了我们的社交媒体，你可能已经看到我们发布了很多"微距"摄影内容；"微距"摄影意味着拍摄非常小的物体。我们的一些视频展示的东西只有几毫米长，这已经超出了微距摄影的范畴，更像是在建造一台显微镜！
+
+**将一株小多肉植物变成怪物：**
+
+<iframe title="微距摄影：将一株小多肉植物变成怪物" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**DIY显微镜：**
+
+<iframe title="DIY显微镜视频" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+我们的一些视频则完全相反；用相机镜头将一张彩色幻灯片投影到建筑物上或小物体上，比如一片叶子或一小罐金箔投影到画家的画布上。
+
+我们即将发布一些视频，展示如何将相机镜头用作放大镜，以及如何将放大镜用作相机镜头。
+
+**投影一片叶子：**
+
+<iframe title="用相机镜头投影一片叶子" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**将幻灯片投影到墙上：**
+
+<iframe title="用相机镜头将幻灯片投影到墙上" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**将镜头用作放大镜：**
+
+<iframe title="将相机镜头用作放大镜" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 显微镜、相机、放大镜和投影仪之间有什么联系？
+
+那么，这是怎么回事？为什么我们可以用相机镜头做这么多不同的事情？
+
+如果你已经玩过上面的镜头模拟器，你可能已经注意到我们可以让像尽可能小或尽可能大，我们可以将它放在镜头与物体相同的一侧，或者相反的一侧。这完全取决于物体与镜头之间的距离。
+
+让我们深入了解细节，以便理解正在发生的事情。
+
+## 回顾针孔相机
+
+回忆一下我们的针孔相机非常有帮助。镜头可能让事情看起来复杂，但很多物理原理在针孔相机中是完全相同的，而且更容易理解发生了什么。如果你有时间，请查看我们关于[自制针孔相机](/articles/pinhole-camera)的文章。
+
+这里是那篇文章中的应用程序——拖动滑块，看看如何延长镜筒（这与将相机传感器从光圈（针孔）移开是同一件事）如何增加放大率并使图像变大。
+
+<PinholeBarrelSimulator />
+
+在上面的应用程序中，你可以看到来自图像不同部分的光线正在发散；当它们从物体传播到传感器时，彼此之间的距离越来越远。因此，如果我们让它们传播更长的距离，通过将传感器从针孔移开，它们会扩散更多，图像变得更大。
+
+还要注意，如果你将物体移近针孔，图像也会变大。物体越近，穿过针孔的光线角度就越陡。以更陡角度进入的光线在相同的水平距离内比以较浅角度进入的光线垂直传播更大的距离，从而产生更大的图像。
+
+<SensorDistanceDiagram />
+
+## 添加镜头后会发生什么
+
+使用镜头时也是同样的道理；如果我们想要更大的放大率，我们必须将传感器移得离镜头更远，或者将物体移近，或者两者兼而有之——这就是为什么我们可以通过在相机镜头上缠绕纸板管来建造显微镜，增加镜头和传感器之间的距离。
+
+针孔相机不存在对焦问题；无论物体与光圈（针孔）之间的距离以及光圈与传感器之间的距离如何，图像都会对焦。
+
+使用镜头时则不同。镜头通过聚焦（弯曲）从物体上某一点辐射出来的光线，使它们重新汇聚在一起形成像来工作。光线只在距镜头特定距离处汇聚；距离太近，它们传播的距离不足以汇聚；距离太远，它们已经汇聚并开始再次分散。
+
+<SensorFocusDiagram />
+
+<iframe title="演示镜头聚焦光线" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+因此，如果我们试图将传感器移得离镜头更远以使图像变大，图像会变大，但也会越来越失焦。
+
+如果我们想要清晰的图像，我们需要找出光线汇聚的位置，并将传感器放在那里。因此，如果我们想使图像更大，我们需要移动物体，使光线在**距镜头更远的地方**汇聚。距镜头的更大距离将给我们提供我们想要的额外放大率。
+
+## 凸透镜和凹透镜
+
+相机和放大镜中使用的镜头类型称为"凸"透镜；这只是意味着它中间比边缘厚。凸透镜弯曲光线使光线重新汇聚并形成像，这就是它们在摄影中如此有用的原因。
+
+凸透镜的反面称为"凹"透镜。凹透镜中间薄、边缘厚，弯曲光线使光线散开。
+
+<ConvexConcaveDiagram />
+
+今天我们谈论的是凸透镜，所以我们暂时可以忘记凹透镜。
+
+顺便说一句，你可能已经注意到，真正的相机"镜头"通常由许多单独的玻璃镜片组成，其中一些可能是凸的，一些可能是凹的。但总体来说，它们的效果与单个凸透镜相同，所以我们可以将它们视为单个凸透镜。
+
+### 那么，我们的镜头模拟器是怎么工作的？
+
+在上面的镜头模拟器中，红色箭头代表我们正在拍摄的物体。绿色箭头是当来自物体上某一点的光线再次汇聚时形成的像。
+
+相机镜头的决定性特征是其"焦距"。当人们谈论他们的镜头时，你会经常听到他们将镜头描述为"50mm镜头"或"100mm镜头"。他们在谈论焦距，即使他们不知道这一点。
+
+焦距实际上告诉你的是镜头弯曲光线的强度；它告诉你平行于镜头轴传播的光线在镜头后多远的距离处汇聚。50mm镜头将在镜头后50mm处汇聚平行光线，而100mm镜头，这个距离将是100mm。平行光线汇聚的点称为"焦点"；这个点在镜头模拟器中标记为"F"。
+
+<FocalLengthDiagram />
+
+除了焦点"F"之外，我们还标记了镜头两侧焦距两倍远的点。例如，对于50mm镜头，标记为"F"的两个点分别在镜头前后50mm处，标记为"2F"的点在镜头前后100mm处。
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="通过镜头的两条重要光线" style="width:100%;border-radius:8px" />
+  <figcaption>通过镜头的两条重要光线</figcaption>
+</figure>
+
+橙色和蓝色线条代表来自箭头顶部的两条光线。我们选择这两条光线是因为很容易推断出它们撞击镜头时会发生什么。
+
+记住这两条规则：
+
+1. 撞击镜头中心的光线将沿直线继续传播，不会被弯曲。
+2. 平行于镜头轴传播的光线将被弯曲，使其穿过镜头的"主焦点"；即镜头后面的"F"点。
+
+这些规则意味着我们知道橙色和蓝色光线将在哪里相交，我们可以看到箭头顶部的像必须在哪里。我们知道箭头的底部在轴上，所以我们可以从轴到这两条光线相交的点画出箭头的像。来自箭头顶部的所有其他光线将在同一地方相交。
+
+试着左右拖动物体，看看像发生了什么变化。
+
+## 解释
+
+要理解正在发生的事情，最好从思考物体在"2F"时会发生什么开始；即恰好在焦距两倍远的地方。然后我们可以思考当我们将其移近或移远时会发生什么。
+
+### 物体恰好在2F处
+
+你能看到当物体距镜头恰好2F时出现的对称性吗？如果你能拿起电脑转动180°，你会看到什么都没有变化，除了物体和像互换了位置。
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="物体在2F时出现的对称性" style="width:100%;border-radius:8px" />
+  <figcaption>物体在2F时出现的对称性</figcaption>
+</figure>
+
+这是因为蓝色光线的梯度（斜率）恰好是橙色光线的两倍；橙色光线在2F的距离内传播等于物体高度的距离，而（非平行）蓝色光线仅在F的距离内传播相同的垂直距离。然而，蓝色光线在2F的距离内是水平的。结果，两条光线都需要总距离4F来传播物体高度两倍的垂直距离，因此它们在镜头后面与物体在前面相同距离处相遇。
+
+由于对称性，物体和像的大小完全相同。这对于"微距摄影"很有用。例如，一只大熊蜂大约与相机传感器一样大，所以在距镜头2F处，它将占据大部分画面。
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="熊蜂的微距照片" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>熊蜂的微距照片 - 摄影：Michelle Reeves</figcaption>
+</figure>
+
+大多数相机镜头无法移动到距传感器焦距两倍那么远；你需要使用"延伸管"或简单的纸板管自己移动镜头。
+
+### 物体比2F更远
+
+当物体比2F距镜头更远时，橙色线的梯度比物体在2F时更小。物体越远，橙色光线越接近轴，因此蓝色线在更靠近镜头的地方与之相交，像比物体小。
+
+这是相机中的常见设置；当你拍摄家庭照片时，你想把每个人的像都放到只有几厘米宽的传感器上，所以你希望像比实物小。
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="拍摄家庭照片时将家人保持在2F以外" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>拍摄家庭照片时将家人保持在2F以外 - 摄影：RDNE Stock project</figcaption>
+</figure>
+
+### 物体在2F和F之间
+
+现在，橙色线更陡；两条线在镜头后面更远处相交，像比物体大得多。
+
+这就是微距摄影；我们正在拍摄比传感器小得多的物体，并将它们放大以填满画面。例如，这株小小的多肉植物，现实中只有几厘米高，看起来像个怪物！
+
+<iframe title="微距摄影：多肉植物放大填满画面" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+如果我们将物体移得更靠近F，那么像会变得非常大。事实上，当我们接近F时，像会变得巨大。它也会移动到距镜头更远的地方。如果我们想将像投影到建筑物上，这就非常有用；像可以距镜头几十米，而且非常巨大！
+
+<iframe title="用相机镜头将幻灯片投影到墙上" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+当物体接近F时，像向**后**移动很多并变得更大。现在我们建造了一台显微镜，可以观察肉眼看不见的东西。例如，这个昆虫的头部，宽约1mm。
+
+<iframe title="DIY显微镜：放大的昆虫头部" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### 物体比F更近
+
+现在，橙色线比蓝色线更陡；它们永远不会相交。然而，对于右侧透过镜头观察的人来说，光线似乎来自物体后面的某个点。这被称为"虚"像。"虚"像无法投影到纸上或相机传感器上，但对于透过镜头观察的人来说，它看起来是真实的。
+
+你有没有注意到，当你透过放大镜看文字时，当你将放大镜从纸上移开时，字母会变大，然后突然消失？这是因为像随着接近F而变大，然后一旦到达F就消失到无穷远处。
+
+<figure>
+  <Image src={bannerImg} alt="将文字放在比F更近的位置，这样我们就可以将相机镜头用作放大镜" style="width:100%;border-radius:8px" />
+  <figcaption>将文字放在比F更近的位置，这样我们就可以将相机镜头用作放大镜</figcaption>
+</figure>
+
+### 物体恰好在F处
+
+这是最不有趣的情况，橙色和蓝色线完全平行；它们永远不会相交，也不会在任何地方显得相交，所以没有像形成。
+
+## 放大率图表
+
+不要太担心图表和公式！不过，看一下随着我们移动物体像的放大率如何变化的图表还是很有用的。"放大率"指的是像比物体大多少；放大率 *m*=2 意味着像是物体的两倍大。放大率 *m*=0.5 意味着像是物体的一半大。
+
+你在玩镜头模拟器时可能注意到，随着物体接近F，像会非常快速地变大。你可以在图表中看到这一点；当距镜头的距离（*u*）接近焦距（*f*=100mm）时，*m* 缓慢增加，然后在我们真正接近时急剧上升。
+
+<MagnificationGraph />
+
+## 轮到你了
+
+现在你理解了凸透镜的工作原理！你认为你可以用它们做什么有趣的项目？你可以在二手平台上或复古相机店以低价买到旧镜头。如果你想要一些灵感，为什么不关注我们的社交媒体或订阅我们的邮件列表呢？

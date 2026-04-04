@@ -1,0 +1,232 @@
+---
+title: "Fisica: tutto quello che devi sapere sulle lenti"
+description: "Ti sei mai chiesto come una sola lente possa diventare una fotocamera, un microscopio o persino una lente d'ingrandimento? Te lo spieghiamo in modo semplice — e molto più divertente di un libro di testo!"
+pubDate: 2024-11-01
+subjects: [science]
+tags: ["fisica", "ottica", "lenti"]
+heroImage: "../images/post-11-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import bannerImg from '../images/post-11-banner-md.webp';
+import imgOrangeBlueRays from '../images/post-11-orange-blue-rays-md.webp';
+import imgOrangeBlueRays2f from '../images/post-11-orange-blue-rays-2f-md.webp';
+import imgBumble from '../images/post-11-bumble-md.webp';
+import imgFamily from '../images/post-11-family-md.webp';
+import ConvexLensEmbed from '../../../components/diagrams/ConvexLensEmbed.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+import SensorDistanceDiagram from '../../../components/diagrams/SensorDistanceDiagram.astro';
+import SensorFocusDiagram from '../../../components/diagrams/SensorFocusDiagram.astro';
+import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiagram.astro';
+import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
+import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
+
+
+Ti sei mai chiesto come una sola lente possa diventare una fotocamera, un microscopio o persino una lente d'ingrandimento? Te lo spieghiamo in modo semplice — e molto più divertente di un libro di testo!
+
+## Gioca con il nostro simulatore di lenti!
+
+Prima di entrare nei dettagli, prova il Simulatore di Lenti qui sotto:
+
+1. La **freccia rossa** è l'oggetto che stai fotografando.
+2. La **freccia verde** è l'immagine formata dalla lente, come quella che vedi sullo schermo di una fotocamera.
+
+**Prova questo:** Trascina la freccia rossa a sinistra o a destra e guarda come cambia l'immagine (freccia verde).
+
+<ConvexLensEmbed />
+
+## Condividi con i tuoi amici
+
+Se tu o i tuoi amici state studiando ottica e fisica, questo strumento è perfetto per capire le lenti — ed è molto più divertente costruire i propri progetti che ripassare dagli appunti!
+
+Non dimenticare di seguirci sui social e iscriverti alla nostra mailing list per altri trucchi e approfondimenti scientifici.
+
+## Pronti ad esplorare?
+
+### Ecco tutti i dettagli…
+
+Se ci hai seguito di recente sui social media, avrai visto che abbiamo pubblicato molte fotografie "macro"; la fotografia "macro" significa fotografare oggetti molto piccoli. Alcuni dei nostri video mostravano cose lunghe solo qualche millimetro, il che va oltre la macrofotografia e si avvicina alla costruzione di un microscopio!
+
+**Trasformare un piccolo cactus in un mostro:**
+
+<iframe title="Fotografia macro: trasformare un piccolo cactus in un mostro" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Microscopio fai-da-te:**
+
+<iframe title="Video del microscopio fai-da-te" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Alcuni dei nostri video hanno fatto l'opposto: abbiamo usato un obiettivo fotografico per proiettare una vecchia diapositiva a colori su un edificio o su piccoli oggetti, come una foglia o un barattolino di scaglie d'oro sulla tela di un pittore.
+
+Pubblicheremo presto dei video in cui utilizziamo un obiettivo fotografico come lente d'ingrandimento e una lente d'ingrandimento come obiettivo fotografico.
+
+**Proiettare una foglia:**
+
+<iframe title="Proiettare una foglia con un obiettivo fotografico" src="https://player.vimeo.com/video/1030514671?h=2335c191bc&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Proiettare una diapositiva su una parete:**
+
+<iframe title="Proiettare una diapositiva su una parete con un obiettivo fotografico" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+**Usare una lente come lente d'ingrandimento:**
+
+<iframe title="Usare un obiettivo fotografico come lente d'ingrandimento" src="https://player.vimeo.com/video/1030524908?h=dc459efc8e&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### Qual è il legame tra microscopio, fotocamera, lente d'ingrandimento e proiettore?
+
+Cosa sta succedendo? Come mai possiamo usare un obiettivo fotografico per fare tutte queste cose diverse?
+
+Se hai già provato il Simulatore di Lenti qui sopra, potresti aver notato che possiamo rendere l'immagine piccola o grande a piacere e possiamo posizionarla dallo stesso lato della lente rispetto all'oggetto, o sul lato opposto. Dipende tutto dalla distanza tra l'oggetto e la lente.
+
+Entriamo più nel dettaglio per capire cosa sta succedendo.
+
+## La fotocamera stenopeica: un punto di partenza
+
+È molto utile tornare alla nostra fotocamera stenopeica. Le lenti possono sembrare complicate, ma molta della fisica è esattamente la stessa in una fotocamera stenopeica, ed è molto più facile capire cosa sta succedendo. Se hai tempo, ti consigliamo di leggere il nostro articolo su [come costruire la tua fotocamera stenopeica](/articles/pinhole-camera).
+
+Ecco l'applicazione di quell'articolo — trascina il cursore e guarda come allungare il barilotto, che equivale ad allontanare il sensore dall'apertura (il foro), aumenta l'ingrandimento e rende l'immagine più grande.
+
+<PinholeBarrelSimulator />
+
+Nell'applicazione qui sopra, puoi vedere che i raggi di luce provenienti da parti diverse dell'immagine stanno divergendo; si allontanano l'uno dall'altro mentre viaggiano dall'oggetto al sensore. Quindi, se li facciamo percorrere una distanza maggiore, allontanando il sensore dal foro, si diffondono di più e l'immagine diventa più grande.
+
+Nota anche che, se avvicini l'oggetto al foro, l'immagine diventa più grande. Più l'oggetto è vicino, più è ripido l'angolo del raggio di luce che passa attraverso il foro. Un raggio che entra con un angolo più ripido percorre una distanza verticale maggiore nella stessa distanza orizzontale rispetto a un raggio con un angolo meno ripido, producendo un'immagine più grande.
+
+<SensorDistanceDiagram />
+
+## Cosa succede quando aggiungiamo una lente
+
+Lo stesso vale quando usiamo una lente: se vogliamo un ingrandimento maggiore dobbiamo allontanare il sensore dalla lente, avvicinare l'oggetto, o entrambe le cose — ed è per questo che possiamo costruire un microscopio avvolgendo l'obiettivo fotografico in un tubo di cartone, aumentando la distanza tra la lente e il sensore.
+
+La messa a fuoco non è un problema con una fotocamera stenopeica; l'immagine sarà a fuoco qualunque sia la distanza tra l'oggetto e l'apertura e tra l'apertura e il sensore.
+
+Non è così quando si usa una lente. Una lente funziona concentrando (curvando) i raggi di luce che si irradiano da un punto dell'oggetto in modo che si riuniscano per formare l'immagine. I raggi si riuniscono solo a una certa distanza dalla lente; troppo vicino, e non avranno percorso abbastanza distanza per riunirsi; troppo lontano, e si saranno già riuniti e avranno ricominciato a divergere.
+
+<SensorFocusDiagram />
+
+<iframe title="Dimostrazione di una lente che mette a fuoco i raggi di luce" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Quindi, se proviamo ad allontanare il sensore dalla lente per rendere l'immagine più grande, l'immagine diventerà più grande, ma andrà sempre più fuori fuoco.
+
+Se vogliamo un'immagine nitida, dobbiamo capire dove si riuniscono i raggi e posizionare il sensore lì. E quindi, se vogliamo rendere l'immagine più grande, dobbiamo spostare l'oggetto in modo che i raggi si riuniscano **più lontano** dalla lente. La maggiore distanza dalla lente ci darà poi l'ingrandimento extra che vogliamo.
+
+## Lenti convesse e concave
+
+Il tipo di lente usato nelle fotocamere e nelle lenti d'ingrandimento si chiama lente "convessa": significa semplicemente che è più spessa al centro che ai bordi. Le lenti convesse curvano la luce in modo che i raggi si riuniscano e formino un'immagine, ed è per questo che sono così utili in fotografia.
+
+L'opposto di una lente convessa si chiama lente "concava". Queste sono sottili al centro e spesse ai bordi e curvano i raggi di luce in modo che si disperdano.
+
+<ConvexConcaveDiagram />
+
+Oggi parliamo di lenti convesse, quindi possiamo dimenticare le lenti concave per ora.
+
+A proposito, potresti aver notato che i veri "obiettivi" fotografici sono tipicamente composti da molte singole lenti di vetro, alcune delle quali possono essere convesse e altre concave. Insieme, però, hanno lo stesso effetto di una singola lente convessa, quindi possiamo trattarli come una singola lente convessa.
+
+### Dunque, come funziona il nostro Simulatore di Lenti?
+
+Nel Simulatore di Lenti qui sopra, la freccia rossa rappresenta l'oggetto che stiamo fotografando. La freccia verde è l'immagine che si forma quando i raggi di luce provenienti da un punto dell'oggetto si riuniscono nuovamente.
+
+La caratteristica fondamentale di un obiettivo fotografico è la sua "lunghezza focale". Quando le persone parlano dei loro obiettivi, spesso li descrivono come un "obiettivo da 50mm" o un "obiettivo da 100mm". Stanno parlando della lunghezza focale, anche se non lo sanno.
+
+Quello che la lunghezza focale indica effettivamente è con quale forza la lente curva la luce; indica la distanza dietro la lente a cui i raggi di luce paralleli all'asse della lente vengono riuniti. Un obiettivo da 50mm riunirà i raggi paralleli 50mm dietro la lente, mentre per un obiettivo da 100mm questa distanza sarà di 100mm. Il punto in cui i raggi paralleli si incontrano si chiama "fuoco"; questo punto è indicato con "F" nel Simulatore di Lenti.
+
+<FocalLengthDiagram />
+
+Oltre ai fuochi "F", abbiamo anche contrassegnato i punti che sono due volte la lunghezza focale su entrambi i lati della lente. Quindi, per esempio, per un obiettivo da 50mm, i due punti indicati con "F" sono a 50mm davanti e dietro la lente e quelli indicati con "2F" sono a 100mm davanti e dietro la lente.
+
+<figure>
+  <Image src={imgOrangeBlueRays} alt="Due raggi importanti che passano attraverso la lente" style="width:100%;border-radius:8px" />
+  <figcaption>Due raggi importanti che passano attraverso la lente</figcaption>
+</figure>
+
+Le linee arancione e blu rappresentano due raggi di luce provenienti dalla cima della freccia. Abbiamo scelto questi due raggi perché è facile determinare cosa succede loro quando colpiscono la lente.
+
+Ricorda queste due regole:
+
+1. Un raggio che colpisce il centro della lente continuerà in linea retta, senza essere curvato.
+2. Un raggio che viaggia parallelo all'asse della lente sarà curvato in modo da passare attraverso il "fuoco principale" della lente; cioè il punto "F" dietro la lente.
+
+Queste regole ci permettono di sapere dove si incrociano il raggio arancione e quello blu, e possiamo vedere dove deve trovarsi l'immagine della cima della freccia. Sappiamo che la base della freccia sarà sull'asse, quindi possiamo disegnare l'immagine della freccia dall'asse al punto in cui si incrociano questi due raggi. Tutti gli altri raggi provenienti dalla cima della freccia si incroceranno nello stesso punto.
+
+Prova a trascinare l'oggetto a sinistra e a destra e guarda cosa succede all'immagine.
+
+## Spiegazione
+
+Per capire cosa sta succedendo, è meglio iniziare pensando a cosa succede quando l'oggetto è a "2F"; esattamente due volte la lunghezza focale dalla lente. Poi possiamo pensare a cosa succede quando lo avviciniamo o lo allontaniamo.
+
+### L'oggetto è esattamente a 2F
+
+Riesci a vedere la simmetria che si crea quando l'oggetto si trova a una distanza esattamente pari a 2F dalla lente? Se prendi il computer e lo ruoti di 180° vedrai che nulla è cambiato, tranne che l'oggetto e l'immagine si sono scambiati di posto.
+
+<figure>
+  <Image src={imgOrangeBlueRays2f} alt="La simmetria che si crea quando l'oggetto è a 2F" style="width:100%;border-radius:8px" />
+  <figcaption>La simmetria che si crea quando l'oggetto è a 2F</figcaption>
+</figure>
+
+Questo accade perché il gradiente (pendenza) dei raggi blu è esattamente il doppio di quello del raggio arancione; il raggio arancione percorre una distanza pari all'altezza dell'oggetto in una distanza di 2F, mentre il raggio blu (non parallelo) percorre la stessa distanza verticale in soli F. Tuttavia, il raggio blu è orizzontale per una distanza di 2F. Di conseguenza, entrambi i raggi impiegano una distanza totale di 4F per percorrere una distanza verticale pari al doppio dell'altezza dell'oggetto, e quindi si incontrano alla stessa distanza dietro la lente a cui l'oggetto si trova davanti.
+
+Per via della simmetria, l'oggetto e l'immagine hanno esattamente le stesse dimensioni. Questo è utile per la "macrofotografia". Per esempio, un grosso bombo ha circa le dimensioni del sensore della fotocamera, quindi a 2F dalla lente occuperebbe quasi tutto il fotogramma.
+
+<figure>
+  <a href="https://www.pexels.com/photo/bumblebee-on-purple-flower-in-macro-photography-2662156/">
+    <Image src={imgBumble} alt="Fotografia macro di un bombo" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Fotografia macro di un bombo - Foto di Michelle Reeves</figcaption>
+</figure>
+
+La maggior parte degli obiettivi fotografici non può spostarsi fino a due volte la lunghezza focale dal sensore; è necessario allontanare la lente da soli, usando un "tubo di prolunga" o un semplice tubo di cartone.
+
+### L'oggetto è più lontano di 2F
+
+Quando l'oggetto è più lontano dalla lente di 2F, il gradiente della linea arancione è inferiore rispetto a quando l'oggetto è a 2F. Più l'oggetto è lontano, più il raggio arancione è vicino all'asse, e quindi le linee blu si incrociano più vicino alla lente e l'immagine è più piccola dell'oggetto.
+
+Questa è la configurazione tipica di una fotocamera; quando si scatta una foto di famiglia, si vuole adattare l'immagine di tutti su un sensore largo solo qualche centimetro, quindi si vuole che l'immagine sia più piccola della realtà.
+
+<figure>
+  <a href="https://www.pexels.com/photo/family-sitting-on-green-grass-field-7982545/">
+    <Image src={imgFamily} alt="Tenere la famiglia oltre 2F per una foto" style="width:100%;border-radius:8px" />
+  </a>
+  <figcaption>Tenere la famiglia oltre 2F per una foto - Foto di RDNE Stock project</figcaption>
+</figure>
+
+### L'oggetto è tra 2F e F
+
+Ora la linea arancione è molto più ripida; le due linee si incrociano molto più lontano dietro la lente e l'immagine è molto più grande dell'oggetto.
+
+Questa è la macrofotografia; stiamo fotografando oggetti molto più piccoli del sensore e li stiamo ingrandendo per riempire il fotogramma. Per esempio, questo minuscolo cactus, alto solo qualche centimetro nella realtà, sembra un mostro!
+
+<iframe title="Macrofotografia: il cactus ingrandito riempie il fotogramma" src="https://player.vimeo.com/video/1030504658?h=f7f46be27b&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Se avviciniamo ulteriormente l'oggetto a F, l'immagine diventa molto grande. Man mano che ci avviciniamo a F diventa enorme. Si sposta anche molto più lontano dalla lente. Questo è utile se vogliamo proiettare un'immagine su un edificio; l'immagine potrebbe trovarsi a decine di metri dalla lente ed essere gigantesca!
+
+<iframe title="Proiettare una diapositiva su una parete con un obiettivo fotografico" src="https://player.vimeo.com/video/1030514434?h=4da4ae3c04&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+Man mano che l'oggetto si avvicina a F, l'immagine si sposta **molto** più indietro e diventa molto più grande. Ora abbiamo costruito un microscopio e possiamo osservare oggetti troppo piccoli per essere visti a occhio nudo. Per esempio, questa testa di insetto, larga circa 1mm.
+
+<iframe title="Microscopio fai-da-te: testa di insetto ingrandita" src="https://player.vimeo.com/video/1030507113?h=244e844cd4&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+### L'oggetto è più vicino di F
+
+Ora la linea arancione è più ripida di quella blu; non si incrociano mai. Tuttavia, per un osservatore sul lato destro che guarda attraverso la lente, i raggi sembrano provenire da un punto dietro l'oggetto. Questa si chiama immagine "virtuale". Un'immagine "virtuale" non può essere proiettata su un foglio di carta o sul sensore della fotocamera, ma sembra reale a chi guarda attraverso la lente.
+
+Hai mai notato che, quando guardi il testo attraverso una lente d'ingrandimento, le lettere diventano più grandi man mano che allontani la lente dalla carta e poi scompaiono improvvisamente? Questo accade perché l'immagine diventa più grande avvicinandosi a F, e poi sparisce all'infinito non appena si raggiunge F.
+
+<figure>
+  <Image src={bannerImg} alt="Mettere il testo più vicino di F a un obiettivo fotografico, in modo da usarlo come lente d'ingrandimento" style="width:100%;border-radius:8px" />
+  <figcaption>Mettere il testo più vicino di F a un obiettivo fotografico, in modo da usarlo come lente d'ingrandimento</figcaption>
+</figure>
+
+### L'oggetto è esattamente a F
+
+Questo è il caso meno interessante: le linee arancione e blu sono esattamente parallele; non si incrociano mai e non sembrano incrociarsi da nessuna parte, quindi non si forma alcuna immagine.
+
+## Grafico dell'ingrandimento
+
+Non preoccuparti troppo di grafici e formule! È comunque utile osservare un grafico di come l'ingrandimento dell'immagine cambia al variare della posizione dell'oggetto. Per "ingrandimento" intendiamo quanto più grande è l'immagine rispetto all'oggetto; un ingrandimento di *m*=2 significa che l'immagine è grande il doppio. Un ingrandimento di *m*=0,5 significa che l'immagine è grande la metà dell'oggetto.
+
+Probabilmente hai notato, giocando con il Simulatore di Lenti, che avvicinandosi a F con l'oggetto l'immagine diventa molto grande molto rapidamente. Puoi vederlo nel grafico; *m* aumenta lentamente man mano che la distanza dalla lente (*u*) si avvicina alla lunghezza focale (*f*=100mm) e poi esplode quando ci avviciniamo davvero.
+
+<MagnificationGraph />
+
+## A te la parola
+
+Ora capisci come funzionano le lenti convesse! Quali progetti interessanti pensi di poter realizzare con esse? Puoi trovare vecchie lenti a buon prezzo su eBay o nei negozi di fotocamere vintage. Se vuoi ispirazione, perché non segui i nostri social o ti iscrivi alla nostra mailing list?

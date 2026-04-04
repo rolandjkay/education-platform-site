@@ -1,0 +1,119 @@
+---
+title: "Una fotocamera senza obiettivo? Impossibile!"
+description: "Scopri la scienza del funzionamento di una fotocamera costruendo il tuo obiettivo a foro stenopeico e usandolo per girare il tuo film!"
+pubDate: 2024-10-01
+subjects: [science, filmmaking]
+tags: ["fisica", "fotocamere", "ottica", "fai-da-te"]
+heroImage: "../images/post-10-banner-md.webp"
+---
+
+import { Image } from 'astro:assets';
+import imgEOSR5 from '../images/post-10-EOSR5-md.webp';
+import imgWhitescreen from '../images/post-10-whitescreen-md.webp';
+import imgPinhole from '../images/post-10-pinhole-md.webp';
+import imgLonglens from '../images/post-10-longlens-md.webp';
+import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
+import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
+import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
+
+Scopri la scienza del funzionamento di una fotocamera costruendo i tuoi obiettivi a foro stenopeico e usandoli per girare il tuo film!
+
+## Vuoi costruire una fotocamera?
+
+Ciao! Sento che vuoi costruire la tua fotocamera? Fantastico. Se volessi realizzarla completamente in analogico, come si faceva una volta, potresti farlo. Le fotocamere digitali sono difficili da costruire in casa, ma hanno il grande vantaggio di permetterti di vedere i risultati immediatamente.
+
+Puoi però costruire l'ottica da solo e, una volta padroneggiata quella parte, puoi procurarti della pellicola fotografica e una camera oscura per completare il resto della fotocamera.
+
+Che ne dici di prendere una fotocamera digitale e iniziare? D'accordo? Perfetto!
+
+Assicurati di scegliere una fotocamera con un obiettivo rimovibile: altrimenti, il proprietario della fotocamera potrebbe non essere troppo contento quando stacchi l'obiettivo — e i vetri rotti non sono mai una buona cosa!
+
+Dovrebbe avere questo aspetto:
+
+<figure>
+  <Image src={imgEOSR5} alt="Fotocamera digitale con obiettivo rimosso" style="width:100%" />
+  <figcaption>Una fotocamera digitale con l'obiettivo rimosso</figcaption>
+</figure>
+
+Se è una fotocamera mirrorless, potrai vedere il sensore. Se è una DSLR (reflex digitale) più vecchia, vedrai uno specchio all'interno e il sensore si trova dietro. Il sensore è la parte della fotocamera sensibile alla luce: converte la luce che riceve in un'immagine digitale che puoi visualizzare sul computer. Cerca di non toccarlo e non sporgerlo!
+
+Devi configurare la fotocamera in modo che visualizzi sullo schermo posteriore quello che vede il sensore. Alcune fotocamere lo fanno automaticamente. Altre (ad es. le Canon DSLR) potrebbero segnalare l'assenza dell'obiettivo. Spesso basta ignorare l'avviso e funziona ugualmente.
+
+## Chi ha bisogno di un obiettivo?
+
+Quando guardi una fotocamera, cosa vedi? L'obiettivo, giusto? Quel grande pezzo di vetro che ti fissa quando cerchi di registrare un video. Anche il tuo smartphone ha un obiettivo, anche se molto più piccolo. Se pensi a una fotocamera, scommetto che la prima cosa che ti viene in mente è proprio l'obiettivo.
+
+Quindi, cosa diresti se ti dicessi che, a rigore, l'obiettivo è del tutto superfluo? Hai sicuramente bisogno di qualcosa per catturare l'immagine: il sensore digitale o un foglio di pellicola fotografica. Ma un obiettivo non è strettamente *necessario*. Pazzesco, vero?
+
+Allora, primo passo. Togliamo l'obiettivo e vediamo cosa succede. Il modo migliore per capire cosa fa è vedere cosa accade senza di esso.
+
+Rimuovi l'obiettivo, tieni in mano la fotocamera e prova a filmare qualcosa. Cosa vedi sullo schermo? Probabilmente qualcosa di simile a questo:
+
+<figure>
+  <Image src={imgWhitescreen} alt="Schermo bianco sul retro di una fotocamera digitale" style="width:100%" />
+  <figcaption>Lo schermo sul retro di una fotocamera digitale che mostra uno schermo completamente bianco (sovraesposto)</figcaption>
+</figure>
+
+Il sensore è sensibile alla luce e, senza nulla davanti, tutta la luce riflessa dalla scena cade direttamente su di esso. Il sensore è così sensibile che ogni sua parte riceve più luce di quanta ne possa registrare, e il risultato è uno schermo completamente bianco.
+
+Quello che vogliamo è che la luce proveniente da una parte della scena arrivi solo su una parte del sensore. Per esempio, immagina che nella scena ci sia un unico fiore rosso. Se vogliamo vedere un fiore rosso nell'immagine, la luce rossa riflessa dal fiore deve arrivare al sensore esattamente nel punto in cui il fiore apparirà nell'immagine. Ma al momento non è così: la luce del fiore colpisce ogni parte del sensore.
+
+Puoi vedere questo fenomeno nelle prime due diapositive dell'animazione qui sotto.
+
+<LightRayAnimation />
+
+## Il foro stenopeico in soccorso!
+
+Cosa succede se mettiamo davanti al sensore un foglio di alluminio con un foro stenopeico? Beh… il foglio blocca la maggior parte della luce proveniente dalla scena, quindi sarà molto più buio all'interno della fotocamera e il sensore non sarà sopraffatto dalla luce. Ma, cosa ancora più importante, permetterà solo alla luce del fiore rosso di colpire il sensore in un unico punto. Qualsiasi raggio rosso riflesso verso altre parti del sensore verrà bloccato dal foglio.
+
+Puoi vedere come funziona nella diapositiva 3 dell'animazione. Ora la luce del fiore rosso e di quello bianco è separata e cade su parti diverse del sensore.
+
+## Prova tu stesso!
+
+Perché non ci provi? Tutto quello che ti serve è…
+
+- Un foglio di carta stagnola da cucina
+- Uno spillo; più è sottile, meglio è
+- Del nastro adesivo per fissare la stagnola sulla fotocamera
+- Una fotocamera digitale con obiettivo rimovibile
+
+Fai il foro più piccolo che riesci nella stagnola e usa il nastro per attaccarla sull'apertura della fotocamera in modo che non filtrino raggi di luce; fai attenzione a non toccare il sensore né a depositarci nulla sopra. Dovrebbe avere questo aspetto:
+
+<figure>
+  <Image src={imgPinhole} alt="Fotocamera digitale con stagnola fissata sul davanti" style="width:100%" />
+  <figcaption>Fotocamera digitale con stagnola fissata sul davanti</figcaption>
+</figure>
+
+Ora vai fuori e accendi la fotocamera. Funziona meglio in una giornata di sole intorno a mezzogiorno. Vedi qualcosa? L'immagine sarà molto scura, quindi porta la fotocamera al massimo valore ISO. L'"ISO" controlla la sensibilità della fotocamera alla luce; impostalo al massimo e poi riducilo se l'immagine è troppo luminosa.
+
+Se non vedi nulla sullo schermo, potrebbe significare che l'ISO non è abbastanza alto o che l'ISO massimo della fotocamera non è sufficiente. Per verificarlo, prova a puntare la fotocamera verso qualcosa di luminoso come una lampadina (non il sole!). Dovresti vedere un'immagine della lampadina, anche se tutto il resto è scuro.
+
+Congratulazioni! Hai appena costruito il tuo "obiettivo"! Scommetto che è stato più facile di quanto ti aspettassi.
+
+## Posso creare diversi tipi di "obiettivo" a foro stenopeico?
+
+Sì! La differenza più grande tra un obiettivo e l'altro è la lunghezza. Alcuni sono molto corti, altri molto lunghi. Confronta questi due!
+
+<figure>
+  <Image src={imgLonglens} alt="Confronto tra un obiettivo da 600mm e uno da 10mm" style="width:100%" />
+  <figcaption>Confronto tra un obiettivo da 600mm e uno da 10mm</figcaption>
+</figure>
+
+Che differenza fa la lunghezza dell'obiettivo? Dai un'occhiata all'animazione interattiva qui sotto. Puoi cambiare la distanza tra il sensore della fotocamera e il foro stenopeico trascinando il cursore…
+
+<PinholeBarrelSimulator />
+
+Riesci a vedere che, man mano che il barilotto dell'obiettivo si allunga, i raggi di luce devono essere sempre più paralleli per raggiungere il sensore? Questo significa che solo la parte centrale della scena è visibile e l'immagine della zucca diventa più grande. Se allunghi il barilotto al massimo, sarà visibile solo l'area tra gli occhi della zucca. Se lo accorci il più possibile, la zucca sarà minuscola.
+
+Puoi farlo tu stesso trovando un tubo da attaccare davanti alla fotocamera con del nastro e poi coprendo l'estremità con la stagnola forata. Se il tubo è lucido o di colore chiaro, rivestilo internamente con carta da zucchero nera. Altrimenti, la luce si rifletterà sui lati e rovinerà l'immagine.
+
+Fai attenzione però a non rendere il tubo troppo lungo. Più è lungo, più l'immagine diventa scura, e potresti non riuscire a vedere nulla! Eccone uno che abbiamo costruito con una lattina da caffè. Abbiamo forato un'estremità e coperto il foro con della stagnola. Il foro non è troppo grande, quindi possiamo sigillarlo con del nastro e rimettere la lattina in cucina una volta finito.
+
+<figure>
+  <Image src={imgCoffeelens} alt="Obiettivo stenopeico da 200mm costruito con una lattina da caffè" style="width:100%" />
+  <figcaption>Obiettivo stenopeico da 200mm costruito con una lattina da caffè</figcaption>
+</figure>
+
+## A te la parola!
+
+Ora sai come costruire il tuo obiettivo! Con cos'altro potresti costruirne uno? Qual è l'obiettivo più lungo che riesci a costruire ottenendo comunque un'immagine? Non ti sembra incredibile poter costruire il proprio obiettivo con nient'altro che un tubo e della stagnola?
