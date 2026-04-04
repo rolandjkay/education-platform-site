@@ -27,14 +27,15 @@ export default class TopBar
         fsBtn.textContent = '⛶ Full Screen';
         fsBtn.addEventListener('click', () => this.toggleFullscreen());
 
-        // Prepend so Tour/Fullscreen come before the toggle buttons
-        bar.insertBefore(fsBtn, bar.firstChild);
+        // Prepend Tour button; append fsBtn last so it sits at the far right
         bar.insertBefore(tourBtn, bar.firstChild);
+        bar.appendChild(fsBtn);
 
         // On mobile, fullscreen is requested before the Experience initialises,
         // so fullscreenchange fires before this listener is registered.
         // Check immediately whether we're already in fullscreen.
         if (window.matchMedia('(pointer: coarse)').matches && document.fullscreenElement) {
+            fsBtn.textContent = '✕';
             fsBtn.style.display = 'block';
         }
 
