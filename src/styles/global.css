@@ -1,9 +1,9 @@
 /* ===== CSS Custom Properties ===== */
 :root {
-  --color-primary: #e8a020;
-  --color-primary-dark: #c47d0e;
-  --color-primary-light: #fdefc8;
-  --color-primary-faint: #fef9f0;
+  --color-primary: #ea580c;
+  --color-primary-dark: #c2410c;
+  --color-primary-light: #ffedd5;
+  --color-primary-faint: #fff7ed;
   --color-navy: #0d1117;
   --color-navy-mid: #161b22;
 
@@ -395,12 +395,12 @@ tr:last-child td {
 
 .btn--primary {
   background: var(--color-primary);
-  color: var(--color-navy);
+  color: #ffffff;
 }
 
 .btn--primary:hover {
   background: var(--color-primary-dark);
-  color: var(--color-navy);
+  color: #ffffff;
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
