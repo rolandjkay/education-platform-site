@@ -31,6 +31,13 @@ export default class TopBar
         bar.insertBefore(fsBtn, bar.firstChild);
         bar.insertBefore(tourBtn, bar.firstChild);
 
+        // On mobile, fullscreen is requested before the Experience initialises,
+        // so fullscreenchange fires before this listener is registered.
+        // Check immediately whether we're already in fullscreen.
+        if (window.matchMedia('(pointer: coarse)').matches && document.fullscreenElement) {
+            fsBtn.style.display = 'block';
+        }
+
         // Update fullscreen button label on change
         document.addEventListener('fullscreenchange', () => {
             const isFs = !!document.fullscreenElement;
