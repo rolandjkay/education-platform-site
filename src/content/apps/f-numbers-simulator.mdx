@@ -1,56 +1,16 @@
 ---
-title: "F-Numbers & Depth of Field Simulator"
-description: "An interactive 3D visualisation showing how aperture (f-number) and focal length affect depth of field and light rays in a camera lens system."
+title: "A Geometric Explanation of F numbers"
+description: "An interactive 3D visualisation showing how aperture \"F\" numbers and focal length affect exposure in a camera lens system."
 appType: threejs
 ---
 
-Explore how changing the distance between the aperture and the sensor of a camera affects which parts of a scene are in focus, and how much light reaches the sensor.
+Explore how changing the distance between the aperture and the sensor of a camera, and the placement of the object, 
+affects how much light reaches the sensor and the image magnification.
 
-## How to navigate
+## How to use
 
-<div class="controls-touch">
-
-| Gesture | Action |
-|---|---|
-| One finger drag | Rotate the view |
-| Two finger pinch | Zoom in / out |
-| Two finger drag | Pan the view |
-
-</div>
-
-<div class="controls-mouse">
-
-| Input | Action |
-|---|---|
-| Left drag | Rotate the view |
-| Right drag | Pan the view |
-| Scroll wheel | Zoom in / out |
-
-</div>
-
-## Interactive controls
-
-**Blue arrow (on the image plane)** — Drag it left or right to change the distance between the aperture and the sensor. Moving it closer shrinks the effective focal length; further away increases it.
-
-**Object distance arrow** — Drag to move the subject closer to or further from the camera.
-
-## Top bar buttons
-
-| Button | What it does |
-|---|---|
-| Guided Tour | Flies the camera to each key component with a short annotation |
-| Full Screen | Expands the app to fill the browser window |
-| Hide / Show Camera Body | Toggles the camera body mesh so you can see inside |
-| Hide / Show Tube | Toggles the lens barrel |
-| Hide / Show Image Hemisphere | Toggles the hemisphere that visualises the field of view |
-
-## Status bar (bottom)
-
-| Readout | Meaning |
-|---|---|
-| Aperture | The f-number — ratio of focal length to aperture diameter |
-| ISO | Equivalent sensor sensitivity needed to maintain exposure |
-| Fraction of light hitting sensor | How much of the available light actually reaches the sensor, relative to the shortest focal length |
+Click the ? button for navigation instructions and to see how to move the tree (object) and adjust the barrel length,
+by moving the image plane.
 
 ## Light meter and graph
 
@@ -58,11 +18,67 @@ The **Light Falling on Sensor** bar (bottom-right) gives a quick visual read of 
 
 ## Background
 
-The **f-number** (or f-stop) is the ratio of the lens focal length to the diameter of the entrance pupil:
+### The f-number
 
-**N = f / D**
+A camera lens focuses light from the scene onto the sensor. The key variable you control in this simulator is the distance between the aperture (the opening in the lens) and the sensor — this is the **focal length**, $f$. The diameter of the aperture opening is $D$.
 
-A low f-number (e.g. f/1.4) means a wide aperture, letting in lots of light but producing a shallow depth of field. A high f-number (e.g. f/16) gives a deep depth of field but requires more light or a longer exposure.
+The **f-number** is simply their ratio:
+
+$$
+N = \frac{f}{D}
+$$
+
+A small f-number means a wide aperture relative to the focal length; a large f-number means a narrow one. But why does this ratio matter so much for exposure? The answer lies in some simple geometry.
+
+### How much light reaches the sensor?
+
+Every ray of light that passes through the aperture continues travelling outward and intersects an imaginary **hemisphere** centred at the aperture, with radius equal to the focal length $f$. You can see this hemisphere in the simulator — toggle it with the *Hide/Show Image Hemisphere* button.
+
+The surface area of that hemisphere is:
+
+$$
+A_\text{hemisphere} = 2\pi f^2
+$$
+
+The sensor sits at the back of this hemisphere and has a fixed area $A_\text{sensor}$. It only captures the fraction of the hemisphere it covers:
+
+$$
+\text{fraction captured} = \frac{A_\text{sensor}}{2\pi f^2}
+$$
+
+Meanwhile, the total light entering through the aperture is proportional to the aperture's area, which scales with $D^2$. Putting these together, the light actually reaching the sensor is:
+
+$$
+E \propto D^2 \times \frac{A_\text{sensor}}{f^2}
+$$
+
+### Expressing this in terms of the f-number
+
+Since $N = f/D$, we have $D = f/N$. Substituting:
+
+$$
+E \propto \frac{f^2}{N^2} \times \frac{A_\text{sensor}}{f^2} = \frac{A_\text{sensor}}{N^2}
+$$
+
+The $f^2$ terms cancel. The sensor area is fixed, so we are left with a beautifully simple result:
+
+$$
+\boxed{E \propto \frac{1}{N^2}}
+$$
+
+The exposure is inversely proportional to the square of the f-number — and nothing else. Focal length and sensor area drop out entirely.
+
+### F-stops
+
+Photographers work in **stops**, where each stop is a doubling or halving of the light. Since $E \propto 1/N^2$, halving the exposure requires multiplying $N$ by $\sqrt{2} \approx 1.41$. This gives the familiar f-stop series:
+
+$$
+f/1 \;\to\; f/1.4 \;\to\; f/2 \;\to\; f/2.8 \;\to\; f/4 \;\to\; f/5.6 \;\to\; f/8 \;\to\; f/11 \;\to\; f/16
+$$
+
+Each step multiplies $N$ by $\sqrt{2}$, which squares to 2, halving the light. Move two stops and you quarter the light; three stops cuts it to one eighth — and so on.
+
+The **Fraction of light hitting sensor** readout in the simulator counts exactly these stops from the widest aperture and displays the result as $1,\ \tfrac{1}{2},\ \tfrac{1}{4},\ \tfrac{1}{8},\ldots$
 
 <style>{`
   .controls-touch { display: none; }

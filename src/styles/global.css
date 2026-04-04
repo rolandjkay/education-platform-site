@@ -570,6 +570,12 @@ tr:last-child td {
   padding-bottom: 5rem;
 }
 
+/* ===== KaTeX ===== */
+.katex-display {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
   .container {
