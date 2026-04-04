@@ -19,7 +19,18 @@ export default class TopBar
         const tourBtn = document.createElement('button');
         tourBtn.className = 'top-bar-btn';
         tourBtn.textContent = '▶ Guided Tour';
-        tourBtn.addEventListener('click', () => this.flyByTour.startFlyBy());
+        tourBtn.addEventListener('click', () => {
+            if (this.flyByTour.isRunning) {
+                this.flyByTour.stopFlyBy();
+            } else {
+                this.flyByTour.startFlyBy();
+            }
+        });
+
+        // Keep button label in sync with tour state
+        this.flyByTour.onStateChange = (isRunning) => {
+            tourBtn.textContent = isRunning ? '■ Stop Tour' : '▶ Guided Tour';
+        };
 
         const fsBtn = document.createElement('button');
         fsBtn.id = 'fs-btn';

@@ -97,17 +97,20 @@ export default class FlyByTour
   
     startFlyBy()
     {
-      const timeline = gsap.timeline({ repeat: 0 });
+      if (this.isRunning) return;
+      this.isRunning = true;
+      this.onStateChange?.(true);
+
       this.lastTarget = this.controls.target.clone(); // Holds the current interpolated target position
 
-      // Store the original position and target
+      // Store the original position and target for reset on stop
       this.originalPosition = this.camera.position.clone();
       this.originalTarget = this.controls.target.clone();
 
       // Collect UI overlays to hide during the tour.
       // Fade individual top-bar buttons (not the bar itself) so #fs-btn can be
       // excluded and remain visible for the user to exit mid-tour.
-      const overlays = [
+      this.overlays = [
         ...document.querySelectorAll('#top-bar .top-bar-btn:not(#fs-btn)'),
         document.querySelector('.status-bar'),
         document.querySelector('#graphContainer'),
@@ -115,7 +118,16 @@ export default class FlyByTour
       ].filter(Boolean);
 
       // Fade overlays out concurrently with the tour starting (not before)
-      gsap.to(overlays, { duration: 0.5, opacity: 0, pointerEvents: 'none' });
+      gsap.to(this.overlays, { duration: 0.5, opacity: 0, pointerEvents: 'none' });
+
+      this.timeline = gsap.timeline({
+        repeat: 0,
+        onComplete: () => {
+          this.isRunning = false;
+          this.onStateChange?.(false);
+        }
+      });
+      const timeline = this.timeline;
 
       // Used to ease our camera targeting, rather than just doing a straight linear 
       // interp between old and new object positions.
@@ -180,7 +192,7 @@ export default class FlyByTour
       });
 
       // Fade overlays back in concurrently with the camera return
-      timeline.to(overlays, { duration: 1, opacity: 1, pointerEvents: 'auto' }, '<');
+      timeline.to(this.overlays, { duration: 1, opacity: 1, pointerEvents: 'auto' }, '<');
 
       timeline.to(this.controls.target, {
         duration: 3,
@@ -189,5 +201,40 @@ export default class FlyByTour
         z: this.originalTarget.z,
         ease: "power1.inOut",
       });
+    }
+
+    stopFlyBy()
+    {
+      if (!this.isRunning) return;
+      this.isRunning = false;
+      this.onStateChange?.(false);
+
+      // Kill the running timeline
+      this.timeline?.kill();
+      this.timeline = null;
+
+      // Hide the annotation immediately
+      gsap.to(this.annotationContainer, { duration: 0.2, opacity: 0 });
+
+      // Quickly return camera and orbit target to where they were before the tour
+      gsap.to(this.camera.position, {
+        duration: 1,
+        x: this.originalPosition.x,
+        y: this.originalPosition.y,
+        z: this.originalPosition.z,
+        ease: "power2.inOut",
+      });
+      gsap.to(this.controls.target, {
+        duration: 1,
+        x: this.originalTarget.x,
+        y: this.originalTarget.y,
+        z: this.originalTarget.z,
+        ease: "power2.inOut",
+      });
+
+      // Restore overlays
+      if (this.overlays) {
+        gsap.to(this.overlays, { duration: 0.3, opacity: 1, pointerEvents: 'auto' });
+      }
     }
   }

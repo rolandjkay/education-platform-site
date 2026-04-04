@@ -178,6 +178,9 @@
     // On Android: exiting fullscreen brings back the placeholder
     document.addEventListener('fullscreenchange', () => {
       if (!document.fullscreenElement) {
+        // Stop fly-by if it was running mid-tour
+        (window as any).experience?.world?.flyByTour?.stopFlyBy();
+
         appActive = false;
         placeholder.style.display = 'flex';
         canvas.style.display = 'none';
