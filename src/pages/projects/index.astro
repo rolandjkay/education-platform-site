@@ -25,7 +25,7 @@ const projects = (await getCollection('projects')).sort(
 
     {projects.length > 0 ? (
       <CardGrid>
-        {projects.map(project => (
+        {projects.map((project, i) => (
           <Card
             title={project.data.title}
             description={project.data.description}
@@ -33,6 +33,7 @@ const projects = (await getCollection('projects')).sort(
             image={project.data.heroImage}
             tag="Project"
             date={project.data.pubDate}
+            loading={i < 3 ? 'eager' : 'lazy'}
           />
         ))}
       </CardGrid>
