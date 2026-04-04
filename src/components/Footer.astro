@@ -4,38 +4,19 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer__inner">
-    <div class="footer__brand">
-      <a href="/" class="footer__logo" aria-label="Amersham Film School Online Learning">
-        <span class="footer__logo-mark" aria-hidden="true">AFS</span>
-        <span>Online Learning</span>
-      </a>
-      <p class="footer__tagline">Science, technology, and filmmaking education for young people.</p>
-    </div>
+    <a href="/" class="footer__logo" aria-label="Amersham Film School Online Learning">
+      <span class="footer__logo-mark" aria-hidden="true">AFS</span>
+      <span>Online Learning</span>
+    </a>
 
     <nav class="footer__nav" aria-label="Footer navigation">
-      <div class="footer__nav-group">
-        <h3 class="footer__nav-heading">Learn</h3>
-        <ul role="list">
-          <li><a href="/articles">Articles</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/apps">Interactive Apps</a></li>
-        </ul>
-      </div>
-      <div class="footer__nav-group">
-        <h3 class="footer__nav-heading">School</h3>
-        <ul role="list">
-          <li><a href="https://amershamfilmschool.co.uk" target="_blank" rel="noopener">Main Site</a></li>
-          <li><a href="https://amershamfilmschool.co.uk/about" target="_blank" rel="noopener">About Us</a></li>
-          <li><a href="https://amershamfilmschool.co.uk/contact" target="_blank" rel="noopener">Contact</a></li>
-        </ul>
-      </div>
+      <a href="/articles">Articles</a>
+      <a href="/projects">Projects</a>
+      <a href="/apps">Interactive Apps</a>
+      <a href="https://amershamfilmschool.co.uk" target="_blank" rel="noopener">Main Site</a>
     </nav>
-  </div>
 
-  <div class="footer__bottom">
-    <div class="container footer__bottom-inner">
-      <p>&copy; {year} Amersham Film School. All rights reserved.</p>
-    </div>
+    <p class="footer__copy">&copy; {year} Amersham Film School</p>
   </div>
 </footer>
 
@@ -47,15 +28,12 @@ const year = new Date().getFullYear();
   }
 
   .footer__inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 3rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  .footer__brand {
-    max-width: 26ch;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
   }
 
   .footer__logo {
@@ -63,99 +41,60 @@ const year = new Date().getFullYear();
     align-items: center;
     gap: 0.625rem;
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-text-muted);
     font-family: var(--font-sans);
+    font-size: 0.875rem;
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    flex-shrink: 0;
   }
 
   .footer__logo-mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: var(--color-primary);
-    color: white;
+    color: var(--color-navy);
     font-size: 0.6875rem;
     font-weight: 800;
     letter-spacing: 0.04em;
     border-radius: var(--radius-sm);
   }
 
-  .footer__tagline {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    line-height: 1.6;
-    margin: 0;
-  }
-
   .footer__nav {
     display: flex;
-    gap: 3rem;
+    align-items: center;
+    gap: 0.25rem;
   }
 
-  .footer__nav-group h3 {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin-bottom: 0.875rem;
-  }
-
-  .footer__nav-group ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .footer__nav-group a {
+  .footer__nav a {
     font-family: var(--font-sans);
     font-size: 0.875rem;
+    font-weight: 600;
     color: var(--color-text-muted);
     text-decoration: none;
-    transition: color var(--transition);
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    transition: color var(--transition), background var(--transition);
   }
 
-  .footer__nav-group a:hover {
+  .footer__nav a:hover {
     color: var(--color-primary);
+    background: var(--color-primary-faint);
   }
 
-  .footer__bottom {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .footer__bottom-inner {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
-
-  .footer__bottom p {
+  .footer__copy {
     font-family: var(--font-sans);
     font-size: 0.8125rem;
     color: var(--color-text-muted);
     margin: 0;
+    flex-shrink: 0;
   }
 
-  @media (max-width: 640px) {
-    .footer__inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    .footer__brand {
-      max-width: none;
-    }
-
+  @media (max-width: 768px) {
     .footer__nav {
-      gap: 2rem;
+      display: none;
     }
   }
 </style>
