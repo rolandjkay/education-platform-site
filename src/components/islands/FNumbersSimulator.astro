@@ -56,6 +56,14 @@
     }
   }
 
+  /* In landscape on touch devices, use the full viewport height so iOS
+     (which can't go fullscreen) still gets a usable canvas size. */
+  @media (pointer: coarse) and (orientation: landscape) {
+    .f-numbers-container {
+      height: 100vh;
+    }
+  }
+
   .placeholder-content {
     text-align: center;
     padding: 24px;
@@ -112,6 +120,9 @@
   const rotateHint    = document.getElementById('rotate-hint')!;
 
   let experienceStarted = false;
+  // True once the user has launched the app and the canvas is showing.
+  // Used to decide whether to show the rotate hint (as opposed to the placeholder).
+  let appActive = false;
 
   function startExperience() {
     if (experienceStarted) return;
@@ -124,7 +135,9 @@
   }
 
   function updateRotateHint() {
-    if (document.fullscreenElement && isPortrait()) {
+    // Show the hint whenever the app is running and the device is in portrait.
+    // This covers iOS (no fullscreen API) as well as Android.
+    if (appActive && isPortrait()) {
       rotateHint.style.cssText =
         'display:flex;position:absolute;inset:0;align-items:center;justify-content:center;' +
         'background:rgba(0,0,0,0.75);color:#fff;font-family:"Space Grotesk",sans-serif;' +
@@ -145,8 +158,9 @@
       // Hide placeholder and reveal canvas
       placeholder.style.display = 'none';
       canvas.style.display = 'block';
+      appActive = true;
 
-      // Request fullscreen on the container
+      // Request fullscreen on the container (works on Android; iOS silently ignores it)
       try {
         await container.requestFullscreen();
       } catch (_) {}
@@ -160,14 +174,13 @@
       startExperience();
     });
 
-    // Show rotate hint if the user is in fullscreen portrait (e.g. on iOS)
+    // On Android: exiting fullscreen brings back the placeholder
     document.addEventListener('fullscreenchange', () => {
-      updateRotateHint();
-
-      // If the user exits fullscreen, show the placeholder again
       if (!document.fullscreenElement) {
+        appActive = false;
         placeholder.style.display = 'flex';
         canvas.style.display = 'none';
+        rotateHint.style.display = 'none';
       }
     });
 
