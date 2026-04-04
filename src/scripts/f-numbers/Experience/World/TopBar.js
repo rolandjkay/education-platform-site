@@ -72,6 +72,13 @@ export default class TopBar
             .top-bar-btn:hover {
                 background: rgba(255,255,255,0.25);
             }
+            @media (pointer: coarse) {
+                .top-bar-btn {
+                    padding: 10px 16px;
+                    font-size: 15px;
+                    min-height: 44px;
+                }
+            }
         `;
         document.head.appendChild(style);
     }
