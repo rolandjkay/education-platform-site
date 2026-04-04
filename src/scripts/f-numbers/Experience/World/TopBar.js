@@ -34,7 +34,14 @@ export default class TopBar
         // Update fullscreen button label on change
         document.addEventListener('fullscreenchange', () => {
             const isFs = !!document.fullscreenElement;
-            fsBtn.textContent = isFs ? '✕ Exit Full Screen' : '⛶ Full Screen';
+            fsBtn.textContent = isFs ? '✕' : '⛶ Full Screen';
+
+            // On touch devices the button is hidden by default (launch is handled
+            // by the placeholder). Reveal it only while in fullscreen so the user
+            // has a way to exit.
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                fsBtn.style.display = isFs ? '' : 'none';
+            }
 
             // Let Sizes re-measure the canvas now it has new dimensions
             this.experience.sizes._updateFromCanvas();
