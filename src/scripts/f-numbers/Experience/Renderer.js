@@ -43,9 +43,10 @@ export default class Renderer
 
         // Render the scene from the overlay camera on top of the previous render
         this.instance.clearDepth();  // Clear the depth buffer so the overlay can render on top
-        this.instance.setViewport(0, 0, 300, 300);  // Define the position and size of the overlay
+        const overlaySize = Math.round(this.sizes.width * 0.22); // ~300px on desktop, ~150px on mobile landscape
+        this.instance.setViewport(0, 0, overlaySize, overlaySize);
         this.instance.render(this.scene, this.overlayCamera.instance);
         // Reset viewport to full screen for the next render loop
-        this.instance.setViewport(0, 0, this.sizes.width, this.sizes.height); 
+        this.instance.setViewport(0, 0, this.sizes.width, this.sizes.height);
     }
 }

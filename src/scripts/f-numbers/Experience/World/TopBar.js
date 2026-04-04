@@ -78,6 +78,9 @@ export default class TopBar
                     font-size: 15px;
                     min-height: 44px;
                 }
+                #fs-btn {
+                    display: none;
+                }
             }
         `;
         document.head.appendChild(style);

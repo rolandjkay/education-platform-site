@@ -26,6 +26,10 @@ export default class MouseEvents extends EventEmitter
     onTouchStart(event)
     {
         if (event.touches.length !== 1) return;
+        // Let taps on interactive HTML elements fire as normal click events.
+        // Calling preventDefault() here would suppress the synthetic click that
+        // button/link listeners depend on.
+        if (event.target.closest('button, input, a, select')) return;
         event.preventDefault(); // Prevents double-tap zoom and tap highlight
         const touch = event.touches[0];
         this.trigger('mousedown', [{ clientX: touch.clientX, clientY: touch.clientY }]);
