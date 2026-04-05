@@ -41,7 +41,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString(localeToBcp47[locale
     <div class="container">
       <header class="article-header">
         <div class="article-header__meta">
-          <a href={localePath('/articles', locale)} class="back-link">{t('article.back')}</a>
+          <a href={localePath('/', locale)} class="back-link">{t('nav.back')}</a>
           {entry.data.tags && entry.data.tags.length > 0 && (
             <ul class="tag-list" aria-label="Tags">
               {entry.data.tags.map((tag: string) => <li><span class="tag">{tag}</span></li>)}

@@ -31,7 +31,7 @@ const { Content } = await render(entry);
   <div class="container">
     <header class="article-header">
       <div class="article-header__meta">
-        <a href={localePath('/apps', locale)} class="back-link">{t('app.back')}</a>
+        <a href={localePath('/', locale)} class="back-link">{t('nav.back')}</a>
         <span class="tag">3D / WebGL</span>
       </div>
       <h1>{entry.data.title}</h1>

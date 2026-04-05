@@ -29,7 +29,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString('en-GB', {
     <div class="container">
       <header class="article-header">
         <div class="article-header__meta">
-          <a href="/articles" class="back-link">← Articles</a>
+          <a href="/" class="back-link">← Home</a>
           {entry.data.tags && entry.data.tags.length > 0 && (
             <ul class="tag-list" aria-label="Tags">
               {entry.data.tags.map(tag => <li><span class="tag">{tag}</span></li>)}

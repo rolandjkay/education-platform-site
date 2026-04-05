@@ -41,7 +41,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString(localeToBcp47[locale
     <div class="container">
       <header class="article-header">
         <div class="article-header__meta">
-          <a href={localePath('/projects', locale)} class="back-link">{t('project.back')}</a>
+          <a href={localePath('/', locale)} class="back-link">{t('nav.back')}</a>
           <span class="tag">Project</span>
         </div>
         <h1>{entry.data.title}</h1>
