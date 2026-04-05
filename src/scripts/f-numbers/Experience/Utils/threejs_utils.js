@@ -1,50 +1,42 @@
 /*
- * Functions for creating varius useful meshes.
+ * Functions for creating various useful meshes.
  */
-import * as THREE from 'three'
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import Experience from '../Experience.js'
-import {degToRad} from './utils.js'
+import { Text } from 'troika-three-text'
 
+// Self-hosted font — covers Latin, CJK, Japanese, and most Unicode ranges.
+const FONT_URL = '/apps/f-numbers/fonts/NotoSansJP-Medium.ttf';
 
+/*
+ * Creates a text mesh using troika-three-text (SDF renderer).
+ * Supports all Unicode characters including CJK/Japanese via the hosted font.
+ *
+ * Parameters match the original TextGeometry-based version.
+ */
 export function createTextMesh({text, size, depth, rotation, position, color, baseline})
 {
-    const experience = new Experience();
+    const mesh = new Text();
 
-    // Add another mesh that displays the value.
-    const textGeometry =  new TextGeometry(text, {
-        font: experience.resources.items.droidSans,
-        size: size,
-        depth: depth,
-        curveSegments: 12,
-        bevelEnabled: false,
-    });
+    mesh.text     = text;
+    mesh.font     = FONT_URL;
+    // troika fontSize = em-square in world units; multiply by 2.0 so the
+    // rendered cap-height is comparable to the previous font, before i18n work.
+    mesh.fontSize = size * 2.0;
+    mesh.color    = color !== undefined ? color : 0xffffff;
 
-    const textMaterial = new THREE.MeshStandardMaterial({ color: color });
-    
-    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-    textMesh.geometry.computeBoundingBox();
-    const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
-    const textHeight = textGeometry.boundingBox.max.y - textGeometry.boundingBox.min.y;
+    // anchorX: centre text horizontally on the given position
+    mesh.anchorX = 'center';
+    // anchorY: 'bottom' places position at the bottom edge of the text (text
+    // grows upward); 'middle' centres vertically — matching the old behaviour.
+    mesh.anchorY = baseline === 'bottom' ? 'bottom' : 'middle';
 
-    const centeringVector = new THREE.Vector3(0, 0, 0);
+    mesh.depthOffset = -1; // Prevent z-fighting with nearby geometry
 
-    if (!baseline || baseline === "center")
-    {
-        centeringVector.set(-textWidth/2, -textHeight/2, 0);
+    if (rotation) {
+        mesh.rotation.copy(rotation);
     }
-    else if (baseline == "bottom")
-    {
-        centeringVector.set(-textWidth/2, -textHeight, 0);
-    }
+    mesh.position.copy(position);
 
-    if (rotation)
-    {
-        centeringVector.applyEuler(rotation);
-        textMesh.rotation.copy(rotation);
-    }
+    mesh.sync();
 
-    textMesh.position.copy(position.add(centeringVector));
-
-    return textMesh;
+    return mesh;
 }

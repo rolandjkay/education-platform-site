@@ -102,6 +102,7 @@ export default class World
             /*
              * Controls
              */
+            const tr = this.experience.translations;
 
             this.focalLengthControl = new XArrowControl({
                 limits:        [{x: 0.045, v: 45}, {x: 1.000, v: 1000}],
@@ -111,7 +112,7 @@ export default class World
                 arrowDirection: 1,
                 params:        this.experience.controlParams,
                 attributeName: "focalLength",
-                label:         "Aperature-Sensor distance control",
+                label:         tr.controlFocalLength ?? "Aperture\u2013Sensor Dist.",
                 units:         "mm",
                 decimal_places: -1 
             })
@@ -124,7 +125,7 @@ export default class World
                 arrowDirection: -1,
                 params:        this.experience.controlParams,
                 attributeName: "objectDistance",
-                label:         "Object distance control",
+                label:         tr.controlObjectDist ?? "Object Distance",
                 units:         "m",
                 decimal_places: 1
             })
@@ -142,21 +143,21 @@ export default class World
             this.isCameraBodyVisibleControl = new ToggleControl({camera: this.experience.camera,
                                                                  parentId:      "top-bar",
                                                                  colour:        {r: 50, g: 220, b: 50},
-                                                                 label:         {on: "Hide Camera Body", off: "Show Camera Body"},
+                                                                 label:         {on: tr.toggleCameraBodyOn ?? "Hide Camera Body", off: tr.toggleCameraBodyOff ?? "Show Camera Body"},
                                                                  params:        this.experience.controlParams,
                                                                  attributeName: "isCameraBodyVisible",
                                                                 });
 
             this.isTubeVisibleControl = new ToggleControl({camera: this.experience.camera,
                 parentId:      "top-bar",
-                label:         {on: "Hide Tube", off: "Show Tube"},
+                label:         {on: tr.toggleTubeOn ?? "Hide Tube", off: tr.toggleTubeOff ?? "Show Tube"},
                 params:        this.experience.controlParams,
                 attributeName: "isTubeVisible",
                 });
 
             this.isHemisphereVisibleControl = new ToggleControl({camera: this.experience.camera,
                     parentId:      "top-bar",
-                    label:         {on: "Hide Image Hemisphere", off: "Show Image Hemisphere"},
+                    label:         {on: tr.toggleHemisphereOn ?? "Hide Image Hemisphere", off: tr.toggleHemisphereOff ?? "Show Image Hemisphere"},
                     params:        this.experience.controlParams,
                     attributeName: "isHemisphereVisible",
                     });
@@ -191,9 +192,9 @@ export default class World
                 new THREE.Vector3(-1, 0.5, 1),
             ];
             const annotations = [
-            'This is the object plane',
-            'This is the camera body.',
-            'This is a piece of foil with a pin hole in it; the "aperture".',
+                tr.annotation1 ?? 'This is the object plane',
+                tr.annotation2 ?? 'This is the camera body.',
+                tr.annotation3 ?? 'This is a piece of foil with a pin hole in it; the \u201caperture\u201d.',
             ];
 
             // Create the flyby tour instance

@@ -15,11 +15,12 @@ export default class TopBar
     {
         // The #top-bar div was already created in World.js so that ToggleControls
         // could append to it. We prepend the Tour and Fullscreen buttons.
+        const tr = this.experience.translations;
         const bar = document.getElementById('top-bar');
 
         const tourBtn = document.createElement('button');
         tourBtn.className = 'top-bar-btn';
-        tourBtn.textContent = '▶ Guided Tour';
+        tourBtn.textContent = tr.tourStart ?? '▶ Guided Tour';
         tourBtn.addEventListener('click', () => {
             if (this.flyByTour.isRunning) {
                 this.flyByTour.stopFlyBy();
@@ -30,13 +31,13 @@ export default class TopBar
 
         // Keep button label in sync with tour state
         this.flyByTour.onStateChange = (isRunning) => {
-            tourBtn.textContent = isRunning ? '■ Stop Tour' : '▶ Guided Tour';
+            tourBtn.textContent = isRunning ? (tr.tourStop ?? '■ Stop Tour') : (tr.tourStart ?? '▶ Guided Tour');
         };
 
         const fsBtn = document.createElement('button');
         fsBtn.id = 'fs-btn';
         fsBtn.className = 'top-bar-btn';
-        fsBtn.textContent = '⛶ Full Screen';
+        fsBtn.textContent = tr.fullScreen ?? '⛶ Full Screen';
         fsBtn.addEventListener('click', () => this.toggleFullscreen());
 
         const helpOverlay = new HelpOverlay();
@@ -63,7 +64,7 @@ export default class TopBar
         // Update fullscreen button label on change
         document.addEventListener('fullscreenchange', () => {
             const isFs = !!document.fullscreenElement;
-            fsBtn.textContent = isFs ? '✕' : '⛶ Full Screen';
+            fsBtn.textContent = isFs ? '✕' : (tr.fullScreen ?? '⛶ Full Screen');
 
             // On touch devices the button is hidden by default (launch is handled
             // by the placeholder). Reveal it only while in fullscreen so the user

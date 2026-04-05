@@ -25,13 +25,14 @@ export default class ViewfinderOverlay
         // "Image Plane View" title along the bottom edge
         this.titleLabel = document.createElement('div');
         this.titleLabel.id = 'viewfinder-title';
-        this.titleLabel.textContent = 'Image Plane View';
+        const tr = this.experience.translations;
+        this.titleLabel.textContent = tr.viewfinderTitle ?? 'Image Plane View';
         this.el.appendChild(this.titleLabel);
 
         // "Camera Sensor" label above the centred red rectangle
         this.sensorLabel = document.createElement('div');
         this.sensorLabel.id = 'viewfinder-sensor-label';
-        this.sensorLabel.textContent = 'Sensor';
+        this.sensorLabel.textContent = tr.viewfinderSensor ?? 'Sensor';
         this.el.appendChild(this.sensorLabel);
 
         const style = document.createElement('style');

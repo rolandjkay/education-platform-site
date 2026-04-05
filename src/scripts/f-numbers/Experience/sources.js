@@ -62,9 +62,4 @@ export default [
         type: 'texture',
         path: '/apps/f-numbers/textures/cardboardTexture/Cardboard003_1K-JPG_NormalDX.webp'
     },
-    {
-        name: 'droidSans',
-        type: 'font',
-        path: '/apps/f-numbers/fonts/droid_sans_regular.typeface.json'
-    }
 ]

@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { createTextMesh } from '../Utils/threejs_utils.js';
 import UIControl from './UIControl.js'
 import Experience from '../Experience.js'

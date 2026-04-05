@@ -89,6 +89,7 @@ export default class ExposureGraph
             pathData += `${x === this.MIN_FOCALLENGTH ? 'M' : 'L'} ${plotX} ${plotY} `;
         }
 
+        const tr = this.experience.translations;
         const graphContainer = document.createElement('div');
         graphContainer.id = 'graphContainer';
 
@@ -119,7 +120,7 @@ export default class ExposureGraph
                   font-size="12" 
                   fill="white" 
                   font-family="Space Grotesk, Helvetica, sans-serif">
-                Aperature - Sensor Distance
+                ${tr.graphXAxis ?? 'Aperture \u2013 Sensor Distance'}
             </text>
             
             <!-- Y axis label -->
@@ -129,7 +130,7 @@ export default class ExposureGraph
                     font-size="12" 
                     fill="white" 
                     font-family="Space Grotesk, Helvetica, sans-serif">
-                Light falling on Sensor
+                ${tr.graphYAxis ?? 'Light falling on Sensor'}
             </text>
             
             <!-- Graph Path (f(x) = 1 / x^2) -->

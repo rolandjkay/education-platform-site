@@ -18,8 +18,9 @@ export default class LoadingScreen
         this.overlay = document.createElement('div');
         this.overlay.id = 'loading-overlay';
 
+        const tr = this.experience.translations;
         this.overlay.innerHTML = `
-            <p id="loading-label">Loading…</p>
+            <p id="loading-label">${tr.loading ?? 'Loading\u2026'}</p>
             <div id="loading-track">
                 <div id="loading-fill"></div>
             </div>
@@ -71,7 +72,9 @@ export default class LoadingScreen
     {
         const pct = Math.round((loaded / total) * 100);
         document.getElementById('loading-fill').style.width = pct + '%';
-        document.getElementById('loading-label').textContent = `Loading… ${pct}%`;
+        const tr = this.experience.translations;
+        const tpl = tr.loadingPct ?? 'Loading\u2026 {pct}%';
+        document.getElementById('loading-label').textContent = tpl.replace('{pct}', pct);
     }
 
     onReady()

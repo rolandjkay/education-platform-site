@@ -27,7 +27,7 @@ export default class ExposureMeter
                     <div id="thermometer-fill" class="thermometer-fill"></div>
                     <div id="thermometer-mask" class="thermometer-mask"></div>
                 </div>
-                <div id="thermometer-label" class="thermometer-label">Light&nbsp;Falling&nbsp;on&nbsp;Sensor</div>
+                <div id="thermometer-label" class="thermometer-label">${(this.experience.translations.meterLabel ?? 'Light Falling on Sensor').replace(/ /g, '\u00a0')}</div>
             </div>
         `;
 

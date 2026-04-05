@@ -15,7 +15,8 @@
     "lil-gui": "^0.19.2",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "three": "^0.169.0"
+    "three": "^0.169.0",
+    "troika-three-text": "^0.52.4"
   },
   "devDependencies": {
     "@gltf-transform/cli": "^4.3.0",

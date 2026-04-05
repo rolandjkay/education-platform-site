@@ -33,6 +33,9 @@ export default class Experience
         this.canvas = _canvas
         this.container = _canvas.parentElement
 
+        // Translations — baked in at build time by FNumbersSimulator.astro
+        this.translations = JSON.parse(this.container.dataset.translations || '{}')
+
         /*
          * Control parameters
          * - These can be controlled by objects within the UI.

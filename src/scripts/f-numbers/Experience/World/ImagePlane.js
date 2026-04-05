@@ -114,11 +114,12 @@ export default class ImagePlane
         const focalLength = this.experience.controlParams.focalLength/1000.0;
 
         // Text label
+        const tr = this.experience.translations;
         this.textMesh = createTextMesh({
             color:    0xffffff,
             size:     0.075,
             depth:    0.01,
-            text:     "Image Plane",
+            text:     tr.labelImagePlane ?? "Image Plane",
             position: new THREE.Vector3(focalLength, this.planeHeight/2, 0),
             rotation: new THREE.Euler(0, -Math.PI/2, 0),
             baseline: "bottom"

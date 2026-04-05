@@ -124,7 +124,7 @@ export default class XArrowControl extends UIControl
                 size:     0.075,
                 depth:    0.01,
                 text:     XArrowControl.formatValue(initialValue, decimal_places) + (units ? " " + units : ""),
-                position: new THREE.Vector3(0, 0, 0.55),
+                position: new THREE.Vector3(0, 0, 0.60),
                 rotation: textRotation,
                 color:    0xffffff
             })
@@ -258,8 +258,7 @@ export default class XArrowControl extends UIControl
             this.lastValueStr = vStr;
 
             this.group.remove(this.valueTextMesh)
-            this.valueTextMesh.geometry.dispose();
-            this.valueTextMesh.material.dispose();
+            this.valueTextMesh.dispose();
 
 
             this.valueTextMesh = createTextMesh({
@@ -267,7 +266,7 @@ export default class XArrowControl extends UIControl
                 size:     0.075,
                 depth:    0.01,
                 text:     vStr + (this.units ? " " + this.units : ""),
-                position: new THREE.Vector3(0, 0, 0.55),
+                position: new THREE.Vector3(0, 0, 0.60),
                 rotation: this.textRotation
             })
 

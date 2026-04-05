@@ -25,19 +25,20 @@ export default class StatsDisplay
 
     setup()
     {
+        const tr = this.experience.translations;
         const statusBar = document.createElement('div');
         statusBar.innerHTML = `
             <div class="status-bar">
                 <div class="status-item">
-                    <span class="status-label">Aperture:</span>
+                    <span class="status-label">${tr.aperture ?? 'Aperture:'}</span>
                     <span class="status-value" id="aperture">f 10000</span>
                 </div>
                 <div class="status-item">
-                    <span class="status-label">ISO:</span>
+                    <span class="status-label">${tr.iso ?? 'ISO:'}</span>
                     <span class="status-value" id="iso">450</span>
                 </div>
                 <div class="status-item">
-                    <span class="status-label">Fraction of light hitting sensor:</span>
+                    <span class="status-label">${tr.fractionOfLight ?? 'Fraction of light hitting sensor:'}</span>
                     <span class="status-value" id="stop">1/512</span>
                 </div>
             </div>
