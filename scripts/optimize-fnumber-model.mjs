@@ -13,7 +13,7 @@
  */
 import { NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, KHRDracoMeshCompression } from '@gltf-transform/extensions';
-import { prune, simplify, draco, weld } from '@gltf-transform/functions';
+import { prune, simplify, draco } from '@gltf-transform/functions';
 import { MeshoptSimplifier } from 'meshoptimizer';
 import draco3d from 'draco3dgltf';
 import { fileURLToPath } from 'url';
@@ -55,8 +55,9 @@ console.log(`Removed ${removed} unused nodes.`);
 // ── 2. Prune orphaned meshes/accessors ────────────────────────────────────────
 await document.transform(prune());
 
-// ── 3. Weld + simplify geometry ───────────────────────────────────────────────
-await document.transform(weld());
+// ── 3. Simplify geometry ──────────────────────────────────────────────────────
+// Note: weld() is intentionally omitted — it corrupts UV seams that the
+// externally-applied foil normal map depends on.
 await MeshoptSimplifier.ready;
 await document.transform(
   simplify({ simplifier: MeshoptSimplifier, ratio: 0.05, error: 0.1 })
