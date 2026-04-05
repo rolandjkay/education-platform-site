@@ -650,6 +650,18 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         // Release the landscape orientation lock so the device can rotate
         // back to portrait freely.
         try { (screen.orientation as any).unlock(); } catch (_) {}
+
+        // Android Chrome bug: after a child element exits fullscreen the
+        // layout viewport width is set to physical pixels instead of CSS
+        // pixels (i.e. width ÷ devicePixelRatio), making the page appear
+        // at half width.  Re-applying the viewport meta tag forces a
+        // recalculation.
+        const viewportMeta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null;
+        if (viewportMeta) {
+          const content = viewportMeta.content;
+          viewportMeta.content = '';
+          viewportMeta.content = content;
+        }
       }
     });
 
