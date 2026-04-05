@@ -17,9 +17,14 @@ export async function getStaticPaths() {
 const { locale, subject } = Astro.params as { locale: Locale; subject: Subject };
 const t = useTranslations(locale);
 
-const articles = (await getCollection('articles'))
-  .filter(a => !a.data.draft && getContentLocale(a.id) === locale && a.data.subjects.includes(subject))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allArticles = await getCollection('articles', a => !a.data.draft);
+const articles = allArticles
+  .filter(a => getContentLocale(a.id) === 'en' && a.data.subjects.includes(subject))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map(enArticle => {
+    const slug = getContentSlug(enArticle.id);
+    return allArticles.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enArticle;
+  });
 
 const allApps = await getCollection('apps');
 const apps = allApps
@@ -29,9 +34,14 @@ const apps = allApps
     return allApps.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enApp;
   });
 
-const projects = (await getCollection('projects'))
-  .filter(p => getContentLocale(p.id) === locale && p.data.subjects?.includes(subject))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter(p => getContentLocale(p.id) === 'en' && p.data.subjects?.includes(subject))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map(enProject => {
+    const slug = getContentSlug(enProject.id);
+    return allProjects.find(p => getContentLocale(p.id) === locale && getContentSlug(p.id) === slug) ?? enProject;
+  });
 ---
 
 <BaseLayout
@@ -94,7 +104,7 @@ const projects = (await getCollection('projects'))
             <Card
               title={project.data.title}
               description={project.data.description}
-              href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
+              href={localePath(`/projects/${getContentSlug(project.id)}`, locale)}
               image={project.data.heroImage}
               accentColor={`var(--color-${subject})`}
               locale={locale}
