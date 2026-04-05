@@ -1,9 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import CardGrid from '../../components/CardGrid.astro';
-import { useTranslations, localePath, locales, defaultLocale, getContentLocale, getContentSlug, type Locale } from '../../i18n/utils';
+import { useTranslations, localePath, locales, defaultLocale, getContentSlug, getLocaleArticles, type Locale } from '../../i18n/utils';
 
 export async function getStaticPaths() {
   return locales
@@ -14,20 +13,7 @@ export async function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 
-const allArticles = await getCollection('articles', a => !a.data.draft);
-
-// Anchor to the same 3 English articles shown on the English homepage,
-// then substitute the translated version for the current locale if available.
-const englishLatest = allArticles
-  .filter(a => getContentLocale(a.id) === 'en')
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-const latest = englishLatest.map(enArticle => {
-  const slug = getContentSlug(enArticle.id);
-  return allArticles.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug)
-    ?? enArticle;
-});
+const latest = await getLocaleArticles(locale, { limit: 3 });
 ---
 
 <BaseLayout

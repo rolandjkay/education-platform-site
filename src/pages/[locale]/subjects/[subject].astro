@@ -1,9 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Card from '../../../components/Card.astro';
 import CardGrid from '../../../components/CardGrid.astro';
-import { useTranslations, localePath, locales, defaultLocale, getContentLocale, getContentSlug, type Locale } from '../../../i18n/utils';
+import { useTranslations, localePath, locales, defaultLocale, getContentSlug, getLocaleArticles, getLocaleApps, getLocaleProjects, type Locale } from '../../../i18n/utils';
 
 type Subject = 'maths' | 'science' | 'finance' | 'filmmaking';
 
@@ -17,31 +16,11 @@ export async function getStaticPaths() {
 const { locale, subject } = Astro.params as { locale: Locale; subject: Subject };
 const t = useTranslations(locale);
 
-const allArticles = await getCollection('articles', a => !a.data.draft);
-const articles = allArticles
-  .filter(a => getContentLocale(a.id) === 'en' && a.data.subjects.includes(subject))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map(enArticle => {
-    const slug = getContentSlug(enArticle.id);
-    return allArticles.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enArticle;
-  });
-
-const allApps = await getCollection('apps');
-const apps = allApps
-  .filter(a => getContentLocale(a.id) === 'en' && a.data.subjects?.includes(subject))
-  .map(enApp => {
-    const slug = getContentSlug(enApp.id);
-    return allApps.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enApp;
-  });
-
-const allProjects = await getCollection('projects');
-const projects = allProjects
-  .filter(p => getContentLocale(p.id) === 'en' && p.data.subjects?.includes(subject))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map(enProject => {
-    const slug = getContentSlug(enProject.id);
-    return allProjects.find(p => getContentLocale(p.id) === locale && getContentSlug(p.id) === slug) ?? enProject;
-  });
+const [articles, apps, projects] = await Promise.all([
+  getLocaleArticles(locale, { subject }),
+  getLocaleApps(locale, { subject }),
+  getLocaleProjects(locale, { subject }),
+]);
 ---
 
 <BaseLayout

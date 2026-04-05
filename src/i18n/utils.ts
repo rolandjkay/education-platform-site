@@ -1,3 +1,4 @@
+import { getCollection } from 'astro:content';
 import { ui, defaultLocale, locales, languages, type Locale } from './ui';
 
 export { type Locale, defaultLocale, locales, languages };
@@ -59,4 +60,51 @@ export function getContentSlug(id: string): string {
   const isLocalePrefix = parts.length > 1 &&
     locales.some(l => l.toLowerCase() === parts[0].toLowerCase() && l !== defaultLocale);
   return (isLocalePrefix ? parts.slice(1).join('/') : normalized).replace(/\.mdx?$/, '');
+}
+
+type Subject = 'maths' | 'science' | 'finance' | 'filmmaking';
+
+/** Returns articles anchored to the English set, substituting locale translations where available. */
+export async function getLocaleArticles(locale: Locale, options?: { subject?: Subject; limit?: number }) {
+  const all = await getCollection('articles', a => !a.data.draft);
+  let english = all
+    .filter(a => getContentLocale(a.id) === 'en')
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  if (options?.subject) english = english.filter(a => a.data.subjects.includes(options.subject!));
+  if (options?.limit)   english = english.slice(0, options.limit);
+
+  return english.map(enEntry => {
+    const slug = getContentSlug(enEntry.id);
+    return all.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enEntry;
+  });
+}
+
+/** Returns apps anchored to the English set, substituting locale translations where available. */
+export async function getLocaleApps(locale: Locale, options?: { subject?: Subject }) {
+  const all = await getCollection('apps');
+  const english = all.filter(
+    a => getContentLocale(a.id) === 'en' &&
+    (!options?.subject || a.data.subjects?.includes(options.subject))
+  );
+
+  return english.map(enEntry => {
+    const slug = getContentSlug(enEntry.id);
+    return all.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enEntry;
+  });
+}
+
+/** Returns projects anchored to the English set, substituting locale translations where available. */
+export async function getLocaleProjects(locale: Locale, options?: { subject?: Subject }) {
+  const all = await getCollection('projects');
+  let english = all
+    .filter(p => getContentLocale(p.id) === 'en')
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  if (options?.subject) english = english.filter(p => p.data.subjects?.includes(options.subject!));
+
+  return english.map(enEntry => {
+    const slug = getContentSlug(enEntry.id);
+    return all.find(p => getContentLocale(p.id) === locale && getContentSlug(p.id) === slug) ?? enEntry;
+  });
 }
