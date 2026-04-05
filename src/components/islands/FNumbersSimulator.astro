@@ -526,6 +526,18 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
     }
   }
 
+  /* When the document is fullscreen (Android), stretch the container to
+     fill the screen.  We fullscreen document.documentElement rather than
+     the container itself to avoid the Android Chrome bug where exiting
+     child-element fullscreen corrupts the layout viewport width. */
+  .f-numbers-container.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+  }
+
   .placeholder-content {
     text-align: center;
     padding: 24px;
@@ -622,9 +634,14 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
       canvas.style.display = 'block';
       appActive = true;
 
-      // Request fullscreen on the container (works on Android; iOS silently ignores it)
+      // Fullscreen the document root rather than the container element.
+      // Fullscreening a child element triggers an Android Chrome bug where
+      // the layout viewport width is halved after exit.  Using the document
+      // root avoids this; we use the .is-fullscreen class to make the
+      // container fill the screen instead.
       try {
-        await container.requestFullscreen();
+        await document.documentElement.requestFullscreen();
+        container.classList.add('is-fullscreen');
       } catch (_) {}
 
       // Try to lock orientation to landscape (works on Android Chrome; iOS ignores it)
@@ -647,21 +664,11 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         canvas.style.display = 'none';
         rotateHint.style.display = 'none';
 
+        container.classList.remove('is-fullscreen');
+
         // Release the landscape orientation lock so the device can rotate
         // back to portrait freely.
         try { (screen.orientation as any).unlock(); } catch (_) {}
-
-        // Android Chrome bug: after a child element exits fullscreen the
-        // layout viewport width is set to physical pixels instead of CSS
-        // pixels (i.e. width ÷ devicePixelRatio), making the page appear
-        // at half width.  Re-applying the viewport meta tag forces a
-        // recalculation.
-        const viewportMeta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null;
-        if (viewportMeta) {
-          const content = viewportMeta.content;
-          viewportMeta.content = '';
-          viewportMeta.content = content;
-        }
       }
     });
 
