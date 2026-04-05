@@ -646,6 +646,10 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         placeholder.style.display = 'flex';
         canvas.style.display = 'none';
         rotateHint.style.display = 'none';
+
+        // Some Android browsers leave a stale viewport width after exiting
+        // fullscreen; dispatching resize forces a layout recalculation.
+        window.dispatchEvent(new Event('resize'));
       }
     });
 
