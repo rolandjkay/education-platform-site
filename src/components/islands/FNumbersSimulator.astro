@@ -647,9 +647,9 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         canvas.style.display = 'none';
         rotateHint.style.display = 'none';
 
-        // Some Android browsers leave a stale viewport width after exiting
-        // fullscreen; dispatching resize forces a layout recalculation.
-        window.dispatchEvent(new Event('resize'));
+        // Release the landscape orientation lock so the device can rotate
+        // back to portrait freely.
+        try { (screen.orientation as any).unlock(); } catch (_) {}
       }
     });
 
