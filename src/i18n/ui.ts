@@ -50,6 +50,7 @@ export const ui = {
     'card.readMore': 'Read more',
     'article.back': '← Articles',
     'project.back': '← Projects',
+    'app.back': '← Apps',
   },
   fr: {
     'site.name': 'Apprentissage en ligne',
@@ -87,6 +88,7 @@ export const ui = {
     'card.readMore': 'Lire la suite',
     'article.back': '← Articles',
     'project.back': '← Projets',
+    'app.back': '← Applications',
   },
   de: {
     'site.name': 'Online-Lernen',
@@ -124,6 +126,7 @@ export const ui = {
     'card.readMore': 'Weiterlesen',
     'article.back': '← Artikel',
     'project.back': '← Projekte',
+    'app.back': '← Apps',
   },
   es: {
     'site.name': 'Aprendizaje en línea',
@@ -161,6 +164,7 @@ export const ui = {
     'card.readMore': 'Leer más',
     'article.back': '← Artículos',
     'project.back': '← Proyectos',
+    'app.back': '← Aplicaciones',
   },
   it: {
     'site.name': 'Apprendimento online',
@@ -198,6 +202,7 @@ export const ui = {
     'card.readMore': 'Leggi di più',
     'article.back': '← Articoli',
     'project.back': '← Progetti',
+    'app.back': '← App',
   },
   'zh-CN': {
     'site.name': '在线学习',
@@ -235,6 +240,7 @@ export const ui = {
     'card.readMore': '阅读更多',
     'article.back': '← 文章',
     'project.back': '← 项目',
+    'app.back': '← 应用',
   },
   'zh-TW': {
     'site.name': '線上學習',
@@ -272,6 +278,7 @@ export const ui = {
     'card.readMore': '閱讀更多',
     'article.back': '← 文章',
     'project.back': '← 專案',
+    'app.back': '← 應用程式',
   },
   ja: {
     'site.name': 'オンライン学習',
@@ -309,5 +316,6 @@ export const ui = {
     'card.readMore': '続きを読む',
     'article.back': '← 記事',
     'project.back': '← プロジェクト',
+    'app.back': '← アプリ',
   },
 } as const;

@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FNumbersSimulator from '../../../components/islands/FNumbersSimulator.astro';
+import { useTranslations, localePath, locales, defaultLocale, type Locale } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  return locales
+    .filter(l => l !== defaultLocale)
+    .map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
+
+const apps = await getCollection('apps');
+const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'f-numbers');
+
+if (!entry) throw new Error('f-numbers content entry not found');
+
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  locale={locale}
+  canonicalPath="/apps/f-numbers"
+>
+  <div class="container">
+    <header class="article-header">
+      <div class="article-header__meta">
+        <a href={localePath('/apps', locale)} class="back-link">{t('app.back')}</a>
+        <span class="tag">3D / WebGL</span>
+      </div>
+      <h1>{entry.data.title}</h1>
+    </header>
+  </div>
+
+  <div class="app-container container">
+    <FNumbersSimulator />
+  </div>
+
+  <div class="container article-body prose">
+    <Content />
+  </div>
+</BaseLayout>
+
+<style>
+  .app-container {
+    margin-bottom: 0;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+</style>

@@ -25,7 +25,7 @@ const apps = (await getCollection('apps'))
   .filter(a => a.data.subjects?.includes(subject));
 
 const projects = (await getCollection('projects'))
-  .filter(p => p.data.subjects?.includes(subject))
+  .filter(p => getContentLocale(p.id) === locale && p.data.subjects?.includes(subject))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
@@ -71,7 +71,7 @@ const projects = (await getCollection('projects'))
             <Card
               title={app.data.title}
               description={app.data.description}
-              href={`/apps/${app.id.replace(/\.mdx?$/, '')}`}
+              href={localePath(`/apps/${app.id.replace(/\.mdx?$/, '')}`, locale)}
               accentColor={`var(--color-${subject})`}
               locale={locale}
               loading={i < 3 ? 'eager' : 'lazy'}
