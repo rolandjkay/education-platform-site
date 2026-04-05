@@ -1,0 +1,90 @@
+---
+title: "Una explicación geométrica de los números F"
+description: "Una visualización 3D interactiva que muestra cómo los números F de apertura y la longitud focal afectan la exposición en un sistema de lente de cámara."
+appType: threejs
+subjects: [maths, science, filmmaking]
+---
+
+Explora cómo cambiar la distancia entre la apertura y el sensor de una cámara, y la posición del objeto, afecta la cantidad de luz que llega al sensor y la magnificación de la imagen.
+
+## Cómo usarlo
+
+Haz clic en el botón ? para ver las instrucciones de navegación y saber cómo mover el árbol (objeto) y ajustar la longitud del barril desplazando el plano de imagen.
+
+## Fotómetro y gráfica
+
+La barra **Luz sobre el sensor** (inferior derecha) ofrece una lectura visual rápida del nivel de exposición actual. La **gráfica** junto a ella muestra la curva completa — cómo decrece la exposición a medida que aumenta la distancia apertura-sensor. El punto blanco marca tu posición actual en esa curva.
+
+## Trasfondo
+
+### El número f
+
+Un objetivo fotográfico enfoca la luz de la escena sobre el sensor. La variable clave que controlas en este simulador es la distancia entre la apertura (la abertura del objetivo) y el sensor — esta es la **longitud focal**, $f$. El diámetro de la apertura es $D$.
+
+El **número f** es simplemente su cociente:
+
+$$
+N = \frac{f}{D}
+$$
+
+Un número f pequeño significa una apertura amplia en relación con la longitud focal; un número f grande significa una apertura estrecha. Pero ¿por qué este cociente importa tanto para la exposición? La respuesta está en una geometría sencilla.
+
+### ¿Cuánta luz llega al sensor?
+
+Cada rayo de luz que atraviesa la apertura continúa propagándose y cruza un **hemisferio** imaginario centrado en la apertura, con radio igual a la longitud focal $f$. Puedes ver este hemisferio en el simulador — actívalo con el botón *Ocultar/Mostrar hemisferio de imagen*.
+
+El área superficial de ese hemisferio es:
+
+$$
+A_\text{hemisferio} = 2\pi f^2
+$$
+
+El sensor se encuentra en la parte posterior de este hemisferio y tiene un área fija $A_\text{sensor}$. Solo captura la fracción del hemisferio que cubre:
+
+$$
+\text{fracción capturada} = \frac{A_\text{sensor}}{2\pi f^2}
+$$
+
+Por su parte, la luz total que entra por la apertura es proporcional al área de la apertura, que escala con $D^2$. Combinando estos factores, la luz que realmente llega al sensor es:
+
+$$
+E \propto D^2 \times \frac{A_\text{sensor}}{f^2}
+$$
+
+### Expresar esto en términos del número f
+
+Como $N = f/D$, tenemos $D = f/N$. Sustituyendo:
+
+$$
+E \propto \frac{f^2}{N^2} \times \frac{A_\text{sensor}}{f^2} = \frac{A_\text{sensor}}{N^2}
+$$
+
+Los términos $f^2$ se cancelan. El área del sensor es fija, por lo que obtenemos un resultado elegantemente simple:
+
+$$
+\boxed{E \propto \frac{1}{N^2}}
+$$
+
+La exposición es inversamente proporcional al cuadrado del número f — y nada más. La longitud focal y el área del sensor desaparecen por completo.
+
+### Pasos de diafragma
+
+Los fotógrafos trabajan en **pasos** (stops), donde cada paso es doblar o reducir a la mitad la cantidad de luz. Como $E \propto 1/N^2$, reducir la exposición a la mitad requiere multiplicar $N$ por $\sqrt{2} \approx 1{,}41$. Esto produce la conocida serie de pasos de diafragma:
+
+$$
+f/1 \;\to\; f/1{,}4 \;\to\; f/2 \;\to\; f/2{,}8 \;\to\; f/4 \;\to\; f/5{,}6 \;\to\; f/8 \;\to\; f/11 \;\to\; f/16
+$$
+
+Cada paso multiplica $N$ por $\sqrt{2}$, que elevado al cuadrado da 2, reduciendo la luz a la mitad. Avanzar dos pasos divide la luz por cuatro; tres pasos la divide entre ocho — y así sucesivamente.
+
+El indicador **Fracción de luz que alcanza el sensor** en el simulador cuenta exactamente estos pasos desde la apertura más amplia y muestra el resultado como $1,\ \tfrac{1}{2},\ \tfrac{1}{4},\ \tfrac{1}{8},\ldots$
+
+<style>{`
+  .controls-touch { display: none; }
+  .controls-mouse { display: block; }
+
+  @media (pointer: coarse) {
+    .controls-touch { display: block; }
+    .controls-mouse { display: none; }
+  }
+`}</style>

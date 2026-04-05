@@ -1,0 +1,90 @@
+---
+title: "Eine geometrische Erklärung der Blendenzahlen"
+description: "Eine interaktive 3D-Visualisierung, die zeigt, wie Blenden-„F"-Zahlen und Brennweite die Belichtung in einem Kameraobjektivsystem beeinflussen."
+appType: threejs
+subjects: [maths, science, filmmaking]
+---
+
+Erkunden Sie, wie die Änderung des Abstands zwischen Blende und Sensor einer Kamera sowie die Platzierung des Objekts beeinflussen, wie viel Licht den Sensor erreicht und wie stark das Bild vergrößert wird.
+
+## Bedienung
+
+Klicken Sie auf die Schaltfläche ?, um Navigationsanweisungen zu erhalten und zu erfahren, wie Sie den Baum (Objekt) bewegen und die Tubuslänge durch Verschieben der Bildebene anpassen.
+
+## Belichtungsmesser und Diagramm
+
+Der Balken **Licht auf dem Sensor** (unten rechts) zeigt den aktuellen Belichtungsstand auf einen Blick. Das **Diagramm** daneben zeigt die vollständige Kurve — wie die Belichtung abnimmt, wenn der Abstand zwischen Blende und Sensor zunimmt. Der weiße Punkt markiert Ihre aktuelle Position auf dieser Kurve.
+
+## Hintergrund
+
+### Die Blendenzahl
+
+Ein Kameraobjektiv bündelt das Licht der Szene auf den Sensor. Die wichtigste Variable in diesem Simulator ist der Abstand zwischen der Blende (der Öffnung im Objektiv) und dem Sensor — das ist die **Brennweite**, $f$. Der Durchmesser der Blendenöffnung ist $D$.
+
+Die **Blendenzahl** ist einfach ihr Verhältnis:
+
+$$
+N = \frac{f}{D}
+$$
+
+Eine kleine Blendenzahl bedeutet eine große Öffnung im Verhältnis zur Brennweite; eine große Blendenzahl bedeutet eine kleine Öffnung. Aber warum ist dieses Verhältnis für die Belichtung so entscheidend? Die Antwort liegt in einer einfachen Geometrie.
+
+### Wie viel Licht erreicht den Sensor?
+
+Jeder Lichtstrahl, der durch die Blende tritt, breitet sich weiter aus und schneidet eine gedachte **Halbkugel**, die um die Blende mit dem Radius gleich der Brennweite $f$ zentriert ist. Diese Halbkugel ist im Simulator sichtbar — blenden Sie sie mit der Schaltfläche *Bildhalbkugel ein-/ausblenden* ein oder aus.
+
+Die Oberfläche dieser Halbkugel beträgt:
+
+$$
+A_\text{Halbkugel} = 2\pi f^2
+$$
+
+Der Sensor befindet sich am hinteren Ende dieser Halbkugel und hat eine feste Fläche $A_\text{Sensor}$. Er erfasst nur den Bruchteil der Halbkugel, den er abdeckt:
+
+$$
+\text{erfasster Anteil} = \frac{A_\text{Sensor}}{2\pi f^2}
+$$
+
+Das durch die Blende einfallende Gesamtlicht ist proportional zur Blendenfläche, die mit $D^2$ skaliert. Kombiniert man beides, ergibt sich das Licht, das den Sensor tatsächlich erreicht:
+
+$$
+E \propto D^2 \times \frac{A_\text{Sensor}}{f^2}
+$$
+
+### Ausdruck in Blendenzahlen
+
+Da $N = f/D$, gilt $D = f/N$. Einsetzen ergibt:
+
+$$
+E \propto \frac{f^2}{N^2} \times \frac{A_\text{Sensor}}{f^2} = \frac{A_\text{Sensor}}{N^2}
+$$
+
+Die $f^2$-Terme heben sich auf. Die Sensorfläche ist fest, sodass ein überaus einfaches Ergebnis bleibt:
+
+$$
+\boxed{E \propto \frac{1}{N^2}}
+$$
+
+Die Belichtung ist umgekehrt proportional zum Quadrat der Blendenzahl — und sonst nichts. Brennweite und Sensorfläche fallen vollständig heraus.
+
+### Belichtungsstufen (Blendenstufen)
+
+Fotografen arbeiten in **Blendenstufen**, wobei jede Stufe einer Verdoppelung oder Halbierung des Lichts entspricht. Da $E \propto 1/N^2$, muss man $N$ mit $\sqrt{2} \approx 1{,}41$ multiplizieren, um die Belichtung zu halbieren. Dies ergibt die bekannte Blendenstufenreihe:
+
+$$
+f/1 \;\to\; f/1{,}4 \;\to\; f/2 \;\to\; f/2{,}8 \;\to\; f/4 \;\to\; f/5{,}6 \;\to\; f/8 \;\to\; f/11 \;\to\; f/16
+$$
+
+Jeder Schritt multipliziert $N$ mit $\sqrt{2}$, was im Quadrat 2 ergibt und das Licht halbiert. Zwei Stufen weiter und das Licht wird geviertelt; drei Stufen reduzieren es auf ein Achtel — und so weiter.
+
+Die Anzeige **Anteil des Lichts auf dem Sensor** im Simulator zählt genau diese Stufen ab der größten Blendenöffnung und zeigt das Ergebnis als $1,\ \tfrac{1}{2},\ \tfrac{1}{4},\ \tfrac{1}{8},\ldots$
+
+<style>{`
+  .controls-touch { display: none; }
+  .controls-mouse { display: block; }
+
+  @media (pointer: coarse) {
+    .controls-touch { display: block; }
+    .controls-mouse { display: none; }
+  }
+`}</style>

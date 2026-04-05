@@ -14,7 +14,8 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 
 const apps = await getCollection('apps');
-const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'convex-lens-simulator');
+const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === `${locale}/convex-lens-simulator`)
+           ?? apps.find(a => a.id.replace(/\.mdx?$/, '') === 'convex-lens-simulator');
 
 if (!entry) throw new Error('convex-lens-simulator content entry not found');
 

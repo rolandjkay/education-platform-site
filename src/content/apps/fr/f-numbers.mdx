@@ -1,0 +1,90 @@
+---
+title: "Une explication géométrique des nombres F"
+description: "Une visualisation 3D interactive montrant comment les nombres « F » d'ouverture et la longueur focale influencent l'exposition dans un système d'objectif."
+appType: threejs
+subjects: [maths, science, filmmaking]
+---
+
+Explorez comment la variation de la distance entre l'ouverture et le capteur d'un appareil photo, ainsi que le placement de l'objet, influencent la quantité de lumière atteignant le capteur et le grossissement de l'image.
+
+## Comment l'utiliser
+
+Cliquez sur le bouton ? pour obtenir les instructions de navigation et découvrir comment déplacer l'arbre (objet) et ajuster la longueur du barillet en déplaçant le plan image.
+
+## Posemètre et graphique
+
+La barre **Lumière atteignant le capteur** (en bas à droite) donne une lecture visuelle rapide du niveau d'exposition actuel. Le **graphique** à côté montre la courbe complète — comment l'exposition diminue à mesure que la distance ouverture-capteur augmente. Le point blanc indique votre position actuelle sur cette courbe.
+
+## Contexte
+
+### Le nombre f
+
+Un objectif d'appareil photo concentre la lumière de la scène sur le capteur. La variable clé que vous contrôlez dans ce simulateur est la distance entre l'ouverture (l'orifice dans l'objectif) et le capteur — c'est la **longueur focale**, $f$. Le diamètre de l'ouverture est $D$.
+
+Le **nombre f** est simplement leur rapport :
+
+$$
+N = \frac{f}{D}
+$$
+
+Un petit nombre f signifie une grande ouverture par rapport à la longueur focale ; un grand nombre f signifie une ouverture étroite. Mais pourquoi ce rapport est-il si important pour l'exposition ? La réponse réside dans une géométrie simple.
+
+### Quelle quantité de lumière atteint le capteur ?
+
+Chaque rayon lumineux qui passe par l'ouverture continue à se propager vers l'extérieur et coupe un **hémisphère** imaginaire centré sur l'ouverture, de rayon égal à la longueur focale $f$. Vous pouvez voir cet hémisphère dans le simulateur — activez-le ou désactivez-le avec le bouton *Masquer/Afficher l'hémisphère image*.
+
+La surface de cet hémisphère est :
+
+$$
+A_\text{hémisphère} = 2\pi f^2
+$$
+
+Le capteur se trouve à l'arrière de cet hémisphère et possède une surface fixe $A_\text{capteur}$. Il ne capte que la fraction de l'hémisphère qu'il couvre :
+
+$$
+\text{fraction captée} = \frac{A_\text{capteur}}{2\pi f^2}
+$$
+
+Par ailleurs, la lumière totale entrant par l'ouverture est proportionnelle à l'aire de l'ouverture, qui est proportionnelle à $D^2$. En combinant ces éléments, la lumière atteignant effectivement le capteur est :
+
+$$
+E \propto D^2 \times \frac{A_\text{capteur}}{f^2}
+$$
+
+### Expression en termes de nombre f
+
+Puisque $N = f/D$, on a $D = f/N$. En substituant :
+
+$$
+E \propto \frac{f^2}{N^2} \times \frac{A_\text{capteur}}{f^2} = \frac{A_\text{capteur}}{N^2}
+$$
+
+Les termes $f^2$ s'annulent. La surface du capteur est fixe, il nous reste donc un résultat d'une élégante simplicité :
+
+$$
+\boxed{E \propto \frac{1}{N^2}}
+$$
+
+L'exposition est inversement proportionnelle au carré du nombre f — et rien d'autre. La longueur focale et la surface du capteur disparaissent entièrement.
+
+### Les diaphragmes (f-stops)
+
+Les photographes travaillent en **diaphragmes**, où chaque diaphragme correspond à un doublement ou une réduction de moitié de la lumière. Puisque $E \propto 1/N^2$, réduire l'exposition de moitié nécessite de multiplier $N$ par $\sqrt{2} \approx 1{,}41$. Cela donne la série de diaphragmes bien connue :
+
+$$
+f/1 \;\to\; f/1{,}4 \;\to\; f/2 \;\to\; f/2{,}8 \;\to\; f/4 \;\to\; f/5{,}6 \;\to\; f/8 \;\to\; f/11 \;\to\; f/16
+$$
+
+Chaque pas multiplie $N$ par $\sqrt{2}$, ce qui au carré donne 2, réduisant la lumière de moitié. Avancez de deux diaphragmes et la lumière est divisée par quatre ; trois diaphragmes la réduisent à un huitième — et ainsi de suite.
+
+L'affichage **Fraction de lumière atteignant le capteur** dans le simulateur compte exactement ces diaphragmes depuis la plus grande ouverture et affiche le résultat sous la forme $1,\ \tfrac{1}{2},\ \tfrac{1}{4},\ \tfrac{1}{8},\ldots$
+
+<style>{`
+  .controls-touch { display: none; }
+  .controls-mouse { display: block; }
+
+  @media (pointer: coarse) {
+    .controls-touch { display: block; }
+    .controls-mouse { display: none; }
+  }
+`}</style>

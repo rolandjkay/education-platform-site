@@ -14,9 +14,20 @@ export async function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 
-const latest = (await getCollection('articles', a => !a.data.draft && getContentLocale(a.id) === locale))
+const allArticles = await getCollection('articles', a => !a.data.draft);
+
+// Anchor to the same 3 English articles shown on the English homepage,
+// then substitute the translated version for the current locale if available.
+const englishLatest = allArticles
+  .filter(a => getContentLocale(a.id) === 'en')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const latest = englishLatest.map(enArticle => {
+  const slug = getContentSlug(enArticle.id);
+  return allArticles.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug)
+    ?? enArticle;
+});
 ---
 
 <BaseLayout

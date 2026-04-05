@@ -14,7 +14,8 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 
 const apps = await getCollection('apps');
-const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'f-numbers');
+const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === `${locale}/f-numbers`)
+           ?? apps.find(a => a.id.replace(/\.mdx?$/, '') === 'f-numbers');
 
 if (!entry) throw new Error('f-numbers content entry not found');
 

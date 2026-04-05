@@ -1,0 +1,90 @@
+---
+title: "Una spiegazione geometrica dei numeri F"
+description: "Una visualizzazione 3D interattiva che mostra come i numeri F del diaframma e la lunghezza focale influenzano l'esposizione in un sistema ottico."
+appType: threejs
+subjects: [maths, science, filmmaking]
+---
+
+Esplora come cambiare la distanza tra il diaframma e il sensore di una fotocamera, e la posizione del soggetto, influisce sulla quantità di luce che raggiunge il sensore e sull'ingrandimento dell'immagine.
+
+## Come si usa
+
+Clicca sul pulsante ? per le istruzioni di navigazione e per scoprire come spostare l'albero (soggetto) e regolare la lunghezza del barilotto muovendo il piano immagine.
+
+## Esposimetro e grafico
+
+La barra **Luce sul sensore** (in basso a destra) fornisce una lettura visiva rapida del livello di esposizione attuale. Il **grafico** accanto mostra l'intera curva — come l'esposizione cala all'aumentare della distanza diaframma-sensore. Il punto bianco indica la tua posizione attuale su quella curva.
+
+## Approfondimento
+
+### Il numero f
+
+Un obiettivo fotografico mette a fuoco la luce della scena sul sensore. La variabile principale che controlli in questo simulatore è la distanza tra il diaframma (l'apertura dell'obiettivo) e il sensore — questa è la **lunghezza focale**, $f$. Il diametro dell'apertura del diaframma è $D$.
+
+Il **numero f** è semplicemente il loro rapporto:
+
+$$
+N = \frac{f}{D}
+$$
+
+Un numero f piccolo indica un diaframma ampio rispetto alla lunghezza focale; un numero f grande indica un diaframma stretto. Ma perché questo rapporto è così importante per l'esposizione? La risposta sta in una semplice geometria.
+
+### Quanta luce raggiunge il sensore?
+
+Ogni raggio di luce che passa attraverso il diaframma continua a propagarsi e interseca una **semisfera** immaginaria centrata nel diaframma, con raggio pari alla lunghezza focale $f$. Puoi vedere questa semisfera nel simulatore — attivala con il pulsante *Nascondi/Mostra semisfera immagine*.
+
+L'area superficiale di quella semisfera è:
+
+$$
+A_\text{semisfera} = 2\pi f^2
+$$
+
+Il sensore si trova sul fondo di questa semisfera e ha un'area fissa $A_\text{sensore}$. Cattura solo la frazione della semisfera che copre:
+
+$$
+\text{frazione catturata} = \frac{A_\text{sensore}}{2\pi f^2}
+$$
+
+Nel frattempo, la luce totale che entra attraverso il diaframma è proporzionale all'area del diaframma, che scala con $D^2$. Mettendo insieme questi fattori, la luce che effettivamente raggiunge il sensore è:
+
+$$
+E \propto D^2 \times \frac{A_\text{sensore}}{f^2}
+$$
+
+### Esprimere questo in termini del numero f
+
+Poiché $N = f/D$, abbiamo $D = f/N$. Sostituendo:
+
+$$
+E \propto \frac{f^2}{N^2} \times \frac{A_\text{sensore}}{f^2} = \frac{A_\text{sensore}}{N^2}
+$$
+
+I termini $f^2$ si cancellano. L'area del sensore è fissa, quindi otteniamo un risultato di elegante semplicità:
+
+$$
+\boxed{E \propto \frac{1}{N^2}}
+$$
+
+L'esposizione è inversamente proporzionale al quadrato del numero f — e nient'altro. La lunghezza focale e l'area del sensore scompaiono completamente.
+
+### Gli stop del diaframma
+
+I fotografi lavorano in **stop**, dove ogni stop corrisponde al raddoppio o al dimezzamento della luce. Poiché $E \propto 1/N^2$, dimezzare l'esposizione richiede di moltiplicare $N$ per $\sqrt{2} \approx 1{,}41$. Questo produce la nota serie di stop del diaframma:
+
+$$
+f/1 \;\to\; f/1{,}4 \;\to\; f/2 \;\to\; f/2{,}8 \;\to\; f/4 \;\to\; f/5{,}6 \;\to\; f/8 \;\to\; f/11 \;\to\; f/16
+$$
+
+Ogni passo moltiplica $N$ per $\sqrt{2}$, che elevato al quadrato dà 2, dimezzando la luce. Avanzare di due stop divide la luce per quattro; tre stop la riduce a un ottavo — e così via.
+
+Il display **Frazione di luce che colpisce il sensore** nel simulatore conta esattamente questi stop a partire dal diaframma più aperto e mostra il risultato come $1,\ \tfrac{1}{2},\ \tfrac{1}{4},\ \tfrac{1}{8},\ldots$
+
+<style>{`
+  .controls-touch { display: none; }
+  .controls-mouse { display: block; }
+
+  @media (pointer: coarse) {
+    .controls-touch { display: block; }
+    .controls-mouse { display: none; }
+  }
+`}</style>

@@ -14,7 +14,8 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 
 const apps = await getCollection('apps');
-const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'pinhole-simulator');
+const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === `${locale}/pinhole-simulator`)
+           ?? apps.find(a => a.id.replace(/\.mdx?$/, '') === 'pinhole-simulator');
 
 if (!entry) throw new Error('pinhole-simulator content entry not found');
 
