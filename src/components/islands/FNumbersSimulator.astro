@@ -651,18 +651,19 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         try { (screen.orientation as any).unlock(); } catch (_) {}
 
         // Android Chrome intermittently corrupts the layout viewport width
-        // after exiting fullscreen.  fullscreenchange fires before the
-        // browser has finished updating viewport dimensions, so the fix
-        // (re-asserting the viewport meta) must be delayed until the
-        // transition has fully settled (~300 ms).
+        // after exiting fullscreen.  Hide the page immediately so the user
+        // never sees the brief narrow state, then re-assert the viewport meta
+        // once the fullscreen transition has settled and fade back in.
+        document.body.style.opacity = '0';
         setTimeout(() => {
           const meta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null;
-          if (meta) {
-            const c = meta.content;
-            meta.content = '';
-            meta.content = c;
-          }
-        }, 300);
+          if (meta) { const c = meta.content; meta.content = ''; meta.content = c; }
+          requestAnimationFrame(() => {
+            document.body.style.transition = 'opacity 0.15s ease';
+            document.body.style.opacity = '1';
+            setTimeout(() => { document.body.style.transition = ''; }, 200);
+          });
+        }, 150);
       }
     });
 
