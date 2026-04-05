@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { getContentLocale } from '../../i18n/utils';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const apps = await getCollection('apps');
+const apps = (await getCollection('apps')).filter(a => getContentLocale(a.id) === 'en');
 
 const appLinks: Record<string, string> = {
-  'f-numbers-simulator': '/apps/f-numbers',
+  'f-numbers': '/apps/f-numbers',
   'convex-lens-simulator': '/apps/convex-lens-simulator',
   'pinhole-simulator': '/apps/pinhole-simulator',
 };

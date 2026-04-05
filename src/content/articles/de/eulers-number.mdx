@@ -1,0 +1,131 @@
+---
+title: "Warum ist die Eulersche Zahl 2,71828...?"
+description: "Sie taucht in der Natur, in der Finanzwelt, in der Physik und im Herzen der Analysis auf. Aber woher kommt e, und warum ist es genau diese leicht merkwürdige Zahl? Die Antwort beginnt mit einer Frage über Geld."
+pubDate: 2025-01-15
+subjects: [maths]
+tags: ["maths", "calculus", "euler", "exponentials"]
+---
+
+Es gibt eine Zahl, die in der Mathematik absolut überall auftaucht. Man findet sie in der Formel für Bevölkerungswachstum, für den Zerfall radioaktiver Atome, für die Wärmeleitung in einem Material und — wie wir gleich sehen werden — verborgen in der Zinseszinsformel aus unserem Artikel über den [Zeitwert des Geldes](/de/articles/time-value-of-money).
+
+Diese Zahl ist **e**, und sie beträgt ungefähr 2,71828.
+
+Aber warum genau diese Zahl? Warum nicht 3, oder 2,5, oder irgendein anderer glatter Wert? Die Antwort ist überraschend befriedigend — und sie beginnt mit einer Frage über eine Bank.
+
+## Die großzügigste Bank der Welt
+
+Stellen Sie sich eine Bank vor, die 100 % Zinsen pro Jahr zahlt. (Bleiben Sie dabei — es ist ein Gedankenexperiment.) Sie zahlen 1 € ein. Nach einem Jahr haben Sie:
+
+$$
+1 \times (1 + 1)^1 = 2
+$$
+
+Nicht schlecht. Angenommen, die Bank verzinst nun zweimal pro Jahr — 50 % alle sechs Monate:
+
+$$
+1 \times \left(1 + \frac{1}{2}\right)^2 = 1{,}5^2 = 2{,}25
+$$
+
+Noch besser. Was, wenn sie vierteljährlich verzinst — 25 % alle drei Monate?
+
+$$
+1 \times \left(1 + \frac{1}{4}\right)^4 = 1{,}25^4 \approx 2{,}4414
+$$
+
+Man sieht, worauf das hinausläuft. Je häufiger die Bank verzinst, desto mehr erhalten Sie am Ende. Was also würde passieren, wenn sie *jede Sekunde*, oder *jede Millisekunde*, ja sogar *kontinuierlich* — unendlich oft — verzinst?
+
+Schauen wir, was geschieht, wenn wir die Anzahl der Verzinsungsperioden $n$ erhöhen:
+
+| Verzinsungsperioden ($n$) | Formel | Ergebnis |
+|---|---|---|
+| 1 (jährlich)       | $(1 + 1)^1$           | 2,00000 |
+| 2 (halbjährlich)   | $(1 + ½)^2$           | 2,25000 |
+| 4 (vierteljährlich)| $(1 + ¼)^4$           | 2,44141 |
+| 12 (monatlich)     | $(1 + 1/12)^{12}$     | 2,61304 |
+| 52 (wöchentlich)   | $(1 + 1/52)^{52}$     | 2,69260 |
+| 365 (täglich)      | $(1 + 1/365)^{365}$   | 2,71457 |
+| 8 760 (stündlich)  | $(1 + 1/8760)^{8760}$ | 2,71813 |
+| 1 000 000          | $(1 + 1/n)^n$         | 2,71828 |
+
+Die Werte konvergieren. Sie steigen langsam an, aber sie steuern eindeutig auf einen Grenzwert zu — und dieser Grenzwert ist **e**.
+
+## Die Definition von e
+
+Mathematisch ist $e$ definiert als der Grenzwert dieses Ausdrucks, wenn $n$ gegen unendlich geht:
+
+$$
+e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n \approx 2{,}71828...
+$$
+
+Hier liegt der *Ursprung* von $e$. Es ist keine erfundene Zahl. Es ist die Zahl, die auf natürliche Weise entsteht, wenn man fragt: „Was passiert mit dem Zinseszins, wenn man unendlich oft verzinst?"
+
+## Warum taucht sie überall auf?
+
+Hier ist der tiefere Grund, warum $e$ so wichtig ist — und es ist eine jener Ideen, die man, sobald man sie versteht, nie wieder vergisst.
+
+$e$ ist die einzige Zahl mit der Eigenschaft, dass die Funktion $e^x$ ihre eigene Ableitung ist. Mit anderen Worten:
+
+$$
+\frac{d}{dx} e^x = e^x
+$$
+
+Falls Sie noch keine Analysis kennen, hier ist die Bedeutung in einfachen Worten: $e^x$ ist die einzige Funktion, deren *Änderungsrate* an jedem Punkt gleich ihrem *Wert* an diesem Punkt ist. Je größer sie wird, desto schneller wächst sie — und sie wächst mit genau der richtigen Geschwindigkeit, um diese Beziehung aufrechtzuerhalten.
+
+Deshalb taucht $e$ überall dort auf, wo Wachstum oder Zerfall proportional zur aktuellen Größe ist:
+
+- **Bevölkerungen** wachsen schneller, wenn mehr Individuen zur Fortpflanzung vorhanden sind.
+- **Radioaktive Atome** zerfallen mit einer Rate, die proportional zur Anzahl der verbleibenden Atome ist.
+- **Investitionen** wachsen proportional zu ihrem aktuellen Wert (Zinseszins).
+- **Wärme** dissipiert mit einer Rate, die proportional zur Temperaturdifferenz ist.
+
+All diese Phänomene folgen demselben grundlegenden Muster, und alle involvieren $e$.
+
+## Die Exponentialfunktion in der Praxis
+
+Wenn eine Größe kontinuierlich mit einer konstanten Rate $r$ wächst, ist ihr Wert nach der Zeit $t$:
+
+$$
+A = A_0 \cdot e^{rt}
+$$
+
+wobei $A_0$ der Anfangswert ist. Vergleichen Sie dies mit der Zinseszinsformel aus dem Artikel über den Zeitwert des Geldes:
+
+$$
+EW = BW \times (1 + r)^n
+$$
+
+Das ist dieselbe Idee, nur unterschiedlich ausgedrückt. Wenn die Verzinsung kontinuierlich statt in festen Abständen erfolgt, wird $(1 + r)^n$ zu $e^{rt}$. Der Zusammenhang ist exakt.
+
+## e ist irrational (und transzendent)
+
+Wie $\pi$ ist $e$ irrational — sie kann nicht als Bruch geschrieben werden, und ihre Dezimalentwicklung geht unendlich weiter, ohne sich zu wiederholen. Tatsächlich ist $e$ noch „ungewöhnlicher" als das: Sie ist **transzendent**, was bedeutet, dass sie keine Lösung irgendeiner Polynomgleichung mit ganzzahligen Koeffizienten ist. Mit anderen Worten, $e$ ist nicht nur schwer aufzuschreiben — sie ist grundlegend anders als die Zahlen, die aus der gewöhnlichen Algebra entstehen.
+
+Wir können $e$ als unendliche Summe schreiben, die bemerkenswert schnell konvergiert:
+
+$$
+e = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \cdots = \sum_{k=0}^{\infty} \frac{1}{k!}
+$$
+
+Überprüfen wir die ersten Glieder:
+
+$$
+1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} = 2{,}71667...
+$$
+
+Schon sechs Glieder bringen uns auf weniger als 0,001 vom wahren Wert entfernt. Die Fakultäten im Nenner lassen die Glieder so schnell kleiner werden, dass die Reihe fast sofort konvergiert.
+
+## Eulers Identität: die schönste Gleichung der Mathematik
+
+Wir würden $e$ einen schlechten Dienst erweisen, wenn wir das nicht erwähnen würden, was oft als die schönste Gleichung der Mathematik bezeichnet wird:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+Das ist **Eulers Identität**, und sie verbindet fünf der fundamentalsten Konstanten der gesamten Mathematik — $e$, $i$ (die imaginäre Einheit, $\sqrt{-1}$), $\pi$, 1 und 0 — in einer einzigen, unglaublich eleganten Gleichung. Wenn sich das wie Magie anfühlt, liegt das daran, dass es gewissermaßen auch so ist.
+
+Die vollständige Erklärung heben wir für einen anderen Artikel auf. Genießen Sie vorerst einfach die Tatsache, dass die seltsame Zahl 2,71828... im Mittelpunkt einiger der tiefgründigsten Mathematik steht, die je entdeckt wurde.
+
+## Jetzt sind Sie dran
+
+Wenn Sie das nächste Mal von exponentiellem Wachstum in den Nachrichten hören — ein sich ausbreitendes Virus, die wachsende Staatsverschuldung, eine rasant fortschreitende Technologie — wissen Sie, was darunter wirklich steckt. Es ist $e$, das tut, was es immer tut.

@@ -1,12 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
+import { getContentLocale } from '../../i18n/utils';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import CardGrid from '../../components/CardGrid.astro';
 
-const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const projects = (await getCollection('projects'))
+  .filter(p => getContentLocale(p.id) === 'en')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout

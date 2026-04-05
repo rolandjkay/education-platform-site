@@ -22,7 +22,7 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const apps = (await getCollection('apps'))
-  .filter(a => a.data.subjects?.includes(subject));
+  .filter(a => getContentLocale(a.id) === locale && a.data.subjects?.includes(subject));
 
 const projects = (await getCollection('projects'))
   .filter(p => getContentLocale(p.id) === locale && p.data.subjects?.includes(subject))

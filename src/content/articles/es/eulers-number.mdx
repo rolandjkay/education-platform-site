@@ -1,0 +1,131 @@
+---
+title: "¿Por qué el número de Euler es 2,71828...?"
+description: "Aparece en la naturaleza, en las finanzas, en la física y en el corazón del cálculo. Pero ¿de dónde viene e, y por qué ese número tan específico y algo extraño? La respuesta comienza con una pregunta sobre el dinero."
+pubDate: 2025-01-15
+subjects: [maths]
+tags: ["maths", "calculus", "euler", "exponentials"]
+---
+
+Hay un número que aparece absolutamente en todas partes de las matemáticas. Lo encontrará en la fórmula del crecimiento de las poblaciones, de la desintegración de los átomos radiactivos, de cómo se propaga el calor a través de un material y — como veremos — escondido dentro de la fórmula del interés compuesto de nuestro artículo sobre el [valor temporal del dinero](/es/articles/time-value-of-money).
+
+Ese número es **e**, y vale aproximadamente 2,71828.
+
+Pero ¿por qué ese número? ¿Por qué no 3, o 2,5, o algún otro valor más ordenado? La respuesta es sorprendentemente satisfactoria — y comienza con una pregunta sobre un banco.
+
+## El banco más generoso del mundo
+
+Imagine un banco que paga un 100 % de interés anual. (Síganos la corriente — es un experimento mental.) Usted deposita 1 €. Al cabo de un año, tiene:
+
+$$
+1 \times (1 + 1)^1 = 2
+$$
+
+Nada mal. Ahora suponga que el banco capitaliza dos veces al año — un 50 % cada seis meses:
+
+$$
+1 \times \left(1 + \frac{1}{2}\right)^2 = 1{,}5^2 = 2{,}25
+$$
+
+Aún mejor. ¿Y si capitalizara trimestralmente — un 25 % cada tres meses?
+
+$$
+1 \times \left(1 + \frac{1}{4}\right)^4 = 1{,}25^4 \approx 2{,}4414
+$$
+
+Ya se ve hacia dónde va esto. Cuanto más frecuentemente capitalice el banco, más dinero tendrá al final. ¿Qué pasaría si capitalizara *cada segundo*, o *cada milisegundo*, o incluso *de forma continua* — infinitamente a menudo?
+
+Veamos qué ocurre cuando aumentamos el número de períodos de capitalización $n$:
+
+| Períodos de capitalización ($n$) | Fórmula | Resultado |
+|---|---|---|
+| 1 (anual)         | $(1 + 1)^1$           | 2,00000 |
+| 2 (semestral)     | $(1 + ½)^2$           | 2,25000 |
+| 4 (trimestral)    | $(1 + ¼)^4$           | 2,44141 |
+| 12 (mensual)      | $(1 + 1/12)^{12}$     | 2,61304 |
+| 52 (semanal)      | $(1 + 1/52)^{52}$     | 2,69260 |
+| 365 (diario)      | $(1 + 1/365)^{365}$   | 2,71457 |
+| 8 760 (por hora)  | $(1 + 1/8760)^{8760}$ | 2,71813 |
+| 1 000 000         | $(1 + 1/n)^n$         | 2,71828 |
+
+Los valores convergen. Van subiendo, pero claramente se dirigen hacia algún lugar — y ese lugar es **e**.
+
+## La definición de e
+
+Matemáticamente, $e$ se define como el límite de esa expresión cuando $n$ tiende a infinito:
+
+$$
+e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n \approx 2{,}71828...
+$$
+
+Aquí es *de donde viene* $e$. No es un número que alguien inventó. Es el número que surge de forma natural cuando uno pregunta: «¿qué ocurre con el interés compuesto si se capitaliza infinitamente a menudo?»
+
+## ¿Por qué aparece en todas partes?
+
+Aquí está la razón más profunda por la que $e$ es tan importante — y es una de esas ideas que, una vez que la ve, no olvida jamás.
+
+$e$ es el único número tal que la función $e^x$ es su propia derivada. En otras palabras:
+
+$$
+\frac{d}{dx} e^x = e^x
+$$
+
+Si aún no ha estudiado cálculo, esto es lo que significa en términos llanos: $e^x$ es la única función cuya *tasa de cambio* en cualquier punto es igual a su *valor* en ese punto. Cuanto más grande se vuelve, más rápido crece — y crece exactamente a la velocidad correcta para mantener esa relación siempre verdadera.
+
+Por eso $e$ aparece dondequiera que el crecimiento o el decaimiento sea proporcional al tamaño actual:
+
+- **Las poblaciones** crecen más rápido cuando hay más individuos que se reproducen.
+- **Los átomos radiactivos** se desintegran a una tasa proporcional al número de átomos que quedan.
+- **Las inversiones** crecen proporcionalmente a su valor actual (interés compuesto).
+- **El calor** se disipa a una tasa proporcional a la diferencia de temperatura.
+
+Todos estos fenómenos siguen el mismo patrón subyacente, y todos involucran $e$.
+
+## La función exponencial en acción
+
+Cuando una cantidad crece de forma continua a una tasa constante $r$, su valor tras el tiempo $t$ es:
+
+$$
+A = A_0 \cdot e^{rt}
+$$
+
+donde $A_0$ es la cantidad inicial. Compare esto con la fórmula del interés compuesto del valor temporal del dinero:
+
+$$
+VF = VP \times (1 + r)^n
+$$
+
+Son la misma idea, expresada de forma diferente. Cuando la capitalización ocurre de manera continua en lugar de a intervalos fijos, $(1 + r)^n$ se convierte en $e^{rt}$. La conexión es exacta.
+
+## e es irracional (y trascendente)
+
+Al igual que $\pi$, $e$ es irracional — no puede escribirse como una fracción, y su expansión decimal continúa para siempre sin repetirse. De hecho, $e$ es aún más «inusual» que eso: es **trascendente**, lo que significa que no es la solución de ninguna ecuación polinómica con coeficientes enteros. En otras palabras, $e$ no solo es difícil de escribir — es fundamentalmente distinto de los tipos de números que surgen del álgebra ordinaria.
+
+Podemos escribir $e$ como una suma infinita, que converge notablemente rápido:
+
+$$
+e = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \cdots = \sum_{k=0}^{\infty} \frac{1}{k!}
+$$
+
+Comprobemos los primeros términos:
+
+$$
+1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} = 2{,}71667...
+$$
+
+Con solo seis términos llegamos a menos de 0,001 del valor real. Los factoriales en el denominador hacen que los términos se encojan tan rápido que la serie converge casi de inmediato.
+
+## La identidad de Euler: la ecuación más hermosa de las matemáticas
+
+Le haríamos un flaco favor a $e$ si no mencionáramos lo que a menudo se considera la ecuación más hermosa de las matemáticas:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+Esta es la **identidad de Euler**, y conecta cinco de las constantes más fundamentales de toda la matemática — $e$, $i$ (la unidad imaginaria, $\sqrt{-1}$), $\pi$, 1 y 0 — en una única ecuación de una elegancia imposible. Si eso parece magia, es porque en cierto modo lo es.
+
+La explicación completa la dejaremos para otro artículo. Por ahora, aprecie simplemente que el extraño número 2,71828... se encuentra en el centro de algunas de las matemáticas más profundas que se han descubierto.
+
+## Le toca a usted
+
+La próxima vez que vea mencionado el crecimiento exponencial en las noticias — un virus que se propaga, la deuda de un país que se acumula, una tecnología que mejora a gran velocidad — sabrá lo que está ocurriendo realmente por debajo. Es $e$, haciendo lo que siempre hace.

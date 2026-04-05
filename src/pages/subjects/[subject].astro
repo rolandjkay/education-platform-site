@@ -25,10 +25,10 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const apps = (await getCollection('apps'))
-  .filter(a => a.data.subjects?.includes(subject as any));
+  .filter(a => getContentLocale(a.id) === 'en' && a.data.subjects?.includes(subject as any));
 
 const projects = (await getCollection('projects'))
-  .filter(p => p.data.subjects?.includes(subject as any))
+  .filter(p => getContentLocale(p.id) === 'en' && p.data.subjects?.includes(subject as any))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
