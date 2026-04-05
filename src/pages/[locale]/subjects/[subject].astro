@@ -21,8 +21,13 @@ const articles = (await getCollection('articles'))
   .filter(a => !a.data.draft && getContentLocale(a.id) === locale && a.data.subjects.includes(subject))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const apps = (await getCollection('apps'))
-  .filter(a => getContentLocale(a.id) === locale && a.data.subjects?.includes(subject));
+const allApps = await getCollection('apps');
+const apps = allApps
+  .filter(a => getContentLocale(a.id) === 'en' && a.data.subjects?.includes(subject))
+  .map(enApp => {
+    const slug = getContentSlug(enApp.id);
+    return allApps.find(a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug) ?? enApp;
+  });
 
 const projects = (await getCollection('projects'))
   .filter(p => getContentLocale(p.id) === locale && p.data.subjects?.includes(subject))
@@ -71,7 +76,7 @@ const projects = (await getCollection('projects'))
             <Card
               title={app.data.title}
               description={app.data.description}
-              href={localePath(`/apps/${app.id.replace(/\.mdx?$/, '')}`, locale)}
+              href={localePath(`/apps/${getContentSlug(app.id)}`, locale)}
               accentColor={`var(--color-${subject})`}
               locale={locale}
               loading={i < 3 ? 'eager' : 'lazy'}
