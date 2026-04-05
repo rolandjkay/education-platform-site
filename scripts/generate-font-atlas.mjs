@@ -1,10 +1,12 @@
 /**
- * Generates an MSDF (Multi-channel Signed Distance Field) bitmap font atlas
+ * Generates MSDF (Multi-channel Signed Distance Field) bitmap font atlases
  * from all unique characters found in the f-numbers app translation table.
  *
- * Outputs two files into public/apps/f-numbers/fonts/:
- *   label-atlas.png   — MSDF texture atlas
- *   label-atlas.json  — BMFont metrics (glyph positions, advances, kerning)
+ * Produces one atlas per locale group:
+ *   label-atlas-latin.{png,json}  — en / fr / de / es / it
+ *   label-atlas-zh-CN.{png,json}  — Simplified Chinese
+ *   label-atlas-zh-TW.{png,json}  — Traditional Chinese
+ *   label-atlas-ja.{png,json}     — Japanese
  *
  * Run automatically as part of `npm run build` via the "prebuild" script.
  * Re-run manually with `node scripts/generate-font-atlas.mjs` whenever
@@ -30,67 +32,97 @@ const decoded = source.replace(
   (_, hex) => String.fromCharCode(parseInt(hex, 16))
 );
 
-// ── 2. Collect unique characters ─────────────────────────────────────────────
-const chars = new Set();
+// ── 2. Extract per-locale character sets ─────────────────────────────────────
 
 // Always include ASCII printable chars needed for dynamic values
 // (numbers, units like "mm"/"m", decimal points, etc.)
 const base =
   ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' +
   '0123456789.,!?-\'"():;/%@#+=<>|`_^&*[]';
-for (const c of base) chars.add(c);
 
-// Extract string values from the labels object (matches: key: 'value')
-const stringRegex = /:\s*'((?:[^'\\]|\\.)*)'/g;
-let match;
-while ((match = stringRegex.exec(decoded)) !== null) {
-  const raw = match[1]
-    .replace(/\\'/g, "'")
-    .replace(/\\\\/g, '\\')
-    .replace(/\\n/g,  '\n')
-    .replace(/\\t/g,  '\t');
+// Extract string values from a specific locale block in the labels object.
+// Looks for lines between `  <localeKey>: {` and the next top-level `},`
+function charsForLocales(localeKeys) {
+  const chars = new Set(base);
 
-  // Strip HTML tags (<strong>, etc.) — those strings go into DOM, not 3D text
-  const stripped = raw.replace(/<[^>]+>/g, '');
+  for (const localeKey of localeKeys) {
+    // Match the locale block: en: { ... } or 'zh-CN': { ... }
+    const escaped = localeKey.replace('-', '\\-').replace('.', '\\.');
+    const blockRe = new RegExp(
+      `(?:^|\\s)['"]?${escaped}['"]?\\s*:\\s*\\{([\\s\\S]*?)\\n  \\}`,
+      'm'
+    );
+    const blockMatch = blockRe.exec(decoded);
+    if (!blockMatch) continue;
 
-  for (const c of stripped) {
-    if (c.codePointAt(0) > 31) chars.add(c); // skip control chars
+    const block = blockMatch[1];
+    const stringRe = /:\s*'((?:[^'\\]|\\.)*)'/g;
+    let m;
+    while ((m = stringRe.exec(block)) !== null) {
+      const raw = m[1]
+        .replace(/\\'/g, "'")
+        .replace(/\\\\/g, '\\')
+        .replace(/\\n/g,  '\n')
+        .replace(/\\t/g,  '\t');
+      const stripped = raw.replace(/<[^>]+>/g, '');
+      for (const c of stripped) {
+        if (c.codePointAt(0) > 31) chars.add(c);
+      }
+    }
   }
+
+  chars.delete('{');
+  chars.delete('}');
+
+  return [...chars].sort((a, b) => a.codePointAt(0) - b.codePointAt(0)).join('');
 }
 
-// Remove template placeholders that will never appear as rendered glyphs
-chars.delete('{');
-chars.delete('}');
+// ── 3. Atlas groups ───────────────────────────────────────────────────────────
 
-const charset = [...chars]
-  .sort((a, b) => a.codePointAt(0) - b.codePointAt(0))
-  .join('');
+const groups = [
+  { name: 'latin', locales: ['en', 'fr', 'de', 'es', 'it'] },
+  { name: 'zh-CN', locales: ['zh-CN'] },
+  { name: 'zh-TW', locales: ['zh-TW'] },
+  { name: 'ja',    locales: ['ja']    },
+];
 
-console.log(`Collecting ${chars.size} unique characters for MSDF atlas…`);
-
-// ── 3. Generate the atlas ─────────────────────────────────────────────────────
 const fontPath = path.join(root, 'scripts/fonts/NotoSansJP-Medium.ttf');
-const outBase  = path.join(root, 'public/apps/f-numbers/fonts/label-atlas');
+const outDir   = path.join(root, 'public/apps/f-numbers/fonts');
 
-generateBMFont(
-  fontPath,
-  {
-    outputType:  'json',
-    fontSize:    48,
-    textureSize: [2048, 2048],
-    charset,
-    fieldType:   'msdf',
-    padding:     4,
-    roundDecimal: 4,
-  },
-  (err, textures, font) => {
-    if (err) throw err;
+// ── 4. Generate each atlas ────────────────────────────────────────────────────
 
-    // font.data is already a JSON string; textures[0].texture is a PNG Buffer
-    writeFileSync(`${outBase}.png`,  textures[0].texture);
-    writeFileSync(`${outBase}.json`, font.data);
+for (const group of groups) {
+  const charset = charsForLocales(group.locales);
+  const outBase = path.join(outDir, `label-atlas-${group.name}`);
 
-    const metrics = JSON.parse(font.data);
-    console.log(`Atlas saved: label-atlas.png (${metrics.common.scaleW}×${metrics.common.scaleH}) + label-atlas.json`);
-  }
-);
+  console.log(`Generating ${group.name} atlas (${charset.length} chars)…`);
+
+  await new Promise((resolve, reject) => {
+    generateBMFont(
+      fontPath,
+      {
+        outputType:   'json',
+        fontSize:     48,
+        textureSize:  [2048, 2048],
+        charset,
+        fieldType:    'msdf',
+        padding:      4,
+        roundDecimal: 4,
+      },
+      (err, textures, font) => {
+        if (err) return reject(err);
+
+        writeFileSync(`${outBase}.png`,  textures[0].texture);
+        writeFileSync(`${outBase}.json`, font.data);
+
+        const metrics = JSON.parse(font.data);
+        console.log(
+          `  → label-atlas-${group.name}.png (${metrics.common.scaleW}×${metrics.common.scaleH}) + .json`
+        );
+        resolve();
+      }
+    );
+  });
+}
+
+console.log('Font atlas generation complete.');

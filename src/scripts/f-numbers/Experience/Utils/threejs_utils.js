@@ -7,8 +7,25 @@
  */
 import * as THREE from 'three';
 
-const ATLAS_PNG  = '/apps/f-numbers/fonts/label-atlas.png';
-const ATLAS_JSON = '/apps/f-numbers/fonts/label-atlas.json';
+const FONTS_BASE = '/apps/f-numbers/fonts';
+
+// Locale → atlas file stem. CJK locales get their own atlas; everything else
+// uses the Latin atlas which covers en/fr/de/es/it.
+const ATLAS_STEMS = { 'zh-CN': 'label-atlas-zh-CN', 'zh-TW': 'label-atlas-zh-TW', ja: 'label-atlas-ja' };
+const DEFAULT_STEM = 'label-atlas-latin';
+
+let atlasPng  = null;
+let atlasJson = null;
+
+/**
+ * Must be called once before any createTextMesh() call, with the page locale
+ * so the correct per-language atlas is loaded.
+ */
+export function initAtlas(locale) {
+  const stem = ATLAS_STEMS[locale] ?? DEFAULT_STEM;
+  atlasPng  = `${FONTS_BASE}/${stem}.png`;
+  atlasJson = `${FONTS_BASE}/${stem}.json`;
+}
 
 // Shared resources — loaded once, reused by every text mesh
 let fontData     = null;
@@ -19,9 +36,9 @@ function ensureLoaded() {
   if (loadPromise) return loadPromise;
 
   loadPromise = Promise.all([
-    fetch(ATLAS_JSON).then(r => r.json()),
+    fetch(atlasJson).then(r => r.json()),
     new Promise(resolve => {
-      new THREE.TextureLoader().load(ATLAS_PNG, tex => {
+      new THREE.TextureLoader().load(atlasPng, tex => {
         // MSDF data must not be gamma-corrected or mipmapped
         tex.colorSpace      = THREE.LinearSRGBColorSpace;
         tex.minFilter       = THREE.LinearFilter;

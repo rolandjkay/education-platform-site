@@ -12,6 +12,7 @@ import Resources from './Utils/Resources.js'
 import LoadingScreen from './LoadingScreen.js'
 
 import sources from './sources.js'
+import { initAtlas } from './Utils/threejs_utils.js'
 
 let instance = null
 
@@ -33,8 +34,9 @@ export default class Experience
         this.canvas = _canvas
         this.container = _canvas.parentElement
 
-        // Translations — baked in at build time by FNumbersSimulator.astro
+        // Translations and locale — baked in at build time by FNumbersSimulator.astro
         this.translations = JSON.parse(this.container.dataset.translations || '{}')
+        initAtlas(this.container.dataset.locale || 'en')
 
         /*
          * Control parameters

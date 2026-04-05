@@ -469,7 +469,7 @@ const labels: Record<string, Translations> = {
 const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
-<div class="f-numbers-container" id="f-numbers-container" data-translations={JSON.stringify(t)}>
+<div class="f-numbers-container" id="f-numbers-container" data-translations={JSON.stringify(t)} data-locale={locale}>
   <canvas class="webgl" aria-label="Interactive f-numbers and depth of field 3D simulator"></canvas>
 
   <div class="mobile-placeholder" id="mobile-placeholder">

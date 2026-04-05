@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-font-atlas.mjs",
+    "prebuild": "node scripts/generate-font-atlas.mjs && node scripts/resize-cubemap.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
