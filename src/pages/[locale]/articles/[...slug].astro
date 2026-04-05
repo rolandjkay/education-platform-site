@@ -5,16 +5,21 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { useTranslations, localePath, locales, defaultLocale, getContentLocale, getContentSlug, localeToBcp47, type Locale } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
-  const allArticles = await getCollection('articles');
+  const allArticles = await getCollection('articles', a => !a.data.draft);
+  const englishArticles = allArticles.filter(a => getContentLocale(a.id) === 'en');
   const nonDefaultLocales = locales.filter(l => l !== defaultLocale);
 
   return nonDefaultLocales.flatMap(locale =>
-    allArticles
-      .filter(a => !a.data.draft && getContentLocale(a.id) === locale)
-      .map(entry => ({
-        params: { locale, slug: getContentSlug(entry.id) },
-        props: { entry, locale },
-      }))
+    englishArticles.map(enEntry => {
+      const slug = getContentSlug(enEntry.id);
+      const localeEntry = allArticles.find(
+        a => getContentLocale(a.id) === locale && getContentSlug(a.id) === slug
+      );
+      return {
+        params: { locale, slug },
+        props: { entry: localeEntry ?? enEntry, locale },
+      };
+    })
   );
 }
 

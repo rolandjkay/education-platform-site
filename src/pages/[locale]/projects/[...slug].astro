@@ -6,15 +6,20 @@ import { useTranslations, localePath, locales, defaultLocale, getContentLocale, 
 
 export async function getStaticPaths() {
   const allProjects = await getCollection('projects');
+  const englishProjects = allProjects.filter(p => getContentLocale(p.id) === 'en');
   const nonDefaultLocales = locales.filter(l => l !== defaultLocale);
 
   return nonDefaultLocales.flatMap(locale =>
-    allProjects
-      .filter(p => getContentLocale(p.id) === locale)
-      .map(entry => ({
-        params: { locale, slug: getContentSlug(entry.id) },
-        props: { entry, locale },
-      }))
+    englishProjects.map(enEntry => {
+      const slug = getContentSlug(enEntry.id);
+      const localeEntry = allProjects.find(
+        p => getContentLocale(p.id) === locale && getContentSlug(p.id) === slug
+      );
+      return {
+        params: { locale, slug },
+        props: { entry: localeEntry ?? enEntry, locale },
+      };
+    })
   );
 }
 
