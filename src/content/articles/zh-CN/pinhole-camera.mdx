@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'zh-CN';
+
 通过制作自己的针孔镜头并用它们拍摄自己的影片，学习相机工作的科学原理！
 
 ## 所以你想制作一台相机？
@@ -60,7 +62,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 你可以在下面动画的前两张幻灯片中看到这种情况。
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## 针孔来救场！
 
@@ -101,7 +103,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 镜头的长度有什么影响？看看下面的互动动画。你可以通过拖动滑块来改变相机传感器和针孔之间的距离……
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 你能看到，随着镜筒变长，光线必须越来越平行才能到达传感器吗？这意味着只有场景的中央部分可见，南瓜的图像变得更大。如果你把镜筒拉到最长，只有南瓜眼睛之间的区域可见。如果你把它缩到最短，南瓜就很小了。
 

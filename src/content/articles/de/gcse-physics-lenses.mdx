@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'de';
 
 Hast du dich jemals gefragt, wie eine einzige Linse als Kamera, Mikroskop oder sogar als Lupe funktionieren kann? Lass uns das auf eine Art erklären, die Sinn ergibt – und viel mehr Spaß macht als ein Lehrbuch!
 
@@ -85,13 +86,13 @@ Es ist sehr hilfreich, an unsere Lochkamera zurückzudenken. Linsen können die 
 
 Hier ist die App aus diesem Artikel – ziehe den Schieberegler und sieh, wie die Verlängerung des Rohrs, was dasselbe ist wie das Entfernen des Kamerasensors von der Blende (dem Loch), die Vergrößerung erhöht und das Bild größer macht.
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 In der App oben kannst du sehen, dass Lichtstrahlen, die von verschiedenen Teilen des Bildes kommen, divergieren; sie entfernen sich voneinander, wenn sie vom Objekt zum Sensor wandern. Wenn wir sie also weiter reisen lassen, indem wir den Sensor vom Loch weg bewegen, spreizen sie sich mehr und das Bild wird größer.
 
 Beachte auch, dass wenn du das Objekt näher an das Loch bewegst, das Bild ebenfalls größer wird. Je näher das Objekt ist, desto steiler ist der Winkel des Lichtstrahls, der durch das Loch geht. Ein steiler einfallender Lichtstrahl legt in derselben horizontalen Strecke eine größere vertikale Strecke zurück als ein flach einfallender Strahl, was zu einem größeren Bild führt.
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## Was passiert, wenn wir eine Linse hinzufügen
 
@@ -101,7 +102,7 @@ Fokus ist bei einer Lochkamera kein Problem; das Bild ist in Fokus, unabhängig 
 
 Das ist anders, wenn man eine Linse verwendet. Eine Linse funktioniert, indem sie die Lichtstrahlen, die von einem Punkt des Objekts ausstrahlen, bündelt (ablenkt), sodass sie wieder zusammenkommen und das Bild formen. Die Strahlen kommen nur in einem bestimmten Abstand hinter der Linse zusammen; ist der Abstand zu gering, sind sie noch nicht weit genug gereist, um zusammenzukommen; ist er zu groß, sind sie bereits zusammengekommen und fangen an, sich wieder auseinanderzubewegen.
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="Demonstration, wie eine Linse Lichtstrahlen bündelt" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ Die Linsenart, die in Kameras und Lupen verwendet wird, nennt man „konvex"; da
 
 Das Gegenteil einer konvexen Linse nennt man „konkave" Linse. Diese sind in der Mitte dünn und an den Rändern dick, und sie lenken Lichtstrahlen so ab, dass sie sich auseinanderbreiten.
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 Heute sprechen wir über konvexe Linsen, also können wir konkave Linsen vorerst vergessen.
 
@@ -129,7 +130,7 @@ Das bestimmende Merkmal eines Kameraobjektivs ist seine „Brennweite". Wenn Leu
 
 Was die Brennweite dir tatsächlich sagt, ist, wie stark die Linse das Licht bündelt; sie gibt dir den Abstand hinter der Linse an, in dem Lichtstrahlen, die parallel zur Achse der Linse verlaufen, zusammengeführt werden. Ein 50-mm-Objektiv führt parallele Strahlen 50 mm hinter der Linse zusammen, während dieser Abstand bei einem 100-mm-Objektiv 100 mm beträgt. Der Punkt, an dem parallele Strahlen zusammentreffen, heißt „Brennpunkt"; dieser Punkt ist im Linsen-Simulator mit „F" gekennzeichnet.
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 Zusätzlich zu den Brennpunkten „F" haben wir auch Punkte markiert, die doppelt so weit wie die Brennweite auf beiden Seiten der Linse sind. Für ein 50-mm-Objektiv befinden sich die beiden mit „F" markierten Punkte also 50 mm vor und hinter der Linse, und die mit „2F" markierten Punkte 100 mm vor und hinter der Linse.
 
@@ -225,7 +226,7 @@ Mach dir nicht zu viele Gedanken über Graphen und Formeln! Es ist jedoch nützl
 
 Du hast beim Spielen mit dem Linsen-Simulator sicher bemerkt, dass das Bild sehr schnell sehr groß wird, wenn du das Objekt F näherst. Das siehst du im Graphen; *m* steigt langsam an, wenn der Abstand vom Objektiv (*u*) sich der Brennweite (*f*=100 mm) nähert, und explodiert dann, wenn wir sehr nahe kommen.
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## Jetzt bist du dran
 

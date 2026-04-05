@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'fr';
+
 Apprenez la science du fonctionnement d'un appareil photo en construisant vos propres objectifs à sténopé et en les utilisant pour tourner votre propre film !
 
 ## Vous voulez construire un appareil photo ?
@@ -60,7 +62,7 @@ Ce que nous voulons, c'est que la lumière provenant d'une partie de notre scèn
 
 Vous pouvez voir ce phénomène dans les deux premières diapositives de l'animation ci-dessous.
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## Le sténopé à la rescousse !
 
@@ -101,7 +103,7 @@ Oui ! La plus grande différence entre un objectif et un autre, c'est la longueu
 
 Quelle différence la longueur de l'objectif fait-elle ? Regardez l'animation interactive ci-dessous. Vous pouvez modifier la distance entre le capteur de l'appareil et le sténopé en faisant glisser le curseur…
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 Vous voyez que, plus le barillet de l'objectif s'allonge, plus les rayons lumineux doivent être parallèles pour atteindre le capteur ? Cela signifie que seule la partie centrale de la scène est visible et que l'image de la citrouille devient plus grande. Si vous rendez le barillet aussi long que possible, seule la zone entre les yeux de la citrouille est visible. Si vous le raccourcissez au maximum, la citrouille est minuscule.
 

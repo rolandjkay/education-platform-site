@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'es';
 
 ¿Alguna vez te has preguntado cómo una sola lente puede convertirse en una cámara, un microscopio o incluso una lupa? ¡Vamos a explicarlo de una forma que tenga sentido y sea mucho más divertida que leer un libro de texto!
 
@@ -85,13 +86,13 @@ Es muy útil recordar nuestra cámara de estenopo. Las lentes pueden hacer las c
 
 Aquí está la aplicación de ese artículo — arrastra el control deslizante y observa cómo alargar el tubo, que es lo mismo que alejar el sensor de la apertura (el agujero), aumenta la magnificación y hace la imagen más grande.
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 En la aplicación anterior, puedes ver que los rayos de luz que provienen de diferentes partes de la imagen divergen; se alejan entre sí a medida que viajan del objeto al sensor. Por lo tanto, si los hacemos viajar más lejos, alejando el sensor del agujero, se esparcen más y la imagen se hace más grande.
 
 Nota también que, si acercas el objeto al agujero, la imagen también se hace más grande. Cuanto más cerca esté el objeto, más pronunciado es el ángulo del rayo de luz que pasa por el agujero. Un rayo que entra con un ángulo más pronunciado recorre una mayor distancia vertical en la misma distancia horizontal en comparación con un rayo que entra con un ángulo más suave, lo que resulta en una imagen más grande.
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## ¿Qué pasa cuando añadimos una lente?
 
@@ -101,7 +102,7 @@ El enfoque no es un problema con una cámara de estenopo; la imagen estará enfo
 
 Esto no ocurre cuando se usa una lente. Una lente funciona enfocando (curvando) los rayos de luz que emanan de un punto del objeto para que vuelvan a juntarse y formen la imagen. Los rayos solo se juntan a cierta distancia de la lente; demasiado cerca y no habrán viajado suficiente distancia para juntarse; demasiado lejos y ya se habrán juntado y habrán comenzado a separarse de nuevo.
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="Demostración de cómo una lente enfoca los rayos de luz" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ El tipo de lente utilizado en cámaras y lupas se llama lente «convexa»; eso s
 
 Lo opuesto de una lente convexa se llama lente «cóncava». Son delgadas en el centro y gruesas en los bordes y doblan los rayos de luz de modo que se separan.
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 Hoy hablamos de lentes convexas, así que podemos olvidarnos de las cóncavas por ahora.
 
@@ -129,7 +130,7 @@ La característica definitoria de un objetivo de cámara es su «distancia focal
 
 Lo que la distancia focal te dice realmente es con qué fuerza la lente dobla la luz; te dice la distancia detrás de la lente a la que los rayos de luz que viajan paralelos al eje de la lente serán reunidos. Un objetivo de 50mm reunirá los rayos paralelos a 50mm detrás de la lente, mientras que para un objetivo de 100mm, esta distancia será de 100mm. El punto en el que se reúnen los rayos paralelos se llama «punto focal»; este punto está marcado como «F» en el Simulador de Lentes.
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 Además de los puntos focales «F», también hemos marcado puntos que están el doble de la distancia focal a cada lado de la lente. Así, por ejemplo, para un objetivo de 50mm, los dos puntos marcados como «F» están a 50mm delante y detrás de la lente, y los marcados como «2F» están a 100mm delante y detrás de la lente.
 
@@ -225,7 +226,7 @@ Este es el caso menos interesante: las líneas naranja y azul son exactamente pa
 
 Probablemente notaste al jugar con el Simulador de Lentes que, al acercarse a F con el objeto, la imagen se hace muy grande muy rápidamente. Puedes verlo en la gráfica; *m* aumenta lentamente a medida que la distancia desde la lente (*u*) se acerca a la distancia focal (*f*=100mm) y luego explota cuando nos acercamos mucho.
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## Te toca a ti
 

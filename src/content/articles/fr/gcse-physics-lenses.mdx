@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'fr';
 
 Vous êtes-vous déjà demandé comment une seule lentille peut devenir un appareil photo, un microscope ou même une loupe ? Expliquons tout ça de façon claire — et bien plus amusante que de lire un manuel !
 
@@ -85,13 +86,13 @@ Il est très utile de repenser à notre appareil photo à sténopé. Les lentill
 
 Voici l'application tirée de cet article — faites glisser le curseur et voyez comment l'allongement du barillet, ce qui revient à éloigner le capteur de l'appareil de l'ouverture (le sténopé), augmente le grossissement et agrandit l'image.
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 Dans l'application ci-dessus, vous pouvez voir que les rayons lumineux provenant de différentes parties de l'image divergent ; ils s'éloignent les uns des autres au fur et à mesure qu'ils voyagent de l'objet vers le capteur. Donc, si nous leur faisons parcourir une plus grande distance, en éloignant le capteur du sténopé, ils s'écartent davantage et l'image devient plus grande.
 
 Remarquez également que, si vous rapprochez l'objet du sténopé, l'image devient aussi plus grande. Plus l'objet est proche, plus l'angle du rayon lumineux passant par le sténopé est prononcé. Un rayon lumineux arrivant à un angle plus prononcé parcourt une plus grande distance verticale pour la même distance horizontale, par rapport à un rayon arrivant à un angle moins prononcé, ce qui donne une image plus grande.
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## Ce qui se passe quand on ajoute une lentille
 
@@ -101,7 +102,7 @@ La mise au point n'est pas un problème avec un appareil photo à sténopé ; l'
 
 Ce n'est pas le cas avec une lentille. Une lentille fonctionne en focalisant (en déviant) les rayons lumineux qui rayonnent depuis un point de l'objet pour qu'ils se rejoignent à nouveau et forment l'image. Les rayons ne se rejoignent qu'à une certaine distance de la lentille ; trop près, et ils n'ont pas parcouru suffisamment de distance pour se rejoindre ; trop loin et ils se sont déjà rejoints et commencent à nouveau à diverger.
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="Démonstration d'une lentille focalisant des rayons lumineux" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ Le type de lentille utilisé dans les appareils photo et les loupes s'appelle un
 
 L'opposé d'une lentille convexe s'appelle une lentille « concave ». Ces dernières sont minces au milieu et épaisses aux bords, et elles courbent les rayons lumineux de façon à les écarter.
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 Aujourd'hui, nous parlons des lentilles convexes, donc nous pouvons oublier les lentilles concaves pour l'instant.
 
@@ -129,7 +130,7 @@ La caractéristique définissant un objectif d'appareil photo est sa « distance
 
 Ce que la distance focale vous dit réellement, c'est à quel point la lentille courbent la lumière ; elle vous indique la distance derrière la lentille à laquelle les rayons lumineux voyageant parallèlement à l'axe de la lentille seront rassemblés. Un objectif de 50mm rassemblera les rayons parallèles à 50mm derrière la lentille, alors que pour un objectif de 100mm, cette distance sera de 100mm. Le point où les rayons parallèles se rejoignent s'appelle le « foyer » ; ce point est étiqueté « F » dans le Simulateur de lentille.
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 En plus des foyers « F », nous avons également marqué des points qui sont deux fois plus loin que la distance focale de chaque côté de la lentille. Ainsi, par exemple, pour un objectif de 50mm, les deux points étiquetés « F » sont à 50mm devant et derrière la lentille, et ceux étiquetés « 2F » sont à 100mm devant et derrière la lentille.
 
@@ -225,7 +226,7 @@ Ne vous inquiétez pas trop des graphiques et des formules ! Il est cependant ut
 
 Vous avez probablement remarqué en jouant avec le Simulateur de lentille que, à mesure que vous approchez l'objet de F, l'image grossit très rapidement. Vous pouvez le voir sur le graphique ; *m* augmente lentement à mesure que la distance de l'objet à la lentille (*u*) se rapproche de la distance focale (*f*=100mm), puis explose quand on s'en approche vraiment.
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## À vous de jouer
 

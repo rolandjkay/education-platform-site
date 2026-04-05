@@ -3,11 +3,78 @@
 // Verbatim port of runPinHoleSimulatorApp() from:
 //   Bootcamp-test/public/apps/pin-hole-simulator/public/script.js
 // User drags a slider to adjust barrel length; rays and image update in real time.
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    labelPinHole:    'Pin hole',
+    labelSensor:     'Camera Sensor',
+    labelBarrel:     '"Lens" barrel length',
+    labelViewfinder: 'Viewfinder',
+    labelSlider:     'Slide to adjust the lens barrel length:',
+  },
+  fr: {
+    labelPinHole:    "Sténopé",
+    labelSensor:     'Capteur photo',
+    labelBarrel:     'Longueur du tube « Objectif »',
+    labelViewfinder: 'Viseur',
+    labelSlider:     'Faites glisser pour ajuster la longueur du tube :',
+  },
+  de: {
+    labelPinHole:    'Lochblende',
+    labelSensor:     'Kamerasensor',
+    labelBarrel:     '„Objektiv“-Tubuslänge',
+    labelViewfinder: 'Sucher',
+    labelSlider:     'Schieberegler zum Anpassen der Tubuslänge:',
+  },
+  es: {
+    labelPinHole:    'Orificio',
+    labelSensor:     'Sensor de la cámara',
+    labelBarrel:     'Longitud del barril "objetivo"',
+    labelViewfinder: 'Visor',
+    labelSlider:     'Desliza para ajustar la longitud del barril:',
+  },
+  it: {
+    labelPinHole:    'Foro stenopeico',
+    labelSensor:     'Sensore fotocamera',
+    labelBarrel:     'Lunghezza del barilotto "obiettivo"',
+    labelViewfinder: 'Mirino',
+    labelSlider:     'Trascina per regolare la lunghezza del barilotto:',
+  },
+  'zh-CN': {
+    labelPinHole:    '小孔',
+    labelSensor:     '相机传感器',
+    labelBarrel:     '"镜头"筒长',
+    labelViewfinder: '取景器',
+    labelSlider:     '拖动滑块调整镜筒长度：',
+  },
+  'zh-TW': {
+    labelPinHole:    '小孔',
+    labelSensor:     '相機感測器',
+    labelBarrel:     '"鏡頭"筒長',
+    labelViewfinder: '取景器',
+    labelSlider:     '拖動滑梑以調整鏡筒長度：',
+  },
+  ja: {
+    labelPinHole:    'ピンホール',
+    labelSensor:     'カメラセンサー',
+    labelBarrel:     '「レンズ」バレル長',
+    labelViewfinder: 'ファインダー',
+    labelSlider:     'スライドしてバレルの長さを調整：',
+  },
+};
+
+const t = labels[locale] ?? labels.en;
 ---
 
 <div class="pinhole-sim-wrap">
   <div class="pinhole-app-slider-container">
-    <label for="pinhole-barrel-slider">Slide to adjust the lens barrel length:</label>
+    <label for="pinhole-barrel-slider">{t.labelSlider}</label>
     <input id="pinhole-barrel-slider" class="pinhole-range" type="range" min="130" max="400" value="250" />
   </div>
 
@@ -53,11 +120,11 @@
     <line id="ph-pinhole1" x1="250" y1="25" x2="250" y2="135" stroke="black" stroke-width="2"/>
     <line id="ph-pinhole2" x1="250" y1="255" x2="250" y2="145" stroke="black" stroke-width="2"/>
     <line id="ph-pinholeLabel" x1="260" y1="130" x2="280" y2="110" stroke="#aaaaaa" stroke-width="2" marker-start="url(#ph-greyArrow)"/>
-    <text id="ph-pinholeLabelText" x="285" y="110" font-family="Arial" font-size="12" fill="#aaaaaa">Pin hole</text>
+    <text id="ph-pinholeLabelText" x="285" y="110" font-family="Arial" font-size="12" fill="#aaaaaa">{t.labelPinHole}</text>
 
     <!-- Sensor -->
     <line id="ph-sensor" x1="100" y1="110" x2="100" y2="170" stroke="#555" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
-    <text x="100" y="183" font-family="Arial" font-size="12" fill="black" text-anchor="middle">Camera Sensor</text>
+    <text x="100" y="183" font-family="Arial" font-size="12" fill="black" text-anchor="middle">{t.labelSensor}</text>
 
     <!-- Moving light rays (endpoints updated by JS) -->
     <line id="ph-ray1" x1="50" y1="140" x2="440" y2="50" stroke="#ff927d" stroke-width="2" stroke-linecap="round" marker-start="url(#ph-arrow)"/>
@@ -65,7 +132,7 @@
 
     <!-- Barrel length measurement -->
     <line id="ph-barrelLength" x1="100" y1="22" x2="200" y2="22" stroke="#555" stroke-width="2" stroke-linecap="round" marker-start="url(#ph-blackArrow)" marker-end="url(#ph-blackEndArrow)"/>
-    <text id="ph-barrelLengthLabel2" x="150" y="14" font-family="Arial" font-size="12" fill="black" text-anchor="middle">"Lens" barrel length</text>
+    <text id="ph-barrelLengthLabel2" x="150" y="14" font-family="Arial" font-size="12" fill="black" text-anchor="middle">{t.labelBarrel}</text>
     <text id="ph-barrelLengthLabel"  x="150" y="34" font-family="Arial" font-size="12" fill="black" text-anchor="middle">150 mm</text>
 
     <!-- Sun -->
@@ -73,7 +140,7 @@
 
     <!-- Viewfinder box -->
     <rect x="300" y="215" width="100" height="60" fill="none" stroke="black"/>
-    <text x="350" y="210" font-family="Arial" font-size="12" fill="black" text-anchor="middle">Viewfinder</text>
+    <text x="350" y="210" font-family="Arial" font-size="12" fill="black" text-anchor="middle">{t.labelViewfinder}</text>
   </svg>
 </div>
 

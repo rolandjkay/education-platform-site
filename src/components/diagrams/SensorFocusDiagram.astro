@@ -1,6 +1,82 @@
 ---
 // Static SVG: Sensor too close vs sensor too far — showing how focus works.
 // Verbatim from Bootcamp-test/public/ed/gcse-physics.html lines 622-680.
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    labelTooClose: 'Sensor too close',
+    labelTooFar:   'Sensor too far',
+    labelObject:   'Point of light (object)',
+    labelImage:    'Point of light (image)',
+    labelSensor:   'Camera Sensor',
+    caption:       'Moving the sensor back makes the image bigger, but loses focus',
+  },
+  fr: {
+    labelTooClose: 'Capteur trop proche',
+    labelTooFar:   'Capteur trop éloigné',
+    labelObject:   'Point lumineux (objet)',
+    labelImage:    'Point lumineux (image)',
+    labelSensor:   'Capteur photo',
+    caption:       'Reculer le capteur agrandit l\'image, mais fait perdre la mise au point',
+  },
+  de: {
+    labelTooClose: 'Sensor zu nah',
+    labelTooFar:   'Sensor zu weit',
+    labelObject:   'Lichtpunkt (Objekt)',
+    labelImage:    'Lichtpunkt (Bild)',
+    labelSensor:   'Kamerasensor',
+    caption:       'Wird der Sensor weiter zurückgeschoben, wird das Bild größer, aber unschärfer',
+  },
+  es: {
+    labelTooClose: 'Sensor demasiado cerca',
+    labelTooFar:   'Sensor demasiado lejos',
+    labelObject:   'Punto de luz (objeto)',
+    labelImage:    'Punto de luz (imagen)',
+    labelSensor:   'Sensor de la cámara',
+    caption:       'Mover el sensor hacia atrás agranda la imagen, pero pierde el enfoque',
+  },
+  it: {
+    labelTooClose: 'Sensore troppo vicino',
+    labelTooFar:   'Sensore troppo lontano',
+    labelObject:   'Punto di luce (oggetto)',
+    labelImage:    'Punto di luce (immagine)',
+    labelSensor:   'Sensore fotocamera',
+    caption:       'Spostare il sensore indietro ingrandisce l\'immagine, ma perde la messa a fuoco',
+  },
+  'zh-CN': {
+    labelTooClose: '传感器太近',
+    labelTooFar:   '传感器太远',
+    labelObject:   '光点（物体）',
+    labelImage:    '光点（图像）',
+    labelSensor:   '相机传感器',
+    caption:       '将传感器向后移动会使图像变大，但会失焦',
+  },
+  'zh-TW': {
+    labelTooClose: '感測器太近',
+    labelTooFar:   '感測器太遠',
+    labelObject:   '光點（物體）',
+    labelImage:    '光點（圖像）',
+    labelSensor:   '相機感測器',
+    caption:       '將感測器向後移動會使圖像變大，但會失焦',
+  },
+  ja: {
+    labelTooClose: 'センサーが近すぎる',
+    labelTooFar:   'センサーが遠すぎる',
+    labelObject:   '光点（物体）',
+    labelImage:    '光点（像）',
+    labelSensor:   'カメラセンサー',
+    caption:       'センサーを後ろに動かすと像が大きくなりますが、ピントが合わなくなります',
+  },
+};
+
+const t = labels[locale] ?? labels.en;
+const { labelTooClose, labelTooFar, labelObject, labelImage, labelSensor, caption } = t;
 ---
 
 <figure class="diagram">
@@ -13,7 +89,7 @@
 
     <!-- Sensor too close -->
     <path d="M200,100 C190,200 190,200 200,300 L210,300 C220,200 220,200 210,100 Z" fill="blue" opacity="0.5"/>
-    <text x="150" y="320" font-size="18" fill="black">Sensor too close</text>
+    <text x="150" y="320" font-size="18" fill="black">{labelTooClose}</text>
 
     <line x1="25" y1="150" x2="205" y2="150" stroke="orange" stroke-width="2"/>
     <line x1="25" y1="150" x2="205" y2="200" stroke="orange" stroke-width="2"/>
@@ -23,18 +99,18 @@
     <line x1="205" y1="200" x2="385" y2="250" stroke="orange" stroke-width="2"/>
 
     <circle cx="25" cy="150" r="4" fill="red"/>
-    <text x="15" y="140" font-size="18" fill="black">Point of light (object)</text>
+    <text x="15" y="140" font-size="18" fill="black">{labelObject}</text>
     <circle cx="385" cy="250" r="4" fill="Green"/>
-    <text x="250" y="275" font-size="18" fill="black">Point of light (image)</text>
+    <text x="250" y="275" font-size="18" fill="black">{labelImage}</text>
     <circle cx="0" cy="0" r="4" fill="Green" transform="translate(300 225) scale(2 8)" filter="url(#sfd-blur)" opacity="0.5"/>
 
     <line x1="300" y1="100" x2="300" y2="300" stroke="grey" stroke-width="2" stroke-dasharray="10, 5" opacity="0.5"/>
-    <text x="235" y="90" font-size="18" fill="black" opacity="0.5">Camera Sensor</text>
+    <text x="235" y="90" font-size="18" fill="black" opacity="0.5">{labelSensor}</text>
 
     <!-- Sensor too far -->
     <g transform="translate(420)">
       <path d="M200,100 C190,200 190,200 200,300 L210,300 C220,200 220,200 210,100 Z" fill="blue" opacity="0.5"/>
-      <text x="150" y="320" font-size="18" fill="black">Sensor too far</text>
+      <text x="150" y="320" font-size="18" fill="black">{labelTooFar}</text>
 
       <line x1="25" y1="150" x2="205" y2="150" stroke="orange" stroke-width="2"/>
       <line x1="25" y1="150" x2="205" y2="200" stroke="orange" stroke-width="2"/>
@@ -44,16 +120,16 @@
       <line x1="205" y1="200" x2="435" y2="265" stroke="orange" stroke-width="2"/>
 
       <circle cx="25" cy="150" r="4" fill="red"/>
-      <text x="15" y="140" font-size="18" fill="black">Point of light (object)</text>
+      <text x="15" y="140" font-size="18" fill="black">{labelObject}</text>
       <circle cx="385" cy="250" r="4" fill="Green"/>
-      <text x="240" y="275" font-size="18" fill="black">Point of light (image)</text>
+      <text x="240" y="275" font-size="18" fill="black">{labelImage}</text>
       <circle cx="0" cy="0" r="4" fill="Green" transform="translate(432 260) scale(2 6)" filter="url(#sfd-blur)" opacity="0.5"/>
 
       <line x1="432" y1="100" x2="432" y2="300" stroke="grey" stroke-width="2" stroke-dasharray="10, 5" opacity="0.5"/>
-      <text x="360" y="90" font-size="18" fill="black" opacity="0.5">Camera Sensor</text>
+      <text x="360" y="90" font-size="18" fill="black" opacity="0.5">{labelSensor}</text>
     </g>
   </svg>
-  <figcaption>Moving the sensor back makes the image bigger, but loses focus</figcaption>
+  <figcaption>{caption}</figcaption>
 </figure>
 
 <style>

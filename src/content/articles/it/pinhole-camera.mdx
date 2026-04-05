@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'it';
+
 Scopri la scienza del funzionamento di una fotocamera costruendo i tuoi obiettivi a foro stenopeico e usandoli per girare il tuo film!
 
 ## Vuoi costruire una fotocamera?
@@ -60,7 +62,7 @@ Quello che vogliamo è che la luce proveniente da una parte della scena arrivi s
 
 Puoi vedere questo fenomeno nelle prime due diapositive dell'animazione qui sotto.
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## Il foro stenopeico in soccorso!
 
@@ -101,7 +103,7 @@ Sì! La differenza più grande tra un obiettivo e l'altro è la lunghezza. Alcun
 
 Che differenza fa la lunghezza dell'obiettivo? Dai un'occhiata all'animazione interattiva qui sotto. Puoi cambiare la distanza tra il sensore della fotocamera e il foro stenopeico trascinando il cursore…
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 Riesci a vedere che, man mano che il barilotto dell'obiettivo si allunga, i raggi di luce devono essere sempre più paralleli per raggiungere il sensore? Questo significa che solo la parte centrale della scena è visibile e l'immagine della zucca diventa più grande. Se allunghi il barilotto al massimo, sarà visibile solo l'area tra gli occhi della zucca. Se lo accorci il più possibile, la zucca sarà minuscola.
 

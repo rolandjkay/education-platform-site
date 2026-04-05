@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'zh-CN';
 
 你有没有想过，同一块镜头是如何变成相机、显微镜甚至放大镜的？让我们用通俗易懂的方式来解释——比教科书有趣多了！
 
@@ -85,13 +86,13 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 这里是那篇文章中的应用程序——拖动滑块，看看如何延长镜筒（这与将相机传感器从光圈（针孔）移开是同一件事）如何增加放大率并使图像变大。
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 在上面的应用程序中，你可以看到来自图像不同部分的光线正在发散；当它们从物体传播到传感器时，彼此之间的距离越来越远。因此，如果我们让它们传播更长的距离，通过将传感器从针孔移开，它们会扩散更多，图像变得更大。
 
 还要注意，如果你将物体移近针孔，图像也会变大。物体越近，穿过针孔的光线角度就越陡。以更陡角度进入的光线在相同的水平距离内比以较浅角度进入的光线垂直传播更大的距离，从而产生更大的图像。
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## 添加镜头后会发生什么
 
@@ -101,7 +102,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 使用镜头时则不同。镜头通过聚焦（弯曲）从物体上某一点辐射出来的光线，使它们重新汇聚在一起形成像来工作。光线只在距镜头特定距离处汇聚；距离太近，它们传播的距离不足以汇聚；距离太远，它们已经汇聚并开始再次分散。
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="演示镜头聚焦光线" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 凸透镜的反面称为"凹"透镜。凹透镜中间薄、边缘厚，弯曲光线使光线散开。
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 今天我们谈论的是凸透镜，所以我们暂时可以忘记凹透镜。
 
@@ -129,7 +130,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 焦距实际上告诉你的是镜头弯曲光线的强度；它告诉你平行于镜头轴传播的光线在镜头后多远的距离处汇聚。50mm镜头将在镜头后50mm处汇聚平行光线，而100mm镜头，这个距离将是100mm。平行光线汇聚的点称为"焦点"；这个点在镜头模拟器中标记为"F"。
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 除了焦点"F"之外，我们还标记了镜头两侧焦距两倍远的点。例如，对于50mm镜头，标记为"F"的两个点分别在镜头前后50mm处，标记为"2F"的点在镜头前后100mm处。
 
@@ -225,7 +226,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 你在玩镜头模拟器时可能注意到，随着物体接近F，像会非常快速地变大。你可以在图表中看到这一点；当距镜头的距离（*u*）接近焦距（*f*=100mm）时，*m* 缓慢增加，然后在我们真正接近时急剧上升。
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## 轮到你了
 

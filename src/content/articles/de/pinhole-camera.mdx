@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'de';
+
 Lerne, wie eine Kamera funktioniert, indem du deine eigenen Lochkamera-Objektive baust und damit deinen eigenen Film drehst!
 
 ## Du möchtest also eine Kamera bauen?
@@ -60,7 +62,7 @@ Was wir wollen, ist, dass Licht von einem Teil unserer Szene nur auf einen Teil 
 
 Du kannst das in den ersten beiden Folien der folgenden Animation sehen.
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## Lochkamera zur Rettung!
 
@@ -101,7 +103,7 @@ Ja! Der größte Unterschied zwischen einem Objektiv und einem anderen ist die L
 
 Welchen Unterschied macht die Länge des Objektivs? Sieh dir die interaktive Animation unten an. Du kannst den Abstand zwischen dem Kamerasensor und dem Loch ändern, indem du den Schieberegler ziehst…
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 Siehst du, dass, wenn das Objektivrohr länger wird, die Lichtstrahlen immer paralleler sein müssen, um den Sensor zu erreichen? Das bedeutet, dass nur der zentrale Teil der Szene sichtbar ist und das Bild des Kürbisses größer wird. Wenn du das Objektivrohr so lang wie möglich machst, ist nur der Bereich zwischen den Augen des Kürbisses sichtbar. Wenn du es so kurz wie möglich machst, ist der Kürbis winzig.
 

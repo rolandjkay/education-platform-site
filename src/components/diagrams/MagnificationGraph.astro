@@ -1,6 +1,65 @@
 ---
 // Magnification graph: m = f/(u-f)
 // Verbatim from Bootcamp-test/public/ed/gcse-physics.html lines 1079-1255.
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    labelFocalLength:    '(focal length)',
+    labelObjectDistance: '(object distance from lens)',
+    labelMagnification:  '(magnification)',
+    caption:             'Graph of magnification <i>m</i> — magnification explodes as the object approaches the focal length',
+  },
+  fr: {
+    labelFocalLength:    '(longueur focale)',
+    labelObjectDistance: '(distance objet-lentille)',
+    labelMagnification:  '(grossissement)',
+    caption:             'Graphe du grossissement <i>m</i> — le grossissement explose à mesure que l\'objet s\'approche de la longueur focale',
+  },
+  de: {
+    labelFocalLength:    '(Brennweite)',
+    labelObjectDistance: '(Objektabstand von der Linse)',
+    labelMagnification:  '(Vergrößerung)',
+    caption:             'Diagramm der Vergrößerung <i>m</i> — die Vergrößerung explodiert, wenn das Objekt die Brennweite erreicht',
+  },
+  es: {
+    labelFocalLength:    '(distancia focal)',
+    labelObjectDistance: '(distancia del objeto a la lente)',
+    labelMagnification:  '(ampliación)',
+    caption:             'Gráfica de la ampliación <i>m</i> — la ampliación explota a medida que el objeto se acerca a la longitud focal',
+  },
+  it: {
+    labelFocalLength:    '(lunghezza focale)',
+    labelObjectDistance: '(distanza oggetto-lente)',
+    labelMagnification:  '(ingrandimento)',
+    caption:             'Grafico dell\'ingrandimento <i>m</i> — l\'ingrandimento esplode quando l\'oggetto si avvicina alla lunghezza focale',
+  },
+  'zh-CN': {
+    labelFocalLength:    '（焦距）',
+    labelObjectDistance: '（物体到镜头的距离）',
+    labelMagnification:  '（放大倍数）',
+    caption:             '放大倍数 <i>m</i> 的图像——当物体接近焦距时，放大倍数急剧增大',
+  },
+  'zh-TW': {
+    labelFocalLength:    '（焦距）',
+    labelObjectDistance: '（物體到鏡頭的距離）',
+    labelMagnification:  '（放大倍數）',
+    caption:             '放大倍數 <i>m</i> 的圖像——當物體接近焦距時，放大倍數急劇增大',
+  },
+  ja: {
+    labelFocalLength:    '（焦点距離）',
+    labelObjectDistance: '（物体からレンズまでの距離）',
+    labelMagnification:  '（倍率）',
+    caption:             '倍率 <i>m</i> のグラフ — 物体が焦点距離に近づくと倍率が急激に増大します',
+  },
+};
+
+const t = labels[locale] ?? labels.en;
 ---
 
 <figure class="diagram">
@@ -55,11 +114,11 @@
     </g>
 
     <line x1="225" y1="232" x2="225" y2="0" stroke="red" stroke-width="2" stroke-dasharray="10, 5"/>
-    <text x="225" y="-5"  style="font-size:12px" fill="red"  font-weight="normal" text-anchor="middle">(focal length)</text>
-    <text x="225" y="270" style="font-size:12px" font-weight="normal" text-anchor="middle">(object distance from lens)</text>
-    <text x="-120" y="-10" style="font-size:12px" font-weight="normal" text-anchor="middle" transform="rotate(-90)">(magnification)</text>
+    <text x="225" y="-5"  style="font-size:12px" fill="red"  font-weight="normal" text-anchor="middle">{t.labelFocalLength}</text>
+    <text x="225" y="270" style="font-size:12px" font-weight="normal" text-anchor="middle">{t.labelObjectDistance}</text>
+    <text x="-120" y="-10" style="font-size:12px" font-weight="normal" text-anchor="middle" transform="rotate(-90)">{t.labelMagnification}</text>
   </svg>
-  <figcaption>Graph of magnification <i>m</i> — magnification explodes as the object approaches the focal length</figcaption>
+  <figcaption set:html={t.caption} />
 </figure>
 
 <style>

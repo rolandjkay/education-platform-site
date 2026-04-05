@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'zh-TW';
+
 透過自製針孔鏡頭並用它拍攝影片，學習相機的運作原理！
 
 ## 所以你想自己做一台相機？
@@ -60,7 +62,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 你可以在下面動畫的前兩張投影片中看到這一現象。
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## 針孔來救場！
 
@@ -101,7 +103,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 鏡頭的長度有什麼影響？看看下面的互動動畫。你可以拖動滑桿來改變相機感光元件和針孔之間的距離……
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 你能看到嗎？隨著鏡筒變長，光線必須更接近平行才能到達感光元件。這意味著只有場景的中央部分是可見的，南瓜的圖像變大了。如果你把鏡筒調到最長，只有南瓜眼睛之間的區域是可見的。如果你調到最短，南瓜就變得很小。
 

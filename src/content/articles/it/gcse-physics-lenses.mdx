@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'it';
 
 Ti sei mai chiesto come una sola lente possa diventare una fotocamera, un microscopio o persino una lente d'ingrandimento? Te lo spieghiamo in modo semplice — e molto più divertente di un libro di testo!
 
@@ -85,13 +86,13 @@ Entriamo più nel dettaglio per capire cosa sta succedendo.
 
 Ecco l'applicazione di quell'articolo — trascina il cursore e guarda come allungare il barilotto, che equivale ad allontanare il sensore dall'apertura (il foro), aumenta l'ingrandimento e rende l'immagine più grande.
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 Nell'applicazione qui sopra, puoi vedere che i raggi di luce provenienti da parti diverse dell'immagine stanno divergendo; si allontanano l'uno dall'altro mentre viaggiano dall'oggetto al sensore. Quindi, se li facciamo percorrere una distanza maggiore, allontanando il sensore dal foro, si diffondono di più e l'immagine diventa più grande.
 
 Nota anche che, se avvicini l'oggetto al foro, l'immagine diventa più grande. Più l'oggetto è vicino, più è ripido l'angolo del raggio di luce che passa attraverso il foro. Un raggio che entra con un angolo più ripido percorre una distanza verticale maggiore nella stessa distanza orizzontale rispetto a un raggio con un angolo meno ripido, producendo un'immagine più grande.
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## Cosa succede quando aggiungiamo una lente
 
@@ -101,7 +102,7 @@ La messa a fuoco non è un problema con una fotocamera stenopeica; l'immagine sa
 
 Non è così quando si usa una lente. Una lente funziona concentrando (curvando) i raggi di luce che si irradiano da un punto dell'oggetto in modo che si riuniscano per formare l'immagine. I raggi si riuniscono solo a una certa distanza dalla lente; troppo vicino, e non avranno percorso abbastanza distanza per riunirsi; troppo lontano, e si saranno già riuniti e avranno ricominciato a divergere.
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="Dimostrazione di una lente che mette a fuoco i raggi di luce" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ Il tipo di lente usato nelle fotocamere e nelle lenti d'ingrandimento si chiama 
 
 L'opposto di una lente convessa si chiama lente "concava". Queste sono sottili al centro e spesse ai bordi e curvano i raggi di luce in modo che si disperdano.
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 Oggi parliamo di lenti convesse, quindi possiamo dimenticare le lenti concave per ora.
 
@@ -129,7 +130,7 @@ La caratteristica fondamentale di un obiettivo fotografico è la sua "lunghezza 
 
 Quello che la lunghezza focale indica effettivamente è con quale forza la lente curva la luce; indica la distanza dietro la lente a cui i raggi di luce paralleli all'asse della lente vengono riuniti. Un obiettivo da 50mm riunirà i raggi paralleli 50mm dietro la lente, mentre per un obiettivo da 100mm questa distanza sarà di 100mm. Il punto in cui i raggi paralleli si incontrano si chiama "fuoco"; questo punto è indicato con "F" nel Simulatore di Lenti.
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 Oltre ai fuochi "F", abbiamo anche contrassegnato i punti che sono due volte la lunghezza focale su entrambi i lati della lente. Quindi, per esempio, per un obiettivo da 50mm, i due punti indicati con "F" sono a 50mm davanti e dietro la lente e quelli indicati con "2F" sono a 100mm davanti e dietro la lente.
 
@@ -225,7 +226,7 @@ Non preoccuparti troppo di grafici e formule! È comunque utile osservare un gra
 
 Probabilmente hai notato, giocando con il Simulatore di Lenti, che avvicinandosi a F con l'oggetto l'immagine diventa molto grande molto rapidamente. Puoi vederlo nel grafico; *m* aumenta lentamente man mano che la distanza dalla lente (*u*) si avvicina alla lunghezza focale (*f*=100mm) e poi esplode quando ci avviciniamo davvero.
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## A te la parola
 

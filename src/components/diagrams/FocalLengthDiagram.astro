@@ -1,6 +1,25 @@
 ---
 // Static SVG: Focal length — 50mm vs 100mm lens, showing where parallel rays converge.
 // Verbatim from Bootcamp-test/public/ed/gcse-physics.html lines 805-850.
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en:    { caption: 'Focal length is the distance from the lens to the point where parallel rays converge.' },
+  fr:    { caption: 'La distance focale est la distance entre la lentille et le point où les rayons parallèles convergent.' },
+  de:    { caption: 'Die Brennweite ist der Abstand von der Linse zum Punkt, an dem parallele Strahlen zusammentreffen.' },
+  es:    { caption: 'La distancia focal es la distancia desde la lente hasta el punto donde convergen los rayos paralelos.' },
+  it:    { caption: 'La lunghezza focale è la distanza dalla lente al punto in cui convergono i raggi paralleli.' },
+  'zh-CN': { caption: '焦距是从镜头到平行光线汇聚点的距离。' },
+  'zh-TW': { caption: '焦距是從鏡頭到平行光線匯聚點的距離。' },
+  ja:    { caption: '焦点距離とは、レンズから平行光線が収束する点までの距離です。' },
+};
+
+const t = labels[locale] ?? labels.en;
 ---
 
 <figure class="diagram">
@@ -44,7 +63,7 @@
     <text x="650" y="190" font-size="14" fill="black">F</text>
     <text x="515" y="190" font-size="14" fill="black">100mm</text>
   </svg>
-  <figcaption>Focal length is the distance from the lens to the point where parallel rays converge.</figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>

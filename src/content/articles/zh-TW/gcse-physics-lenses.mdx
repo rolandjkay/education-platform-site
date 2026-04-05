@@ -21,6 +21,7 @@ import ConvexConcaveDiagram from '../../../components/diagrams/ConvexConcaveDiag
 import FocalLengthDiagram from '../../../components/diagrams/FocalLengthDiagram.astro';
 import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.astro';
 
+export const locale = 'zh-TW';
 
 想知道同一個鏡頭如何能變成相機、顯微鏡，甚至放大鏡？讓我們用有趣的方式把這一切說清楚——絕對比讀教科書好玩！
 
@@ -85,13 +86,13 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 這裡是那篇文章中的互動工具——拖動滑桿，看看加長鏡筒（即把感光元件從光圈也就是針孔移得更遠）如何增加放大倍率，讓圖像變大。
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 在上面的互動工具中，你可以看到來自圖像不同部分的光線是發散的；它們從物體到感光元件的過程中彼此越來越遠。所以，如果我們讓它們傳播更遠的距離，把感光元件移離針孔更遠，它們就會分散更多，圖像就變大了。
 
 還要注意，如果你把物體移近針孔，圖像也會變大。物體越近，穿過針孔的光線角度就越陡。角度更陡的光線在相同的水平距離內走過更大的垂直距離，從而形成更大的圖像。
 
-<SensorDistanceDiagram />
+<SensorDistanceDiagram locale={locale} />
 
 ## 加入鏡頭後會發生什麼
 
@@ -101,7 +102,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 使用鏡頭就不一樣了。鏡頭的工作原理是把從物體某一點發散出去的光線聚焦（彎曲），使它們重新匯聚成像。這些光線只在距離鏡頭一定距離的地方才會匯聚；太近，它們沒有走過足夠的距離，不能匯聚；太遠，它們已經匯聚並開始再次分散。
 
-<SensorFocusDiagram />
+<SensorFocusDiagram locale={locale} />
 
 <iframe title="展示鏡頭如何聚焦光線" src="https://player.vimeo.com/video/1030541990?h=6b6f7d1972&controls=0&portrait=0&byline=0&badge=0&autoplay=1&loop=1&autopause=0&muted=1&player_id=0&app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 
@@ -115,7 +116,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 凸透鏡的相對物稱為「凹」透鏡。凹透鏡中間薄、邊緣厚，會使光線發散。
 
-<ConvexConcaveDiagram />
+<ConvexConcaveDiagram locale={locale} />
 
 今天我們討論的是凸透鏡，所以暫時先不管凹透鏡。
 
@@ -129,7 +130,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 焦距實際上告訴你鏡頭彎曲光線的強度；它告訴你平行於鏡頭軸線傳播的光線在鏡頭後方多遠的地方匯聚。50mm鏡頭會在鏡頭後50mm處匯聚平行光線，而100mm鏡頭的這個距離是100mm。平行光線匯聚的點稱為「焦點」；這個點在鏡頭模擬器中標記為「F」。
 
-<FocalLengthDiagram />
+<FocalLengthDiagram locale={locale} />
 
 除了焦點「F」，我們還標記了鏡頭兩側焦距兩倍距離的點。例如，對於50mm鏡頭，標記為「F」的兩個點在鏡頭前方和後方各50mm處，標記為「2F」的點在鏡頭前方和後方各100mm處。
 
@@ -225,7 +226,7 @@ import MagnificationGraph from '../../../components/diagrams/MagnificationGraph.
 
 你在玩鏡頭模擬器時可能注意到，當物體接近F時，像很快就變得非常大。你可以在圖表中看到這一點；當物體距離鏡頭（*u*）趨近焦距（*f*=100mm）時，*m* 緩慢增加，然後在我們非常接近時爆炸性地增長。
 
-<MagnificationGraph />
+<MagnificationGraph locale={locale} />
 
 ## 輪到你了
 

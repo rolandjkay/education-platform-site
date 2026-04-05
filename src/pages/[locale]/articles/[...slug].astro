@@ -68,7 +68,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString(localeToBcp47[locale
     </div>
 
     <div class="container article-body prose">
-      <Content />
+      <Content locale={locale} />
     </div>
   </article>
 </BaseLayout>

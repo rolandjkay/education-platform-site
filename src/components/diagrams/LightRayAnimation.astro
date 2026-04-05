@@ -6,9 +6,108 @@
 //   1 - Light from object scatters in all directions
 //   2 - Without pinhole, each sensor pixel receives light from whole scene
 //   3 - Pinhole blocks all but one ray per pixel → sharp image
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    labelSensor:  'Camera sensor',
+    labelPixel:   'Pixel',
+    frame1:       '1. Light falling on the flower is scattered in all directions.',
+    frame2:       '2. Each sensor pixel receives light from all parts of the scene.',
+    frame3a:      '3. The pinhole blocks rays coming from the wrong direction.',
+    frame3b:      'Now each pixel sees only one part of the scene.',
+    btnStart:     'Start Animation',
+    btnNext:      'Next Slide ➜',
+    btnRestart:   '⟲ Restart',
+  },
+  fr: {
+    labelSensor:  'Capteur photo',
+    labelPixel:   'Pixel',
+    frame1:       '1. La lumière qui tombe sur la fleur se disperse dans toutes les directions.',
+    frame2:       '2. Chaque pixel du capteur reçoit de la lumière de toutes les parties de la scène.',
+    frame3a:      '3. Le trou d\'épingle bloque les rayons venant de la mauvaise direction.',
+    frame3b:      'Chaque pixel ne voit plus qu\'une seule partie de la scène.',
+    btnStart:     'Démarrer l\'animation',
+    btnNext:      'Diapo suivante ➜',
+    btnRestart:   '⟲ Recommencer',
+  },
+  de: {
+    labelSensor:  'Kamerasensor',
+    labelPixel:   'Pixel',
+    frame1:       '1. Das auf die Blume fallende Licht wird in alle Richtungen gestreut.',
+    frame2:       '2. Jeder Sensorpixel empfängt Licht von allen Teilen der Szene.',
+    frame3a:      '3. Die Lochblende blockiert Strahlen aus der falschen Richtung.',
+    frame3b:      'Jetzt sieht jeder Pixel nur noch einen Teil der Szene.',
+    btnStart:     'Animation starten',
+    btnNext:      'Nächste Folie ➜',
+    btnRestart:   '⟲ Neustart',
+  },
+  es: {
+    labelSensor:  'Sensor de la cámara',
+    labelPixel:   'Píxel',
+    frame1:       '1. La luz que cae sobre la flor se dispersa en todas las direcciones.',
+    frame2:       '2. Cada píxel del sensor recibe luz de todas las partes de la escena.',
+    frame3a:      '3. El orificio bloquea los rayos que vienen de la dirección incorrecta.',
+    frame3b:      'Ahora cada píxel ve solo una parte de la escena.',
+    btnStart:     'Iniciar animación',
+    btnNext:      'Siguiente diapositiva ➜',
+    btnRestart:   '⟲ Reiniciar',
+  },
+  it: {
+    labelSensor:  'Sensore fotocamera',
+    labelPixel:   'Pixel',
+    frame1:       '1. La luce che cade sul fiore si disperde in tutte le direzioni.',
+    frame2:       '2. Ogni pixel del sensore riceve luce da tutte le parti della scena.',
+    frame3a:      '3. Il foro stenopeico blocca i raggi provenienti dalla direzione sbagliata.',
+    frame3b:      'Ora ogni pixel vede solo una parte della scena.',
+    btnStart:     'Avvia animazione',
+    btnNext:      'Diapositiva successiva ➜',
+    btnRestart:   '⟲ Ricomincia',
+  },
+  'zh-CN': {
+    labelSensor:  '相机传感器',
+    labelPixel:   '像素',
+    frame1:       '1. 照射在花朵上的光向各个方向散射。',
+    frame2:       '2. 传感器的每个像素都接收来自场景各处的光。',
+    frame3a:      '3. 小孔阻挡了来自错误方向的光线。',
+    frame3b:      '现在每个像素只能看到场景的一部分。',
+    btnStart:     '开始动画',
+    btnNext:      '下一张 ➜',
+    btnRestart:   '⟲ 重新开始',
+  },
+  'zh-TW': {
+    labelSensor:  '相機感測器',
+    labelPixel:   '像素',
+    frame1:       '1. 照射在花朵上的光向各個方向散射。',
+    frame2:       '2. 感測器的每個像素都接收來自場景各處的光。',
+    frame3a:      '3. 小孔阻擋了來自錯誤方向的光線。',
+    frame3b:      '現在每個像素只能看到場景的一部分。',
+    btnStart:     '開始動畫',
+    btnNext:      '下一張 ➜',
+    btnRestart:   '⟲ 重新開始',
+  },
+  ja: {
+    labelSensor:  'カメラセンサー',
+    labelPixel:   'ピクセル',
+    frame1:       '1. 花に当たった光はあらゆる方向に散乱します。',
+    frame2:       '2. センサーの各ピクセルがシーンのあらゆる部分からの光を受け取ります。',
+    frame3a:      '3. ピンホールが間違った方向からの光線を遮断します。',
+    frame3b:      'これで各ピクセルはシーンの一部だけを見るようになります。',
+    btnStart:     'アニメーション開始',
+    btnNext:      '次のスライド ➜',
+    btnRestart:   '⟲ 再起動',
+  },
+};
+
+const t = labels[locale] ?? labels.en;
 ---
 
-<div class="lra-wrap">
+<div class="lra-wrap" data-btn-start={t.btnStart} data-btn-next={t.btnNext} data-btn-restart={t.btnRestart}>
   <svg id="svgCanvas1" viewBox="0 0 500 280" preserveAspectRatio="xMinYMin meet" aria-label="Animated diagram showing how a pinhole camera works">
     <defs>
 
@@ -36,7 +135,7 @@
     <line id="svg1_wall_lower" x1="205" y1="145" x2="205" y2="190" stroke="black" stroke-width="2"/>
     <line id="svg1_sensor" x1="10" y1="110" x2="10" y2="170" stroke="#555555" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
     <line x1="15" y1="120" x2="35" y2="100" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
-    <text x="40" y="100" font-family="Arial" font-size="12" fill="#aaaaaa">Camera sensor</text>
+    <text x="40" y="100" font-family="Arial" font-size="12" fill="#aaaaaa">{t.labelSensor}</text>
 
     <!-- ===== FRAME 1: scattered rays, no pinhole ===== -->
     <g id="svg1_frame1">
@@ -46,14 +145,14 @@
       <line id="svg1_1_reflectedRay2" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-10,470,144)"/>
       <line id="svg1_1_reflectedRay3" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(10,470,144)"/>
       <line id="svg1_1_reflectedRay4" x1="205" y1="144" x2="470" y2="144" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(20,470,144)"/>
-      <text id="svg1_1_desc" x="250" y="270" font-family="Arial" font-size="14" fill="black" text-anchor="middle">1. Light falling on the flower is scattered in all directions.</text>
+      <text id="svg1_1_desc" x="250" y="270" font-family="Arial" font-size="14" fill="black" text-anchor="middle">{t.frame1}</text>
     </g>
 
     <!-- ===== FRAME 2: two colours, pixel receives both ===== -->
     <g id="svg1_frame2">
       <line id="svg1_2_pixel" x1="10" y1="140" x2="10" y2="150" stroke="red" stroke-width="2" stroke-dasharray="10,5" stroke-linecap="round"/>
       <line x1="15" y1="150" x2="35" y2="170" stroke="#aaaaaa" stroke-width="2" marker-start="url(#lra-greyArrow)"/>
-      <text x="40" y="180" font-family="Arial" font-size="12" fill="#aaaaaa">Pixel</text>
+      <text x="40" y="180" font-family="Arial" font-size="12" fill="#aaaaaa">{t.labelPixel}</text>
       <line id="svg1_2_incidentRay1" x1="310" y1="40" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-blueEndArrow)"/>
       <line id="svg1_2_incidentRay2" x1="310" y1="40" x2="470" y2="116" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-end="url(#lra-purpleEndArrow)"/>
       <line id="svg1_2_reflectedRay11" x1="205" y1="144" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)" transform="rotate(-20,470,144)"/>
@@ -65,7 +164,7 @@
       <line id="svg1_2_reflectedRay15" x1="20"  y1="145" x2="470" y2="144" stroke="#7d92ff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-blueArrow)"/>
       <line id="svg1_2_reflectedRay25" x1="20"  y1="116" x2="470" y2="116" stroke="#927dff" stroke-width="2" stroke-linecap="round" marker-start="url(#lra-purpleArrow)" transform="rotate(-3,482,116)"/>
       <text id="svg1_2_desc" x="250" y="250" font-family="Arial" font-size="14" fill="black" text-anchor="middle">
-        <tspan x="250">2. Each sensor pixel receives light from all parts of the scene.</tspan>
+        <tspan x="250">{t.frame2}</tspan>
       </text>
     </g>
 
@@ -80,8 +179,8 @@
       <line id="svg1_3_pinkPixel" x1="10" y1="125" x2="10" y2="140" stroke="#ffda42" stroke-width="4" stroke-dasharray="10,5" stroke-linecap="round"/>
       <line id="svg1_3_greyPixel" x1="10" y1="155" x2="10" y2="165" stroke="#ff4242" stroke-width="4" stroke-dasharray="10,5" stroke-linecap="round"/>
       <text id="svg1_3_desc" x="250" y="225" font-family="Arial" font-size="13" fill="black" text-anchor="middle">
-        <tspan x="250">3. The pinhole blocks rays coming from the wrong direction.</tspan>
-        <tspan x="250" dy="18">Now each pixel sees only one part of the scene.</tspan>
+        <tspan x="250">{t.frame3a}</tspan>
+        <tspan x="250" dy="18">{t.frame3b}</tspan>
       </text>
     </g>
 
@@ -90,7 +189,7 @@
   </svg>
 
   <div class="lra-controls">
-    <button id="aniControlBtn" class="lra-btn" type="button">Start Animation</button>
+    <button id="aniControlBtn" class="lra-btn" type="button">{t.btnStart}</button>
   </div>
 </div>
 
@@ -153,8 +252,13 @@
   const aniControlBtn = document.getElementById('aniControlBtn')!;
   aniControlBtn.classList.add('hopping');
 
+  const wrap = aniControlBtn.closest('.lra-wrap') as HTMLElement;
+  const btnStart   = wrap.dataset.btnStart   ?? 'Start Animation';
+  const btnNext    = wrap.dataset.btnNext    ?? 'Next Slide ➜';
+  const btnRestart = wrap.dataset.btnRestart ?? '⟲ Restart';
+
   const frames       = ['#svg1_frame1', '#svg1_frame1', '#svg1_frame2', '#svg1_frame3'];
-  const buttonLabels = ['Start Animation', 'Next Slide ➜', 'Next Slide ➜', '⟲ Restart'];
+  const buttonLabels = [btnStart, btnNext, btnNext, btnRestart];
 
   function hideAllFrames() {
     frames.forEach(f => gsap.set(f, { opacity: 0 }));

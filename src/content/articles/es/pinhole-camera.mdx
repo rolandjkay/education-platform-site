@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'es';
+
 Aprende cómo funciona una cámara construyendo tus propios objetivos de estenopo y usándolos para rodar tu propia película.
 
 ## ¿Así que quieres construir una cámara?
@@ -60,7 +62,7 @@ Lo que queremos es que la luz de una parte de nuestra escena solo caiga sobre un
 
 Puedes ver esto en las primeras dos diapositivas de la animación siguiente.
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## ¡El estenopo al rescate!
 
@@ -101,7 +103,7 @@ Si no ves nada en la pantalla, puede ser que no tengas el ISO suficientemente al
 
 ¿Qué diferencia hace la longitud del objetivo? Echa un vistazo a la animación interactiva siguiente. Puedes cambiar la distancia entre el sensor de la cámara y el agujero arrastrando el control deslizante…
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 ¿Puedes ver que, a medida que el tubo del objetivo se alarga, los rayos de luz tienen que ser más paralelos para llegar al sensor? Eso significa que solo la parte central de la escena es visible y la imagen de la calabaza se hace más grande. Si haces el tubo tan largo como sea posible, solo el área entre los ojos de la calabaza es visible. Si lo haces tan corto como sea posible, la calabaza es tiny.
 

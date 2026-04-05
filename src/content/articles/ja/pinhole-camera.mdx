@@ -16,6 +16,8 @@ import imgCoffeelens from '../images/post-10-coffeelens-md.webp';
 import LightRayAnimation from '../../../components/diagrams/LightRayAnimation.astro';
 import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSimulator.astro';
 
+export const locale = 'ja';
+
 自分でピンホールレンズを作って映像を撮りながら、カメラの仕組みを学ぼう！
 
 ## カメラを自作したいですか？
@@ -60,7 +62,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 これは以下のアニメーションの最初の2枚のスライドで確認できます。
 
-<LightRayAnimation />
+<LightRayAnimation locale={locale} />
 
 ## ピンホールが救う！
 
@@ -101,7 +103,7 @@ import PinholeBarrelSimulator from '../../../components/diagrams/PinholeBarrelSi
 
 レンズの長さの違いは何をもたらすのでしょう？下のインタラクティブなアニメーションを見てください。スライダーをドラッグしてカメラセンサーとピンホールの距離を変えることができます……
 
-<PinholeBarrelSimulator />
+<PinholeBarrelSimulator locale={locale} />
 
 レンズバレルが長くなるにつれて、センサーに届くためには光線がより平行に近くなければならないことがわかりますか？つまり、シーンの中央部分だけが見え、かぼちゃの画像が大きくなります。レンズバレルを最大にすると、かぼちゃの目の間の部分だけが見えます。最短にすると、かぼちゃはとても小さくなります。
 
