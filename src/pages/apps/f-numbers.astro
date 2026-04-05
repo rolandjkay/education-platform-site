@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FNumbersSimulator from '../../components/islands/FNumbersSimulator.astro';
 
 const apps = await getCollection('apps');
-const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'f-numbers-simulator');
+const entry = apps.find(a => a.id.replace(/\.mdx?$/, '') === 'f-numbers');
 
 if (!entry) throw new Error('f-numbers-simulator content entry not found');
 

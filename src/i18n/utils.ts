@@ -46,11 +46,17 @@ export function localePath(path: string, locale: Locale): string {
 
 /** Return the locale prefix embedded in a content ID, or 'en' if none. */
 export function getContentLocale(id: string): Locale {
-  const match = id.match(/^([a-z]{2}(?:-[A-Z]{2})?)\//);
-  return match ? (match[1] as Locale) : 'en';
+  const normalized = id.replace(/\\/g, '/');
+  const segment = normalized.split('/')[0];
+  const found = locales.find(l => l.toLowerCase() === segment.toLowerCase());
+  return (found && found !== defaultLocale) ? found : defaultLocale;
 }
 
 /** Strip the locale prefix from a content ID to get the bare slug. */
 export function getContentSlug(id: string): string {
-  return id.replace(/^[a-z]{2}(?:-[A-Z]{2})?\//, '').replace(/\.mdx?$/, '');
+  const normalized = id.replace(/\\/g, '/');
+  const parts = normalized.split('/');
+  const isLocalePrefix = parts.length > 1 &&
+    locales.some(l => l.toLowerCase() === parts[0].toLowerCase() && l !== defaultLocale);
+  return (isLocalePrefix ? parts.slice(1).join('/') : normalized).replace(/\.mdx?$/, '');
 }
