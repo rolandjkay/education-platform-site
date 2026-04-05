@@ -648,6 +648,21 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
         canvas.style.display = 'none';
         rotateHint.style.display = 'none';
 
+        try { (screen.orientation as any).unlock(); } catch (_) {}
+
+        // Android Chrome intermittently corrupts the layout viewport width
+        // after exiting fullscreen.  fullscreenchange fires before the
+        // browser has finished updating viewport dimensions, so the fix
+        // (re-asserting the viewport meta) must be delayed until the
+        // transition has fully settled (~300 ms).
+        setTimeout(() => {
+          const meta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null;
+          if (meta) {
+            const c = meta.content;
+            meta.content = '';
+            meta.content = c;
+          }
+        }, 300);
       }
     });
 
