@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-font-atlas.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -15,11 +16,11 @@
     "lil-gui": "^0.19.2",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "three": "^0.169.0",
-    "troika-three-text": "^0.52.4"
+    "three": "^0.169.0"
   },
   "devDependencies": {
     "@gltf-transform/cli": "^4.3.0",
+    "msdf-bmfont-xml": "^2.8.0",
     "sharp": "^0.34.5",
     "typescript": "^5.0.0"
   }

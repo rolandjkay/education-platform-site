@@ -58,6 +58,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://learn.am
     />
 
     <title>{title} | Amersham Film School</title>
+    <slot name="head" />
   </head>
   <body>
     <Navbar locale={locale} canonicalPath={canonicalPath} />
