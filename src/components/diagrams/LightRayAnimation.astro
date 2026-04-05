@@ -104,7 +104,7 @@ const labels: Record<string, Record<string, string>> = {
   },
 };
 
-const t = labels[locale] ?? labels.en;
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <div class="lra-wrap" data-btn-start={t.btnStart} data-btn-next={t.btnNext} data-btn-restart={t.btnRestart}>

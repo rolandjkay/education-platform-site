@@ -3,12 +3,168 @@
 // The script is the verbatim port of:
 //   Bootcamp-test/public/apps/convex-lens-simulator/public/script.js
 // DOM contract: canvas#convex-lens-simulator-canvas + div#convex-lens-simulator-description-box
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+type Translations = {
+  initialText: string;
+  dragInstruction: string;
+  legendObject: string;
+  legendImage: string;
+  legendLens: string;
+  legendRay1: string;
+  legendRay2: string;
+  legendFocalPoints: string;
+  legendTwiceF: string;
+  descCamera: string;
+  descMacro1: string;
+  descMacro2: string;
+  descNoImage: string;
+  descMagnifying: string;
+};
+
+const labels: Record<string, Translations> = {
+  en: {
+    initialText:      'Move the object to see how the image changes.',
+    dragInstruction:  '<- Drag me ->',
+    legendObject:     'Object (Red Arrow)',
+    legendImage:      'Image of the object',
+    legendLens:       'Lens',
+    legendRay1:       'Light Ray 1',
+    legendRay2:       'Light Ray 2',
+    legendFocalPoints:'Principle Focal Points',
+    legendTwiceF:     'Twice as far as focal points',
+    descCamera:       '<h3>Used for: building a camera</h3><p>When the object is further away than 2F, the image is between F and 2F and is smaller than the object.</p>',
+    descMacro1:       '<h3>Used for: macro photography</h3><p>When the object is exactly at 2F, the image is the same distance behind the lens and the same size.</p>',
+    descMacro2:       '<h3>Used for: macro photography or building a projector</h3><p>When the object is between 2F and F, the image is further than 2F and is larger than the object.</p>',
+    descNoImage:      '<h3>Used for: nothing; no image</h3><p>When the object is at F exactly, the light rays on the right of the lens are parallel and so never meet each other; there is no image.</p><p>You could imagine that the image is infinitely far away and infinitely large.</p>',
+    descMagnifying:   '<h3>Used for: a magnifying glass</h3><p>When the object is closer to the lens than F, the light rays never cross but, to an observer on the right of the lens, it appears as though they are both coming from a point behind the object. This is called a &ldquo;virtual&rdquo; image.</p>',
+  },
+  fr: {
+    initialText:      "Déplacez l'objet pour voir comment l'image change.",
+    dragInstruction:  '<- Faites glisser ->',
+    legendObject:     'Objet (flèche rouge)',
+    legendImage:      "Image de l'objet",
+    legendLens:       'Lentille',
+    legendRay1:       'Rayon lumineux 1',
+    legendRay2:       'Rayon lumineux 2',
+    legendFocalPoints:'Foyers principaux',
+    legendTwiceF:     'Deux fois la distance focale',
+    descCamera:       "<h3>Utilisé pour : construire un appareil photo</h3><p>Quand l'objet est plus loin que 2F, l'image est entre F et 2F et est plus petite que l'objet.</p>",
+    descMacro1:       "<h3>Utilisé pour : la macrophotographie</h3><p>Quand l'objet est exactement à 2F, l'image est à la même distance derrière la lentille et a la même taille.</p>",
+    descMacro2:       "<h3>Utilisé pour : la macrophotographie ou la construction d'un projecteur</h3><p>Quand l'objet est entre 2F et F, l'image est plus loin que 2F et plus grande que l'objet.</p>",
+    descNoImage:      "<h3>Utilisé pour : rien ; pas d'image</h3><p>Quand l'objet est exactement à F, les rayons lumineux à droite de la lentille sont parallèles et ne se rencontrent jamais ; il n'y a pas d'image.</p><p>On pourrait imaginer que l'image est infiniment loin et infiniment grande.</p>",
+    descMagnifying:   "<h3>Utilisé pour : une loupe</h3><p>Quand l'objet est plus proche de la lentille que F, les rayons lumineux ne se croisent jamais mais, pour un observateur à droite de la lentille, ils semblent provenir d'un point derrière l'objet. C'est ce qu'on appelle une image « virtuelle ».</p>",
+  },
+  de: {
+    initialText:      'Bewege das Objekt, um zu sehen, wie sich das Bild verändert.',
+    dragInstruction:  '<- Ziehen ->',
+    legendObject:     'Objekt (roter Pfeil)',
+    legendImage:      'Bild des Objekts',
+    legendLens:       'Linse',
+    legendRay1:       'Lichtstrahl 1',
+    legendRay2:       'Lichtstrahl 2',
+    legendFocalPoints:'Hauptbrennpunkte',
+    legendTwiceF:     'Doppelter Brennpunktabstand',
+    descCamera:       '<h3>Verwendet für: Kamerabau</h3><p>Wenn das Objekt weiter als 2F entfernt ist, liegt das Bild zwischen F und 2F und ist kleiner als das Objekt.</p>',
+    descMacro1:       '<h3>Verwendet für: Makrofotografie</h3><p>Wenn das Objekt genau bei 2F liegt, ist das Bild gleich weit hinter der Linse und gleich groß.</p>',
+    descMacro2:       '<h3>Verwendet für: Makrofotografie oder Projektorenbau</h3><p>Wenn das Objekt zwischen 2F und F liegt, ist das Bild weiter als 2F entfernt und größer als das Objekt.</p>',
+    descNoImage:      '<h3>Verwendet für: nichts; kein Bild</h3><p>Wenn das Objekt genau bei F liegt, sind die Lichtstrahlen rechts der Linse parallel und treffen sich nie; es gibt kein Bild.</p><p>Man könnte sich vorstellen, dass das Bild unendlich weit entfernt und unendlich groß ist.</p>',
+    descMagnifying:   '<h3>Verwendet für: eine Lupe</h3><p>Wenn das Objekt näher an der Linse als F liegt, kreuzen sich die Lichtstrahlen nie, aber für einen Beobachter rechts der Linse scheinen sie von einem Punkt hinter dem Objekt zu kommen. Dies nennt man ein „virtuelles" Bild.</p>',
+  },
+  es: {
+    initialText:      'Mueve el objeto para ver cómo cambia la imagen.',
+    dragInstruction:  '<- Arrástralo ->',
+    legendObject:     'Objeto (flecha roja)',
+    legendImage:      'Imagen del objeto',
+    legendLens:       'Lente',
+    legendRay1:       'Rayo de luz 1',
+    legendRay2:       'Rayo de luz 2',
+    legendFocalPoints:'Puntos focales principales',
+    legendTwiceF:     'El doble de la distancia focal',
+    descCamera:       '<h3>Usado para: construir una cámara</h3><p>Cuando el objeto está más lejos que 2F, la imagen está entre F y 2F y es más pequeña que el objeto.</p>',
+    descMacro1:       '<h3>Usado para: macrofotografía</h3><p>Cuando el objeto está exactamente en 2F, la imagen está a la misma distancia detrás de la lente y tiene el mismo tamaño.</p>',
+    descMacro2:       '<h3>Usado para: macrofotografía o construcción de un proyector</h3><p>Cuando el objeto está entre 2F y F, la imagen está más lejos que 2F y es más grande que el objeto.</p>',
+    descNoImage:      '<h3>Usado para: nada; sin imagen</h3><p>Cuando el objeto está exactamente en F, los rayos de luz a la derecha de la lente son paralelos y nunca se encuentran; no hay imagen.</p><p>Podrías imaginar que la imagen está infinitamente lejos e infinitamente grande.</p>',
+    descMagnifying:   '<h3>Usado para: una lupa</h3><p>Cuando el objeto está más cerca de la lente que F, los rayos de luz nunca se cruzan, pero para un observador a la derecha de la lente, parece como si ambos vinieran de un punto detrás del objeto. Esto se llama imagen «virtual».</p>',
+  },
+  it: {
+    initialText:      "Sposta l'oggetto per vedere come cambia l'immagine.",
+    dragInstruction:  '<- Trascina ->',
+    legendObject:     'Oggetto (freccia rossa)',
+    legendImage:      "Immagine dell'oggetto",
+    legendLens:       'Lente',
+    legendRay1:       'Raggio luminoso 1',
+    legendRay2:       'Raggio luminoso 2',
+    legendFocalPoints:'Fuochi principali',
+    legendTwiceF:     'Due volte la distanza focale',
+    descCamera:       "<h3>Usato per: costruire una fotocamera</h3><p>Quando l'oggetto è più lontano di 2F, l'immagine è tra F e 2F ed è più piccola dell'oggetto.</p>",
+    descMacro1:       "<h3>Usato per: macrofotografia</h3><p>Quando l'oggetto è esattamente a 2F, l'immagine è alla stessa distanza dietro la lente e ha le stesse dimensioni.</p>",
+    descMacro2:       "<h3>Usato per: macrofotografia o costruzione di un proiettore</h3><p>Quando l'oggetto è tra 2F e F, l'immagine è più lontana di 2F ed è più grande dell'oggetto.</p>",
+    descNoImage:      "<h3>Usato per: nulla; nessuna immagine</h3><p>Quando l'oggetto è esattamente a F, i raggi luminosi a destra della lente sono paralleli e non si incontrano mai; non c'è immagine.</p><p>Si potrebbe immaginare che l'immagine sia infinitamente lontana e infinitamente grande.</p>",
+    descMagnifying:   "<h3>Usato per: una lente d'ingrandimento</h3><p>Quando l'oggetto è più vicino alla lente di F, i raggi luminosi non si incrociano mai, ma per un osservatore a destra della lente sembra che provengano entrambi da un punto dietro l'oggetto. Questa si chiama immagine «virtuale».</p>",
+  },
+  'zh-CN': {
+    initialText:      '拖动物体，观察图像如何变化。',
+    dragInstruction:  '<- 拖动我 ->',
+    legendObject:     '物体（红色箭头）',
+    legendImage:      '物体的像',
+    legendLens:       '透镜',
+    legendRay1:       '光线 1',
+    legendRay2:       '光线 2',
+    legendFocalPoints:'主焦点',
+    legendTwiceF:     '两倍焦距处',
+    descCamera:       '<h3>用途：制作相机</h3><p>当物体距离超过 2F 时，像在 F 和 2F 之间，且比物体小。</p>',
+    descMacro1:       '<h3>用途：微距摄影</h3><p>当物体恰好在 2F 处时，像在透镜后方同等距离处，大小相同。</p>',
+    descMacro2:       '<h3>用途：微距摄影或制作投影仪</h3><p>当物体在 2F 和 F 之间时，像在 2F 以外，且比物体大。</p>',
+    descNoImage:      '<h3>用途：无；没有像</h3><p>当物体恰好在 F 处时，透镜右侧的光线平行，永不相交，因此没有像。</p><p>可以想象像在无穷远处，大小无限大。</p>',
+    descMagnifying:   '<h3>用途：放大镜</h3><p>当物体比 F 更靠近透镜时，光线不会相交，但对于透镜右侧的观察者来说，光线看起来像是从物体后方的一点发出的。这称为「虚像」。</p>',
+  },
+  'zh-TW': {
+    initialText:      '拖動物體，觀察影像如何變化。',
+    dragInstruction:  '<- 拖動我 ->',
+    legendObject:     '物體（紅色箭頭）',
+    legendImage:      '物體的像',
+    legendLens:       '透鏡',
+    legendRay1:       '光線 1',
+    legendRay2:       '光線 2',
+    legendFocalPoints:'主焦點',
+    legendTwiceF:     '兩倍焦距處',
+    descCamera:       '<h3>用途：製作相機</h3><p>當物體距離超過 2F 時，像在 F 和 2F 之間，且比物體小。</p>',
+    descMacro1:       '<h3>用途：微距攝影</h3><p>當物體恰好在 2F 處時，像在透鏡後方同等距離處，大小相同。</p>',
+    descMacro2:       '<h3>用途：微距攝影或製作投影機</h3><p>當物體在 2F 和 F 之間時，像在 2F 以外，且比物體大。</p>',
+    descNoImage:      '<h3>用途：無；沒有像</h3><p>當物體恰好在 F 處時，透鏡右側的光線平行，永不相交，因此沒有像。</p><p>可以想像像在無窮遠處，大小無限大。</p>',
+    descMagnifying:   '<h3>用途：放大鏡</h3><p>當物體比 F 更靠近透鏡時，光線不會相交，但對於透鏡右側的觀察者來說，光線看起來像是從物體後方的一點發出的。這稱為「虛像」。</p>',
+  },
+  ja: {
+    initialText:      '物体を動かして、像がどのように変わるか見てみよう。',
+    dragInstruction:  '<- ドラッグ ->',
+    legendObject:     '物体（赤い矢印）',
+    legendImage:      '物体の像',
+    legendLens:       'レンズ',
+    legendRay1:       '光線 1',
+    legendRay2:       '光線 2',
+    legendFocalPoints:'主焦点',
+    legendTwiceF:     '焦点距離の2倍の点',
+    descCamera:       '<h3>用途：カメラの製作</h3><p>物体が 2F より遠いとき、像は F と 2F の間にあり、物体より小さい。</p>',
+    descMacro1:       '<h3>用途：マクロ撮影</h3><p>物体がちょうど 2F にあるとき、像はレンズの後方の同じ距離にあり、同じ大きさになる。</p>',
+    descMacro2:       '<h3>用途：マクロ撮影またはプロジェクターの製作</h3><p>物体が 2F と F の間にあるとき、像は 2F より遠くにあり、物体より大きい。</p>',
+    descNoImage:      '<h3>用途：なし；像なし</h3><p>物体がちょうど F にあるとき、レンズの右側の光線は平行で交わらないため、像はできない。</p><p>像は無限遠にあり、無限に大きいと想像することもできる。</p>',
+    descMagnifying:   '<h3>用途：虫眼鏡</h3><p>物体がレンズに F より近いとき、光線は交わらないが、レンズの右側の観察者には、光線が物体の後ろの一点から来ているように見える。これを「虚像」という。</p>',
+  },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
-<div class="lens-embed">
+<div class="lens-embed" data-translations={JSON.stringify(t)}>
   <div class="convex-lens-simulator-app">
     <div id="convex-lens-simulator-description-box" aria-live="polite">
-      Move the object to see how the image changes.
+      {t.initialText}
     </div>
     <canvas id="convex-lens-simulator-canvas"></canvas>
   </div>
@@ -50,6 +206,9 @@
   // Verbatim port of Bootcamp-test/public/apps/convex-lens-simulator/public/script.js
   const canvas = document.getElementById("convex-lens-simulator-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d")!;
+
+  const wrap = canvas.closest('.lens-embed') as HTMLElement;
+  const tr = JSON.parse(wrap.dataset.translations || '{}');
 
   const MOBILE_SCALING_FACTOR = 0.6;
   const OBJECT_HEIGHT = 50;
@@ -122,7 +281,7 @@
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (displayInstructions) { ctx.save(); ctx.textAlign = "left"; ctx.fillStyle = "#f00"; ctx.font = scaleFactor === 1.0 ? "24px Arial, sans-serif" : "16px Arial, sans-serif"; (ctx as any).fillText_World("<- Drag me ->", objectPosition, OBJECT_HEIGHT + 20); ctx.restore(); }
+    if (displayInstructions) { ctx.save(); ctx.textAlign = "left"; ctx.fillStyle = "#f00"; ctx.font = scaleFactor === 1.0 ? "24px Arial, sans-serif" : "16px Arial, sans-serif"; (ctx as any).fillText_World(tr.dragInstruction, objectPosition, OBJECT_HEIGHT + 20); ctx.restore(); }
     drawLegend_Canvas(20, 20);
     ctx.beginPath(); (ctx as any).moveTo_World(canvasLimits.left, 0); (ctx as any).lineTo_World(canvasLimits.right, 0); ctx.strokeStyle = "#000"; ctx.stroke();
     ctx.beginPath(); (ctx as any).moveTo_World(0, 80); (ctx as any).quadraticCurveTo_World(-30, 0, 0, -80); (ctx as any).moveTo_World(0, 80); (ctx as any).quadraticCurveTo_World(30, 0, 0, -80); ctx.strokeStyle = "#00f"; ctx.lineWidth = 2; ctx.stroke();
@@ -149,24 +308,24 @@
 
   function updateDescription() {
     const box = document.getElementById("convex-lens-simulator-description-box")!;
-    if (objectPosition < -2*focalLength - MARGIN) box.innerHTML = "<h3>Used for: building a camera</h3><p>When the object is further away than 2F, the image is between F and 2F and is smaller than the object.</p>";
-    else if (objectPosition < -2*focalLength + MARGIN) box.innerHTML = "<h3>Used for: macro photography</h3><p>When the object is exactly at 2F, the image is the same distance behind the lens and the same size.</p>";
-    else if (objectPosition < -focalLength - MARGIN) box.innerHTML = "<h3>Used for: macro photography or building a projector</h3><p>When the object is between 2F and F, the image is further than 2F and is larger than the object.</p>";
-    else if (objectPosition < -focalLength + MARGIN) box.innerHTML = "<h3>Used for: nothing; no image</h3><p>When the object is at F exactly, the light rays on the right of the lens are parallel and so never meet each other; there is no image.</p><p>You could imagine that the image is infinitely far away and infinitely large</p>.";
-    else box.innerHTML = "<h3>Used for: a magnifying glass</h3><p>When the object is closer to the lens than F, the light rays never cross but, to an observer on the right of the lens, it appears as though they are both coming from a point behind the object. This is called a &ldquo;virtual&rdquo; image.</p>";
+    if (objectPosition < -2*focalLength - MARGIN) box.innerHTML = tr.descCamera;
+    else if (objectPosition < -2*focalLength + MARGIN) box.innerHTML = tr.descMacro1;
+    else if (objectPosition < -focalLength - MARGIN) box.innerHTML = tr.descMacro2;
+    else if (objectPosition < -focalLength + MARGIN) box.innerHTML = tr.descNoImage;
+    else box.innerHTML = tr.descMagnifying;
   }
 
   function drawLegend_Canvas(xMargin: number, yMargin: number) {
     const TEXT_OFFSET = 40; const oldTA = ctx.textAlign; const oldTBL = ctx.textBaseline;
     ctx.textAlign = "left"; ctx.textBaseline = "middle";
     const lineHeight = 20; const yPos = canvas.height - yMargin - 6 * lineHeight; const xPos = xMargin;
-    ctx.fillStyle = "#f00"; ctx.fillText("Object (Red Arrow)", xPos + TEXT_OFFSET, yPos); drawArrow_Canvas(xPos + 10, yPos, -15, "#f00");
-    ctx.fillStyle = "rgba(0,128,0,0.5)"; ctx.fillText("Image of the object", xPos + TEXT_OFFSET, yPos + lineHeight); drawArrow_Canvas(xPos + 10, yPos + lineHeight, -15, "rgba(0,128,0,0.5)");
-    ctx.fillStyle = "#00f"; ctx.fillText("Lens", xPos + TEXT_OFFSET, yPos + 2*lineHeight); ctx.beginPath(); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos+20,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.strokeStyle="#00f"; ctx.lineWidth=1; ctx.stroke();
-    ctx.fillStyle="#7799ff"; ctx.fillText("Light Ray 1", xPos+TEXT_OFFSET, yPos+3*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+3*lineHeight-5); ctx.lineTo(xPos+10,yPos+3*lineHeight-5); ctx.lineTo(xPos+20,yPos+3*lineHeight+5); ctx.strokeStyle="#7799ff"; ctx.lineWidth=1; ctx.setLineDash([]); ctx.stroke();
-    ctx.strokeStyle="#ff9900"; ctx.fillStyle="#ff9900"; ctx.fillText("Light Ray 2", xPos+TEXT_OFFSET, yPos+4*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+4*lineHeight); ctx.lineTo(xPos+20,yPos+4*lineHeight); ctx.stroke();
-    ctx.fillStyle="#000"; ctx.fillText("Principle Focal Points", xPos+TEXT_OFFSET, yPos+5*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+5*lineHeight,3,0,2*Math.PI); ctx.fill();
-    ctx.fillText("Twice as far as focal points", xPos+TEXT_OFFSET, yPos+6*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+6*lineHeight,3,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = "#f00"; ctx.fillText(tr.legendObject, xPos + TEXT_OFFSET, yPos); drawArrow_Canvas(xPos + 10, yPos, -15, "#f00");
+    ctx.fillStyle = "rgba(0,128,0,0.5)"; ctx.fillText(tr.legendImage, xPos + TEXT_OFFSET, yPos + lineHeight); drawArrow_Canvas(xPos + 10, yPos + lineHeight, -15, "rgba(0,128,0,0.5)");
+    ctx.fillStyle = "#00f"; ctx.fillText(tr.legendLens, xPos + TEXT_OFFSET, yPos + 2*lineHeight); ctx.beginPath(); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.moveTo(xPos+10,yPos+2*lineHeight-10); ctx.quadraticCurveTo(xPos+20,yPos+2*lineHeight,xPos+10,yPos+2*lineHeight+10); ctx.strokeStyle="#00f"; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle="#7799ff"; ctx.fillText(tr.legendRay1, xPos+TEXT_OFFSET, yPos+3*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+3*lineHeight-5); ctx.lineTo(xPos+10,yPos+3*lineHeight-5); ctx.lineTo(xPos+20,yPos+3*lineHeight+5); ctx.strokeStyle="#7799ff"; ctx.lineWidth=1; ctx.setLineDash([]); ctx.stroke();
+    ctx.strokeStyle="#ff9900"; ctx.fillStyle="#ff9900"; ctx.fillText(tr.legendRay2, xPos+TEXT_OFFSET, yPos+4*lineHeight); ctx.beginPath(); ctx.moveTo(xPos,yPos+4*lineHeight); ctx.lineTo(xPos+20,yPos+4*lineHeight); ctx.stroke();
+    ctx.fillStyle="#000"; ctx.fillText(tr.legendFocalPoints, xPos+TEXT_OFFSET, yPos+5*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+5*lineHeight,3,0,2*Math.PI); ctx.fill();
+    ctx.fillText(tr.legendTwiceF, xPos+TEXT_OFFSET, yPos+6*lineHeight); ctx.beginPath(); ctx.arc(xPos+5,yPos+6*lineHeight,3,0,2*Math.PI); ctx.fill();
     ctx.fillText("F", xPos+10, yPos+5*lineHeight); ctx.fillText("2F", xPos+10, yPos+6*lineHeight);
     ctx.textAlign = oldTA; ctx.textBaseline = oldTBL as CanvasTextBaseline;
   }

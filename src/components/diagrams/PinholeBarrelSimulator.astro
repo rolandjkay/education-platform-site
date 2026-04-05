@@ -69,7 +69,7 @@ const labels: Record<string, Record<string, string>> = {
   },
 };
 
-const t = labels[locale] ?? labels.en;
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <div class="pinhole-sim-wrap">

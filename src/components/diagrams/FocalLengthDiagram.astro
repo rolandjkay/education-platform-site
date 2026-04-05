@@ -19,7 +19,7 @@ const labels: Record<string, Record<string, string>> = {
   ja:    { caption: '焦点距離とは、レンズから平行光線が収束する点までの距離です。' },
 };
 
-const t = labels[locale] ?? labels.en;
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram">

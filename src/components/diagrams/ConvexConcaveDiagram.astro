@@ -51,7 +51,7 @@ const labels: Record<string, Record<string, string>> = {
   },
 };
 
-const t = labels[locale] ?? labels.en;
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram">
