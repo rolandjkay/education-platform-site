@@ -6,6 +6,8 @@ subjects: [maths]
 tags: ["maths", "calculus", "euler", "exponentials"]
 ---
 
+import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseExplorer.astro';
+
 There's a number that turns up absolutely everywhere in mathematics. You'll find it in the formula for how populations grow, how radioactive atoms decay, how heat spreads through a material, and — as we'll see — buried inside the compound interest formula from our article on the [time value of money](/articles/time-value-of-money).
 
 That number is **e**, and it's approximately 2.71828.
@@ -79,6 +81,10 @@ This is why $e$ shows up wherever growth or decay is proportional to current siz
 - **Heat** dissipates at a rate proportional to the temperature difference.
 
 All of these follow the same underlying pattern, and all of them involve $e$.
+
+You can see this property in action with the diagram below. For any base $a$, the exponential $y = a^x$ has slope proportional to its value: $\frac{dy}{dx} = k \cdot y$, where $k = \ln(a)$. The grey curve is $y = e^x$ with $k = 1$. Drag the slider to match the red curve to the grey — that's the moment you've found Euler's number.
+
+<ExponentialBaseExplorer />
 
 ## The exponential function in action
 

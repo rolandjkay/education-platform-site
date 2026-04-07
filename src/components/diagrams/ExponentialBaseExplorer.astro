@@ -1,0 +1,323 @@
+---
+// Interactive diagram: y = a^x vs y = e^x
+// Slider lets user adjust base a; snaps to e = 2.71828…
+// Tangent triangle at x=0 (where both curves pass through y=1) shows
+// dy/dx = k·y, with k = ln(a). When a = e, k = 1 and the curves coincide.
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+---
+
+<figure class="diagram exp-diagram">
+  <svg id="exp-svg" xmlns="http://www.w3.org/2000/svg"
+       width="100%" viewBox="0 0 500 300" preserveAspectRatio="xMinYMin meet">
+    <defs>
+      <clipPath id="exp-plot-clip">
+        <!-- Covers the plot region (PL=55, PT=15, PW=430, PH=245) -->
+        <rect x="55" y="14" width="431" height="247"/>
+      </clipPath>
+    </defs>
+    <!-- Content rendered by the <script> below -->
+  </svg>
+
+  <div class="exp-controls">
+    <div class="exp-slider-row">
+      <label for="exp-a-slider">Base <em>a</em> = <strong id="exp-a-display">2.00</strong></label>
+      <input id="exp-a-slider" type="range"
+             min="1.1" max="4.0" step="0.01" value="2.00"
+             list="exp-a-ticks" class="exp-range">
+      <datalist id="exp-a-ticks">
+        <option value="2.71828"></option>
+      </datalist>
+    </div>
+    <div class="exp-formula">
+      For&nbsp;y&nbsp;=&nbsp;a<sup>x</sup>:
+      &nbsp;&nbsp;dy/dx&nbsp;=&nbsp;<strong id="exp-k-display">0.693</strong>&nbsp;×&nbsp;y
+      <span id="exp-snap-hint" class="exp-snap-hint"></span>
+    </div>
+  </div>
+
+  <figcaption>
+    Drag the slider to change the base <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>x</sup>.
+    The grey curve is y&nbsp;=&nbsp;e<sup>x</sup>. The tangent triangle at x&nbsp;=&nbsp;0 shows that the
+    slope equals k&nbsp;·&nbsp;y at that point, where k&nbsp;=&nbsp;ln(a). Only when a&nbsp;=&nbsp;e
+    does k&nbsp;=&nbsp;1 — making slope equal value at every point on the curve.
+  </figcaption>
+</figure>
+
+<style>
+  .exp-diagram {
+    margin: 2rem 0;
+  }
+
+  .exp-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .exp-controls {
+    padding: 0.75rem 1rem 0.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .exp-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-range {
+    flex: 1;
+    min-width: 160px;
+    accent-color: var(--color-primary);
+  }
+
+  .exp-formula {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .exp-snap-hint {
+    margin-left: 0.5rem;
+    color: var(--color-primary, #2a7ae2);
+    font-weight: 600;
+  }
+
+  .exp-diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  const E    = Math.E;   // 2.71828…
+  const SNAP = 0.04;     // snap slider to e if within this range
+
+  // ── Coordinate system (matches viewBox 0 0 500 300) ────────────────
+  const PL = 55, PT = 15, PB = 40, PR = 15;
+  const PW = 500 - PL - PR;  // 430 px
+  const PH = 300 - PT - PB;  // 245 px
+  const XL = -2, XR = 3;     // math x range [-2, 3]
+  const YB = 0,  YT = 8;     // math y range [0, 8]
+  const SX = PW / (XR - XL); // 86 px / x-unit
+  const SY = PH / (YT - YB); // 30.625 px / y-unit
+
+  const tx = (x) => PL + (x - XL) * SX;
+  const ty = (y) => PT + PH - (y - YB) * SY;
+
+  const NS  = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('exp-svg');
+  if (!svg) return;
+
+  // Convenience helpers
+  function mk(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v));
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function mkTxt(content, attrs, parent) {
+    const e = mk('text', attrs, parent);
+    e.textContent = content;
+    return e;
+  }
+
+  // ── Build static elements: grid, axes, tick labels ──────────────────
+  // Grid
+  const grid = mk('g', { stroke: '#e6e6e6', 'stroke-width': '1', 'shape-rendering': 'crispEdges' }, svg);
+  for (let xi = XL; xi <= XR; xi++)
+    mk('line', { x1: tx(xi), y1: PT, x2: tx(xi), y2: PT + PH }, grid);
+  for (let yi = 2; yi <= YT; yi += 2)
+    mk('line', { x1: PL, y1: ty(yi), x2: PL + PW, y2: ty(yi) }, grid);
+
+  // Axes
+  const axes = mk('g', { stroke: '#444', 'stroke-width': '1.5', 'shape-rendering': 'crispEdges' }, svg);
+  mk('line', { x1: PL,    y1: ty(0),   x2: PL + PW, y2: ty(0)    }, axes); // x-axis
+  mk('line', { x1: tx(0), y1: PT,      x2: tx(0),   y2: PT + PH  }, axes); // y-axis
+  // Arrowheads
+  mk('path', { d: `M${PL+PW-8},${ty(0)-4} L${PL+PW},${ty(0)} L${PL+PW-8},${ty(0)+4}Z`, fill: '#444', stroke: 'none' }, axes);
+  mk('path', { d: `M${tx(0)-4},${PT+8}    L${tx(0)},${PT}    L${tx(0)+4},${PT+8}Z`,    fill: '#444', stroke: 'none' }, axes);
+
+  // Tick marks and numeric labels
+  const tg = mk('g', { 'font-size': '11', 'font-family': 'sans-serif', fill: '#666' }, svg);
+  for (let xi = XL; xi <= XR; xi++) {
+    if (xi === 0) continue;
+    mk('line', { x1: tx(xi), y1: ty(0)-3, x2: tx(xi), y2: ty(0)+3, stroke: '#444', 'stroke-width': '1' }, tg);
+    mkTxt(xi, { x: tx(xi), y: ty(0)+15, 'text-anchor': 'middle' }, tg);
+  }
+  for (let yi = 2; yi <= YT; yi += 2) {
+    mk('line', { x1: tx(0)-3, y1: ty(yi), x2: tx(0)+3, y2: ty(yi), stroke: '#444', 'stroke-width': '1' }, tg);
+    mkTxt(yi, { x: tx(0)-6, y: ty(yi)+4, 'text-anchor': 'end' }, tg);
+  }
+  // Axis name labels
+  mkTxt('x', { x: PL+PW+6, y: ty(0)+4,  'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#444' }, tg);
+  mkTxt('y', { x: tx(0)+5, y: PT+12,    'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#444' }, tg);
+
+  // ── Path sampler ────────────────────────────────────────────────────
+  function buildPath(fn) {
+    const STEPS = 300;
+    const parts = [];
+    let move = true;
+    for (let i = 0; i <= STEPS; i++) {
+      const x = XL + (XR - XL) * i / STEPS;
+      const y = fn(x);
+      if (y < YB - 0.3 || y > YT + 0.5) { move = true; continue; }
+      parts.push((move ? 'M' : 'L') + tx(x).toFixed(1) + ',' + ty(y).toFixed(1));
+      move = false;
+    }
+    return parts.join(' ');
+  }
+
+  // ── Grey e^x curve (static) ─────────────────────────────────────────
+  mk('path', {
+    fill: 'none', stroke: '#c0c0c0', 'stroke-width': '2.5',
+    'clip-path': 'url(#exp-plot-clip)',
+    d: buildPath(Math.exp),
+  }, svg);
+
+  // Grey curve label at x≈1.6
+  mkTxt('y = e\u207F', {
+    x: tx(1.62) + 6, y: ty(Math.exp(1.62)) - 7,
+    fill: '#bbb', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic',
+  }, svg);
+
+  // ── Grey annotation: tangent triangle at x = 0 ─────────────────────
+  // Both curves pass through (0, 1). At x=0, slope of e^x = k·y = 1·1 = 1.
+  // Triangle A=(0,1), B=(1,1), C=(1,2).  Hypotenuse A→C = tangent direction.
+  {
+    const ax = tx(0), ay = ty(1);
+    const bx = tx(1), by = ty(1);
+    const cx = tx(1), cy = ty(2); // k=1, Δy=1·1·1=1
+    const RA = 5;
+
+    const g = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
+    // Horizontal base (dashed)
+    mk('line', { x1: ax, y1: ay, x2: bx, y2: by, stroke: '#ccc', 'stroke-width': '1', 'stroke-dasharray': '4,3' }, g);
+    // Vertical height (dashed)
+    mk('line', { x1: bx, y1: by, x2: cx, y2: cy, stroke: '#ccc', 'stroke-width': '1', 'stroke-dasharray': '4,3' }, g);
+    // Hypotenuse = tangent (solid)
+    mk('line', { x1: ax, y1: ay, x2: cx, y2: cy, stroke: '#bbb', 'stroke-width': '1.5' }, g);
+    // Right-angle marker at B (cy < by → going up in SVG)
+    mk('path', { d: `M${bx-RA},${by} L${bx-RA},${by-RA} L${bx},${by-RA}`, stroke: '#bbb', fill: 'none', 'stroke-width': '1' }, g);
+    // Dot at A
+    mk('circle', { cx: ax, cy: ay, r: '3.5', fill: '#bbb' }, g);
+  }
+
+  // Grey annotation label — to the right of the triangle's vertical side
+  // Positioned near the top of the vertical (near C=(tx(1), ty(2)))
+  mkTxt('dy/dx = 1 \u00D7 y', {
+    x: tx(1) + 7, y: ty(2) + 2,
+    fill: '#aaa', 'font-size': '11', 'font-family': 'sans-serif',
+  }, svg);
+
+  // ── Red a^x curve (dynamic) ─────────────────────────────────────────
+  const redPath = mk('path', {
+    fill: 'none', stroke: '#d63030', 'stroke-width': '2',
+    'clip-path': 'url(#exp-plot-clip)',
+  }, svg);
+
+  // ── Red annotation group (dynamic) ─────────────────────────────────
+  const rAnn = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
+  const rdBase = mk('line', { stroke: '#d63030', 'stroke-width': '1', 'stroke-dasharray': '4,3', opacity: '0.55' }, rAnn);
+  const rdVert = mk('line', { stroke: '#d63030', 'stroke-width': '1', 'stroke-dasharray': '4,3', opacity: '0.55' }, rAnn);
+  const rdHyp  = mk('line', { stroke: '#d63030', 'stroke-width': '1.5' }, rAnn);
+  const rdRA   = mk('path', { stroke: '#d63030', fill: 'none', 'stroke-width': '1' }, rAnn);
+  const rdDot  = mk('circle', { r: '3.5', fill: '#d63030' }, rAnn);
+
+  // Red label (curve name) and k-label — outside clip so they're never cut off
+  const redCurveLabel = mk('text', { fill: '#d63030', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic' }, svg);
+  const rdKLabel      = mk('text', { fill: '#d63030', 'font-size': '11',   'font-family': 'sans-serif' }, svg);
+
+  // ── Update function (called on each slider change) ──────────────────
+  function update(a) {
+    const isE = Math.abs(a - E) < 0.001;
+    const k   = Math.log(a); // ln(a); = 1 when a = e
+
+    // Replot red curve
+    redPath.setAttribute('d', buildPath((x) => Math.pow(a, x)));
+
+    // Red curve label — position near where the curve is still in bounds
+    {
+      // For a ≤ 2, place label near x=2.3; for larger a, find where y≈5.5
+      const lx = a > 2
+        ? Math.min(2.2, Math.log(5.5) / Math.log(a))
+        : 2.2;
+      const ly = Math.pow(a, lx);
+      redCurveLabel.setAttribute('x', tx(lx) + 6);
+      redCurveLabel.setAttribute('y', ty(ly) - 7);
+      redCurveLabel.textContent = isE ? 'y = e\u207F \u2190 match!' : 'y = a\u207F';
+    }
+
+    // Red tangent triangle at x=0, Δx=1.0
+    // At x=0: y = a^0 = 1 always; slope = k · y = k · 1 = k
+    {
+      const ax = tx(0), ay = ty(1);
+      const bx = tx(1), by = ty(1);
+      const cyV = ty(1 + k); // top of vertical: y goes from 1 to 1+k
+      const RA  = 5;
+
+      rdBase.setAttribute('x1', ax); rdBase.setAttribute('y1', ay);
+      rdBase.setAttribute('x2', bx); rdBase.setAttribute('y2', by);
+
+      rdVert.setAttribute('x1', bx); rdVert.setAttribute('y1', by);
+      rdVert.setAttribute('x2', bx); rdVert.setAttribute('y2', cyV);
+
+      rdHyp.setAttribute('x1', ax); rdHyp.setAttribute('y1', ay);
+      rdHyp.setAttribute('x2', bx); rdHyp.setAttribute('y2', cyV);
+
+      // Right-angle marker at B — going up (cyV < by in SVG coords)
+      rdRA.setAttribute('d', `M${bx-RA},${by} L${bx-RA},${by-RA} L${bx},${by-RA}`);
+
+      rdDot.setAttribute('cx', ax);
+      rdDot.setAttribute('cy', ay);
+
+      // k label next to the red vertical side
+      // Clamp so it stays inside the SVG
+      const midY = (by + cyV) / 2;
+      const labelY = Math.max(PT + 13, Math.min(PT + PH - 6, midY + 4));
+      rdKLabel.setAttribute('x', bx + 7);
+      rdKLabel.setAttribute('y', labelY);
+      // Hide when a = e (grey label "dy/dx = 1 × y" already covers this case)
+      rdKLabel.textContent = isE ? '' : `k\u00A0=\u00A0${k.toFixed(3)}`;
+    }
+
+    // Control-panel readout
+    document.getElementById('exp-a-display').textContent = isE ? 'e \u2248 2.718' : a.toFixed(2);
+    document.getElementById('exp-k-display').textContent = isE ? '1' : k.toFixed(3);
+    const hint = document.getElementById('exp-snap-hint');
+    hint.textContent = isE ? '\u2190 a\u00A0=\u00A0e: slope equals value everywhere' : '';
+  }
+
+  // ── Slider with snap-to-e ────────────────────────────────────────────
+  const slider = document.getElementById('exp-a-slider');
+  slider.addEventListener('input', function () {
+    let a = parseFloat(this.value);
+    if (Math.abs(a - E) < SNAP) {
+      a = E;
+      this.value = String(E);
+    }
+    update(a);
+  });
+
+  // ── Initial render ───────────────────────────────────────────────────
+  update(parseFloat(slider.value));
+})();
+</script>
