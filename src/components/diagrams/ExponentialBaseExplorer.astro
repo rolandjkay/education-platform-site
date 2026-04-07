@@ -34,17 +34,17 @@ const { locale = 'en' } = Astro.props;
       </datalist>
     </div>
     <div class="exp-formula">
-      For&nbsp;y&nbsp;=&nbsp;a<sup>x</sup>:
-      &nbsp;&nbsp;dy/dx&nbsp;=&nbsp;<strong id="exp-k-display">0.693</strong>&nbsp;×&nbsp;y
+      At&nbsp;x&nbsp;=&nbsp;1:&nbsp;&nbsp;slope&nbsp;of&nbsp;red&nbsp;=&nbsp;<strong id="exp-k-display">1.39</strong>
       <span id="exp-snap-hint" class="exp-snap-hint"></span>
     </div>
   </div>
 
   <figcaption>
     Drag the slider to change the base <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>x</sup>.
-    The grey curve is y&nbsp;=&nbsp;e<sup>x</sup>. The tangent triangle at x&nbsp;=&nbsp;0 shows that the
-    slope equals k&nbsp;·&nbsp;y at that point, where k&nbsp;=&nbsp;ln(a). Only when a&nbsp;=&nbsp;e
-    does k&nbsp;=&nbsp;1 — making slope equal value at every point on the curve.
+    The grey curve is y&nbsp;=&nbsp;e<sup>x</sup>. Each tangent line is drawn at x&nbsp;=&nbsp;1, with its
+    slope labelled. For any exponential y&nbsp;=&nbsp;a<sup>x</sup>, the slope is proportional to the value:
+    dy/dx&nbsp;=&nbsp;ln(a)&nbsp;·&nbsp;y. Only when a&nbsp;=&nbsp;e does ln(a)&nbsp;=&nbsp;1,
+    making slope equal value everywhere — which is why the grey tangent is labelled slope&nbsp;=&nbsp;1.0.
   </figcaption>
 </figure>
 
@@ -199,33 +199,25 @@ const { locale = 'en' } = Astro.props;
     fill: '#bbb', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic',
   }, svg);
 
-  // ── Grey annotation: tangent triangle at x = 0 ─────────────────────
-  // Both curves pass through (0, 1). At x=0, slope of e^x = k·y = 1·1 = 1.
-  // Triangle A=(0,1), B=(1,1), C=(1,2).  Hypotenuse A→C = tangent direction.
+  // ── Grey tangent line at x = 1 (static) ────────────────────────────
+  // e^x at x=1: y = e, slope = e.  Tangent extends ±0.65 in x.
   {
-    const ax = tx(0), ay = ty(1);
-    const bx = tx(1), by = ty(1);
-    const cx = tx(1), cy = ty(2); // k=1, Δy=1·1·1=1
-    const RA = 5;
+    const DX   = 0.65;
+    const x0   = 1, y0 = Math.E, m = Math.E;
+    const x1s  = tx(x0 - DX), y1s = ty(y0 - m * DX);
+    const x2s  = tx(x0 + DX), y2s = ty(y0 + m * DX);
+    const dotX = tx(x0),      dotY = ty(y0);
 
     const g = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
-    // Horizontal base (dashed)
-    mk('line', { x1: ax, y1: ay, x2: bx, y2: by, stroke: '#ccc', 'stroke-width': '1', 'stroke-dasharray': '4,3' }, g);
-    // Vertical height (dashed)
-    mk('line', { x1: bx, y1: by, x2: cx, y2: cy, stroke: '#ccc', 'stroke-width': '1', 'stroke-dasharray': '4,3' }, g);
-    // Hypotenuse = tangent (solid)
-    mk('line', { x1: ax, y1: ay, x2: cx, y2: cy, stroke: '#bbb', 'stroke-width': '1.5' }, g);
-    // Right-angle marker at B (cy < by → going up in SVG)
-    mk('path', { d: `M${bx-RA},${by} L${bx-RA},${by-RA} L${bx},${by-RA}`, stroke: '#bbb', fill: 'none', 'stroke-width': '1' }, g);
-    // Dot at A
-    mk('circle', { cx: ax, cy: ay, r: '3.5', fill: '#bbb' }, g);
+    mk('line', { x1: x1s, y1: y1s, x2: x2s, y2: y2s,
+                 stroke: '#c8c8c8', 'stroke-width': '1.5' }, g);
+    mk('circle', { cx: dotX, cy: dotY, r: '4', fill: '#b0b0b0' }, g);
   }
-
-  // Grey annotation label — to the right of the triangle's vertical side
-  // Positioned near the top of the vertical (near C=(tx(1), ty(2)))
-  mkTxt('dy/dx = 1 \u00D7 y', {
-    x: tx(1) + 7, y: ty(2) + 2,
-    fill: '#aaa', 'font-size': '11', 'font-family': 'sans-serif',
+  // Grey slope label — upper-left of the dot so it doesn't clash with the red label
+  mkTxt('1.0 \u00D7 y', {
+    x: tx(1) - 14, y: ty(Math.E) - 12,
+    'text-anchor': 'end', fill: '#999',
+    'font-size': '11', 'font-family': 'sans-serif',
   }, svg);
 
   // ── Red a^x curve (dynamic) ─────────────────────────────────────────
@@ -234,17 +226,14 @@ const { locale = 'en' } = Astro.props;
     'clip-path': 'url(#exp-plot-clip)',
   }, svg);
 
-  // ── Red annotation group (dynamic) ─────────────────────────────────
-  const rAnn = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
-  const rdBase = mk('line', { stroke: '#d63030', 'stroke-width': '1', 'stroke-dasharray': '4,3', opacity: '0.55' }, rAnn);
-  const rdVert = mk('line', { stroke: '#d63030', 'stroke-width': '1', 'stroke-dasharray': '4,3', opacity: '0.55' }, rAnn);
-  const rdHyp  = mk('line', { stroke: '#d63030', 'stroke-width': '1.5' }, rAnn);
-  const rdRA   = mk('path', { stroke: '#d63030', fill: 'none', 'stroke-width': '1' }, rAnn);
-  const rdDot  = mk('circle', { r: '3.5', fill: '#d63030' }, rAnn);
+  // ── Red tangent line elements (dynamic) ─────────────────────────────
+  const rdTangentGroup = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
+  const rdTangent = mk('line', { stroke: '#d63030', 'stroke-width': '1.5' }, rdTangentGroup);
+  const rdDot     = mk('circle', { r: '4', fill: '#d63030' }, rdTangentGroup);
 
-  // Red label (curve name) and k-label — outside clip so they're never cut off
+  // Red label (curve name) and slope label — outside clip so never cut off
   const redCurveLabel = mk('text', { fill: '#d63030', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic' }, svg);
-  const rdKLabel      = mk('text', { fill: '#d63030', 'font-size': '11',   'font-family': 'sans-serif' }, svg);
+  const rdSlopeLabel  = mk('text', { fill: '#c02020', 'font-size': '11',   'font-family': 'sans-serif' }, svg);
 
   // ── Update function (called on each slider change) ──────────────────
   function update(a) {
@@ -266,44 +255,37 @@ const { locale = 'en' } = Astro.props;
       redCurveLabel.textContent = isE ? 'y = e\u207F \u2190 match!' : 'y = a\u207F';
     }
 
-    // Red tangent triangle at x=0, Δx=1.0
-    // At x=0: y = a^0 = 1 always; slope = k · y = k · 1 = k
+    // Red tangent line at x = 1
     {
-      const ax = tx(0), ay = ty(1);
-      const bx = tx(1), by = ty(1);
-      const cyV = ty(1 + k); // top of vertical: y goes from 1 to 1+k
-      const RA  = 5;
+      const DX    = 0.65;
+      const x0    = 1;
+      const y0    = Math.pow(a, x0);          // a^1 = a
+      const slope = k * y0;                    // ln(a) · a
 
-      rdBase.setAttribute('x1', ax); rdBase.setAttribute('y1', ay);
-      rdBase.setAttribute('x2', bx); rdBase.setAttribute('y2', by);
+      const x1s = tx(x0 - DX), y1s = ty(y0 - slope * DX);
+      const x2s = tx(x0 + DX), y2s = ty(y0 + slope * DX);
 
-      rdVert.setAttribute('x1', bx); rdVert.setAttribute('y1', by);
-      rdVert.setAttribute('x2', bx); rdVert.setAttribute('y2', cyV);
+      rdTangent.setAttribute('x1', x1s); rdTangent.setAttribute('y1', y1s);
+      rdTangent.setAttribute('x2', x2s); rdTangent.setAttribute('y2', y2s);
+      rdDot.setAttribute('cx', tx(x0));
+      rdDot.setAttribute('cy', ty(y0));
 
-      rdHyp.setAttribute('x1', ax); rdHyp.setAttribute('y1', ay);
-      rdHyp.setAttribute('x2', bx); rdHyp.setAttribute('y2', cyV);
-
-      // Right-angle marker at B — going up (cyV < by in SVG coords)
-      rdRA.setAttribute('d', `M${bx-RA},${by} L${bx-RA},${by-RA} L${bx},${by-RA}`);
-
-      rdDot.setAttribute('cx', ax);
-      rdDot.setAttribute('cy', ay);
-
-      // k label next to the red vertical side
-      // Clamp so it stays inside the SVG
-      const midY = (by + cyV) / 2;
-      const labelY = Math.max(PT + 13, Math.min(PT + PH - 6, midY + 4));
-      rdKLabel.setAttribute('x', bx + 7);
-      rdKLabel.setAttribute('y', labelY);
-      // Hide when a = e (grey label "dy/dx = 1 × y" already covers this case)
-      rdKLabel.textContent = isE ? '' : `k\u00A0=\u00A0${k.toFixed(3)}`;
+      // Slope label — always lower-right of dot (consistent position)
+      {
+        const labelX = tx(x0) + 14;
+        const labelY = Math.min(PT + PH - 6, ty(y0) + 16);
+        rdSlopeLabel.setAttribute('x', labelX);
+        rdSlopeLabel.setAttribute('y', labelY);
+        rdSlopeLabel.textContent = `${k.toFixed(2)}\u00A0\u00D7\u00A0y`;
+      }
     }
 
     // Control-panel readout
+    const slope1 = k * a; // dy/dx of a^x at x=1
     document.getElementById('exp-a-display').textContent = isE ? 'e \u2248 2.718' : a.toFixed(2);
-    document.getElementById('exp-k-display').textContent = isE ? '1' : k.toFixed(3);
+    document.getElementById('exp-k-display').textContent = isE ? 'e \u2248 2.718' : slope1.toFixed(2);
     const hint = document.getElementById('exp-snap-hint');
-    hint.textContent = isE ? '\u2190 a\u00A0=\u00A0e: slope equals value everywhere' : '';
+    hint.textContent = isE ? '\u2190 matches grey (slope\u00A0=\u00A0e\u00A0\u2248\u00A02.718)' : '';
   }
 
   // ── Slider with snap-to-e ────────────────────────────────────────────
