@@ -1,0 +1,207 @@
+---
+title: "Che cos'è davvero pi greco?"
+description: "Tutti sanno che pi greco vale 3,14 e qualcosa, ma cos'è veramente? Non è un'invenzione dei matematici — è una proprietà dell'universo stesso, e puoi stimarlo sul tavolo della tua cucina."
+pubDate: 2025-04-07
+subjects: [maths]
+tags: ["matematica", "geometria", "pi greco", "cerchi"]
+---
+
+import PiSquareDiagram from '../../../components/diagrams/PiSquareDiagram.astro';
+import PiCircleDiagram from '../../../components/diagrams/PiCircleDiagram.astro';
+import PiCircleInSquareDiagram from '../../../components/diagrams/PiCircleInSquareDiagram.astro';
+import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCircleDiagram.astro';
+import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
+import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
+
+La maggior parte delle persone ha sentito parlare del numero $\pi$ (pronunciato «pi greco»). Se hai studiato matematica a scuola probabilmente ricordi... 3,142, giusto? Probabilmente hai memorizzato questo numero per poter risolvere problemi utilissimi come:
+
+> *Calcola il perimetro di un campo circolare di raggio 10 m.*
+
+$$\text{circonferenza} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}$$
+
+Scommetto che ti è tornato molto utile nella vita dopo la scuola, vero?
+
+Ma, cos'*è* $\pi$? Solo un numero inventato dai matematici, giusto?
+
+In realtà, la verità è molto più interessante. Nessuno ha «inventato» questo numero. È una proprietà dell'universo stesso e, incredibilmente, è una proprietà che potresti, almeno in linea di principio, calcolare — o almeno stimare — sul tavolo della tua cucina con nient'altro che carta e penna, un compasso e un righello.
+
+Per di più, non *deve* essere uguale a 3,142... Questo è il suo valore nel nostro universo, ma potrebbe essere diverso. Se un giorno ti capitasse di passare attraverso un teletrasporto multidimensionale, siediti a un tavolo da cucina e stima il valore di $\pi$. Se non è 3,142... saprai di esserti avventurato in un universo alternativo.
+
+Ma prima — cos'è esattamente $\pi$?
+
+## Cominciamo da un quadrato
+
+Immagina di voler calcolare l'area di un quadrato, dove la distanza dal centro al lato più vicino è $r$. È lo stesso che dire che la lunghezza di un lato è $2r$.
+
+<PiSquareDiagram />
+
+Sappiamo che l'area di un quadrato è la lunghezza di un lato moltiplicata per la lunghezza dell'altro, quindi l'area è:
+
+$$A_{\text{quadrato}} = 2r \times 2r = 4r^2$$
+
+> **Nota rapida:** $r^2$ significa semplicemente $r \times r$. Quindi se $r = 3$, allora $r^2 = 3 \times 3 = 9$.
+
+## $\pi$ riguarda i cerchi
+
+Tutto chiaro finora? Ora, cosa succede se vogliamo calcolare l'area di un'altra forma semplice — un cerchio? Nello specifico, un cerchio di raggio $r$:
+
+<PiCircleDiagram />
+
+Potremmo immaginare che l'area del cerchio sia anch'essa data da *qualche numero* moltiplicato per $r^2$. Ma qual è quel numero?
+
+Nel caso non lo avessi intuito, chiameremo questo numero misterioso $\pi$ e vedremo se riusciamo a scoprire cosa sia.
+
+## Stimare il valore di $\pi$
+
+A scuola avrai imparato la formula:
+
+$$A_{\text{cerchio}} = \pi \times r^2$$
+
+e avrai memorizzato il valore di $\pi$. Ma qualcuno te l'ha semplicemente *detto*. Cosa faresti se volessi ricavarlo da solo?
+
+### Passo 1: Il cerchio dentro il quadrato
+
+Disegniamo il nostro cerchio di raggio $r$ e il quadrato di lato $2r$ insieme, con il cerchio che si adatta perfettamente all'interno del quadrato:
+
+<PiCircleInSquareDiagram />
+
+Il cerchio occupa meno spazio del quadrato. Il quadrato ha area $4r^2$ e il cerchio ci sta dentro, quindi l'area del cerchio deve essere *minore* di $4r^2$. Questo significa:
+
+$$\pi < 4$$
+
+Quindi sappiamo che $\pi$ deve essere minore di 4; abbiamo stabilito un «limite superiore» per il valore di $\pi$. Riusciamo a trovare anche un limite inferiore?
+
+### Passo 2: Un quadrato dentro il cerchio
+
+Ora disegniamo un altro quadrato — questa volta *dentro* il cerchio, con i suoi angoli che toccano il cerchio:
+
+<PiSquareInCircleDiagram />
+
+Qual è la lunghezza del lato di questo quadrato interno? Si dimostra (usando il teorema di Pitagora) che la lunghezza del lato è $r\sqrt{2}$, il che dà un'area di $2r^2$.
+
+<details>
+<summary>Mostra il calcolo con Pitagora</summary>
+
+Ogni angolo del quadrato interno si trova sul cerchio, a distanza $r$ dal centro. Il quadrato interno è ruotato di 45° rispetto al quadrato esterno, quindi se guardiamo un quarto di esso, abbiamo un triangolo rettangolo con due lati uguali e un'ipotenusa $r$.
+
+Per il teorema di Pitagora ($a^2 + b^2 = c^2$), se i due lati corti sono entrambi $s$, allora:
+
+$$s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}$$
+
+La lunghezza intera del lato del quadrato interno è $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, quindi la sua area è:
+
+$$A_{\text{quadrato interno}} = \left(r\sqrt{2}\right)^2 = 2r^2$$
+
+</details>
+
+Il cerchio contiene completamente questo quadrato interno, quindi l'area del cerchio deve essere *maggiore* di $2r^2$:
+
+$$2 < \pi$$
+
+Mettendo insieme i due limiti:
+
+$$2 < \pi < 4$$
+
+Stiamo restringendo il campo! Ma l'intervallo è ancora piuttosto ampio. Possiamo fare di meglio?
+
+### Passo 3: Più lati = stime migliori
+
+Ecco l'intuizione chiave: abbiamo usato quadrati (figure a 4 lati) e ottenuto una stima approssimativa. E se usassimo figure con *più* lati?
+
+Invece di un quadrato interno ed esterno, potremmo usare un **esagono** interno ed esterno (6 lati). L'esagono interno si inserisce nel cerchio con i suoi angoli sul cerchio, e l'esagono esterno si trova fuori dal cerchio con il cerchio che tocca il punto medio di ogni lato — proprio come abbiamo fatto con i quadrati.
+
+Un esagono riempie più spazio del cerchio rispetto a un quadrato, quindi il divario tra i nostri limiti interno ed esterno si riduce.
+
+<PiHexagonDiagram />
+
+Se calcoliamo le aree (usando un po' più di trigonometria), otteniamo:
+
+$$3{,}000 < \pi < 3{,}464$$
+
+Meglio! Proviamo ora con un **ottagono** (8 lati):
+
+$$2{,}828 < \pi < 3{,}314$$
+
+Un **dodecagono** (12 lati):
+
+$$3{,}000 < \pi < 3{,}215$$
+
+Vedi lo schema? Man mano che aumentiamo il numero di lati, il poligono interno diventa sempre più grande (avvicinandosi al cerchio dall'interno) e il poligono esterno diventa sempre più piccolo (avvicinandosi dall'esterno). I due limiti si stringono attorno a $\pi$ in un intervallo sempre più stretto.
+
+| Lati del poligono | Limite inferiore | Limite superiore | Differenza |
+|---|---|---|---|
+| 4 (quadrato) | 2,000 | 4,000 | 2,000 |
+| 6 (esagono) | 3,000 | 3,464 | 0,464 |
+| 8 (ottagono) | 2,828 | 3,314 | 0,486 |
+| 12 | 3,000 | 3,215 | 0,215 |
+| 24 | 3,106 | 3,160 | 0,054 |
+| 48 | 3,133 | 3,146 | 0,013 |
+| 96 | 3,139 | 3,143 | 0,003 |
+
+Quando arriviamo a 96 lati, abbiamo circoscritto $\pi$ tra 3,139 e 3,143. E se potessimo andare all'infinito — un poligono con infiniti lati *è* un cerchio — arriveremmo esattamente a $\pi = 3{,}14159265...$
+
+È essenzialmente quello che fece Archimede attorno al 250 a.C. Usò poligoni a 96 lati e ricavò che:
+
+$$3\frac{10}{71} < \pi < 3\frac{1}{7}$$
+
+ovvero $3{,}1408... < \pi < 3{,}1429...$
+
+Niente male per qualcuno che lavorava con nient'altro che geometria e pazienza, oltre duemila anni prima che esistessero le calcolatrici.
+
+## $\pi$ è ovunque
+
+Una volta che sai cos'è $\pi$, cominci a notarlo dappertutto. Non riguarda solo le aree dei cerchi.
+
+La **circonferenza** di un cerchio (da cui siamo partiti in questo articolo) è:
+
+$$C = 2\pi r$$
+
+Il **volume di una sfera** di raggio $r$ è:
+
+$$V = \frac{4}{3}\pi r^3$$
+
+La **distribuzione normale** — la curva a campana al cuore della statistica — ha $\pi$ incorporato nella sua formula:
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+
+$\pi$ compare nell'oscillazione di un pendolo, nella vibrazione di una corda di chitarra, nelle orbite dei pianeti e nelle equazioni della meccanica quantistica. Ovunque ci sia qualcosa di circolare, periodico o ondulatorio, $\pi$ è in agguato nei dintorni.
+
+## $\pi$ non finisce mai
+
+Come $e$, $\pi$ è **irrazionale** — la sua espansione decimale continua all'infinito senza ripetersi:
+
+$$\pi = 3.14159265358979323846...$$
+
+Non puoi mai scriverlo come una semplice frazione. Le cifre continuano senza sosta. Al 2024, $\pi$ è stato calcolato fino a oltre 100 mila miliardi di cifre decimali — non perché qualcuno ne abbia bisogno di così tante (ne bastano circa 40 per calcolare la circonferenza dell'universo osservabile con una precisione pari alla larghezza di un atomo di idrogeno), ma perché è un buon banco di prova per la potenza di calcolo. E, a essere onesti, perché i matematici sono un po' ossessivi.
+
+## $\pi$ potrebbe essere diverso?
+
+Ricordi all'inizio, quando abbiamo detto che $\pi$ potrebbe essere diverso in un altro universo? Ecco cosa intendavamo.
+
+Tutto quello che abbiamo fatto in questo articolo assume che stiamo lavorando su una superficie *piatta*. Ma cosa succederebbe se lo spazio non fosse piatto?
+
+Immagina di disegnare un cerchio sulla superficie di una sfera — per esempio, la Terra. Metti il perno del compasso sul Polo Nord e disegna un cerchio intorno a esso. La superficie della Terra racchiusa da questo cerchio è maggiore del disco che otterremmo tagliando la Terra con un piano passante per quel cerchio.
+
+Lo puoi vedere nell'animazione qui sotto. La superficie indaco mostra l'area di un cerchio disegnato sulla superficie di una sfera. Il disco rosso mostra l'area di un cerchio piatto con la stessa circonferenza. L'area della superficie indaco è maggiore dell'area del disco rosso, e quindi $\pi$ risulta maggiore di 3,142.
+
+<SphericalCapExplorer />
+
+Il valore 3,14159... è specifico dello spazio *piatto*. Negli spazi curvi cambia. E non si tratta di pura matematica astratta — la teoria della relatività generale di Einstein ci dice che gli oggetti massicci curvano davvero lo spazio attorno a loro. Vicino a un buco nero, se potessi in qualche modo misurare i cerchi in quello spazio distorto, misureresti un valore diverso di $\pi$.
+
+Quindi, se un giorno passassi davvero per quel teletrasporto — sai già cosa fare.
+
+## A te la parola
+
+$\pi$ sembra semplice all'inizio — solo 3,142, giusto? Ma è in realtà una costante fondamentale dello spazio piatto che collega la geometria alla probabilità, i cerchi alle onde, e misure semplici alle strutture più profonde dell'universo. E, come ci ha mostrato Archimede oltre duemila anni fa, puoi andarlo a cercare da solo con nient'altro di più sofisticato che un righello, un compasso e tanta pazienza.
+
+## Approfondimenti
+
+Se vuoi andare più a fondo, ecco alcune risorse eccellenti:
+
+- [**Perché pi greco è nella distribuzione normale?**](https://www.3blue1brown.com/lessons/gaussian-integral) — La spiegazione splendidamente animata di 3Blue1Brown su perché $\pi$ compare nella formula della curva a campana.
+- [**Pi greco nascosto nelle regolarità dei numeri primi**](https://www.3blue1brown.com/lessons/leibniz-formula) — Un altro gioiello di 3Blue1Brown: come la serie $1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots$ converge a $\frac{\pi}{4}$, collegando $\pi$ ai numeri primi.
+- [**Il metodo di Archimede — interattivo**](https://www.geogebra.org/m/xqXNW5TE) — Un'applicazione GeoGebra con cui puoi seguire passo dopo passo il metodo dei poligoni e guardare i limiti stringersi attorno a $\pi$.
+- [**Pi greco attraverso i secoli**](https://mathshistory.st-andrews.ac.uk/HistTopics/Pi_through_the_ages/) — La storia di $\pi$ secondo l'Università di St Andrews, dall'antico Egitto fino al calcolo moderno.
+- [**La scoperta che trasformò pi greco**](https://www.youtube.com/watch?v=gMlf1ELvRzc) — Veritasium su come la serie infinita di Newton sostituì il metodo dei poligoni di Archimede e rivoluzionò il calcolo di $\pi$.
+- [**Geometria non euclidea e spazi curvi**](https://sites.pitt.edu/~jdnorton/teaching/HPS_0410/chapters/non_Euclid_curved/index.html) — Un capitolo chiaro e accessibile del corso «Einstein for Everyone» dell'Università di Pittsburgh, che spiega come funziona la geometria sulle superfici curve.
+- [**Pi greco è una costante nella relatività?**](https://math.ucr.edu/home/baez/physics/Relativity/GR/pi.html) — Una sintetica FAQ di fisica che spiega che $\pi$ in sé non cambia, ma i cerchi fisici nello spaziotempo curvo hanno rapporti diversi tra circonferenza e diametro.

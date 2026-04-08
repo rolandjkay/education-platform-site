@@ -1,0 +1,206 @@
+---
+title: "¿Qué es realmente el número pi?"
+description: "Todo el mundo sabe que pi es 3,14 y algo, pero ¿qué es en realidad? Resulta que pi no es algo que los matemáticos inventaron: es una propiedad del universo mismo, y puedes estimarlo en la mesa de tu cocina."
+pubDate: 2025-04-07
+subjects: [maths]
+tags: ["matemáticas", "geometría", "pi", "círculos"]
+---
+
+import PiSquareDiagram from '../../../components/diagrams/PiSquareDiagram.astro';
+import PiCircleDiagram from '../../../components/diagrams/PiCircleDiagram.astro';
+import PiCircleInSquareDiagram from '../../../components/diagrams/PiCircleInSquareDiagram.astro';
+import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCircleDiagram.astro';
+import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
+import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
+
+La mayoría de las personas han oído hablar del número $\pi$ (que se pronuncia «pi»). Si estudiaste matemáticas en el colegio, seguramente lo recuerdas... 3,142, ¿verdad? Muy probablemente memorizaste ese número para poder resolver problemas tan útiles como:
+
+> *Calcula el perímetro de un campo circular de radio 10 m.*
+
+$$\text{circunferencia} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}$$
+
+Apuesto a que eso te ha servido de mucho en tu vida después del colegio, ¿verdad?
+
+Pero, ¿qué *es* $\pi$? ¿Solo un número que los matemáticos se inventaron?
+
+En realidad, la verdad es mucho más interesante. Nadie «inventó» ni se sacó de la manga este número. Es una propiedad del universo mismo y, sorprendentemente, es una que tú podrías, en principio, calcular —o al menos estimar— en la mesa de tu cocina con nada más sofisticado que papel y lápiz, un compás y una regla.
+
+Es más, no *tiene* que ser igual a 3,142... Ese es su valor en nuestro universo, pero podría ser diferente. Si algún día te adentras por un teletransportador multidimensional, siéntate a la mesa de una cocina y estima el valor de $\pi$. Si no es 3,142... sabrás que te has extraviado en un universo alternativo.
+
+Pero primero: ¿qué es exactamente $\pi$?
+
+## Empecemos con un cuadrado
+
+Imagina que queremos calcular el área de un cuadrado en el que la distancia desde el centro hasta el lado más cercano es $r$. Eso equivale a decir que la longitud de un lado es $2r$.
+
+<PiSquareDiagram />
+
+Sabemos que el área de un cuadrado es la longitud de un lado multiplicada por la longitud del otro, de modo que el área es:
+
+$$A_{\text{cuadrado}} = 2r \times 2r = 4r^2$$
+
+> **Nota rápida:** $r^2$ significa simplemente $r \times r$. Así que si $r = 3$, entonces $r^2 = 3 \times 3 = 9$.
+
+## $\pi$ tiene que ver con los círculos
+
+¿Todo claro hasta aquí? Ahora bien, ¿y si queremos calcular el área de otra figura sencilla: un círculo? Concretamente, un círculo de radio $r$:
+
+<PiCircleDiagram />
+
+Podríamos imaginar que el área del círculo también viene dada por *algún número* multiplicado por $r^2$. Pero ¿cuál es ese número?
+
+Por si no lo has adivinado, vamos a llamar a ese número misterioso $\pi$ y a ver si podemos averiguar cuánto vale.
+
+## Estimación del valor de $\pi$
+
+En el colegio habrás aprendido la fórmula:
+
+$$A_{\text{círculo}} = \pi \times r^2$$
+
+y habrás memorizado el valor de $\pi$. Pero alguien simplemente te *dijo* ese valor. ¿Qué harías si quisieras calcularlo tú mismo?
+
+### Paso 1: El círculo dentro del cuadrado
+
+Dibujemos nuestro círculo de radio $r$ y el cuadrado de lado $2r$ juntos, con el círculo encajado perfectamente dentro del cuadrado:
+
+<PiCircleInSquareDiagram />
+
+El círculo ocupa menos espacio que el cuadrado. El cuadrado tiene área $4r^2$, y el círculo cabe dentro de él, así que el área del círculo debe ser *menor* que $4r^2$. Eso significa:
+
+$$\pi < 4$$
+
+Entonces sabemos que $\pi$ tiene que ser menor que 4; hemos establecido una «cota superior» para el valor de $\pi$. ¿Podemos encontrar una cota inferior?
+
+### Paso 2: Un cuadrado dentro del círculo
+
+Ahora dibujemos otro cuadrado —esta vez *dentro* del círculo, con sus esquinas tocando el círculo:
+
+<PiSquareInCircleDiagram />
+
+¿Cuál es la longitud del lado de este cuadrado interior? Resulta (usando el teorema de Pitágoras) que la longitud del lado es $r\sqrt{2}$, lo que da un área de $2r^2$.
+
+<details>
+<summary>Mostrar el cálculo con Pitágoras</summary>
+
+Cada esquina del cuadrado interior descansa sobre el círculo, a una distancia $r$ del centro. El cuadrado interior está girado 45° respecto al cuadrado exterior, así que si observamos un cuarto de él, tenemos un triángulo rectángulo con dos lados iguales y una hipotenusa de $r$.
+
+Por el teorema de Pitágoras ($a^2 + b^2 = c^2$), si los dos lados cortos son ambos $s$, entonces:
+
+$$s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}$$
+
+La longitud completa del lado del cuadrado interior es $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, por lo que su área es:
+
+$$A_{\text{cuadrado interior}} = \left(r\sqrt{2}\right)^2 = 2r^2$$
+
+</details>
+
+El círculo contiene completamente este cuadrado interior, por lo que el área del círculo debe ser *mayor* que $2r^2$:
+
+$$2 < \pi$$
+
+Combinando las dos cotas:
+
+$$2 < \pi < 4$$
+
+¡Vamos acotando! Pero el intervalo sigue siendo bastante amplio. ¿Podemos hacerlo mejor?
+
+### Paso 3: Más lados = mejores estimaciones
+
+Aquí está la idea clave: usamos cuadrados (figuras de 4 lados) y obtuvimos una estimación tosca. ¿Y si usáramos figuras con *más* lados?
+
+En lugar de un cuadrado interior y otro exterior, podríamos usar un **hexágono** interior y otro exterior (6 lados). El hexágono interior encaja dentro del círculo con sus vértices sobre él, y el hexágono exterior rodea al círculo con este tocando el punto medio de cada lado —igual que hicimos con nuestros cuadrados.
+
+Un hexágono rellena más del círculo que un cuadrado, de modo que la brecha entre las cotas superior e inferior se reduce.
+
+<PiHexagonDiagram />
+
+Si calculamos las áreas (usando un poco más de trigonometría), obtenemos:
+
+$$3{,}000 < \pi < 3{,}464$$
+
+¡Mejor! Ahora probemos con un **octógono** (8 lados):
+
+$$2{,}828 < \pi < 3{,}314$$
+
+Un **dodecágono** (12 lados):
+
+$$3{,}000 < \pi < 3{,}215$$
+
+¿Ves el patrón? A medida que aumentamos el número de lados, el polígono interior se hace cada vez más grande (acercándose al círculo por dentro) y el polígono exterior se hace cada vez más pequeño (acercándose por fuera). Las dos cotas se aprietan entre sí, atrapando a $\pi$ en un intervalo cada vez más estrecho.
+
+| Lados del polígono | Cota inferior | Cota superior | Diferencia |
+|---|---|---|---|
+| 4 (cuadrado) | 2,000 | 4,000 | 2,000 |
+| 6 (hexágono) | 3,000 | 3,464 | 0,464 |
+| 8 (octógono) | 2,828 | 3,314 | 0,486 |
+| 12 | 3,000 | 3,215 | 0,215 |
+| 24 | 3,106 | 3,160 | 0,054 |
+| 48 | 3,133 | 3,146 | 0,013 |
+| 96 | 3,139 | 3,143 | 0,003 |
+
+Cuando llegamos a los 96 lados, hemos acotado $\pi$ entre 3,139 y 3,143. Y si pudiéramos llegar al infinito —un polígono con infinitos lados *es* un círculo— obtendríamos exactamente $\pi = 3{,}14159265...$
+
+Esto es esencialmente lo que hizo Arquímedes hacia el año 250 a. C. Usó polígonos de 96 lados y determinó que:
+
+$$3\frac{10}{71} < \pi < 3\frac{1}{7}$$
+
+es decir, $3{,}1408... < \pi < 3{,}1429...$
+
+Nada mal para alguien que trabajaba solo con geometría y paciencia, más de dos mil años antes de que existieran las calculadoras.
+
+## $\pi$ está en todas partes
+
+Una vez que sabes qué es $\pi$, empiezas a verlo en todas partes. No se trata solo del área de los círculos.
+
+La **circunferencia** de un círculo (por donde empezamos este artículo) es:
+
+$$C = 2\pi r$$
+
+El **volumen de una esfera** de radio $r$ es:
+
+$$V = \frac{4}{3}\pi r^3$$
+
+La **distribución normal** —la curva en campana que está en el corazón de la estadística— lleva $\pi$ integrado en su fórmula:
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+
+$\pi$ aparece en el balanceo de un péndulo, en la vibración de una cuerda de guitarra, en las órbitas de los planetas y en las ecuaciones de la mecánica cuántica. En cualquier lugar donde haya algo circular, periódico u ondulatorio, $\pi$ está acechando cerca.
+
+## $\pi$ no termina nunca
+
+Al igual que $e$, $\pi$ es **irracional** —su expansión decimal se extiende indefinidamente sin repetirse:
+
+$$\pi = 3.14159265358979323846...$$
+
+Nunca podrás escribirlo como una fracción sencilla. Los dígitos no dejan de aparecer. A fecha de 2024, $\pi$ ha sido calculado con más de 100 billones de cifras decimales —no porque nadie las necesite (con unos 40 dígitos basta para calcular la circunferencia del universo observable con una precisión menor que el diámetro de un átomo de hidrógeno), sino porque es un buen banco de pruebas para la potencia de cálculo. Y, seamos honestos, porque los matemáticos son un poco obsesivos.
+
+## ¿Podría $\pi$ ser diferente?
+
+¿Recuerdas que al principio dijimos que $\pi$ podría ser diferente en otro universo? Aquí está lo que quisimos decir.
+
+Todo lo que hemos hecho en este artículo supone que trabajamos sobre una superficie *plana*. Pero ¿y si el espacio no es plano?
+
+Imagina que dibujas un círculo sobre la superficie de una esfera —por ejemplo, la Tierra. Coloca la punta del compás en el Polo Norte y traza un círculo a su alrededor. La superficie de la Tierra encerrada dentro de ese círculo es mayor que el disco que obtendríamos si cortáramos la Tierra con un cuchillo pasando por ese círculo.
+
+Puedes verlo en la animación de abajo. La superficie índigo muestra el área de un círculo trazado sobre la superficie de una esfera. El disco rojo muestra el área de un círculo plano con la misma circunferencia. El área de la superficie índigo es mayor que el área del disco rojo, y por eso $\pi$ resulta ser mayor que 3,142.
+<SphericalCapExplorer />
+
+El valor 3,14159... es específico del espacio **plano**. En espacios curvos, cambia. Y esto no es solo matemática abstracta —la teoría general de la relatividad de Einstein nos dice que los objetos masivos curvan realmente el espacio a su alrededor. Cerca de un agujero negro, si pudieras medir de algún modo círculos en ese espacio deformado, medirías un valor diferente de $\pi$.
+
+Así que, si alguna vez cruzas ese teletransportador... ya sabes qué hacer.
+
+## Ahora te toca a ti
+
+$\pi$ parece sencillo al principio —simplemente 3,142, ¿verdad? Pero en realidad es una constante fundamental del espacio plano que conecta la geometría con la probabilidad, los círculos con las ondas, y las mediciones simples con las estructuras más profundas del universo. Y, como nos demostró Arquímedes hace más de dos mil años, puedes buscarlo tú mismo con nada más sofisticado que una regla, un compás y mucha paciencia.
+
+## Lectura adicional
+
+Si quieres profundizar más, aquí tienes algunos recursos excelentes:
+
+- [**¿Por qué aparece pi en la distribución normal?**](https://www.3blue1brown.com/lessons/gaussian-integral) — La explicación bellamente animada de 3Blue1Brown sobre por qué $\pi$ aparece en la fórmula de la curva en campana.
+- [**Pi escondido en las regularidades de los números primos**](https://www.3blue1brown.com/lessons/leibniz-formula) — Otra joya de 3Blue1Brown: cómo la serie $1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots$ converge a $\frac{\pi}{4}$, conectando $\pi$ con los números primos.
+- [**El método de Arquímedes — interactivo**](https://www.geogebra.org/m/xqXNW5TE) — Un applet de GeoGebra donde puedes recorrer paso a paso el método de los polígonos y ver cómo las cotas se aprietan alrededor de $\pi$.
+- [**Pi a través de los siglos**](https://mathshistory.st-andrews.ac.uk/HistTopics/Pi_through_the_ages/) — La historia de $\pi$ desde el antiguo Egipto hasta la computación moderna, escrita por la Universidad de St Andrews.
+- [**El descubrimiento que transformó pi**](https://www.youtube.com/watch?v=gMlf1ELvRzc) — Veritasium explica cómo la serie infinita de Newton sustituyó al método de los polígonos de Arquímedes y revolucionó el cálculo de $\pi$.
+- [**Geometría no euclidiana y espacios curvos**](https://sites.pitt.edu/~jdnorton/teaching/HPS_0410/chapters/non_Euclid_curved/index.html) — Un capítulo claro y accesible del curso «Einstein para todos» de la Universidad de Pittsburgh, que explica cómo funciona la geometría en superficies curvas.
+- [**¿Es pi una constante en la relatividad?**](https://math.ucr.edu/home/baez/physics/Relativity/GR/pi.html) — Una concisa respuesta de la FAQ de física que explica que $\pi$ en sí mismo no cambia, pero que los círculos físicos en el espacio-tiempo curvo tienen distintas razones entre circunferencia y diámetro.

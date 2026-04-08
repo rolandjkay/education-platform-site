@@ -216,6 +216,42 @@ tr:last-child td {
   margin-top: 0.5rem;
 }
 
+/* ===== Accordion (details/summary) ===== */
+details {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+  background: var(--color-bg-alt);
+}
+
+details summary {
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  list-style: none;
+}
+
+details summary::before {
+  content: '▸ ';
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] > :nth-child(2) {
+  margin-top: 0.75rem;
+}
+
 /* ===== Card Grid ===== */
 .card-grid {
   display: grid;

@@ -1,0 +1,110 @@
+---
+// Static SVG: Circle sandwiched between an inscribed (inner) and circumscribed (outer)
+// regular hexagon.  Shows the tighter bound 3.000 < π < 3.464.
+import katex from 'katex';
+const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
+
+// ── geometry ───────────────────────────────────────────────────────────
+const CX = 250, CY = 200, R = 120;
+const R_OUTER = R / Math.cos(Math.PI / 6);          // ≈ 138.56
+
+// Inner hexagon — vertex-up (first vertex at top)
+const innerPts = Array.from({ length: 6 }, (_, i) => {
+  const a = -Math.PI / 2 + i * Math.PI / 3;
+  return `${Math.round(CX + R * Math.cos(a))},${Math.round(CY + R * Math.sin(a))}`;
+}).join(' ');
+
+// Outer hexagon — rotated 30° so flat sides face the circle
+const outerPts = Array.from({ length: 6 }, (_, i) => {
+  const a = -Math.PI / 3 + i * Math.PI / 3;
+  return `${Math.round(CX + R_OUTER * Math.cos(a))},${Math.round(CY + R_OUTER * Math.sin(a))}`;
+}).join(' ');
+---
+
+<figure class="diagram pi-hex">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 500 430"
+       aria-label="Circle with inscribed and circumscribed hexagons, showing the bound 3 < pi < 3.464" role="img">
+
+    <!-- Outer hexagon -->
+    <polygon points={outerPts} fill="none" stroke="#555" stroke-width="2"/>
+
+    <!-- Circle -->
+    <circle cx={CX} cy={CY} r={R} fill="none" stroke="#6366f1" stroke-width="2"/>
+
+    <!-- Inner hexagon -->
+    <polygon points={innerPts} fill="#6366f1" opacity="0.08" stroke="#d63030" stroke-width="2"/>
+
+    <!-- Centre dot -->
+    <circle cx={CX} cy={CY} r="3" fill="#555"/>
+
+    <!-- Radius line -->
+    <line x1={CX} y1={CY} x2={CX + R} y2={CY} stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
+    <foreignObject x={CX + R / 2 - 20} y={CY - 25} width="40" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#6366f1;display:block;text-align:center" set:html={k('r')} />
+    </foreignObject>
+
+    <!-- Corner dots where inner hexagon meets circle -->
+    {Array.from({ length: 6 }, (_, i) => {
+      const a = -Math.PI / 2 + i * Math.PI / 3;
+      return <circle cx={Math.round(CX + R * Math.cos(a))} cy={Math.round(CY + R * Math.sin(a))} r="4" fill="#d63030"/>;
+    })}
+
+    <!-- Labels -->
+    <foreignObject x="120" y="32" width="260" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#555">
+        Outer hexagon: area ≈ <span set:html={k('3.464\\,r^2')} />
+      </span>
+    </foreignObject>
+    <foreignObject x="100" y="382" width="300" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#d63030;display:block;text-align:center">
+        Inner hexagon: area ≈ <span set:html={k('2.598\\,r^2')} />
+      </span>
+    </foreignObject>
+
+    <!-- Summary bound -->
+    <foreignObject x="130" y="402" width="240" height="35">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333;display:block;text-align:center" set:html={k('3.000 < \\pi < 3.464')} />
+    </foreignObject>
+
+  </svg>
+  <figcaption>The same idea with hexagons. The inner hexagon (red) has area ≈ 2.598r² and the outer hexagon (grey) has area ≈ 3.464r². The bounds are already much tighter.</figcaption>
+</figure>
+
+<style>
+  .pi-hex {
+    margin: 2rem 0;
+  }
+
+  .pi-hex svg {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+
+  .pi-hex figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .svg-katex {
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .svg-katex-sm {
+    font-size: 12px;
+  }
+
+  .svg-katex :global(.katex) {
+    font-size: 1em;
+  }
+</style>

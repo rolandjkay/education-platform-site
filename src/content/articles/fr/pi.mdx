@@ -1,0 +1,239 @@
+---
+title: "Mais qu'est-ce que le pi, au juste ?"
+description: "Tout le monde sait que pi vaut 3,14-et-quelques, mais de quoi s'agit-il vraiment ? Il se trouve que pi n'est pas quelque chose que les mathématiciens ont inventé — c'est une propriété de l'univers lui-même, et vous pouvez l'estimer à votre table de cuisine."
+pubDate: 2025-04-07
+subjects: [maths]
+tags: ["maths", "géométrie", "pi", "cercles"]
+---
+
+import PiSquareDiagram from '../../../components/diagrams/PiSquareDiagram.astro';
+import PiCircleDiagram from '../../../components/diagrams/PiCircleDiagram.astro';
+import PiCircleInSquareDiagram from '../../../components/diagrams/PiCircleInSquareDiagram.astro';
+import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCircleDiagram.astro';
+import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
+import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
+
+La plupart des gens ont entendu parler du nombre $\pi$ (prononcé « pi »). Si vous avez fait des maths à l'école, vous vous souvenez probablement… 3,142, c'est ça ?
+Vous avez sans doute mémorisé ce nombre pour pouvoir résoudre des problèmes aussi utiles que :
+
+> *Calculer le périmètre d'un champ circulaire de rayon 10 m.*
+
+$$
+\text{circonférence} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}
+$$
+
+Ça vous a bien servi dans votre vie après l'école, j'imagine ?
+
+Mais, qu'est-ce que *c'est*, $\pi$ ? Juste un nombre inventé par les mathématiciens, c'est tout ?
+
+En réalité, la vérité est bien plus intéressante. Personne n'a « inventé » ni fabriqué ce nombre. C'est une propriété de l'univers lui-même et, chose remarquable, c'est une propriété que vous pourriez, en principe, calculer — ou du moins estimer — à votre table de cuisine avec rien de plus sophistiqué qu'un stylo et du papier, un compas et une règle.
+
+Qui plus est, il n'est pas *obligé* d'être égal à 3,142… C'est sa valeur dans notre univers, mais il pourrait être différent. Si, un jour, il vous arrive de vous aventurer à travers un téléporteur multidimensionnel, asseyez-vous à une table de cuisine et estimez la valeur de $\pi$. Si elle n'est pas 3,142…, vous saurez que vous vous êtes égaré dans un univers alternatif.
+
+Mais d'abord — qu'est-ce que $\pi$, exactement ?
+
+## Commençons par un carré
+
+Imaginons que nous voulions calculer l'aire d'un carré, où la distance du centre au bord le plus proche est $r$. C'est la même chose que de dire que la longueur d'un côté est $2r$.
+
+<PiSquareDiagram />
+
+Nous savons que l'aire d'un carré est la longueur d'un côté multipliée par la longueur de l'autre, donc l'aire est :
+
+$$
+A_{\text{carré}} = 2r \times 2r = 4r^2
+$$
+
+> **Remarque rapide :** $r^2$ signifie simplement $r \times r$. Donc si $r = 3$, alors $r^2 = 3 \times 3 = 9$.
+
+## $\pi$ et les cercles
+
+Bien suivi jusqu'ici ? Maintenant, que se passe-t-il si nous voulons calculer l'aire d'une autre forme simple — un cercle ? Plus précisément, un cercle de rayon $r$ :
+
+<PiCircleDiagram />
+
+On pourrait imaginer que l'aire du cercle est également donnée par *un certain nombre* multiplié par $r^2$. Mais quel est ce nombre ?
+
+Si vous ne l'avez pas encore deviné, nous allons appeler ce mystérieux nombre $\pi$ et voir si nous pouvons déterminer sa valeur.
+
+## Estimer la valeur de $\pi$
+
+À l'école, vous avez appris la formule :
+
+$$
+A_{\text{cercle}} = \pi \times r^2
+$$
+
+et vous avez mémorisé la valeur de $\pi$. Mais quelqu'un vous a simplement *dit* cette valeur. Que feriez-vous si vous vouliez la calculer vous-même ?
+
+### Étape 1 : Le cercle à l'intérieur du carré
+
+Dessinons notre cercle de rayon $r$ et le carré de côté $2r$ ensemble, avec le cercle s'inscrivant parfaitement dans le carré :
+
+<PiCircleInSquareDiagram />
+
+Le cercle occupe moins de place que le carré. Le carré a une aire de $4r^2$, et le cercle s'inscrit à l'intérieur, donc l'aire du cercle doit être *inférieure* à $4r^2$. Cela signifie :
+
+$$
+\pi < 4
+$$
+
+Nous savons donc que $\pi$ doit être inférieur à 4 ; nous avons établi une « borne supérieure » sur la valeur de $\pi$. Peut-on trouver une borne inférieure ?
+
+### Étape 2 : Un carré à l'intérieur du cercle
+
+Dessinons maintenant un autre carré — cette fois *à l'intérieur* du cercle, avec ses coins touchant le cercle :
+
+<PiSquareInCircleDiagram />
+
+Quelle est la longueur du côté de ce carré intérieur ? Il s'avère (grâce au théorème de Pythagore) que la longueur du côté est $r\sqrt{2}$, ce qui donne une aire de $2r^2$.
+
+<details>
+<summary>Afficher le calcul de Pythagore</summary>
+
+Chaque coin du carré intérieur est posé sur le cercle, à une distance $r$ du centre. Le carré intérieur est pivoté de 45° par rapport au carré extérieur, donc si nous regardons un quart de celui-ci, nous avons un triangle rectangle avec deux côtés égaux et une hypoténuse de $r$.
+
+Par le théorème de Pythagore ($a^2 + b^2 = c^2$), si les deux petits côtés sont tous les deux $s$, alors :
+
+$$
+s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+$$
+
+La longueur totale du côté du carré intérieur est $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, donc son aire est :
+
+$$
+A_{\text{carré intérieur}} = \left(r\sqrt{2}\right)^2 = 2r^2
+$$
+
+</details>
+
+Le cercle contient entièrement ce carré intérieur, donc l'aire du cercle doit être *supérieure* à $2r^2$ :
+
+$$
+2 < \pi
+$$
+
+En combinant nos deux bornes :
+
+$$
+2 < \pi < 4
+$$
+
+Nous l'encerclons de plus en plus ! Mais l'intervalle est encore assez large. Peut-on faire mieux ?
+
+### Étape 3 : Plus de côtés = de meilleures estimations
+
+Voici l'idée clé : nous avons utilisé des carrés (des formes à 4 côtés) et obtenu une estimation grossière. Et si nous utilisions des formes avec *plus* de côtés ?
+
+Au lieu d'un carré intérieur et d'un carré extérieur, nous pourrions utiliser un **hexagone** intérieur et un hexagone extérieur (6 côtés). L'hexagone intérieur s'inscrit dans le cercle avec ses coins sur le cercle, et l'hexagone extérieur se place à l'extérieur du cercle avec le cercle touchant le milieu de chaque côté — exactement comme nous l'avons fait avec nos carrés.
+
+Un hexagone remplit davantage le cercle qu'un carré, donc l'écart entre nos bornes inférieure et supérieure se réduit.
+
+<PiHexagonDiagram />
+
+Si nous calculons les aires (en utilisant un peu plus de trigonométrie), nous obtenons :
+
+$$
+3{,}000 < \pi < 3{,}464
+$$
+
+Mieux ! Essayons maintenant un **octogone** (8 côtés) :
+
+$$
+2{,}828 < \pi < 3{,}314
+$$
+
+Un **dodécagone** (12 côtés) :
+
+$$
+3{,}000 < \pi < 3{,}215
+$$
+
+Voyez-vous le schéma ? Au fur et à mesure que nous augmentons le nombre de côtés, le polygone intérieur devient de plus en plus grand (s'approchant du cercle par l'intérieur) et le polygone extérieur devient de plus en plus petit (s'en approchant par l'extérieur). Les deux bornes se resserrent, piégeant $\pi$ dans un intervalle de plus en plus étroit.
+
+| Côtés du polygone | Borne inférieure | Borne supérieure | Écart |
+|---|---|---|---|
+| 4 (carré) | 2,000 | 4,000 | 2,000 |
+| 6 (hexagone) | 3,000 | 3,464 | 0,464 |
+| 8 (octogone) | 2,828 | 3,314 | 0,486 |
+| 12 | 3,000 | 3,215 | 0,215 |
+| 24 | 3,106 | 3,160 | 0,054 |
+| 48 | 3,133 | 3,146 | 0,013 |
+| 96 | 3,139 | 3,143 | 0,003 |
+
+Lorsque nous atteignons 96 côtés, nous avons encadré $\pi$ entre 3,139 et 3,143. Et si nous pouvions aller à l'infini — un polygone avec un nombre infini de côtés *est* un cercle — nous atterririons exactement sur $\pi = 3{,}14159265...$
+
+C'est essentiellement ce qu'Archimède a fait aux alentours de 250 av. J.-C. Il a utilisé des polygones à 96 côtés et a établi que :
+
+$$
+3\frac{10}{71} < \pi < 3\frac{1}{7}
+$$
+
+soit $3{,}1408... < \pi < 3{,}1429...$
+
+Pas mal pour quelqu'un qui ne travaillait qu'avec de la géométrie et de la patience, plus de deux mille ans avant l'invention des calculatrices.
+
+## $\pi$ est partout
+
+Une fois que vous savez ce qu'est $\pi$, vous commencez à le remarquer partout. Ce n'est pas seulement une histoire d'aires de cercles.
+
+La **circonférence** d'un cercle (là où nous avons commencé cet article) est :
+
+$$
+C = 2\pi r
+$$
+
+Le **volume d'une sphère** de rayon $r$ est :
+
+$$
+V = \frac{4}{3}\pi r^3
+$$
+
+La **loi normale** — la courbe en cloche au cœur des statistiques — a $\pi$ incorporé dans sa formule :
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
+
+$\pi$ apparaît dans l'oscillation d'un pendule, les vibrations d'une corde de guitare, les orbites des planètes et les équations de la mécanique quantique. Partout où il y a quelque chose de circulaire, périodique ou ondulatoire, $\pi$ se cache à proximité.
+
+## $\pi$ ne se termine jamais
+
+Comme $e$, $\pi$ est **irrationnel** — son développement décimal se poursuit indéfiniment sans se répéter :
+
+$$
+\pi = 3.14159265358979323846...
+$$
+
+On ne peut jamais l'écrire sous forme d'une fraction simple. Les chiffres continuent indéfiniment. En 2024, $\pi$ a été calculé avec plus de 100 000 milliards de décimales — non pas parce que quelqu'un en a besoin d'autant (il suffit d'environ 40 décimales pour calculer la circonférence de l'univers observable à moins de la largeur d'un atome d'hydrogène), mais parce que c'est un bon banc d'essai pour la puissance de calcul. Et, soyons honnêtes, parce que les mathématiciens sont un peu obsessionnels.
+
+## $\pi$ pourrait-il être différent ?
+
+Vous vous souvenez qu'au début, nous avons dit que $\pi$ pourrait être différent dans un autre univers ? Voici ce que nous voulions dire.
+
+Tout ce que nous avons fait dans cet article suppose que nous travaillons sur une surface *plate*. Mais que se passerait-il si l'espace n'était pas plat ?
+
+Imaginez que vous dessinez un cercle sur la surface d'une sphère — disons, la Terre. Placez la pointe de votre compas sur le pôle Nord et tracez un cercle autour de lui. La surface de la Terre contenue à l'intérieur de ce cercle est plus grande que le disque que nous obtiendrions en tranchant la Terre avec un couteau passant par ce cercle.
+
+Vous pouvez le voir dans l'animation ci-dessous. La surface indigo montre l'aire d'un cercle tracé sur la surface d'une sphère. Le disque rouge montre l'aire d'un cercle plat ayant la même circonférence. L'aire de la surface indigo est supérieure à l'aire du disque rouge, et donc $\pi$ est supérieur à 3,142.
+<SphericalCapExplorer />
+
+La valeur 3,14159… est propre à l'espace **plat**. Dans les espaces courbés, elle change. Et ce n'est pas que des mathématiques abstraites — la théorie générale de la relativité d'Einstein nous dit que les objets massifs courbent réellement l'espace autour d'eux. Près d'un trou noir, si vous pouviez mesurer des cercles dans cet espace déformé, vous mesureriez une valeur différente de $\pi$.
+
+Alors, si jamais vous franchissez ce téléporteur — vous savez quoi faire.
+
+## À vous de jouer
+
+$\pi$ semble simple au premier abord — juste 3,142, n'est-ce pas ? Mais c'est en réalité une constante fondamentale de l'espace plat qui relie la géométrie aux probabilités, les cercles aux ondes, et les mesures simples aux structures les plus profondes de l'univers. Et, comme Archimède nous l'a montré il y a plus de deux mille ans, vous pouvez vous-même le traquer avec rien de plus sophistiqué qu'une règle, un compas et beaucoup de patience.
+
+## Pour aller plus loin
+
+Si vous souhaitez approfondir le sujet, voici quelques excellentes ressources :
+
+- [**Pourquoi pi apparaît-il dans la loi normale ?**](https://www.3blue1brown.com/lessons/gaussian-integral) — L'explication magnifiquement animée de 3Blue1Brown sur les raisons pour lesquelles $\pi$ apparaît dans la formule de la courbe en cloche.
+- [**Pi caché dans les régularités des nombres premiers**](https://www.3blue1brown.com/lessons/leibniz-formula) — Un autre joyau de 3Blue1Brown : comment la série $1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots$ converge vers $\frac{\pi}{4}$, reliant $\pi$ aux nombres premiers.
+- [**La méthode d'Archimède — interactive**](https://www.geogebra.org/m/xqXNW5TE) — Un applet GeoGebra où vous pouvez parcourir vous-même la méthode des polygones et regarder les bornes se resserrer autour de $\pi$.
+- [**Pi à travers les âges**](https://mathshistory.st-andrews.ac.uk/HistTopics/Pi_through_the_ages/) — L'histoire de $\pi$ par l'Université de St Andrews, de l'Égypte ancienne jusqu'au calcul moderne.
+- [**La découverte qui a transformé Pi**](https://www.youtube.com/watch?v=gMlf1ELvRzc) — Veritasium explique comment la série infinie de Newton a remplacé la méthode des polygones d'Archimède et révolutionné le calcul de $\pi$.
+- [**Géométrie non euclidienne et espaces courbés**](https://sites.pitt.edu/~jdnorton/teaching/HPS_0410/chapters/non_Euclid_curved/index.html) — Un chapitre clair et accessible du cours « Einstein pour tous » de l'Université de Pittsburgh, expliquant comment la géométrie fonctionne sur les surfaces courbées.
+- [**Pi est-il une constante en relativité ?**](https://math.ucr.edu/home/baez/physics/Relativity/GR/pi.html) — Une courte FAQ de physique expliquant que $\pi$ lui-même ne change pas, mais que les cercles physiques dans l'espace-temps courbé ont des rapports circonférence/diamètre différents.
