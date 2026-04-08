@@ -3,6 +3,56 @@
 // Shows that the area of the circle must be less than the area of the square (4r²).
 import katex from 'katex';
 const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    circleArea: 'Circle area < Square area = ',
+    so: ', so ',
+    caption: 'A circle of radius r sitting inside a square of side 2r. The circle touches the square at exactly four points (red dots) — the middle of each side. The shaded corners show the area the square has that the circle doesn\u2019t.',
+  },
+  fr: {
+    circleArea: 'Aire du cercle < Aire du carré = ',
+    so: ', donc ',
+    caption: 'Un cercle de rayon r inscrit dans un carré de côté 2r. Le cercle touche le carré en exactement quatre points (points rouges) — au milieu de chaque côté. Les coins ombrés montrent la surface que le carré possède mais pas le cercle.',
+  },
+  de: {
+    circleArea: 'Kreisfläche < Quadratfläche = ',
+    so: ', also ',
+    caption: 'Ein Kreis mit Radius r innerhalb eines Quadrats mit Seitenlänge 2r. Der Kreis berührt das Quadrat an genau vier Punkten (rote Punkte) — jeweils in der Mitte einer Seite. Die schattierten Ecken zeigen die Fläche, die das Quadrat hat, der Kreis aber nicht.',
+  },
+  es: {
+    circleArea: 'Área del círculo < Área del cuadrado = ',
+    so: ', por tanto ',
+    caption: 'Un círculo de radio r dentro de un cuadrado de lado 2r. El círculo toca el cuadrado en exactamente cuatro puntos (puntos rojos) — en el centro de cada lado. Las esquinas sombreadas muestran el área que tiene el cuadrado pero no el círculo.',
+  },
+  it: {
+    circleArea: 'Area del cerchio < Area del quadrato = ',
+    so: ', quindi ',
+    caption: 'Un cerchio di raggio r inscritto in un quadrato di lato 2r. Il cerchio tocca il quadrato in esattamente quattro punti (punti rossi) — al centro di ogni lato. Gli angoli ombreggiati mostrano l\u2019area che il quadrato ha e il cerchio no.',
+  },
+  'zh-CN': {
+    circleArea: '圆面积 < 正方形面积 = ',
+    so: '，所以 ',
+    caption: '一个半径为 r 的圆内切于边长为 2r 的正方形中。圆恰好在四个点（红点）处与正方形相切——每条边的中点。阴影角落显示了正方形比圆多出的面积。',
+  },
+  'zh-TW': {
+    circleArea: '圓面積 < 正方形面積 = ',
+    so: '，所以 ',
+    caption: '一個半徑為 r 的圓內切於邊長為 2r 的正方形中。圓恰好在四個點（紅點）處與正方形相切——每條邊的中點。陰影角落顯示了正方形比圓多出的面積。',
+  },
+  ja: {
+    circleArea: '円の面積 < 正方形の面積 = ',
+    so: '、よって ',
+    caption: '半径 r の円が一辺 2r の正方形の内側にぴったり収まっています。円は正方形の各辺の中点（赤い点）でちょうど 4 か所接しています。影のついた角は、正方形にはあるが円にはない面積を示しています。',
+  },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram pi-circ-sq">
@@ -46,12 +96,12 @@ const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
     <!-- Summary label -->
     <foreignObject x="70" y="355" width="300" height="35">
       <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#333;display:block;text-align:center">
-        Circle area &lt; Square area = <span set:html={k('4r^2')} />, so <span set:html={k('\\pi < 4')} />
+        {t.circleArea}<span set:html={k('4r^2')} />{t.so}<span set:html={k('\\pi < 4')} />
       </span>
     </foreignObject>
 
   </svg>
-  <figcaption>A circle of radius r sitting inside a square of side 2r. The circle touches the square at exactly four points (red dots) — the middle of each side. The shaded corners show the area the square has that the circle doesn't.</figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>

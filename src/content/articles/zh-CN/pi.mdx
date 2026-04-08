@@ -13,6 +13,8 @@ import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCirc
 import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
 import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
 
+export const locale = 'zh-CN';
+
 大多数人都听说过数字 $\pi$（读作"派"）。如果你在学校学过数学，你可能还记得……3.142，对吧？你很可能背下了这个数字，以便解决这类实用问题：
 
 > *计算半径为10米的圆形田地的周长。*
@@ -33,7 +35,7 @@ $$\text{周长} = 2 \times \pi \times 10 = 20 \times 3.142 = 62.84\text{ 米}$$
 
 想象一下，我们想计算一个正方形的面积，其中心到最近一条边的距离为 $r$。这等同于说，一条边的长度为 $2r$。
 
-<PiSquareDiagram />
+<PiSquareDiagram locale={locale} />
 
 我们知道正方形的面积等于一条边长乘以另一条边长，所以面积为：
 
@@ -45,7 +47,7 @@ $$A_{\text{正方形}} = 2r \times 2r = 4r^2$$
 
 目前为止还清楚吧？现在，如果我们想计算另一种简单形状——圆的面积呢？具体来说，是半径为 $r$ 的圆：
 
-<PiCircleDiagram />
+<PiCircleDiagram locale={locale} />
 
 我们可以猜想，圆的面积也等于*某个数字*乘以 $r^2$。但那个数字是什么呢？
 
@@ -63,7 +65,7 @@ $$A_{\text{圆}} = \pi \times r^2$$
 
 让我们把半径为 $r$ 的圆和边长为 $2r$ 的正方形画在一起，让圆刚好内切于正方形：
 
-<PiCircleInSquareDiagram />
+<PiCircleInSquareDiagram locale={locale} />
 
 圆占用的空间比正方形小。正方形的面积是 $4r^2$，而圆在其内部，所以圆的面积必然*小于* $4r^2$。这意味着：
 
@@ -75,7 +77,7 @@ $$\pi < 4$$
 
 现在再画一个正方形——这次*在圆的内部*，让它的顶角恰好落在圆上：
 
-<PiSquareInCircleDiagram />
+<PiSquareInCircleDiagram locale={locale} />
 
 这个内接正方形的边长是多少？利用勾股定理可以得出，边长为 $r\sqrt{2}$，因此面积为 $2r^2$。
 
@@ -112,7 +114,7 @@ $$2 < \pi < 4$$
 
 六边形比正方形能填充更多的圆的面积，因此内外两个界之间的差距会缩小。
 
-<PiHexagonDiagram />
+<PiHexagonDiagram locale={locale} />
 
 如果我们计算面积（需要用到一些三角函数），得到：
 
@@ -180,7 +182,7 @@ $$\pi = 3.14159265358979323846...$$
 
 你可以在下面的动画中看到这一点。靛蓝色的曲面显示了在球面上画出的圆的面积。红色圆盘显示了具有相同周长的平面圆的面积。靛蓝色曲面的面积大于红色圆盘的面积，因此在这里 $\pi$ 大于3.142。
 
-<SphericalCapExplorer />
+<SphericalCapExplorer locale={locale} />
 
 3.14159...这个值只适用于**平坦**空间。在弯曲空间中，它会发生变化。这不仅仅是抽象数学——爱因斯坦的广义相对论告诉我们，大质量天体确实会使周围的空间弯曲。在黑洞附近，如果你能在那扭曲的空间中测量圆，你会测出一个不同的 $\pi$ 值。
 

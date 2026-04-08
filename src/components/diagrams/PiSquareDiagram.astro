@@ -2,6 +2,24 @@
 // Static SVG: A square with side length 2r, showing the distance r from centre to edge.
 import katex from 'katex';
 const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: { caption: 'A square with side length 2r — the distance from the centre to any edge is r' },
+  fr: { caption: 'Un carré de côté 2r — la distance du centre à chaque bord est r' },
+  de: { caption: 'Ein Quadrat mit Seitenlänge 2r — der Abstand von der Mitte zu jeder Kante beträgt r' },
+  es: { caption: 'Un cuadrado de lado 2r — la distancia del centro a cualquier borde es r' },
+  it: { caption: 'Un quadrato di lato 2r — la distanza dal centro a qualsiasi bordo è r' },
+  'zh-CN': { caption: '一个边长为 2r 的正方形——从中心到任意一边的距离为 r' },
+  'zh-TW': { caption: '一個邊長為 2r 的正方形——從中心到任意一邊的距離為 r' },
+  ja: { caption: '一辺の長さが 2r の正方形——中心からどの辺までの距離も r' },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram pi-square">
@@ -36,7 +54,7 @@ const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
     </foreignObject>
 
   </svg>
-  <figcaption>A square with side length 2r — the distance from the centre to any edge is r</figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>

@@ -4,6 +4,56 @@
 import katex from 'katex';
 const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
 
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    outerLabel: 'Outer hexagon: area \u2248 ',
+    innerLabel: 'Inner hexagon: area \u2248 ',
+    caption: 'The same idea with hexagons. The inner hexagon (red) has area \u2248 2.598r\u00B2 and the outer hexagon (grey) has area \u2248 3.464r\u00B2. The bounds are already much tighter.',
+  },
+  fr: {
+    outerLabel: 'Hexagone extérieur : aire \u2248 ',
+    innerLabel: 'Hexagone intérieur : aire \u2248 ',
+    caption: 'La m\u00EAme id\u00E9e avec des hexagones. L\u2019hexagone int\u00E9rieur (rouge) a une aire \u2248 2,598r\u00B2 et l\u2019hexagone ext\u00E9rieur (gris) a une aire \u2248 3,464r\u00B2. Les bornes sont d\u00E9j\u00E0 bien plus resserr\u00E9es.',
+  },
+  de: {
+    outerLabel: '\u00C4u\u00DFeres Sechseck: Fl\u00E4che \u2248 ',
+    innerLabel: 'Inneres Sechseck: Fl\u00E4che \u2248 ',
+    caption: 'Dieselbe Idee mit Sechsecken. Das innere Sechseck (rot) hat die Fl\u00E4che \u2248 2,598r\u00B2 und das \u00E4u\u00DFere Sechseck (grau) hat die Fl\u00E4che \u2248 3,464r\u00B2. Die Grenzen sind schon deutlich enger.',
+  },
+  es: {
+    outerLabel: 'Hex\u00E1gono exterior: \u00E1rea \u2248 ',
+    innerLabel: 'Hex\u00E1gono interior: \u00E1rea \u2248 ',
+    caption: 'La misma idea con hex\u00E1gonos. El hex\u00E1gono interior (rojo) tiene un \u00E1rea \u2248 2,598r\u00B2 y el hex\u00E1gono exterior (gris) tiene un \u00E1rea \u2248 3,464r\u00B2. Los l\u00EDmites ya son mucho m\u00E1s ajustados.',
+  },
+  it: {
+    outerLabel: 'Esagono esterno: area \u2248 ',
+    innerLabel: 'Esagono interno: area \u2248 ',
+    caption: 'La stessa idea con gli esagoni. L\u2019esagono interno (rosso) ha area \u2248 2,598r\u00B2 e l\u2019esagono esterno (grigio) ha area \u2248 3,464r\u00B2. I limiti sono gi\u00E0 molto pi\u00F9 stretti.',
+  },
+  'zh-CN': {
+    outerLabel: '\u5916\u6B63\u516D\u8FB9\u5F62\uFF1A\u9762\u79EF \u2248 ',
+    innerLabel: '\u5185\u6B63\u516D\u8FB9\u5F62\uFF1A\u9762\u79EF \u2248 ',
+    caption: '\u540C\u6837\u7684\u601D\u8DEF\u7528\u6B63\u516D\u8FB9\u5F62\u6765\u5B9E\u73B0\u3002\u5185\u6B63\u516D\u8FB9\u5F62\uFF08\u7EA2\u8272\uFF09\u9762\u79EF \u2248 2.598r\u00B2\uFF0C\u5916\u6B63\u516D\u8FB9\u5F62\uFF08\u7070\u8272\uFF09\u9762\u79EF \u2248 3.464r\u00B2\u3002\u8303\u56F4\u5DF2\u7ECF\u7D27\u5F97\u591A\u4E86\u3002',
+  },
+  'zh-TW': {
+    outerLabel: '\u5916\u6B63\u516D\u908A\u5F62\uFF1A\u9762\u7A4D \u2248 ',
+    innerLabel: '\u5167\u6B63\u516D\u908A\u5F62\uFF1A\u9762\u7A4D \u2248 ',
+    caption: '\u540C\u6A23\u7684\u601D\u8DEF\u7528\u6B63\u516D\u908A\u5F62\u4F86\u5BE6\u73FE\u3002\u5167\u6B63\u516D\u908A\u5F62\uFF08\u7D05\u8272\uFF09\u9762\u7A4D \u2248 2.598r\u00B2\uFF0C\u5916\u6B63\u516D\u908A\u5F62\uFF08\u7070\u8272\uFF09\u9762\u7A4D \u2248 3.464r\u00B2\u3002\u7BC4\u570D\u5DF2\u7D93\u7DCA\u5F97\u591A\u4E86\u3002',
+  },
+  ja: {
+    outerLabel: '\u5916\u5074\u306E\u6B63\u516D\u89D2\u5F62\uFF1A\u9762\u7A4D \u2248 ',
+    innerLabel: '\u5185\u5074\u306E\u6B63\u516D\u89D2\u5F62\uFF1A\u9762\u7A4D \u2248 ',
+    caption: '\u540C\u3058\u8003\u3048\u65B9\u3092\u6B63\u516D\u89D2\u5F62\u3067\u884C\u3044\u307E\u3059\u3002\u5185\u5074\u306E\u6B63\u516D\u89D2\u5F62\uFF08\u8D64\uFF09\u306E\u9762\u7A4D\u306F \u2248 2.598r\u00B2\u3001\u5916\u5074\u306E\u6B63\u516D\u89D2\u5F62\uFF08\u7070\u8272\uFF09\u306E\u9762\u7A4D\u306F \u2248 3.464r\u00B2 \u3067\u3059\u3002\u7BC4\u56F2\u304C\u3059\u3067\u306B\u304B\u306A\u308A\u72ED\u307E\u3063\u3066\u3044\u307E\u3059\u3002',
+  },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
+
 // ── geometry ───────────────────────────────────────────────────────────
 const CX = 250, CY = 200, R = 120;
 const R_OUTER = R / Math.cos(Math.PI / 6);          // ≈ 138.56
@@ -52,12 +102,12 @@ const outerPts = Array.from({ length: 6 }, (_, i) => {
     <!-- Labels -->
     <foreignObject x="120" y="32" width="260" height="30">
       <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#555">
-        Outer hexagon: area ≈ <span set:html={k('3.464\\,r^2')} />
+        {t.outerLabel}<span set:html={k('3.464\\,r^2')} />
       </span>
     </foreignObject>
     <foreignObject x="100" y="382" width="300" height="30">
       <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#d63030;display:block;text-align:center">
-        Inner hexagon: area ≈ <span set:html={k('2.598\\,r^2')} />
+        {t.innerLabel}<span set:html={k('2.598\\,r^2')} />
       </span>
     </foreignObject>
 
@@ -67,7 +117,7 @@ const outerPts = Array.from({ length: 6 }, (_, i) => {
     </foreignObject>
 
   </svg>
-  <figcaption>The same idea with hexagons. The inner hexagon (red) has area ≈ 2.598r² and the outer hexagon (grey) has area ≈ 3.464r². The bounds are already much tighter.</figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>

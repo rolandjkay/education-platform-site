@@ -2,6 +2,24 @@
 // Static SVG: A circle with radius r labelled.
 import katex from 'katex';
 const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: { caption: 'A circle of radius r — what number do we multiply r² by to get the area?' },
+  fr: { caption: 'Un cercle de rayon r — par quel nombre faut-il multiplier r² pour obtenir l\u2019aire ?' },
+  de: { caption: 'Ein Kreis mit Radius r — mit welcher Zahl müssen wir r² multiplizieren, um die Fläche zu erhalten?' },
+  es: { caption: 'Un círculo de radio r — ¿por qué número hay que multiplicar r² para obtener el área?' },
+  it: { caption: 'Un cerchio di raggio r — per quale numero bisogna moltiplicare r² per ottenere l\u2019area?' },
+  'zh-CN': { caption: '一个半径为 r 的圆——r² 乘以什么数才能得到面积？' },
+  'zh-TW': { caption: '一個半徑為 r 的圓——r² 乘以什麼數才能得到面積？' },
+  ja: { caption: '半径 r の円——面積を求めるには r² に何を掛ければよいでしょうか？' },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram pi-circle">
@@ -27,7 +45,7 @@ const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
     </foreignObject>
 
   </svg>
-  <figcaption>A circle of radius r — what number do we multiply r² by to get the area?</figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>

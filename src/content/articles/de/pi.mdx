@@ -13,6 +13,8 @@ import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCirc
 import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
 import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
 
+export const locale = 'de';
+
 Die meisten Menschen haben von der Zahl $\pi$ (ausgesprochen wie „Pi") gehört. Wer in der Schule Mathematik hatte, erinnert sich wahrscheinlich an… 3,142, oder? Diese Zahl hat man auswendig gelernt, um so nützliche Aufgaben lösen zu können wie:
 
 > *Berechne den Umfang eines kreisförmigen Feldes mit Radius 10 m.*
@@ -33,7 +35,7 @@ Aber zunächst — was genau ist $\pi$?
 
 Stell dir vor, wir möchten die Fläche eines Quadrats berechnen, bei dem der Abstand vom Mittelpunkt zur nächsten Kante $r$ beträgt. Das ist gleichbedeutend damit, dass die Seitenlänge $2r$ beträgt.
 
-<PiSquareDiagram />
+<PiSquareDiagram locale={locale} />
 
 Wir wissen, dass die Fläche eines Quadrats dem Produkt zweier benachbarter Seiten entspricht, also:
 
@@ -45,7 +47,7 @@ $$A_{\text{Quadrat}} = 2r \times 2r = 4r^2$$
 
 Soweit alles klar? Nun, was wäre, wenn wir die Fläche einer anderen einfachen Form berechnen wollten — eines Kreises? Konkret: eines Kreises mit Radius $r$:
 
-<PiCircleDiagram />
+<PiCircleDiagram locale={locale} />
 
 Man könnte vermuten, dass die Fläche des Kreises ebenfalls durch *irgendeine Zahl* mal $r^2$ gegeben ist. Aber welche Zahl ist das?
 
@@ -63,7 +65,7 @@ und den Wert von $\pi$ auswendig gelernt. Aber jemand hat dir diesen Wert einfac
 
 Zeichnen wir unseren Kreis mit Radius $r$ und das Quadrat mit Seitenlänge $2r$ zusammen, wobei der Kreis genau in das Quadrat passt:
 
-<PiCircleInSquareDiagram />
+<PiCircleInSquareDiagram locale={locale} />
 
 Der Kreis nimmt weniger Platz ein als das Quadrat. Das Quadrat hat die Fläche $4r^2$, und der Kreis liegt darin, also muss die Fläche des Kreises *kleiner* als $4r^2$ sein. Das bedeutet:
 
@@ -75,7 +77,7 @@ Wir wissen also, dass $\pi$ kleiner als 4 sein muss — wir haben eine „obere 
 
 Zeichnen wir nun ein weiteres Quadrat — diesmal *innerhalb* des Kreises, mit seinen Ecken auf dem Kreis:
 
-<PiSquareInCircleDiagram />
+<PiSquareInCircleDiagram locale={locale} />
 
 Wie lang ist die Seite dieses inneren Quadrats? Mit dem Satz des Pythagoras ergibt sich, dass die Seitenlänge $r\sqrt{2}$ beträgt, was einer Fläche von $2r^2$ entspricht.
 
@@ -112,7 +114,7 @@ Statt eines inneren und äußeren Quadrats könnten wir ein inneres und äußere
 
 Ein Sechseck füllt mehr vom Kreis aus als ein Quadrat, sodass die Lücke zwischen unserer oberen und unteren Schranke kleiner wird.
 
-<PiHexagonDiagram />
+<PiHexagonDiagram locale={locale} />
 
 Berechnen wir die Flächen (mit etwas mehr Trigonometrie), erhalten wir:
 
@@ -183,7 +185,7 @@ Alles, was wir in diesem Artikel gemacht haben, setzt voraus, dass wir auf einer
 Stell dir vor, du zeichnest einen Kreis auf die Oberfläche einer Kugel — etwa der Erde. Setze deinen Zirkel am Nordpol an und zeichne einen Kreis darum. Die Erdoberfläche innerhalb dieses Kreises ist größer als die Scheibe, die wir erhielten, wenn wir die Erde mit einem Messer entlang dieses Kreises aufschneiden würden.
 
 Das siehst du in der Animation unten. Die indigofarbene Fläche zeigt die Fläche eines Kreises auf der Oberfläche einer Kugel. Die rote Scheibe zeigt die Fläche eines flachen Kreises mit demselben Umfang. Die indigofarbene Fläche ist größer als die rote Scheibe, und damit ist $\pi$ größer als 3,142.
-<SphericalCapExplorer />
+<SphericalCapExplorer locale={locale} />
 
 Der Wert 3,14159... gilt spezifisch für den **flachen** Raum. In gekrümmten Räumen ändert er sich. Und das ist keine rein abstrakte Mathematik — Einsteins allgemeine Relativitätstheorie zeigt uns, dass massive Objekte den sie umgebenden Raum tatsächlich krümmen. In der Nähe eines schwarzen Lochs würde man — könnte man dort irgendwie Kreise messen — einen anderen Wert von $\pi$ messen.
 

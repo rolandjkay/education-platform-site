@@ -13,6 +13,8 @@ import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCirc
 import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
 import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
 
+export const locale = 'zh-TW';
+
 大多數人都聽說過 $\pi$ 這個數（發音為「pie」）。如果你在學校學過數學，你大概還記得……3.142，對吧？你很可能背下了這個數字，以便解決像這樣「實用」的題目：
 
 > *計算半徑為 10 公尺的圓形農地的周長。*
@@ -33,7 +35,7 @@ $$\text{周長} = 2 \times \pi \times 10 = 20 \times 3.142 = 62.84\text{ 公尺}
 
 假設我們想計算一個正方形的面積，這個正方形的中心到最近邊的距離為 $r$。這等同於說正方形的邊長為 $2r$。
 
-<PiSquareDiagram />
+<PiSquareDiagram locale={locale} />
 
 我們知道正方形的面積等於一邊乘以另一邊，因此面積為：
 
@@ -45,7 +47,7 @@ $$A_{\text{正方形}} = 2r \times 2r = 4r^2$$
 
 到目前為止沒問題吧？現在，如果我們想計算另一個簡單形狀的面積——圓形——會怎樣呢？具體來說，是一個半徑為 $r$ 的圓：
 
-<PiCircleDiagram />
+<PiCircleDiagram locale={locale} />
 
 我們可以合理猜測，圓的面積也是*某個數*乘以 $r^2$。但那個數是什麼？
 
@@ -63,7 +65,7 @@ $$A_{\text{圓}} = \pi \times r^2$$
 
 讓我們把半徑為 $r$ 的圓和邊長為 $2r$ 的正方形畫在一起，讓圓恰好緊貼著正方形的內部：
 
-<PiCircleInSquareDiagram />
+<PiCircleInSquareDiagram locale={locale} />
 
 圓佔用的空間比正方形少。正方形的面積是 $4r^2$，而圓在正方形內部，所以圓的面積必定*小於* $4r^2$。這意味著：
 
@@ -75,7 +77,7 @@ $$\pi < 4$$
 
 現在我們再畫一個正方形——這次是*在圓的內部*，它的四個角碰觸著圓：
 
-<PiSquareInCircleDiagram />
+<PiSquareInCircleDiagram locale={locale} />
 
 這個內接正方形的邊長是多少？經過計算（使用畢氏定理），邊長為 $r\sqrt{2}$，面積為 $2r^2$。
 
@@ -112,7 +114,7 @@ $$2 < \pi < 4$$
 
 六邊形比正方形填滿更多的圓的空間，所以內外界之間的差距會變得更小。
 
-<PiHexagonDiagram />
+<PiHexagonDiagram locale={locale} />
 
 計算面積之後（需要多用一點三角學），我們得到：
 
@@ -180,7 +182,7 @@ $$\pi = 3.14159265358979323846...$$
 
 你可以在下方的動畫中看到這一點。靛藍色的表面表示在球面上畫的圓的面積。紅色的圓盤表示具有相同周長的平面圓的面積。靛藍色表面的面積大於紅色圓盤，因此在這樣的空間中，$\pi$ 大於 3.142。
 
-<SphericalCapExplorer />
+<SphericalCapExplorer locale={locale} />
 
 3.14159... 這個值是**平坦**空間特有的。在彎曲的空間中，它會改變。而這不只是抽象的數學——愛因斯坦的廣義相對論告訴我們，大質量天體確實會彎曲它們周圍的空間。在黑洞附近，如果你能在那個扭曲的空間中測量圓，你會測量到不同的 $\pi$ 值。
 

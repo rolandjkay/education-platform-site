@@ -13,6 +13,8 @@ import PiSquareInCircleDiagram from '../../../components/diagrams/PiSquareInCirc
 import PiHexagonDiagram from '../../../components/diagrams/PiHexagonDiagram.astro';
 import SphericalCapExplorer from '../../../components/islands/SphericalCapExplorer.astro';
 
+export const locale = 'fr';
+
 La plupart des gens ont entendu parler du nombre $\pi$ (prononcé « pi »). Si vous avez fait des maths à l'école, vous vous souvenez probablement… 3,142, c'est ça ?
 Vous avez sans doute mémorisé ce nombre pour pouvoir résoudre des problèmes aussi utiles que :
 
@@ -36,7 +38,7 @@ Mais d'abord — qu'est-ce que $\pi$, exactement ?
 
 Imaginons que nous voulions calculer l'aire d'un carré, où la distance du centre au bord le plus proche est $r$. C'est la même chose que de dire que la longueur d'un côté est $2r$.
 
-<PiSquareDiagram />
+<PiSquareDiagram locale={locale} />
 
 Nous savons que l'aire d'un carré est la longueur d'un côté multipliée par la longueur de l'autre, donc l'aire est :
 
@@ -50,7 +52,7 @@ $$
 
 Bien suivi jusqu'ici ? Maintenant, que se passe-t-il si nous voulons calculer l'aire d'une autre forme simple — un cercle ? Plus précisément, un cercle de rayon $r$ :
 
-<PiCircleDiagram />
+<PiCircleDiagram locale={locale} />
 
 On pourrait imaginer que l'aire du cercle est également donnée par *un certain nombre* multiplié par $r^2$. Mais quel est ce nombre ?
 
@@ -70,7 +72,7 @@ et vous avez mémorisé la valeur de $\pi$. Mais quelqu'un vous a simplement *di
 
 Dessinons notre cercle de rayon $r$ et le carré de côté $2r$ ensemble, avec le cercle s'inscrivant parfaitement dans le carré :
 
-<PiCircleInSquareDiagram />
+<PiCircleInSquareDiagram locale={locale} />
 
 Le cercle occupe moins de place que le carré. Le carré a une aire de $4r^2$, et le cercle s'inscrit à l'intérieur, donc l'aire du cercle doit être *inférieure* à $4r^2$. Cela signifie :
 
@@ -84,7 +86,7 @@ Nous savons donc que $\pi$ doit être inférieur à 4 ; nous avons établi une �
 
 Dessinons maintenant un autre carré — cette fois *à l'intérieur* du cercle, avec ses coins touchant le cercle :
 
-<PiSquareInCircleDiagram />
+<PiSquareInCircleDiagram locale={locale} />
 
 Quelle est la longueur du côté de ce carré intérieur ? Il s'avère (grâce au théorème de Pythagore) que la longueur du côté est $r\sqrt{2}$, ce qui donne une aire de $2r^2$.
 
@@ -129,7 +131,7 @@ Au lieu d'un carré intérieur et d'un carré extérieur, nous pourrions utilise
 
 Un hexagone remplit davantage le cercle qu'un carré, donc l'écart entre nos bornes inférieure et supérieure se réduit.
 
-<PiHexagonDiagram />
+<PiHexagonDiagram locale={locale} />
 
 Si nous calculons les aires (en utilisant un peu plus de trigonométrie), nous obtenons :
 
@@ -216,7 +218,7 @@ Tout ce que nous avons fait dans cet article suppose que nous travaillons sur un
 Imaginez que vous dessinez un cercle sur la surface d'une sphère — disons, la Terre. Placez la pointe de votre compas sur le pôle Nord et tracez un cercle autour de lui. La surface de la Terre contenue à l'intérieur de ce cercle est plus grande que le disque que nous obtiendrions en tranchant la Terre avec un couteau passant par ce cercle.
 
 Vous pouvez le voir dans l'animation ci-dessous. La surface indigo montre l'aire d'un cercle tracé sur la surface d'une sphère. Le disque rouge montre l'aire d'un cercle plat ayant la même circonférence. L'aire de la surface indigo est supérieure à l'aire du disque rouge, et donc $\pi$ est supérieur à 3,142.
-<SphericalCapExplorer />
+<SphericalCapExplorer locale={locale} />
 
 La valeur 3,14159… est propre à l'espace **plat**. Dans les espaces courbés, elle change. Et ce n'est pas que des mathématiques abstraites — la théorie générale de la relativité d'Einstein nous dit que les objets massifs courbent réellement l'espace autour d'eux. Près d'un trou noir, si vous pouviez mesurer des cercles dans cet espace déformé, vous mesureriez une valeur différente de $\pi$.
 

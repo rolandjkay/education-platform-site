@@ -11,6 +11,56 @@
 //   5. π values fade in below canvas (1.5 s)
 //   6. Hold (20 s)
 //   7. Fade out everything (1.5 s), reset, repeat
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    surface: 'surface',
+    disc: 'disc',
+    caption: 'A circle on a curved surface (indigo) encloses more area than the flat disc (red) bounded by the same circumference. On a sphere, the effective \u201C\u03C0\u201D is different from 3.14.',
+  },
+  fr: {
+    surface: 'surface',
+    disc: 'disque',
+    caption: 'Un cercle sur une surface courbe (indigo) renferme plus d\u2019aire que le disque plat (rouge) de m\u00EAme circonf\u00E9rence. Sur une sph\u00E8re, le \u00AB \u03C0 effectif \u00BB diff\u00E8re de 3,14.',
+  },
+  de: {
+    surface: 'Fl\u00E4che',
+    disc: 'Scheibe',
+    caption: 'Ein Kreis auf einer gekr\u00FCmmten Fl\u00E4che (Indigo) umschlie\u00DFt mehr Fl\u00E4che als die flache Scheibe (rot) mit demselben Umfang. Auf einer Kugel weicht das effektive \u201E\u03C0\u201C von 3,14 ab.',
+  },
+  es: {
+    surface: 'superficie',
+    disc: 'disco',
+    caption: 'Un c\u00EDrculo sobre una superficie curva (\u00EDndigo) encierra m\u00E1s \u00E1rea que el disco plano (rojo) con la misma circunferencia. En una esfera, el \u00AB\u03C0 efectivo\u00BB es distinto de 3,14.',
+  },
+  it: {
+    surface: 'superficie',
+    disc: 'disco',
+    caption: 'Un cerchio su una superficie curva (indaco) racchiude pi\u00F9 area del disco piatto (rosso) con la stessa circonferenza. Su una sfera, il \u00AB\u03C0 effettivo\u00BB \u00E8 diverso da 3,14.',
+  },
+  'zh-CN': {
+    surface: '\u66F2\u9762',
+    disc: '\u5706\u76D8',
+    caption: '\u5F2F\u66F2\u9762\u4E0A\u7684\u5706\uFF08\u9756\u9752\u8272\uFF09\u6240\u56F4\u7684\u9762\u79EF\u5927\u4E8E\u76F8\u540C\u5468\u957F\u7684\u5E73\u9762\u5706\u76D8\uFF08\u7EA2\u8272\uFF09\u3002\u5728\u7403\u9762\u4E0A\uFF0C\u7B49\u6548\u201C\u03C0\u201D\u4E0E3.14\u4E0D\u540C\u3002',
+  },
+  'zh-TW': {
+    surface: '\u66F2\u9762',
+    disc: '\u5713\u76E4',
+    caption: '\u5F4E\u66F2\u9762\u4E0A\u7684\u5713\uFF08\u9756\u9752\u8272\uFF09\u6240\u570D\u7684\u9762\u7A4D\u5927\u65BC\u76F8\u540C\u5468\u9577\u7684\u5E73\u9762\u5713\u76E4\uFF08\u7D05\u8272\uFF09\u3002\u5728\u7403\u9762\u4E0A\uFF0C\u7B49\u6548\u300C\u03C0\u300D\u8207 3.14 \u4E0D\u540C\u3002',
+  },
+  ja: {
+    surface: '\u66F2\u9762',
+    disc: '\u5186\u76E4',
+    caption: '\u66F2\u9762\u4E0A\u306E\u5186\uFF08\u85CD\u8272\uFF09\u306F\u3001\u540C\u3058\u5186\u5468\u306E\u5E73\u9762\u5186\u76E4\uFF08\u8D64\uFF09\u3088\u308A\u5E83\u3044\u9762\u7A4D\u3092\u56F2\u307F\u307E\u3059\u3002\u7403\u9762\u3067\u306F\u5B9F\u52B9\u7684\u306A\u300C\u03C0\u300D\u306F 3.14 \u3068\u306F\u7570\u306A\u308A\u307E\u3059\u3002',
+  },
+};
+
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram cap-diagram">
@@ -35,28 +85,24 @@
 
     <!-- Formula labels (positioned by JS) -->
     <div id="cap-lbl-cap" class="cap-formula cap-color-cap">
-      <em>A</em><sub>surface</sub>&nbsp;=&nbsp;<strong>3.68</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
+      <em>A</em><sub>{t.surface}</sub>&nbsp;=&nbsp;<strong>3.68</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
     </div>
     <div id="cap-lbl-disc" class="cap-formula cap-color-disc">
-      <em>A</em><sub>disc</sub>&nbsp;=&nbsp;<strong>3.14</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
+      <em>A</em><sub>{t.disc}</sub>&nbsp;=&nbsp;<strong>3.14</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
     </div>
   </div>
 
   <!-- π values row (below the 3D viewport) -->
   <div id="cap-pi-row" class="cap-pi-row">
     <span class="cap-color-cap">
-      <em>π</em><sub>surface</sub>&nbsp;=&nbsp;<strong>3.68</strong>
+      <em>π</em><sub>{t.surface}</sub>&nbsp;=&nbsp;<strong>3.68</strong>
     </span>
     <span class="cap-color-disc">
-      <em>π</em><sub>disc</sub>&nbsp;=&nbsp;<strong>3.14</strong>
+      <em>π</em><sub>{t.disc}</sub>&nbsp;=&nbsp;<strong>3.14</strong>
     </span>
   </div>
 
-  <figcaption>
-    A circle on a curved surface (indigo) encloses more area than the flat disc
-    (red) bounded by the same circumference. On a sphere, the effective
-    &ldquo;&pi;&rdquo; is different from 3.14.
-  </figcaption>
+  <figcaption>{t.caption}</figcaption>
 </figure>
 
 <style>
