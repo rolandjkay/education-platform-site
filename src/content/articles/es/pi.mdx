@@ -19,7 +19,9 @@ La mayoría de las personas han oído hablar del número $\pi$ (que se pronuncia
 
 > *Calcula el perímetro de un campo circular de radio 10 m.*
 
-$$\text{circunferencia} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}$$
+$$
+\text{circunferencia} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}
+$$
 
 Apuesto a que eso te ha servido de mucho en tu vida después del colegio, ¿verdad?
 
@@ -39,7 +41,9 @@ Imagina que queremos calcular el área de un cuadrado en el que la distancia des
 
 Sabemos que el área de un cuadrado es la longitud de un lado multiplicada por la longitud del otro, de modo que el área es:
 
-$$A_{\text{cuadrado}} = 2r \times 2r = 4r^2$$
+$$
+A_{\text{cuadrado}} = 2r \times 2r = 4r^2
+$$
 
 > **Nota rápida:** $r^2$ significa simplemente $r \times r$. Así que si $r = 3$, entonces $r^2 = 3 \times 3 = 9$.
 
@@ -57,7 +61,9 @@ Por si no lo has adivinado, vamos a llamar a ese número misterioso $\pi$ y a ve
 
 En el colegio habrás aprendido la fórmula:
 
-$$A_{\text{círculo}} = \pi \times r^2$$
+$$
+A_{\text{círculo}} = \pi \times r^2
+$$
 
 y habrás memorizado el valor de $\pi$. Pero alguien simplemente te *dijo* ese valor. ¿Qué harías si quisieras calcularlo tú mismo?
 
@@ -69,7 +75,9 @@ Dibujemos nuestro círculo de radio $r$ y el cuadrado de lado $2r$ juntos, con e
 
 El círculo ocupa menos espacio que el cuadrado. El cuadrado tiene área $4r^2$, y el círculo cabe dentro de él, así que el área del círculo debe ser *menor* que $4r^2$. Eso significa:
 
-$$\pi < 4$$
+$$
+\pi < 4
+$$
 
 Entonces sabemos que $\pi$ tiene que ser menor que 4; hemos establecido una «cota superior» para el valor de $\pi$. ¿Podemos encontrar una cota inferior?
 
@@ -88,21 +96,29 @@ Cada esquina del cuadrado interior descansa sobre el círculo, a una distancia $
 
 Por el teorema de Pitágoras ($a^2 + b^2 = c^2$), si los dos lados cortos son ambos $s$, entonces:
 
-$$s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}$$
+$$
+s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+$$
 
 La longitud completa del lado del cuadrado interior es $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, por lo que su área es:
 
-$$A_{\text{cuadrado interior}} = \left(r\sqrt{2}\right)^2 = 2r^2$$
+$$
+A_{\text{cuadrado interior}} = \left(r\sqrt{2}\right)^2 = 2r^2
+$$
 
 </details>
 
 El círculo contiene completamente este cuadrado interior, por lo que el área del círculo debe ser *mayor* que $2r^2$:
 
-$$2 < \pi$$
+$$
+2 < \pi
+$$
 
 Combinando las dos cotas:
 
-$$2 < \pi < 4$$
+$$
+2 < \pi < 4
+$$
 
 ¡Vamos acotando! Pero el intervalo sigue siendo bastante amplio. ¿Podemos hacerlo mejor?
 
@@ -118,15 +134,21 @@ Un hexágono rellena más del círculo que un cuadrado, de modo que la brecha en
 
 Si calculamos las áreas (usando un poco más de trigonometría), obtenemos:
 
-$$3{,}000 < \pi < 3{,}464$$
+$$
+3{,}000 < \pi < 3{,}464
+$$
 
 ¡Mejor! Ahora probemos con un **octógono** (8 lados):
 
-$$2{,}828 < \pi < 3{,}314$$
+$$
+2{,}828 < \pi < 3{,}314
+$$
 
 Un **dodecágono** (12 lados):
 
-$$3{,}000 < \pi < 3{,}215$$
+$$
+3{,}000 < \pi < 3{,}215
+$$
 
 ¿Ves el patrón? A medida que aumentamos el número de lados, el polígono interior se hace cada vez más grande (acercándose al círculo por dentro) y el polígono exterior se hace cada vez más pequeño (acercándose por fuera). Las dos cotas se aprietan entre sí, atrapando a $\pi$ en un intervalo cada vez más estrecho.
 
@@ -144,7 +166,9 @@ Cuando llegamos a los 96 lados, hemos acotado $\pi$ entre 3,139 y 3,143. Y si pu
 
 Esto es esencialmente lo que hizo Arquímedes hacia el año 250 a. C. Usó polígonos de 96 lados y determinó que:
 
-$$3\frac{10}{71} < \pi < 3\frac{1}{7}$$
+$$
+3\frac{10}{71} < \pi < 3\frac{1}{7}
+$$
 
 es decir, $3{,}1408... < \pi < 3{,}1429...$
 
@@ -156,15 +180,21 @@ Una vez que sabes qué es $\pi$, empiezas a verlo en todas partes. No se trata s
 
 La **circunferencia** de un círculo (por donde empezamos este artículo) es:
 
-$$C = 2\pi r$$
+$$
+C = 2\pi r
+$$
 
 El **volumen de una esfera** de radio $r$ es:
 
-$$V = \frac{4}{3}\pi r^3$$
+$$
+V = \frac{4}{3}\pi r^3
+$$
 
 La **distribución normal** —la curva en campana que está en el corazón de la estadística— lleva $\pi$ integrado en su fórmula:
 
-$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
 
 $\pi$ aparece en el balanceo de un péndulo, en la vibración de una cuerda de guitarra, en las órbitas de los planetas y en las ecuaciones de la mecánica cuántica. En cualquier lugar donde haya algo circular, periódico u ondulatorio, $\pi$ está acechando cerca.
 
@@ -172,7 +202,9 @@ $\pi$ aparece en el balanceo de un péndulo, en la vibración de una cuerda de g
 
 Al igual que $e$, $\pi$ es **irracional** —su expansión decimal se extiende indefinidamente sin repetirse:
 
-$$\pi = 3.14159265358979323846...$$
+$$
+\pi = 3.14159265358979323846...
+$$
 
 Nunca podrás escribirlo como una fracción sencilla. Los dígitos no dejan de aparecer. A fecha de 2024, $\pi$ ha sido calculado con más de 100 billones de cifras decimales —no porque nadie las necesite (con unos 40 dígitos basta para calcular la circunferencia del universo observable con una precisión menor que el diámetro de un átomo de hidrógeno), sino porque es un buen banco de pruebas para la potencia de cálculo. Y, seamos honestos, porque los matemáticos son un poco obsesivos.
 

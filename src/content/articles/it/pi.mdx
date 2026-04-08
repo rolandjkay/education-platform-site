@@ -19,7 +19,9 @@ La maggior parte delle persone ha sentito parlare del numero $\pi$ (pronunciato 
 
 > *Calcola il perimetro di un campo circolare di raggio 10 m.*
 
-$$\text{circonferenza} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}$$
+$$
+\text{circonferenza} = 2 \times \pi \times 10 = 20 \times 3{,}142 = 62{,}84\text{ m}
+$$
 
 Scommetto che ti è tornato molto utile nella vita dopo la scuola, vero?
 
@@ -39,7 +41,9 @@ Immagina di voler calcolare l'area di un quadrato, dove la distanza dal centro a
 
 Sappiamo che l'area di un quadrato è la lunghezza di un lato moltiplicata per la lunghezza dell'altro, quindi l'area è:
 
-$$A_{\text{quadrato}} = 2r \times 2r = 4r^2$$
+$$
+A_{\text{quadrato}} = 2r \times 2r = 4r^2
+$$
 
 > **Nota rapida:** $r^2$ significa semplicemente $r \times r$. Quindi se $r = 3$, allora $r^2 = 3 \times 3 = 9$.
 
@@ -57,7 +61,9 @@ Nel caso non lo avessi intuito, chiameremo questo numero misterioso $\pi$ e vedr
 
 A scuola avrai imparato la formula:
 
-$$A_{\text{cerchio}} = \pi \times r^2$$
+$$
+A_{\text{cerchio}} = \pi \times r^2
+$$
 
 e avrai memorizzato il valore di $\pi$. Ma qualcuno te l'ha semplicemente *detto*. Cosa faresti se volessi ricavarlo da solo?
 
@@ -69,7 +75,9 @@ Disegniamo il nostro cerchio di raggio $r$ e il quadrato di lato $2r$ insieme, c
 
 Il cerchio occupa meno spazio del quadrato. Il quadrato ha area $4r^2$ e il cerchio ci sta dentro, quindi l'area del cerchio deve essere *minore* di $4r^2$. Questo significa:
 
-$$\pi < 4$$
+$$
+\pi < 4
+$$
 
 Quindi sappiamo che $\pi$ deve essere minore di 4; abbiamo stabilito un «limite superiore» per il valore di $\pi$. Riusciamo a trovare anche un limite inferiore?
 
@@ -88,21 +96,29 @@ Ogni angolo del quadrato interno si trova sul cerchio, a distanza $r$ dal centro
 
 Per il teorema di Pitagora ($a^2 + b^2 = c^2$), se i due lati corti sono entrambi $s$, allora:
 
-$$s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}$$
+$$
+s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+$$
 
 La lunghezza intera del lato del quadrato interno è $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, quindi la sua area è:
 
-$$A_{\text{quadrato interno}} = \left(r\sqrt{2}\right)^2 = 2r^2$$
+$$
+A_{\text{quadrato interno}} = \left(r\sqrt{2}\right)^2 = 2r^2
+$$
 
 </details>
 
 Il cerchio contiene completamente questo quadrato interno, quindi l'area del cerchio deve essere *maggiore* di $2r^2$:
 
-$$2 < \pi$$
+$$
+2 < \pi
+$$
 
 Mettendo insieme i due limiti:
 
-$$2 < \pi < 4$$
+$$
+2 < \pi < 4
+$$
 
 Stiamo restringendo il campo! Ma l'intervallo è ancora piuttosto ampio. Possiamo fare di meglio?
 
@@ -118,15 +134,21 @@ Un esagono riempie più spazio del cerchio rispetto a un quadrato, quindi il div
 
 Se calcoliamo le aree (usando un po' più di trigonometria), otteniamo:
 
-$$3{,}000 < \pi < 3{,}464$$
+$$
+3{,}000 < \pi < 3{,}464
+$$
 
 Meglio! Proviamo ora con un **ottagono** (8 lati):
 
-$$2{,}828 < \pi < 3{,}314$$
+$$
+2{,}828 < \pi < 3{,}314
+$$
 
 Un **dodecagono** (12 lati):
 
-$$3{,}000 < \pi < 3{,}215$$
+$$
+3{,}000 < \pi < 3{,}215
+$$
 
 Vedi lo schema? Man mano che aumentiamo il numero di lati, il poligono interno diventa sempre più grande (avvicinandosi al cerchio dall'interno) e il poligono esterno diventa sempre più piccolo (avvicinandosi dall'esterno). I due limiti si stringono attorno a $\pi$ in un intervallo sempre più stretto.
 
@@ -144,7 +166,9 @@ Quando arriviamo a 96 lati, abbiamo circoscritto $\pi$ tra 3,139 e 3,143. E se p
 
 È essenzialmente quello che fece Archimede attorno al 250 a.C. Usò poligoni a 96 lati e ricavò che:
 
-$$3\frac{10}{71} < \pi < 3\frac{1}{7}$$
+$$
+3\frac{10}{71} < \pi < 3\frac{1}{7}
+$$
 
 ovvero $3{,}1408... < \pi < 3{,}1429...$
 
@@ -156,15 +180,21 @@ Una volta che sai cos'è $\pi$, cominci a notarlo dappertutto. Non riguarda solo
 
 La **circonferenza** di un cerchio (da cui siamo partiti in questo articolo) è:
 
-$$C = 2\pi r$$
+$$
+C = 2\pi r
+$$
 
 Il **volume di una sfera** di raggio $r$ è:
 
-$$V = \frac{4}{3}\pi r^3$$
+$$
+V = \frac{4}{3}\pi r^3
+$$
 
 La **distribuzione normale** — la curva a campana al cuore della statistica — ha $\pi$ incorporato nella sua formula:
 
-$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
 
 $\pi$ compare nell'oscillazione di un pendolo, nella vibrazione di una corda di chitarra, nelle orbite dei pianeti e nelle equazioni della meccanica quantistica. Ovunque ci sia qualcosa di circolare, periodico o ondulatorio, $\pi$ è in agguato nei dintorni.
 
@@ -172,7 +202,9 @@ $\pi$ compare nell'oscillazione di un pendolo, nella vibrazione di una corda di 
 
 Come $e$, $\pi$ è **irrazionale** — la sua espansione decimale continua all'infinito senza ripetersi:
 
-$$\pi = 3.14159265358979323846...$$
+$$
+\pi = 3.14159265358979323846...
+$$
 
 Non puoi mai scriverlo come una semplice frazione. Le cifre continuano senza sosta. Al 2024, $\pi$ è stato calcolato fino a oltre 100 mila miliardi di cifre decimali — non perché qualcuno ne abbia bisogno di così tante (ne bastano circa 40 per calcolare la circonferenza dell'universo osservabile con una precisione pari alla larghezza di un atomo di idrogeno), ma perché è un buon banco di prova per la potenza di calcolo. E, a essere onesti, perché i matematici sono un po' ossessivi.
 
