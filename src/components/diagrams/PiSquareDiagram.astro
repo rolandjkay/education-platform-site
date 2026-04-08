@@ -1,8 +1,10 @@
 ---
 // Static SVG: A square with side length 2r, showing the distance r from centre to edge.
+import katex from 'katex';
+const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
 ---
 
-<figure class="diagram">
+<figure class="diagram pi-square">
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 400 340" aria-label="A square with side length 2r, showing distance r from centre to edge" role="img">
 
     <!-- The square -->
@@ -15,28 +17,34 @@
     <line x1="80" y1="310" x2="320" y2="310" stroke="#555" stroke-width="1.5"/>
     <line x1="80" y1="305" x2="80" y2="315" stroke="#555" stroke-width="1.5"/>
     <line x1="320" y1="305" x2="320" y2="315" stroke="#555" stroke-width="1.5"/>
-    <text x="200" y="330" font-size="14" fill="#333" text-anchor="middle" font-family="serif" font-style="italic">2r</text>
+    <foreignObject x="175" y="318" width="50" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333;display:block;text-align:center" set:html={k('2r')} />
+    </foreignObject>
 
     <!-- Dimension line: r from centre to right edge -->
     <line x1="200" y1="170" x2="320" y2="170" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
-    <text x="260" y="162" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+    <foreignObject x="240" y="145" width="40" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#6366f1" set:html={k('r')} />
+    </foreignObject>
 
     <!-- Dimension line: full height along right (2r) -->
     <line x1="340" y1="50" x2="340" y2="290" stroke="#555" stroke-width="1.5"/>
     <line x1="335" y1="50" x2="345" y2="50" stroke="#555" stroke-width="1.5"/>
     <line x1="335" y1="290" x2="345" y2="290" stroke="#555" stroke-width="1.5"/>
-    <text x="360" y="174" font-size="14" fill="#333" text-anchor="middle" font-family="serif" font-style="italic">2r</text>
+    <foreignObject x="348" y="155" width="50" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333" set:html={k('2r')} />
+    </foreignObject>
 
   </svg>
   <figcaption>A square with side length 2r — the distance from the centre to any edge is r</figcaption>
 </figure>
 
 <style>
-  .diagram {
+  .pi-square {
     margin: 2rem 0;
   }
 
-  .diagram svg {
+  .pi-square svg {
     display: block;
     width: 100%;
     max-width: 420px;
@@ -47,11 +55,21 @@
     padding: 1rem;
   }
 
-  .diagram figcaption {
+  .pi-square figcaption {
     font-family: var(--font-sans);
     font-size: 0.875rem;
     color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
+  }
+
+  .svg-katex {
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .svg-katex :global(.katex) {
+    font-size: 1em;
   }
 </style>

@@ -1,8 +1,10 @@
 ---
 // Static SVG: A circle with radius r labelled.
+import katex from 'katex';
+const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
 ---
 
-<figure class="diagram">
+<figure class="diagram pi-circle">
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 400 320" aria-label="A circle with radius r labelled" role="img">
 
     <!-- The circle -->
@@ -15,21 +17,25 @@
     <line x1="200" y1="150" x2="320" y2="150" stroke="#6366f1" stroke-width="2"/>
 
     <!-- Radius label -->
-    <text x="260" y="142" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+    <foreignObject x="240" y="125" width="40" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#6366f1" set:html={k('r')} />
+    </foreignObject>
 
     <!-- Area label with question mark -->
-    <text x="200" y="300" font-size="14" fill="#333" text-anchor="middle" font-family="serif">Area = ? × <tspan font-style="italic">r</tspan><tspan font-size="10" dy="-5">2</tspan></text>
+    <foreignObject x="120" y="282" width="160" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333;display:block;text-align:center" set:html={k('\\text{Area} = {?} \\times r^2')} />
+    </foreignObject>
 
   </svg>
   <figcaption>A circle of radius r — what number do we multiply r² by to get the area?</figcaption>
 </figure>
 
 <style>
-  .diagram {
+  .pi-circle {
     margin: 2rem 0;
   }
 
-  .diagram svg {
+  .pi-circle svg {
     display: block;
     width: 100%;
     max-width: 420px;
@@ -40,11 +46,21 @@
     padding: 1rem;
   }
 
-  .diagram figcaption {
+  .pi-circle figcaption {
     font-family: var(--font-sans);
     font-size: 0.875rem;
     color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
+  }
+
+  .svg-katex {
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .svg-katex :global(.katex) {
+    font-size: 1em;
   }
 </style>

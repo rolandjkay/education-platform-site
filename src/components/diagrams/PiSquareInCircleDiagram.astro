@@ -1,9 +1,14 @@
 ---
 // Static SVG: Circle with both an outer square (side 2r) and an inner square (rotated 45°,
 // corners touching the circle). Shows the Pythagoras construction and the bound 2 < π < 4.
+// Labels rendered with KaTeX via foreignObject for consistent maths typography.
+
+import katex from 'katex';
+
+const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
 ---
 
-<figure class="diagram">
+<figure class="diagram pi-sq-circ">
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 500 430" aria-label="Circle with inscribed and circumscribed squares, showing the Pythagoras construction for bounding pi" role="img">
 
     <!-- Outer square -->
@@ -20,18 +25,24 @@
 
     <!-- Radius line from centre to right corner of inner square -->
     <line x1="250" y1="180" x2="370" y2="180" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
-    <text x="310" y="172" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+    <foreignObject x="290" y="155" width="40" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#6366f1" set:html={k('r')} />
+    </foreignObject>
 
-    <!-- Pythagoras construction: centre → top corner (vertical) and centre → right corner (horizontal) -->
+    <!-- Pythagoras construction lines -->
     <line x1="250" y1="180" x2="370" y2="180" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
     <line x1="370" y1="180" x2="250" y2="60" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
 
     <!-- Vertical line from centre to top corner = r -->
     <line x1="250" y1="180" x2="250" y2="60" stroke="#d63030" stroke-width="1.5" stroke-dasharray="5,4"/>
-    <text x="237" y="125" font-size="13" fill="#d63030" text-anchor="end" font-family="serif" font-style="italic">r</text>
+    <foreignObject x="218" y="110" width="30" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#d63030" set:html={k('r')} />
+    </foreignObject>
 
     <!-- Inner square side label: r√2 -->
-    <text x="325" y="108" font-size="13" fill="#d63030" text-anchor="start" font-family="serif" font-style="italic">r&#x221A;2</text>
+    <foreignObject x="315" y="88" width="65" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#d63030" set:html={k('r\\sqrt{2}')} />
+    </foreignObject>
 
     <!-- Right angle marker at centre -->
     <rect x="250" y="168" width="12" height="12" fill="none" stroke="#aaa" stroke-width="1"/>
@@ -43,22 +54,32 @@
     <circle cx="130" cy="180" r="4" fill="#d63030"/>
 
     <!-- Labels for each square -->
-    <text x="138" y="54" font-size="12" fill="#555" font-family="sans-serif">Outer square: area = 4<tspan font-style="italic">r</tspan><tspan font-size="9" dy="-4">2</tspan></text>
-    <text x="250" y="400" font-size="12" fill="#d63030" text-anchor="middle" font-family="sans-serif"><tspan dy="0">Inner square: area = 2</tspan><tspan font-style="italic">r</tspan><tspan font-size="9" dy="-4">2</tspan></text>
+    <foreignObject x="125" y="32" width="220" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#555">
+        Outer square: area = <span set:html={k('4r^2')} />
+      </span>
+    </foreignObject>
+    <foreignObject x="140" y="382" width="220" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#d63030;display:block;text-align:center">
+        Inner square: area = <span set:html={k('2r^2')} />
+      </span>
+    </foreignObject>
 
     <!-- Summary bound -->
-    <text x="250" y="420" font-size="14" fill="#333" text-anchor="middle" font-family="sans-serif">2 &lt; <tspan font-style="italic">&pi;</tspan> &lt; 4</text>
+    <foreignObject x="160" y="402" width="180" height="35">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333;display:block;text-align:center" set:html={k('2 < \\pi < 4')} />
+    </foreignObject>
 
   </svg>
   <figcaption>A circle of radius r sandwiched between two squares. The outer square (grey) has area 4r². The inner square (red, rotated 45°) has area 2r². The circle's area is somewhere in between, so 2 &lt; &pi; &lt; 4.</figcaption>
 </figure>
 
 <style>
-  .diagram {
+  .pi-sq-circ {
     margin: 2rem 0;
   }
 
-  .diagram svg {
+  .pi-sq-circ svg {
     display: block;
     width: 100%;
     max-width: 420px;
@@ -69,11 +90,25 @@
     padding: 1rem;
   }
 
-  .diagram figcaption {
+  .pi-sq-circ figcaption {
     font-family: var(--font-sans);
     font-size: 0.875rem;
     color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
+  }
+
+  .svg-katex {
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .svg-katex-sm {
+    font-size: 12px;
+  }
+
+  .svg-katex :global(.katex) {
+    font-size: 1em;
   }
 </style>

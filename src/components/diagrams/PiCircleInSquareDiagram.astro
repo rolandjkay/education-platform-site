@@ -1,10 +1,12 @@
 ---
 // Static SVG: A circle inscribed in a square — the circle touches the midpoint of each side.
 // Shows that the area of the circle must be less than the area of the square (4r²).
+import katex from 'katex';
+const k = (tex: string) => katex.renderToString(tex, { throwOnError: false });
 ---
 
-<figure class="diagram">
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 440 380" aria-label="A circle of radius r inscribed inside a square of side 2r" role="img">
+<figure class="diagram pi-circ-sq">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 440 390" aria-label="A circle of radius r inscribed inside a square of side 2r" role="img">
 
     <!-- Shaded area between square and circle to highlight the gap -->
     <!-- Square fill -->
@@ -23,7 +25,9 @@
 
     <!-- Radius line from centre to right (where circle touches square) -->
     <line x1="220" y1="180" x2="340" y2="180" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
-    <text x="280" y="172" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+    <foreignObject x="260" y="155" width="40" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#6366f1" set:html={k('r')} />
+    </foreignObject>
 
     <!-- Touch points (small dots where circle meets square) -->
     <circle cx="340" cy="180" r="4" fill="#d63030"/>
@@ -35,21 +39,27 @@
     <line x1="100" y1="320" x2="340" y2="320" stroke="#555" stroke-width="1.5"/>
     <line x1="100" y1="315" x2="100" y2="325" stroke="#555" stroke-width="1.5"/>
     <line x1="340" y1="315" x2="340" y2="325" stroke="#555" stroke-width="1.5"/>
-    <text x="220" y="340" font-size="14" fill="#333" text-anchor="middle" font-family="serif" font-style="italic">2r</text>
+    <foreignObject x="195" y="328" width="50" height="30">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex" style="color:#333;display:block;text-align:center" set:html={k('2r')} />
+    </foreignObject>
 
-    <!-- Labels -->
-    <text x="220" y="365" font-size="13" fill="#333" text-anchor="middle" font-family="sans-serif">Circle area &lt; Square area = 4<tspan font-style="italic">r</tspan><tspan font-size="9" dy="-5">2</tspan><tspan dy="5"> , so </tspan><tspan font-style="italic">&pi;</tspan> &lt; 4</text>
+    <!-- Summary label -->
+    <foreignObject x="70" y="355" width="300" height="35">
+      <span xmlns="http://www.w3.org/1999/xhtml" class="svg-katex svg-katex-sm" style="color:#333;display:block;text-align:center">
+        Circle area &lt; Square area = <span set:html={k('4r^2')} />, so <span set:html={k('\\pi < 4')} />
+      </span>
+    </foreignObject>
 
   </svg>
   <figcaption>A circle of radius r sitting inside a square of side 2r. The circle touches the square at exactly four points (red dots) — the middle of each side. The shaded corners show the area the square has that the circle doesn't.</figcaption>
 </figure>
 
 <style>
-  .diagram {
+  .pi-circ-sq {
     margin: 2rem 0;
   }
 
-  .diagram svg {
+  .pi-circ-sq svg {
     display: block;
     width: 100%;
     max-width: 420px;
@@ -60,11 +70,25 @@
     padding: 1rem;
   }
 
-  .diagram figcaption {
+  .pi-circ-sq figcaption {
     font-family: var(--font-sans);
     font-size: 0.875rem;
     color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
+  }
+
+  .svg-katex {
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .svg-katex-sm {
+    font-size: 12px;
+  }
+
+  .svg-katex :global(.katex) {
+    font-size: 1em;
   }
 </style>
