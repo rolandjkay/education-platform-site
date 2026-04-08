@@ -1,76 +1,241 @@
+---
+title: "What actually is pi?"
+description: "Everyone knows pi is 3.14-something, but what is it really? It turns out pi isn't something mathematicians invented — it's a property of the universe itself, and you can estimate it at your kitchen table."
+pubDate: 2025-04-07
+subjects: [maths]
+tags: ["maths", "geometry", "pi", "circles"]
+---
 
-Most people have heard of the letter pi. If you did maths classes at school you may remember... 3.142, right?
-You likely memorized this number so that you could solve such useful problems as...
+import PiSquareDiagram from '../../components/diagrams/PiSquareDiagram.astro';
+import PiCircleDiagram from '../../components/diagrams/PiCircleDiagram.astro';
+import PiCircleInSquareDiagram from '../../components/diagrams/PiCircleInSquareDiagram.astro';
+import PiSquareInCircleDiagram from '../../components/diagrams/PiSquareInCircleDiagram.astro';
 
-Calculate the perimeter of a circular field of radius 10m
+Most people have heard of the number $\pi$ (pronounced "pie"). If you did maths at school you probably remember... 3.142, right?
+You likely memorised this number so that you could solve such useful problems as:
 
-  circumference = 2 x pi * 10 = 20 x 3.142 = 62.84m
+> *Calculate the perimeter of a circular field of radius 10 m.*
+
+$$
+\text{circumference} = 2 \times \pi \times 10 = 20 \times 3.142 = 62.84\text{ m}
+$$
 
 I bet that served you well in your life post school, right?
 
-But, what is pi ?  Just some number that mathematicims made up right?
+But, what *is* $\pi$? Just some number that mathematicians made up, right?
 
-Actually, the truth is much more mystical. No one, "invented" or made up this number. 
-It's a property of the universe itself and, amazingly, it's one that you could, in principle,
-calculate, or at least estimate, at your kitchen table with nothing more sophisticated than
-pen and paper, a compass and a ruler.
+Actually, the truth is much more interesting. No one "invented" or made up this number. It's a property of the universe itself and, amazingly, it's one that you could, in principle, calculate — or at least estimate — at your kitchen table with nothing more sophisticated than pen and paper, a compass and a ruler.
 
-What's more, it doesn't have to be equal to 3.142... that's its valiue in our universe, but
-it could be something different. If one day, you ever happen to wander through a multi-dimensional
-teleporter and arent sure where you have ended up. Sit yourself down at a kitchen table and 
-estimate the value of pi. If it's not 3.142... then you'll know that you've strayed into another
-universe.
+What's more, it doesn't *have* to be equal to 3.142... That's its value in our universe, but it could be something different. If, one day, you ever happen to wander through a multidimensional teleporter and aren't sure where you've ended up, sit yourself down at a kitchen table and estimate the value of $\pi$. If it's not 3.142... then you'll know that you've strayed into an alternate universe.
 
-But, what is pi exactly.
+But first — what is $\pi$, exactly?
 
-Imagine that we are trying to calculate the area of a square where the distance from the centre
-to the nearest edge is r; that's just hte same as saying that the length of one side is 2r.
+## Pi is a number that relates circles to squares
 
-TODO: Insert a diargram of the square described above.
+Imagine that we want to calculate the area of a square, where the distance from the centre to the nearest edge is $r$. That's just the same as saying that the length of one side is $2r$.
 
-We know that hte area of a square is the length of one side times the lengh of the other, so 
-the area is
+<PiSquareDiagram />
 
-$$ A_square = 2r \times 2r = 4r^2$$
+We know that the area of a square is the length of one side times the length of the other, so the area is:
 
-FOOTNOTE; $r^2$ just means $r \times r$.
+$$
+A_{\text{square}} = 2r \times 2r = 4r^2
+$$
 
-What if we want to calculate the area of another simple shape, a circle? This circle:
+> **Quick note:** $r^2$ just means $r \times r$. So if $r = 3$, then $r^2 = 3 \times 3 = 9$.
 
-TODO: Insert a diagram of a circle of radius r.
+OK so far? Now, what if we want to calculate the area of another simple shape — a circle? Specifically, a circle of radius $r$:
 
-We might imagine that it
-is also given by some number times $r^2$. But what is that number?
+<PiCircleDiagram />
 
+We might imagine that the area of the circle is also given by *some number* times $r^2$. But what is that number?
 
-In case you hadn't guessed, we're going to call this number $pi$ and see if we can work out a 
-value for it.
+In case you hadn't guessed, we're going to call this mystery number $\pi$, and see if we can work out what it is.
 
-## Estimating the value of pi
+## Estimating the value of $\pi$
 
-At school, you will have learnt the formula
+At school, you will have learnt the formula:
 
-$ A_circle = \pi \times r^2$
+$$
+A_{\text{circle}} = \pi \times r^2
+$$
 
-and will have memorised the value of $\pi$. But, someone just told you that. What would you do if
-you wanted to work out the value of $\pi$ in this formula yourself.
+and will have memorised the value of $\pi$. But someone just *told* you that value. What would you do if you wanted to work it out yourself?
 
-Let's draw this circle and hte square together.
+### Step 1: The circle inside the square
 
-TODO: insert diagram
+Let's draw our circle of radius $r$ and the square of side length $2r$ together, with the circle fitting snugly inside the square:
 
-The circle takes up less space than the square, so we can see that 
+<PiCircleInSquareDiagram />
 
-$$ \pi < 4 $$
+The circle takes up less space than the square. The square has area $4r^2$, and the circle fits inside it, so the circle's area must be *less* than $4r^2$. That means:
 
-Let's draw another circle inside the square
+$$
+\pi \times r^2 < 4r^2
+$$
 
-TODO: insert a diagrams the same as teh last one, but now with a square inside the circle and touching it  with the radius labelle as $\sqrt(2r)$
+We can divide both sides by $r^2$ to get:
 
-TODO: use Pythagorus' therum to demonstate that the length of a same of this new square is sqrt(2r)
+$$
+\pi < 4
+$$
 
-We can easily see that the radius of this smaller square is $2r^2$ and, as the area of the circle is greater, we know that 
+OK, not exactly a revelation. But we're just getting started.
 
-$\pi 2 < pi < 4$.
+### Step 2: A square inside the circle
 
-TODO: Continue this argument by showing how we can refine the bounds on pi by replaceing the squares with polygons and increasing the number of sides.
+Now let's draw another square — this time *inside* the circle, with its corners touching the circle:
+
+<PiSquareInCircleDiagram />
+
+What's the side length of this inner square? This is where Pythagoras comes in. Each corner of the inner square sits on the circle, at a distance $r$ from the centre. If we draw a line from the centre to one corner, that's $r$. The inner square is rotated 45° relative to the outer square, and if we look at one quarter of it, we have a right-angled triangle with two equal sides and a hypotenuse of $r$.
+
+By Pythagoras' theorem ($a^2 + b^2 = c^2$), if the two short sides are both $s$, then:
+
+$$
+s^2 + s^2 = r^2
+$$
+
+$$
+2s^2 = r^2
+$$
+
+$$
+s = \frac{r}{\sqrt{2}}
+$$
+
+The full side length of the inner square is $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$.
+
+So the area of the inner square is:
+
+$$
+A_{\text{inner square}} = \left(r\sqrt{2}\right)^2 = 2r^2
+$$
+
+The circle completely contains this inner square, so the circle's area must be *greater* than $2r^2$:
+
+$$
+2r^2 < \pi \times r^2
+$$
+
+Dividing both sides by $r^2$:
+
+$$
+2 < \pi
+$$
+
+Putting our two bounds together:
+
+$$
+2 < \pi < 4
+$$
+
+We're narrowing it down! The true value is 3.14159..., so our range already has the answer somewhere inside it. But the range is still quite wide. Can we do better?
+
+### Step 3: More sides = better estimates
+
+Here's the key insight: we used squares (4-sided shapes) and got a rough estimate. What if we used shapes with *more* sides?
+
+Instead of an inner and outer square, we could use an inner and outer **hexagon** (6 sides). The inner hexagon fits inside the circle with its corners on the circle, and the outer hexagon sits outside the circle with the circle touching the middle of each side — just like we did with our squares.
+
+A hexagon fills more of the circle than a square does, so the gap between our inner and outer bounds gets smaller. If we calculate the areas (using a bit more trigonometry), we get:
+
+$$
+3.000 < \pi < 3.464
+$$
+
+Better! Now let's try an **octagon** (8 sides):
+
+$$
+2.828 < \pi < 3.314
+$$
+
+A **dodecagon** (12 sides):
+
+$$
+3.000 < \pi < 3.215
+$$
+
+Do you see the pattern? As we increase the number of sides, the inner polygon gets bigger and bigger (approaching the circle from the inside) and the outer polygon gets smaller and smaller (approaching it from the outside). The two bounds squeeze together, trapping $\pi$ in an ever-narrower range.
+
+| Polygon sides | Lower bound | Upper bound | Gap |
+|---|---|---|---|
+| 4 (square) | 2.000 | 4.000 | 2.000 |
+| 6 (hexagon) | 3.000 | 3.464 | 0.464 |
+| 8 (octagon) | 2.828 | 3.314 | 0.486 |
+| 12 | 3.000 | 3.215 | 0.215 |
+| 24 | 3.106 | 3.160 | 0.054 |
+| 48 | 3.133 | 3.146 | 0.013 |
+| 96 | 3.139 | 3.143 | 0.003 |
+
+By the time we get to 96 sides, we've pinned $\pi$ down to between 3.139 and 3.143. And if we could go to infinity — a polygon with infinitely many sides *is* a circle — we'd land on exactly $\pi = 3.14159265...$
+
+This is essentially what Archimedes did around 250 BC. He used 96-sided polygons and worked out that:
+
+$$
+3\frac{10}{71} < \pi < 3\frac{1}{7}
+$$
+
+which is $3.1408... < \pi < 3.1429...$
+
+Not bad for someone working with nothing but geometry and patience, over two thousand years before calculators existed.
+
+## $\pi$ is everywhere
+
+Once you know what $\pi$ is, you start noticing it everywhere. It's not just about areas of circles.
+
+The **circumference** of a circle (where we started this article) is:
+
+$$
+C = 2\pi r
+$$
+
+The **volume of a sphere** of radius $r$ is:
+
+$$
+V = \frac{4}{3}\pi r^3
+$$
+
+The **normal distribution** — the bell curve at the heart of statistics — has $\pi$ baked into its formula:
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
+
+And $\pi$ sits right at the centre of what many consider the most beautiful equation in all of mathematics, **Euler's identity**:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+which we touched on in our article on [Euler's number](/articles/eulers-number).
+
+$\pi$ turns up in the swing of a pendulum, the vibration of a guitar string, the orbits of planets, and the equations of quantum mechanics. Anywhere there is something circular, periodic, or wave-like, $\pi$ is lurking nearby.
+
+## $\pi$ never ends
+
+Like $e$, $\pi$ is **irrational** — its decimal expansion goes on forever without repeating:
+
+$$
+\pi = 3.14159265358979323846...
+$$
+
+You can never write it as a simple fraction. The digits just keep going. As of 2024, $\pi$ has been computed to over 100 trillion decimal digits — not because anyone needs that many (you only need about 40 digits to calculate the circumference of the observable universe to within the width of a hydrogen atom), but because it's a good benchmark for computing power. And, let's be honest, because mathematicians are a bit obsessive.
+
+## Could $\pi$ be different?
+
+Remember at the start, we said that $\pi$ might be different in another universe? Here's what we meant.
+
+Everything we've done in this article assumes we're working on a *flat* surface. But what if space isn't flat?
+
+Imagine drawing a circle on the surface of a sphere — say, the Earth. Put your compass point on the North Pole and draw a circle around it. Because the surface curves away from you, the circumference of that circle will be *shorter* than you'd expect for its diameter. If you calculated the ratio of area to $r^2$, you'd get a number *less than* 3.14159...
+
+Now imagine a surface shaped like a saddle. On a saddle-shaped surface, circles are *bigger* than you'd expect — and the ratio comes out *greater than* 3.14159...
+
+The value 3.14159... is specific to **flat** (Euclidean) space. In curved spaces, it changes. And this isn't just abstract mathematics — Einstein's general theory of relativity tells us that massive objects really do curve the space around them. Near a black hole, if you could somehow measure circles in that warped space, you'd measure a different value of $\pi$.
+
+So, if you do ever step through that teleporter — you know what to do.
+
+## Over to you
+
+$\pi$ seems simple at first — just 3.14, right? But it's really a fundamental constant of flat space that connects geometry to probability, circles to waves, and simple measurements to the deepest structures of the universe. And, as Archimedes showed us over two thousand years ago, you can hunt it down yourself with nothing fancier than a ruler, a compass, and a lot of patience.

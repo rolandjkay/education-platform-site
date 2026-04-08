@@ -1,0 +1,48 @@
+---
+// Static SVG: A circle with radius r labelled.
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 400 320" aria-label="A circle with radius r labelled" role="img">
+
+    <!-- The circle -->
+    <circle cx="200" cy="150" r="120" fill="none" stroke="#555" stroke-width="2"/>
+
+    <!-- Centre dot -->
+    <circle cx="200" cy="150" r="3" fill="#555"/>
+
+    <!-- Radius line from centre to right -->
+    <line x1="200" y1="150" x2="320" y2="150" stroke="#6366f1" stroke-width="2"/>
+
+    <!-- Radius label -->
+    <text x="260" y="142" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+
+    <!-- Area label with question mark -->
+    <text x="200" y="300" font-size="14" fill="#333" text-anchor="middle" font-family="serif">Area = ? × <tspan font-style="italic">r</tspan><tspan font-size="10" dy="-5">2</tspan></text>
+
+  </svg>
+  <figcaption>A circle of radius r — what number do we multiply r² by to get the area?</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 2rem 0;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>

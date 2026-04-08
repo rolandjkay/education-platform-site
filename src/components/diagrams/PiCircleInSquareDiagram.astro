@@ -1,0 +1,68 @@
+---
+// Static SVG: A circle inscribed in a square — the circle touches the midpoint of each side.
+// Shows that the area of the circle must be less than the area of the square (4r²).
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 440 380" aria-label="A circle of radius r inscribed inside a square of side 2r" role="img">
+
+    <!-- Shaded area between square and circle to highlight the gap -->
+    <!-- Square fill -->
+    <rect x="100" y="60" width="240" height="240" fill="#6366f1" opacity="0.08"/>
+    <!-- Circle cut-out (white fill to mask the square shading inside the circle) -->
+    <circle cx="220" cy="180" r="120" fill="var(--color-bg-alt, #f9fafb)"/>
+
+    <!-- The square -->
+    <rect x="100" y="60" width="240" height="240" fill="none" stroke="#555" stroke-width="2"/>
+
+    <!-- The circle -->
+    <circle cx="220" cy="180" r="120" fill="none" stroke="#6366f1" stroke-width="2"/>
+
+    <!-- Centre dot -->
+    <circle cx="220" cy="180" r="3" fill="#555"/>
+
+    <!-- Radius line from centre to right (where circle touches square) -->
+    <line x1="220" y1="180" x2="340" y2="180" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="280" y="172" font-size="14" fill="#6366f1" text-anchor="middle" font-family="serif" font-style="italic">r</text>
+
+    <!-- Touch points (small dots where circle meets square) -->
+    <circle cx="340" cy="180" r="4" fill="#d63030"/>
+    <circle cx="100" cy="180" r="4" fill="#d63030"/>
+    <circle cx="220" cy="60" r="4" fill="#d63030"/>
+    <circle cx="220" cy="300" r="4" fill="#d63030"/>
+
+    <!-- Dimension: 2r along bottom -->
+    <line x1="100" y1="320" x2="340" y2="320" stroke="#555" stroke-width="1.5"/>
+    <line x1="100" y1="315" x2="100" y2="325" stroke="#555" stroke-width="1.5"/>
+    <line x1="340" y1="315" x2="340" y2="325" stroke="#555" stroke-width="1.5"/>
+    <text x="220" y="340" font-size="14" fill="#333" text-anchor="middle" font-family="serif" font-style="italic">2r</text>
+
+    <!-- Labels -->
+    <text x="220" y="365" font-size="13" fill="#333" text-anchor="middle" font-family="sans-serif">Circle area &lt; Square area = 4<tspan font-style="italic">r</tspan><tspan font-size="9" dy="-5">2</tspan><tspan dy="5"> , so </tspan><tspan font-style="italic">&pi;</tspan> &lt; 4</text>
+
+  </svg>
+  <figcaption>A circle of radius r sitting inside a square of side 2r. The circle touches the square at exactly four points (red dots) — the middle of each side. The shaded corners show the area the square has that the circle doesn't.</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 2rem 0;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
