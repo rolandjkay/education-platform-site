@@ -75,11 +75,6 @@
     height: 400px;
     border-radius: var(--radius, 12px);
     background: var(--color-bg-alt, #f9fafb);
-    cursor: grab;
-  }
-
-  #cap-canvas:active {
-    cursor: grabbing;
   }
 
   /* SVG overlay — sits on top of canvas for arrow lines */
@@ -137,8 +132,6 @@
 
 <script>
   import * as THREE from 'three';
-  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
   /* ── Constants ────────────────────────────────────────────── */
   const THETA_DEG = 45;
   const THETA     = THREE.MathUtils.degToRad(THETA_DEG);
@@ -192,14 +185,10 @@
   const camera = new THREE.PerspectiveCamera(40, 2, 0.1, 100);
   camera.position.set(2.2, 1.6, 2.2);
 
-  const controls = new OrbitControls(camera, canvas);
-  controls.enableDamping  = true;
-  controls.dampingFactor  = 0.08;
-  controls.enablePan      = false;
-  controls.minDistance     = 2;
-  controls.maxDistance     = 6;
-  controls.autoRotate     = true;
-  controls.autoRotateSpeed = 1.5;
+  /* ── Camera orbit ──────────────────────────────────────────── */
+  const CAM_RADIUS = 3.5;
+  const CAM_HEIGHT = 1.6;
+  const CAM_SPEED  = 0.15;   // radians per second
 
   /* ── Lighting ─────────────────────────────────────────────── */
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
@@ -399,8 +388,16 @@
       : 1;
     piRow.style.opacity = String(piOp);
 
+    // ── Camera orbit ─────────────────────────────────────
+    const angle = animTime * CAM_SPEED;
+    camera.position.set(
+      CAM_RADIUS * Math.sin(angle),
+      CAM_HEIGHT,
+      CAM_RADIUS * Math.cos(angle),
+    );
+    camera.lookAt(0, 0.2, 0);
+
     // ── Render ────────────────────────────────────────────
-    controls.update();
     renderer.render(scene, camera);
   }
   animate();
