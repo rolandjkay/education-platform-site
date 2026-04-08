@@ -1,47 +1,72 @@
 ---
-// Interactive Three.js diagram: shows a circle on the surface of a sphere (spherical cap)
-// vs a flat disc cutting through the sphere at the same circumference.
-// A slider moves the circle from pole to equator, updating computed areas in real time.
-// Demonstrates that area on a curved surface > area of corresponding flat circle.
+// Animated Three.js diagram: spherical cap vs flat disc area comparison.
+// Looping animation shows that a circle on a curved surface encloses more area
+// than a flat circle with the same boundary, giving a different "effective π".
+//
+// Animation sequence:
+//   1. Full sphere visible (2 s)
+//   2. Bottom hemisphere fades out (1 s)
+//   3. Flat disc separates downward (1.5 s)
+//   4. Formula labels + arrows fade in (1.5 s)
+//   5. π values fade in below canvas (1.5 s)
+//   6. Hold (20 s)
+//   7. Fade out everything (1.5 s), reset, repeat
 ---
 
 <figure class="diagram cap-diagram">
-  <canvas id="cap-canvas"></canvas>
+  <div class="cap-viewport" id="cap-viewport">
+    <canvas id="cap-canvas"></canvas>
 
-  <div class="cap-controls">
-    <div class="cap-slider-row">
-      <label for="cap-theta-slider">Circle position:</label>
-      <span class="cap-slider-label">pole</span>
-      <input id="cap-theta-slider" type="range"
-             min="5" max="85" step="0.5" value="45"
-             class="cap-range">
-      <span class="cap-slider-label">equator</span>
+    <!-- SVG overlay for arrow lines from labels to 3D objects -->
+    <svg id="cap-svg" class="cap-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ah-cap" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9z" fill="#6366f1"/>
+        </marker>
+        <marker id="ah-disc" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9z" fill="#d63030"/>
+        </marker>
+      </defs>
+      <line id="arrow-cap" stroke="#6366f1" stroke-width="1.5" marker-end="url(#ah-cap)"/>
+      <line id="arrow-disc" stroke="#d63030" stroke-width="1.5" marker-end="url(#ah-disc)"/>
+    </svg>
+
+    <!-- Formula labels (positioned by JS) -->
+    <div id="cap-lbl-cap" class="cap-formula cap-color-cap">
+      <em>A</em><sub>surface</sub>&nbsp;=&nbsp;<strong>3.68</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
     </div>
-    <div class="cap-areas">
-      <span class="cap-area-surface">
-        <span class="cap-swatch" style="background:#6366f1"></span>
-        Surface area: <strong id="cap-area-cap">—</strong>
-      </span>
-      <span class="cap-area-flat">
-        <span class="cap-swatch" style="background:#d63030"></span>
-        Flat area: <strong id="cap-area-disc">—</strong>
-      </span>
-      <span class="cap-ratio">
-        Ratio: <strong id="cap-ratio-val">—</strong>
-      </span>
+    <div id="cap-lbl-disc" class="cap-formula cap-color-disc">
+      <em>A</em><sub>disc</sub>&nbsp;=&nbsp;<strong>3.14</strong>&thinsp;×&thinsp;<em>r</em>&thinsp;²
     </div>
   </div>
 
+  <!-- π values row (below the 3D viewport) -->
+  <div id="cap-pi-row" class="cap-pi-row">
+    <span class="cap-color-cap">
+      <em>π</em><sub>surface</sub>&nbsp;=&nbsp;<strong>3.68</strong>
+    </span>
+    <span class="cap-color-disc">
+      <em>π</em><sub>disc</sub>&nbsp;=&nbsp;<strong>3.14</strong>
+    </span>
+  </div>
+
   <figcaption>
-    A circle drawn on the surface of a sphere (indigo) always encloses more area than a flat
-    circle with the same circumference (red disc). Drag the slider to move the circle from the
-    pole towards the equator — watch the ratio grow as curvature increases.
+    A circle on a curved surface (indigo) encloses more area than the flat disc
+    (red) bounded by the same circumference. On a sphere, the effective
+    &ldquo;&pi;&rdquo; is different from 3.14.
   </figcaption>
 </figure>
 
 <style>
   .cap-diagram {
     margin: 2rem 0;
+  }
+
+  .cap-viewport {
+    position: relative;
+    line-height: 0;
   }
 
   #cap-canvas {
@@ -57,63 +82,48 @@
     cursor: grabbing;
   }
 
-  .cap-controls {
-    padding: 0.75rem 1rem 0.25rem;
+  /* SVG overlay — sits on top of canvas for arrow lines */
+  .cap-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .cap-svg line {
+    opacity: 0;
+    transition: none;
+  }
+
+  /* Formula labels — positioned absolutely by JS */
+  .cap-formula {
+    position: absolute;
+    pointer-events: none;
+    white-space: nowrap;
     font-family: var(--font-sans, 'Source Sans 3', system-ui, sans-serif);
-    font-size: 0.9rem;
-    color: var(--color-text-muted, #6b7280);
+    font-size: 0.95rem;
+    line-height: 1.3;
+    opacity: 0;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.85);
   }
 
-  .cap-slider-row {
+  .cap-color-cap, .cap-color-cap strong { color: #6366f1; }
+  .cap-color-disc, .cap-color-disc strong { color: #d63030; }
+
+  /* π values row below the viewport */
+  .cap-pi-row {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.5rem;
-  }
-
-  .cap-slider-label {
-    font-size: 0.8rem;
-    color: var(--color-text-muted, #6b7280);
-    min-width: 3.5em;
-  }
-
-  .cap-slider-label:last-of-type {
-    text-align: right;
-  }
-
-  .cap-range {
-    flex: 1;
-    min-width: 140px;
-    accent-color: var(--color-primary, #ea580c);
-  }
-
-  .cap-areas {
-    display: flex;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-size: 0.875rem;
-  }
-
-  .cap-swatch {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-right: 0.25rem;
-  }
-
-  .cap-area-surface strong {
-    color: #6366f1;
-  }
-
-  .cap-area-flat strong {
-    color: #d63030;
-  }
-
-  .cap-ratio strong {
-    color: var(--color-text, #333);
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-sans, 'Source Sans 3', system-ui, sans-serif);
+    font-size: 1.05rem;
+    opacity: 0;
   }
 
   .cap-diagram figcaption {
@@ -129,14 +139,52 @@
   import * as THREE from 'three';
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+  /* ── Constants ────────────────────────────────────────────── */
+  const THETA_DEG = 45;
+  const THETA     = THREE.MathUtils.degToRad(THETA_DEG);
+  const R         = 1;                        // sphere radius
+  const R_CIRCLE  = R * Math.sin(THETA);      // boundary circle radius
+  const Y_DISC_ORIG = R * Math.cos(THETA);    // original disc y position
+  const DISC_DROP   = 1.3;                    // how far the disc separates downward
+
+  /* ── Timeline (seconds) ───────────────────────────────────── */
+  const T_FADE_START      = 2;
+  const T_FADE_END        = 3;
+  const T_SEPARATE_START  = 3;
+  const T_SEPARATE_END    = 4.5;
+  const T_FORMULAS_START  = 4.5;
+  const T_FORMULAS_END    = 6;
+  const T_PI_START        = 6;
+  const T_PI_END          = 7.5;
+  const T_FADEOUT_START   = 27.5;
+  const T_FADEOUT_END     = 29;
+  const T_CYCLE           = 30;
+
   /* ── DOM refs ─────────────────────────────────────────────── */
   const canvas    = document.getElementById('cap-canvas') as HTMLCanvasElement;
-  const slider    = document.getElementById('cap-theta-slider') as HTMLInputElement;
-  const elAreaCap  = document.getElementById('cap-area-cap')!;
-  const elAreaDisc = document.getElementById('cap-area-disc')!;
-  const elRatio    = document.getElementById('cap-ratio-val')!;
+  const viewport  = document.getElementById('cap-viewport')!;
+  const svgEl     = document.getElementById('cap-svg')!;
+  const arrowCap  = document.getElementById('arrow-cap') as unknown as SVGLineElement;
+  const arrowDisc = document.getElementById('arrow-disc') as unknown as SVGLineElement;
+  const lblCap    = document.getElementById('cap-lbl-cap')!;
+  const lblDisc   = document.getElementById('cap-lbl-disc')!;
+  const piRow     = document.getElementById('cap-pi-row')!;
 
-  /* ── Scene basics ─────────────────────────────────────────── */
+  /* ── Helpers ──────────────────────────────────────────────── */
+  function smoothstep(t: number) { const c = Math.max(0, Math.min(1, t)); return c * c * (3 - 2 * c); }
+  function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+  function progress(time: number, start: number, end: number) { return smoothstep((time - start) / (end - start)); }
+
+  /** Project a world-space point to viewport pixel coordinates. */
+  function toScreen(pos: THREE.Vector3, cam: THREE.Camera, cvs: HTMLCanvasElement): [number, number] {
+    const v = pos.clone().project(cam);
+    return [
+      ( v.x * 0.5 + 0.5) * cvs.clientWidth,
+      (-v.y * 0.5 + 0.5) * cvs.clientHeight,
+    ];
+  }
+
+  /* ── Three.js scene ───────────────────────────────────────── */
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -145,11 +193,13 @@
   camera.position.set(2.2, 1.6, 2.2);
 
   const controls = new OrbitControls(camera, canvas);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
-  controls.enablePan = false;
-  controls.minDistance = 2;
-  controls.maxDistance = 6;
+  controls.enableDamping  = true;
+  controls.dampingFactor  = 0.08;
+  controls.enablePan      = false;
+  controls.minDistance     = 2;
+  controls.maxDistance     = 6;
+  controls.autoRotate     = true;
+  controls.autoRotateSpeed = 1.5;
 
   /* ── Lighting ─────────────────────────────────────────────── */
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
@@ -157,107 +207,89 @@
   dirLight.position.set(3, 4, 2);
   scene.add(dirLight);
 
-  /* ── Sphere (balloon) ─────────────────────────────────────── */
-  const R = 1; // sphere radius
-  const sphereGeo = new THREE.SphereGeometry(R, 64, 64);
-  const sphereMat = new THREE.MeshStandardMaterial({
-    color: 0xcccccc,
-    transparent: true,
-    opacity: 0.15,
-    side: THREE.DoubleSide,
-    depthWrite: false,
+  /* ── Bottom hemisphere (the part that fades out) ──────────── */
+  const bottomGeo = new THREE.SphereGeometry(R, 64, 32, 0, Math.PI * 2, THETA, Math.PI - THETA);
+  const bottomMat = new THREE.MeshStandardMaterial({
+    color: 0xcccccc, transparent: true, opacity: 0.15,
+    side: THREE.DoubleSide, depthWrite: false,
   });
-  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-  scene.add(sphere);
+  const bottomMesh = new THREE.Mesh(bottomGeo, bottomMat);
+  scene.add(bottomMesh);
 
-  // Wireframe overlay for depth perception
-  const wireGeo = new THREE.SphereGeometry(R, 32, 16);
+  /* ── Wireframe overlay (bottom only — fades with bottom) ──── */
+  const wireGeo = new THREE.SphereGeometry(R, 32, 16, 0, Math.PI * 2, THETA, Math.PI - THETA);
   const wireMat = new THREE.MeshBasicMaterial({
-    color: 0xaaaaaa,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.08,
+    color: 0xaaaaaa, wireframe: true, transparent: true, opacity: 0.08,
   });
-  scene.add(new THREE.Mesh(wireGeo, wireMat));
+  const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+  scene.add(wireMesh);
 
-  /* ── Spherical cap (indigo surface area) ──────────────────── */
-  // We'll rebuild this geometry each time theta changes.
-  let capMesh: THREE.Mesh;
-  const capMat = new THREE.MeshStandardMaterial({
-    color: 0x6366f1,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.7,
+  /* ── Wireframe overlay on cap (stays visible) ──────────────── */
+  const capWireGeo = new THREE.SphereGeometry(R * 1.001, 24, 8, 0, Math.PI * 2, 0, THETA);
+  const capWireMat = new THREE.MeshBasicMaterial({
+    color: 0xffffff, wireframe: true, transparent: true, opacity: 0.15,
   });
+  scene.add(new THREE.Mesh(capWireGeo, capWireMat));
+
+  /* ── Spherical cap (indigo) ───────────────────────────────── */
+  const capGeo = new THREE.SphereGeometry(R, 64, 32, 0, Math.PI * 2, 0, THETA);
+  const capMat = new THREE.MeshStandardMaterial({
+    color: 0x6366f1, side: THREE.DoubleSide, transparent: true, opacity: 0.7,
+  });
+  const capMesh = new THREE.Mesh(capGeo, capMat);
+  scene.add(capMesh);
+
+  // Close the bottom of the cap so you can't see inside it
+  const capBaseGeo = new THREE.CircleGeometry(R_CIRCLE, 64);
+  const capBaseMesh = new THREE.Mesh(capBaseGeo, capMat);
+  capBaseMesh.rotation.x = -Math.PI / 2;
+  capBaseMesh.position.y = Y_DISC_ORIG;
+  scene.add(capBaseMesh);
 
   /* ── Flat disc (red) ──────────────────────────────────────── */
-  let discMesh: THREE.Mesh;
+  const discGeo = new THREE.CircleGeometry(R_CIRCLE, 64);
   const discMat = new THREE.MeshStandardMaterial({
-    color: 0xd63030,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.55,
+    color: 0xd63030, side: THREE.DoubleSide, transparent: true, opacity: 0.55,
   });
+  const discMesh = new THREE.Mesh(discGeo, discMat);
+  discMesh.rotation.x = -Math.PI / 2;
+  discMesh.position.y = Y_DISC_ORIG;
+  scene.add(discMesh);
 
-  /* ── Circle outline (shows circumference on sphere) ──────── */
-  let circleOutline: THREE.LineLoop;
-  const circleMat = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
-
-  /* ── Build / update geometry for a given half-angle θ ────── */
-  function buildCap(thetaDeg: number) {
-    const theta = THREE.MathUtils.degToRad(thetaDeg);
-
-    // Spherical cap: portion of sphere from pole (top) down to angle θ
-    // Three.js SphereGeometry: phiStart/phiLength = azimuth (0→2π),
-    //   thetaStart/thetaLength = polar angle from +Y axis.
-    // We want from 0 to θ.
-    if (capMesh) { capMesh.geometry.dispose(); scene.remove(capMesh); }
-    const capGeo = new THREE.SphereGeometry(R, 64, 32, 0, Math.PI * 2, 0, theta);
-    capMesh = new THREE.Mesh(capGeo, capMat);
-    scene.add(capMesh);
-
-    // Flat disc: sits at y = R·cos(θ) with radius r = R·sin(θ)
-    const r_circle = R * Math.sin(theta);
-    const y_disc   = R * Math.cos(theta);
-    if (discMesh) { discMesh.geometry.dispose(); scene.remove(discMesh); }
-    const discGeo = new THREE.CircleGeometry(r_circle, 64);
-    discMesh = new THREE.Mesh(discGeo, discMat);
-    discMesh.rotation.x = -Math.PI / 2; // lay flat
-    discMesh.position.y = y_disc;
-    scene.add(discMesh);
-
-    // Circle outline at the boundary
-    if (circleOutline) { circleOutline.geometry.dispose(); scene.remove(circleOutline); }
-    const pts: THREE.Vector3[] = [];
-    const segs = 96;
-    for (let i = 0; i <= segs; i++) {
-      const a = (i / segs) * Math.PI * 2;
-      pts.push(new THREE.Vector3(
-        r_circle * Math.cos(a),
-        y_disc,
-        r_circle * Math.sin(a),
-      ));
-    }
-    const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
-    circleOutline = new THREE.LineLoop(lineGeo, circleMat);
-    scene.add(circleOutline);
-
-    // Update area readouts
-    // Spherical cap area = 2πRh where h = R(1 - cosθ)
-    const h = R * (1 - Math.cos(theta));
-    const areaCap  = 2 * Math.PI * R * h;
-    const areaDisc = Math.PI * r_circle * r_circle;
-
-    elAreaCap.textContent  = areaCap.toFixed(3);
-    elAreaDisc.textContent = areaDisc.toFixed(3);
-    elRatio.textContent    = (areaCap / areaDisc).toFixed(3);
+  /* ── Boundary circle outline ──────────────────────────────── */
+  const ringPts: THREE.Vector3[] = [];
+  for (let i = 0; i <= 96; i++) {
+    const a = (i / 96) * Math.PI * 2;
+    ringPts.push(new THREE.Vector3(R_CIRCLE * Math.cos(a), Y_DISC_ORIG, R_CIRCLE * Math.sin(a)));
   }
+  const ringGeo = new THREE.BufferGeometry().setFromPoints(ringPts);
+  const ringMat = new THREE.LineBasicMaterial({ color: 0x222222, transparent: true, opacity: 1 });
+  const ringLine = new THREE.LineLoop(ringGeo, ringMat);
+  scene.add(ringLine);
 
-  /* ── Slider event ─────────────────────────────────────────── */
-  slider.addEventListener('input', () => buildCap(parseFloat(slider.value)));
-  buildCap(parseFloat(slider.value));
+  /* ── 3D anchor points for label arrows ────────────────────── */
+  const anchorCap  = new THREE.Vector3(0, R * 0.92, 0);        // near top of cap
+  const anchorDisc = new THREE.Vector3(0, Y_DISC_ORIG, 0);     // disc centre (updated in loop)
 
-  /* ── Resize handling ──────────────────────────────────────── */
+  /* ── Animation state ──────────────────────────────────────── */
+  const clock = new THREE.Clock();
+  let animTime = 0;
+  let isVisible = false;
+
+  /* ── IntersectionObserver: only animate when on-screen ────── */
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && !isVisible) {
+        animTime = 0;  // restart on re-enter
+        clock.getDelta(); // reset delta
+      }
+      isVisible = entry.isIntersecting;
+    },
+    { threshold: 0.15 },
+  );
+  observer.observe(canvas);
+
+  /* ── Resize ───────────────────────────────────────────────── */
   function resize() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -268,10 +300,106 @@
     }
   }
 
-  /* ── Animation loop ───────────────────────────────────────── */
+  /* ── Update labels + arrows each frame ────────────────────── */
+  function updateLabels(formulaOpacity: number) {
+    if (formulaOpacity <= 0) {
+      lblCap.style.opacity = '0';
+      lblDisc.style.opacity = '0';
+      arrowCap.style.opacity = '0';
+      arrowDisc.style.opacity = '0';
+      return;
+    }
+
+    const op = String(formulaOpacity);
+    lblCap.style.opacity  = op;
+    lblDisc.style.opacity = op;
+    arrowCap.style.opacity  = op;
+    arrowDisc.style.opacity = op;
+
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+
+    // Project 3D anchors → screen
+    const [capX, capY]   = toScreen(anchorCap, camera, canvas);
+    const [discX, discY] = toScreen(anchorDisc, camera, canvas);
+
+    // Fixed label positions: offset to the right of the anchor
+    const lblOffX = 60;
+    const lblCapX  = Math.min(capX + lblOffX, w - 180);
+    const lblCapY  = Math.max(capY - 20, 10);
+    const lblDiscX = Math.min(discX + lblOffX, w - 180);
+    const lblDiscY = Math.min(discY + 10, h - 30);
+
+    lblCap.style.left  = lblCapX + 'px';
+    lblCap.style.top   = lblCapY + 'px';
+    lblDisc.style.left = lblDiscX + 'px';
+    lblDisc.style.top  = lblDiscY + 'px';
+
+    // Arrow lines (from label edge to 3D anchor)
+    arrowCap.setAttribute('x1', String(lblCapX - 4));
+    arrowCap.setAttribute('y1', String(lblCapY + 10));
+    arrowCap.setAttribute('x2', String(capX));
+    arrowCap.setAttribute('y2', String(capY));
+
+    arrowDisc.setAttribute('x1', String(lblDiscX - 4));
+    arrowDisc.setAttribute('y1', String(lblDiscY + 8));
+    arrowDisc.setAttribute('x2', String(discX));
+    arrowDisc.setAttribute('y2', String(discY));
+  }
+
+  /* ── Main animation loop ──────────────────────────────────── */
   function animate() {
     requestAnimationFrame(animate);
+    if (!isVisible) return;
+
+    const delta = clock.getDelta();
+    animTime = (animTime + delta) % T_CYCLE;
+    const t = animTime;
+
     resize();
+
+    // ── Phase: fade out bottom hemisphere ──────────────────
+    const bottomAlpha = t < T_FADE_START ? 1
+      : t < T_FADE_END ? 1 - progress(t, T_FADE_START, T_FADE_END)
+      : t >= T_FADEOUT_START ? progress(t, T_FADEOUT_START, T_FADEOUT_END)
+      : 0;
+    bottomMat.opacity = bottomAlpha * 0.15;
+    wireMat.opacity   = bottomAlpha * 0.08;
+    bottomMesh.visible = bottomAlpha > 0.01;
+    wireMesh.visible   = bottomAlpha > 0.01;
+
+    // ── Phase: separate disc downward ─────────────────────
+    const sepP = t < T_SEPARATE_START ? 0
+      : t < T_SEPARATE_END ? progress(t, T_SEPARATE_START, T_SEPARATE_END)
+      : t >= T_FADEOUT_START ? 1 - progress(t, T_FADEOUT_START, T_FADEOUT_END)
+      : 1;
+    const discY = lerp(Y_DISC_ORIG, Y_DISC_ORIG - DISC_DROP, sepP);
+    discMesh.position.y = discY;
+    anchorDisc.y        = discY;
+
+    // Move the ring outline with the disc once separated
+    const ringPositions = ringLine.geometry.attributes.position;
+    for (let i = 0; i < ringPositions.count; i++) {
+      ringPositions.setY(i, discY);
+    }
+    ringPositions.needsUpdate = true;
+
+    // ── Phase: formula labels + arrows ────────────────────
+    const formulaOp = t < T_FORMULAS_START ? 0
+      : t < T_FORMULAS_END ? progress(t, T_FORMULAS_START, T_FORMULAS_END)
+      : t >= T_FADEOUT_START ? 1 - progress(t, T_FADEOUT_START, T_FADEOUT_END)
+      : 1;
+
+    updateLabels(formulaOp);
+
+    // ── Phase: π values row ───────────────────────────────
+    const piOp = t < T_PI_START ? 0
+      : t < T_PI_END ? progress(t, T_PI_START, T_PI_END)
+      : t >= T_FADEOUT_START ? 1 - progress(t, T_FADEOUT_START, T_FADEOUT_END)
+      : 1;
+    piRow.style.opacity = String(piOp);
+
+    // ── Render ────────────────────────────────────────────
     controls.update();
     renderer.render(scene, camera);
   }
