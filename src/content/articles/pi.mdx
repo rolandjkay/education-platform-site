@@ -10,6 +10,7 @@ import PiSquareDiagram from '../../components/diagrams/PiSquareDiagram.astro';
 import PiCircleDiagram from '../../components/diagrams/PiCircleDiagram.astro';
 import PiCircleInSquareDiagram from '../../components/diagrams/PiCircleInSquareDiagram.astro';
 import PiSquareInCircleDiagram from '../../components/diagrams/PiSquareInCircleDiagram.astro';
+import SphericalCapExplorer from '../../components/islands/SphericalCapExplorer.astro';
 
 Most people have heard of the number $\pi$ (pronounced "pie"). If you did maths at school you probably remember... 3.142, right?
 You likely memorised this number so that you could solve such useful problems as:
@@ -229,6 +230,10 @@ Remember at the start, we said that $\pi$ might be different in another universe
 Everything we've done in this article assumes we're working on a *flat* surface. But what if space isn't flat?
 
 Imagine drawing a circle on the surface of a sphere — say, the Earth. Put your compass point on the North Pole and draw a circle around it. Because the surface curves away from you, the circumference of that circle will be *shorter* than you'd expect for its diameter. If you calculated the ratio of area to $r^2$, you'd get a number *less than* 3.14159...
+
+You can see this in the interactive diagram below. The indigo surface shows the area of a circle drawn on the surface of a sphere. The red disc shows the area of a flat circle with the same circumference. Drag the slider to move the circle from the pole towards the equator — and rotate the view to see the sphere from different angles. Notice that the surface area is always larger than the flat area, and the difference grows as the circle gets bigger.
+
+<SphericalCapExplorer />
 
 Now imagine a surface shaped like a saddle. On a saddle-shaped surface, circles are *bigger* than you'd expect — and the ratio comes out *greater than* 3.14159...
 

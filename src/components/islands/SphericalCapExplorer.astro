@@ -1,0 +1,279 @@
+---
+// Interactive Three.js diagram: shows a circle on the surface of a sphere (spherical cap)
+// vs a flat disc cutting through the sphere at the same circumference.
+// A slider moves the circle from pole to equator, updating computed areas in real time.
+// Demonstrates that area on a curved surface > area of corresponding flat circle.
+---
+
+<figure class="diagram cap-diagram">
+  <canvas id="cap-canvas"></canvas>
+
+  <div class="cap-controls">
+    <div class="cap-slider-row">
+      <label for="cap-theta-slider">Circle position:</label>
+      <span class="cap-slider-label">pole</span>
+      <input id="cap-theta-slider" type="range"
+             min="5" max="85" step="0.5" value="45"
+             class="cap-range">
+      <span class="cap-slider-label">equator</span>
+    </div>
+    <div class="cap-areas">
+      <span class="cap-area-surface">
+        <span class="cap-swatch" style="background:#6366f1"></span>
+        Surface area: <strong id="cap-area-cap">—</strong>
+      </span>
+      <span class="cap-area-flat">
+        <span class="cap-swatch" style="background:#d63030"></span>
+        Flat area: <strong id="cap-area-disc">—</strong>
+      </span>
+      <span class="cap-ratio">
+        Ratio: <strong id="cap-ratio-val">—</strong>
+      </span>
+    </div>
+  </div>
+
+  <figcaption>
+    A circle drawn on the surface of a sphere (indigo) always encloses more area than a flat
+    circle with the same circumference (red disc). Drag the slider to move the circle from the
+    pole towards the equator — watch the ratio grow as curvature increases.
+  </figcaption>
+</figure>
+
+<style>
+  .cap-diagram {
+    margin: 2rem 0;
+  }
+
+  #cap-canvas {
+    display: block;
+    width: 100%;
+    height: 400px;
+    border-radius: var(--radius, 12px);
+    background: var(--color-bg-alt, #f9fafb);
+    cursor: grab;
+  }
+
+  #cap-canvas:active {
+    cursor: grabbing;
+  }
+
+  .cap-controls {
+    padding: 0.75rem 1rem 0.25rem;
+    font-family: var(--font-sans, 'Source Sans 3', system-ui, sans-serif);
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #6b7280);
+  }
+
+  .cap-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .cap-slider-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #6b7280);
+    min-width: 3.5em;
+  }
+
+  .cap-slider-label:last-of-type {
+    text-align: right;
+  }
+
+  .cap-range {
+    flex: 1;
+    min-width: 140px;
+    accent-color: var(--color-primary, #ea580c);
+  }
+
+  .cap-areas {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+  }
+
+  .cap-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+  }
+
+  .cap-area-surface strong {
+    color: #6366f1;
+  }
+
+  .cap-area-flat strong {
+    color: #d63030;
+  }
+
+  .cap-ratio strong {
+    color: var(--color-text, #333);
+  }
+
+  .cap-diagram figcaption {
+    font-family: var(--font-sans, 'Source Sans 3', system-ui, sans-serif);
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #6b7280);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+  /* ── DOM refs ─────────────────────────────────────────────── */
+  const canvas    = document.getElementById('cap-canvas') as HTMLCanvasElement;
+  const slider    = document.getElementById('cap-theta-slider') as HTMLInputElement;
+  const elAreaCap  = document.getElementById('cap-area-cap')!;
+  const elAreaDisc = document.getElementById('cap-area-disc')!;
+  const elRatio    = document.getElementById('cap-ratio-val')!;
+
+  /* ── Scene basics ─────────────────────────────────────────── */
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 2, 0.1, 100);
+  camera.position.set(2.2, 1.6, 2.2);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.enablePan = false;
+  controls.minDistance = 2;
+  controls.maxDistance = 6;
+
+  /* ── Lighting ─────────────────────────────────────────────── */
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  dirLight.position.set(3, 4, 2);
+  scene.add(dirLight);
+
+  /* ── Sphere (balloon) ─────────────────────────────────────── */
+  const R = 1; // sphere radius
+  const sphereGeo = new THREE.SphereGeometry(R, 64, 64);
+  const sphereMat = new THREE.MeshStandardMaterial({
+    color: 0xcccccc,
+    transparent: true,
+    opacity: 0.15,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+  scene.add(sphere);
+
+  // Wireframe overlay for depth perception
+  const wireGeo = new THREE.SphereGeometry(R, 32, 16);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xaaaaaa,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.08,
+  });
+  scene.add(new THREE.Mesh(wireGeo, wireMat));
+
+  /* ── Spherical cap (indigo surface area) ──────────────────── */
+  // We'll rebuild this geometry each time theta changes.
+  let capMesh: THREE.Mesh;
+  const capMat = new THREE.MeshStandardMaterial({
+    color: 0x6366f1,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.7,
+  });
+
+  /* ── Flat disc (red) ──────────────────────────────────────── */
+  let discMesh: THREE.Mesh;
+  const discMat = new THREE.MeshStandardMaterial({
+    color: 0xd63030,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.55,
+  });
+
+  /* ── Circle outline (shows circumference on sphere) ──────── */
+  let circleOutline: THREE.LineLoop;
+  const circleMat = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
+
+  /* ── Build / update geometry for a given half-angle θ ────── */
+  function buildCap(thetaDeg: number) {
+    const theta = THREE.MathUtils.degToRad(thetaDeg);
+
+    // Spherical cap: portion of sphere from pole (top) down to angle θ
+    // Three.js SphereGeometry: phiStart/phiLength = azimuth (0→2π),
+    //   thetaStart/thetaLength = polar angle from +Y axis.
+    // We want from 0 to θ.
+    if (capMesh) { capMesh.geometry.dispose(); scene.remove(capMesh); }
+    const capGeo = new THREE.SphereGeometry(R, 64, 32, 0, Math.PI * 2, 0, theta);
+    capMesh = new THREE.Mesh(capGeo, capMat);
+    scene.add(capMesh);
+
+    // Flat disc: sits at y = R·cos(θ) with radius r = R·sin(θ)
+    const r_circle = R * Math.sin(theta);
+    const y_disc   = R * Math.cos(theta);
+    if (discMesh) { discMesh.geometry.dispose(); scene.remove(discMesh); }
+    const discGeo = new THREE.CircleGeometry(r_circle, 64);
+    discMesh = new THREE.Mesh(discGeo, discMat);
+    discMesh.rotation.x = -Math.PI / 2; // lay flat
+    discMesh.position.y = y_disc;
+    scene.add(discMesh);
+
+    // Circle outline at the boundary
+    if (circleOutline) { circleOutline.geometry.dispose(); scene.remove(circleOutline); }
+    const pts: THREE.Vector3[] = [];
+    const segs = 96;
+    for (let i = 0; i <= segs; i++) {
+      const a = (i / segs) * Math.PI * 2;
+      pts.push(new THREE.Vector3(
+        r_circle * Math.cos(a),
+        y_disc,
+        r_circle * Math.sin(a),
+      ));
+    }
+    const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    circleOutline = new THREE.LineLoop(lineGeo, circleMat);
+    scene.add(circleOutline);
+
+    // Update area readouts
+    // Spherical cap area = 2πRh where h = R(1 - cosθ)
+    const h = R * (1 - Math.cos(theta));
+    const areaCap  = 2 * Math.PI * R * h;
+    const areaDisc = Math.PI * r_circle * r_circle;
+
+    elAreaCap.textContent  = areaCap.toFixed(3);
+    elAreaDisc.textContent = areaDisc.toFixed(3);
+    elRatio.textContent    = (areaCap / areaDisc).toFixed(3);
+  }
+
+  /* ── Slider event ─────────────────────────────────────────── */
+  slider.addEventListener('input', () => buildCap(parseFloat(slider.value)));
+  buildCap(parseFloat(slider.value));
+
+  /* ── Resize handling ──────────────────────────────────────── */
+  function resize() {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (canvas.width !== w * devicePixelRatio || canvas.height !== h * devicePixelRatio) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+  }
+
+  /* ── Animation loop ───────────────────────────────────────── */
+  function animate() {
+    requestAnimationFrame(animate);
+    resize();
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+</script>
