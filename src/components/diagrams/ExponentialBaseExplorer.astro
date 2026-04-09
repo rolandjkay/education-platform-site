@@ -1,8 +1,8 @@
 ---
 // Interactive diagram: y = a^x vs y = e^x
 // Slider lets user adjust base a; snaps to e = 2.71828…
-// Tangent triangle at x=0 (where both curves pass through y=1) shows
-// dy/dx = k·y, with k = ln(a). When a = e, k = 1 and the curves coincide.
+// Tangent line at x=1 on both curves shows dy/dx = k·y, with k = ln(a).
+// When a = e, k = 1 and the curves coincide.
 
 interface Props {
   locale?: string;
@@ -63,6 +63,9 @@ const { locale = 'en' } = Astro.props;
     box-sizing: border-box;
   }
 
+  /* KaTeX inside foreignObject — override KaTeX's default 1.21em font scale */
+  .exp-fo-lbl .katex { font-size: 1em; }
+
   .exp-controls {
     padding: 0.75rem 1rem 0.25rem;
     font-family: var(--font-sans);
@@ -105,6 +108,8 @@ const { locale = 'en' } = Astro.props;
 </style>
 
 <script>
+import { renderToString } from 'katex';
+
 (function () {
   'use strict';
 
@@ -123,8 +128,9 @@ const { locale = 'en' } = Astro.props;
   const tx = (x) => PL + (x - XL) * SX;
   const ty = (y) => PT + PH - (y - YB) * SY;
 
-  const NS  = 'http://www.w3.org/2000/svg';
-  const svg = document.getElementById('exp-svg');
+  const NS   = 'http://www.w3.org/2000/svg';
+  const XHNS = 'http://www.w3.org/1999/xhtml';
+  const svg  = document.getElementById('exp-svg');
   if (!svg) return;
 
   // Convenience helpers
@@ -138,6 +144,26 @@ const { locale = 'en' } = Astro.props;
     const e = mk('text', attrs, parent);
     e.textContent = content;
     return e;
+  }
+
+  // ── Create a <foreignObject> KaTeX label at SVG coordinates (x, y) ──
+  // Labels are placed in SVG space — no JS coordinate conversion needed.
+  // The HTML inside renders at fixed CSS pixel sizes (not SVG-scaled),
+  // which keeps text readable at any container width.
+  function mkFO(svgX, svgY, html, color) {
+    const fo  = document.createElementNS(NS, 'foreignObject');
+    fo.setAttribute('x',      svgX);
+    fo.setAttribute('y',      svgY);
+    fo.setAttribute('width',  '200');
+    fo.setAttribute('height', '22');
+    fo.setAttribute('overflow', 'visible');
+    const div = document.createElementNS(XHNS, 'div');
+    div.className = 'exp-fo-lbl';
+    div.style.cssText = `color:${color};font-size:0.7rem;line-height:1;white-space:nowrap;`;
+    div.innerHTML = html;
+    fo.appendChild(div);
+    svg.appendChild(fo);
+    return { fo, div };  // fo for position updates, div for innerHTML updates
   }
 
   // ── Build static elements: grid, axes, tick labels ──────────────────
@@ -193,32 +219,16 @@ const { locale = 'en' } = Astro.props;
     d: buildPath(Math.exp),
   }, svg);
 
-  // Grey curve label at x≈1.6
-  mkTxt('y = e\u207F', {
-    x: tx(1.62) + 6, y: ty(Math.exp(1.62)) - 7,
-    fill: '#bbb', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic',
-  }, svg);
-
   // ── Grey tangent line at x = 1 (static) ────────────────────────────
   // e^x at x=1: y = e, slope = e.  Tangent extends ±0.65 in x.
   {
     const DX   = 0.65;
     const x0   = 1, y0 = Math.E, m = Math.E;
-    const x1s  = tx(x0 - DX), y1s = ty(y0 - m * DX);
-    const x2s  = tx(x0 + DX), y2s = ty(y0 + m * DX);
-    const dotX = tx(x0),      dotY = ty(y0);
-
     const g = mk('g', { 'clip-path': 'url(#exp-plot-clip)' }, svg);
-    mk('line', { x1: x1s, y1: y1s, x2: x2s, y2: y2s,
+    mk('line', { x1: tx(x0-DX), y1: ty(y0-m*DX), x2: tx(x0+DX), y2: ty(y0+m*DX),
                  stroke: '#c8c8c8', 'stroke-width': '1.5' }, g);
-    mk('circle', { cx: dotX, cy: dotY, r: '4', fill: '#b0b0b0' }, g);
+    mk('circle', { cx: tx(x0), cy: ty(y0), r: '4', fill: '#b0b0b0' }, g);
   }
-  // Grey slope label — upper-left of the dot so it doesn't clash with the red label
-  mkTxt('1.0 \u00D7 y', {
-    x: tx(1) - 14, y: ty(Math.E) - 12,
-    'text-anchor': 'end', fill: '#999',
-    'font-size': '11', 'font-family': 'sans-serif',
-  }, svg);
 
   // ── Red a^x curve (dynamic) ─────────────────────────────────────────
   const redPath = mk('path', {
@@ -231,9 +241,15 @@ const { locale = 'en' } = Astro.props;
   const rdTangent = mk('line', { stroke: '#d63030', 'stroke-width': '1.5' }, rdTangentGroup);
   const rdDot     = mk('circle', { r: '4', fill: '#d63030' }, rdTangentGroup);
 
-  // Red label (curve name) and slope label — outside clip so never cut off
-  const redCurveLabel = mk('text', { fill: '#d63030', 'font-size': '12.5', 'font-family': 'sans-serif', 'font-style': 'italic' }, svg);
-  const rdSlopeLabel  = mk('text', { fill: '#c02020', 'font-size': '11',   'font-family': 'sans-serif' }, svg);
+  // ── KaTeX labels near the tangent dots at x = 1 ────────────────────
+  // Grey dot is fixed at SVG (313, 177).  Labels sit 10 px to its right.
+  // Red dot moves vertically; its labels' y is updated in update().
+  // tx(1) = 313, ty(E) ≈ 177.  Label x = 323 is past the tangent line
+  // extent so labels never overlap either tangent segment.
+  mkFO(323, 162, renderToString('y = e^x',       { throwOnError: false }), '#bbb');
+  mkFO(323, 177, renderToString('1.00 \\times y', { throwOnError: false }), '#999');
+  const { fo: redCurveFo, div: redCurveDiv } = mkFO(323, 184, '', '#d63030');
+  const { fo: redSlopeFo, div: redSlopeDiv } = mkFO(323, 199, '', '#c02020');
 
   // ── Update function (called on each slider change) ──────────────────
   function update(a) {
@@ -243,42 +259,23 @@ const { locale = 'en' } = Astro.props;
     // Replot red curve
     redPath.setAttribute('d', buildPath((x) => Math.pow(a, x)));
 
-    // Red curve label — position near where the curve is still in bounds
-    {
-      // For a ≤ 2, place label near x=2.3; for larger a, find where y≈5.5
-      const lx = a > 2
-        ? Math.min(2.2, Math.log(5.5) / Math.log(a))
-        : 2.2;
-      const ly = Math.pow(a, lx);
-      redCurveLabel.setAttribute('x', tx(lx) + 6);
-      redCurveLabel.setAttribute('y', ty(ly) - 7);
-      redCurveLabel.textContent = isE ? 'y = e\u207F \u2190 match!' : 'y = a\u207F';
-    }
-
     // Red tangent line at x = 1
-    {
-      const DX    = 0.65;
-      const x0    = 1;
-      const y0    = Math.pow(a, x0);          // a^1 = a
-      const slope = k * y0;                    // ln(a) · a
+    const DX    = 0.65;
+    const x0    = 1;
+    const y0    = Math.pow(a, x0);   // a^1 = a
+    const slope = k * y0;            // ln(a) · a
 
-      const x1s = tx(x0 - DX), y1s = ty(y0 - slope * DX);
-      const x2s = tx(x0 + DX), y2s = ty(y0 + slope * DX);
+    rdTangent.setAttribute('x1', tx(x0 - DX)); rdTangent.setAttribute('y1', ty(y0 - slope * DX));
+    rdTangent.setAttribute('x2', tx(x0 + DX)); rdTangent.setAttribute('y2', ty(y0 + slope * DX));
+    rdDot.setAttribute('cx', tx(x0));
+    rdDot.setAttribute('cy', ty(y0));
 
-      rdTangent.setAttribute('x1', x1s); rdTangent.setAttribute('y1', y1s);
-      rdTangent.setAttribute('x2', x2s); rdTangent.setAttribute('y2', y2s);
-      rdDot.setAttribute('cx', tx(x0));
-      rdDot.setAttribute('cy', ty(y0));
-
-      // Slope label — always lower-right of dot (consistent position)
-      {
-        const labelX = tx(x0) + 14;
-        const labelY = Math.min(PT + PH - 6, ty(y0) + 16);
-        rdSlopeLabel.setAttribute('x', labelX);
-        rdSlopeLabel.setAttribute('y', labelY);
-        rdSlopeLabel.textContent = `${k.toFixed(2)}\u00A0\u00D7\u00A0y`;
-      }
-    }
+    // Dynamic KaTeX labels — track the red dot vertically
+    const redDotY = ty(a);
+    redCurveFo.setAttribute('y', String(redDotY - 15));
+    redSlopeFo.setAttribute('y', String(redDotY));
+    redCurveDiv.innerHTML = renderToString(isE ? 'y = e^x' : 'y = a^x', { throwOnError: false });
+    redSlopeDiv.innerHTML = renderToString(k.toFixed(2) + ' \\times y', { throwOnError: false });
 
     // Control-panel readout
     const slope1 = k * a; // dy/dx of a^x at x=1
