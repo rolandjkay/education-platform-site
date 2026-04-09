@@ -1,0 +1,84 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Background -->
+    <radialGradient id="bg">
+      <stop offset="0%" stop-color="#0a0f1f"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+
+    <!-- Virus body gradient -->
+    <radialGradient id="virusBody">
+      <stop offset="0%" stop-color="#ff6a6a"/>
+      <stop offset="100%" stop-color="#8a1f1f"/>
+    </radialGradient>
+
+    <!-- Spike gradient -->
+    <radialGradient id="spike">
+      <stop offset="0%" stop-color="#ffd1d1"/>
+      <stop offset="100%" stop-color="#ff4d4d"/>
+    </radialGradient>
+
+    <!-- Glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Virus symbol -->
+    <g id="virus">
+      <!-- Core -->
+      <circle cx="0" cy="0" r="18" fill="url(#virusBody)"/>
+
+      <!-- Spikes (rounded knobs) -->
+      <g fill="url(#spike)">
+        <circle cx="0" cy="-26" r="5"/>
+        <circle cx="18" cy="-18" r="5"/>
+        <circle cx="26" cy="0" r="5"/>
+        <circle cx="18" cy="18" r="5"/>
+        <circle cx="0" cy="26" r="5"/>
+        <circle cx="-18" cy="18" r="5"/>
+        <circle cx="-26" cy="0" r="5"/>
+        <circle cx="-18" cy="-18" r="5"/>
+      </g>
+    </g>
+
+    <!-- Text glow -->
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" fill="url(#bg)"/>
+
+  <!-- Virus field -->
+  <g filter="url(#glow)" opacity="0.85">
+    <use href="#virus" x="100" y="120"/>
+    <use href="#virus" x="200" y="300"/>
+    <use href="#virus" x="350" y="200"/>
+    <use href="#virus" x="420" y="350"/>
+    <use href="#virus" x="150" y="420"/>
+    <use href="#virus" x="300" y="80"/>
+  </g>
+
+  <!-- e^x in LaTeX-like style -->
+  <text x="250" y="330"
+        font-size="250"
+        text-anchor="middle"
+        fill="white"
+        font-style="oblique"
+        font-family="STIX Two Math, Cambria Math, Times New Roman, serif"
+        filter="url(#textGlow)">
+    e<tspan dx="20" dy="-90" font-size="100">x</tspan>
+  </text>
+
+</svg>
