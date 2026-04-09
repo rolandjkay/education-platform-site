@@ -86,26 +86,17 @@ Now let's draw another square — this time *inside* the circle, with its corner
 
 <PiSquareInCircleDiagram />
 
-What's the side length of this inner square? It turns out (using Pythagoras' theorem) that the side length is $r\sqrt{2}$, which gives an area of $2r^2$.
-
-<details>
-<summary>Show the Pythagoras calculation</summary>
-
-Each corner of the inner square sits on the circle, at a distance $r$ from the centre. The inner square is rotated 45° relative to the outer square, so if we look at one quarter of it, we have a right-angled triangle with two equal sides and a hypotenuse of $r$.
-
-By Pythagoras' theorem ($a^2 + b^2 = c^2$), if the two short sides are both $s$, then:
+What is the area of this inner square? We don't even need to work out its side length. Look at the diagram: the inner square is rotated 45° inside the outer square. That creates four triangles in the corners. Each triangle is exactly half of an $r \times r$ square, so the four triangles together have area:
 
 $$
-s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+4 \times \tfrac{1}{2} r^2 = 2r^2
 $$
 
-The full side length of the inner square is $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, so its area is:
+The outer square has area $4r^2$, and the inner square is the outer square minus those four corner triangles:
 
 $$
-A_{\text{inner square}} = \left(r\sqrt{2}\right)^2 = 2r^2
+A_{\text{inner square}} = 4r^2 - 2r^2 = 2r^2
 $$
-
-</details>
 
 The circle completely contains this inner square, so the circle's area must be *greater* than $2r^2$:
 

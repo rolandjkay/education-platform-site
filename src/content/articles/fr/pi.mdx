@@ -88,26 +88,17 @@ Dessinons maintenant un autre carré — cette fois *à l'intérieur* du cercle,
 
 <PiSquareInCircleDiagram locale={locale} />
 
-Quelle est la longueur du côté de ce carré intérieur ? Il s'avère (grâce au théorème de Pythagore) que la longueur du côté est $r\sqrt{2}$, ce qui donne une aire de $2r^2$.
-
-<details>
-<summary>Afficher le calcul de Pythagore</summary>
-
-Chaque coin du carré intérieur est posé sur le cercle, à une distance $r$ du centre. Le carré intérieur est pivoté de 45° par rapport au carré extérieur, donc si nous regardons un quart de celui-ci, nous avons un triangle rectangle avec deux côtés égaux et une hypoténuse de $r$.
-
-Par le théorème de Pythagore ($a^2 + b^2 = c^2$), si les deux petits côtés sont tous les deux $s$, alors :
+Quelle est l'aire de ce carré intérieur ? Nous n'avons même pas besoin de calculer la longueur de son côté. Regardez le diagramme : le carré intérieur est pivoté de 45° à l'intérieur du carré extérieur. Cela crée quatre triangles dans les coins. Chaque triangle est exactement la moitié d'un carré de côté $r \times r$, donc les quatre triangles ont ensemble une aire de :
 
 $$
-s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+4 \times \tfrac{1}{2} r^2 = 2r^2
 $$
 
-La longueur totale du côté du carré intérieur est $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, donc son aire est :
+Le carré extérieur a une aire de $4r^2$, et le carré intérieur est le carré extérieur moins ces quatre triangles :
 
 $$
-A_{\text{carré intérieur}} = \left(r\sqrt{2}\right)^2 = 2r^2
+A_{\text{carré intérieur}} = 4r^2 - 2r^2 = 2r^2
 $$
-
-</details>
 
 Le cercle contient entièrement ce carré intérieur, donc l'aire du cercle doit être *supérieure* à $2r^2$ :
 

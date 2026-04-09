@@ -87,26 +87,17 @@ Ahora dibujemos otro cuadrado —esta vez *dentro* del círculo, con sus esquina
 
 <PiSquareInCircleDiagram locale={locale} />
 
-¿Cuál es la longitud del lado de este cuadrado interior? Resulta (usando el teorema de Pitágoras) que la longitud del lado es $r\sqrt{2}$, lo que da un área de $2r^2$.
-
-<details>
-<summary>Mostrar el cálculo con Pitágoras</summary>
-
-Cada esquina del cuadrado interior descansa sobre el círculo, a una distancia $r$ del centro. El cuadrado interior está girado 45° respecto al cuadrado exterior, así que si observamos un cuarto de él, tenemos un triángulo rectángulo con dos lados iguales y una hipotenusa de $r$.
-
-Por el teorema de Pitágoras ($a^2 + b^2 = c^2$), si los dos lados cortos son ambos $s$, entonces:
+¿Cuál es el área de este cuadrado interior? Ni siquiera necesitamos calcular la longitud de su lado. Observa el diagrama: el cuadrado interior está girado 45° dentro del cuadrado exterior. Esto crea cuatro triángulos en las esquinas. Cada triángulo es exactamente la mitad de un cuadrado de $r \times r$, así que los cuatro triángulos juntos tienen un área de:
 
 $$
-s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+4 \times \tfrac{1}{2} r^2 = 2r^2
 $$
 
-La longitud completa del lado del cuadrado interior es $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, por lo que su área es:
+El cuadrado exterior tiene un área de $4r^2$, y el cuadrado interior es el cuadrado exterior menos esos cuatro triángulos de las esquinas:
 
 $$
-A_{\text{cuadrado interior}} = \left(r\sqrt{2}\right)^2 = 2r^2
+A_{\text{cuadrado interior}} = 4r^2 - 2r^2 = 2r^2
 $$
-
-</details>
 
 El círculo contiene completamente este cuadrado interior, por lo que el área del círculo debe ser *mayor* que $2r^2$:
 

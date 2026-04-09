@@ -87,26 +87,17 @@ Zeichnen wir nun ein weiteres Quadrat — diesmal *innerhalb* des Kreises, mit s
 
 <PiSquareInCircleDiagram locale={locale} />
 
-Wie lang ist die Seite dieses inneren Quadrats? Mit dem Satz des Pythagoras ergibt sich, dass die Seitenlänge $r\sqrt{2}$ beträgt, was einer Fläche von $2r^2$ entspricht.
-
-<details>
-<summary>Pythagoras-Rechnung anzeigen</summary>
-
-Jede Ecke des inneren Quadrats liegt auf dem Kreis, im Abstand $r$ vom Mittelpunkt. Das innere Quadrat ist um 45° gegenüber dem äußeren Quadrat gedreht. Betrachten wir ein Viertel davon: Wir erhalten ein rechtwinkliges Dreieck mit zwei gleichen Schenkeln und einer Hypotenuse $r$.
-
-Nach dem Satz des Pythagoras ($a^2 + b^2 = c^2$) gilt, wenn die beiden kurzen Seiten jeweils $s$ lang sind:
+Wie groß ist die Fläche dieses inneren Quadrats? Wir müssen nicht einmal seine Seitenlänge berechnen. Schauen wir auf das Diagramm: Das innere Quadrat ist um 45° innerhalb des äußeren Quadrats gedreht. Dadurch entstehen vier Dreiecke in den Ecken. Jedes Dreieck ist genau die Hälfte eines $r \times r$-Quadrats, also haben die vier Dreiecke zusammen eine Fläche von:
 
 $$
-s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+4 \times \tfrac{1}{2} r^2 = 2r^2
 $$
 
-Die vollständige Seitenlänge des inneren Quadrats beträgt $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, also ist seine Fläche:
+Das äußere Quadrat hat eine Fläche von $4r^2$, und das innere Quadrat ist das äußere Quadrat minus dieser vier Eckdreiecke:
 
 $$
-A_{\text{inneres Quadrat}} = \left(r\sqrt{2}\right)^2 = 2r^2
+A_{\text{inneres Quadrat}} = 4r^2 - 2r^2 = 2r^2
 $$
-
-</details>
 
 Der Kreis enthält dieses innere Quadrat vollständig, also muss die Fläche des Kreises *größer* als $2r^2$ sein:
 

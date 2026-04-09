@@ -87,26 +87,17 @@ Ora disegniamo un altro quadrato — questa volta *dentro* il cerchio, con i suo
 
 <PiSquareInCircleDiagram locale={locale} />
 
-Qual è la lunghezza del lato di questo quadrato interno? Si dimostra (usando il teorema di Pitagora) che la lunghezza del lato è $r\sqrt{2}$, il che dà un'area di $2r^2$.
-
-<details>
-<summary>Mostra il calcolo con Pitagora</summary>
-
-Ogni angolo del quadrato interno si trova sul cerchio, a distanza $r$ dal centro. Il quadrato interno è ruotato di 45° rispetto al quadrato esterno, quindi se guardiamo un quarto di esso, abbiamo un triangolo rettangolo con due lati uguali e un'ipotenusa $r$.
-
-Per il teorema di Pitagora ($a^2 + b^2 = c^2$), se i due lati corti sono entrambi $s$, allora:
+Qual è l'area di questo quadrato interno? Non abbiamo nemmeno bisogno di calcolare la lunghezza del suo lato. Guardiamo il diagramma: il quadrato interno è ruotato di 45° all'interno del quadrato esterno. Questo crea quattro triangoli negli angoli. Ogni triangolo è esattamente la metà di un quadrato $r \times r$, quindi i quattro triangoli insieme hanno un'area di:
 
 $$
-s^2 + s^2 = r^2 \quad\Rightarrow\quad 2s^2 = r^2 \quad\Rightarrow\quad s = \frac{r}{\sqrt{2}}
+4 \times \tfrac{1}{2} r^2 = 2r^2
 $$
 
-La lunghezza intera del lato del quadrato interno è $2s = \frac{2r}{\sqrt{2}} = r\sqrt{2}$, quindi la sua area è:
+Il quadrato esterno ha un'area di $4r^2$, e il quadrato interno è il quadrato esterno meno quei quattro triangoli agli angoli:
 
 $$
-A_{\text{quadrato interno}} = \left(r\sqrt{2}\right)^2 = 2r^2
+A_{\text{quadrato interno}} = 4r^2 - 2r^2 = 2r^2
 $$
-
-</details>
 
 Il cerchio contiene completamente questo quadrato interno, quindi l'area del cerchio deve essere *maggiore* di $2r^2$:
 
