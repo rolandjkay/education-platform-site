@@ -1,6 +1,6 @@
 ---
-title: "Why is Euler's number 2.71828...?"
-description: "It shows up in nature, in finance, in physics, and at the heart of calculus. But where does e come from, and why is it that specific, slightly odd number? The answer starts with a question about money."
+title: "What is Euler's number e?"
+description: "It turns up in nature, in finance, in physics, and at the heart of calculus — but no one invented it. e is a property of the universe, and you can track it down yourself just by asking what happens when growth feeds on itself."
 pubDate: 2025-01-15
 subjects: [maths]
 tags: ["maths", "calculus", "euler", "exponentials"]
@@ -9,61 +9,226 @@ heroImage: "./images/e-article-hero.svg"
 
 import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseExplorer.astro';
 
+Most people have heard of $e$ — the number that starts 2.71828... It shows up in the formula for how populations grow, how radioactive atoms decay, how bank accounts compound, and in some of the deepest equations in physics. And yet, unlike $\pi$, it's rarely explained properly at school. It's just handed over as a button on your calculator.
 
-Article outline:
+Just as with $\pi$, no one invented $e$. It's a property of the universe — a number that falls out naturally when you ask certain questions. And, just as you can estimate $\pi$ with a compass and a ruler, you can hunt down $e$ with nothing more than arithmetic and patience.
 
-* Lots of processes in nature, and the fields of science and maths, develop faster the more of something that exists.
-* For examples, bacteria multiply by splitting; each bacteria splits and gives rise to two bacteria, so the rate of increase in the bqcteriq population is proportional (include an accoridan explaining what proportional means)
-* Insert a table showing: the number of bacteria, the rate of change in the number of bacteria, and a graph of population // rate of change versus time and rate of change plotted against number of bacteria
+The place to start isn't with a formula. It's with a bacterium.
 
-* Demonstrate that the same is true for:
-* Epidemics (like Covid 19); and explain why
-* The maximum number a binary number can represent as we increase the number of digits.
-* Any other examples?
+## When growth feeds on growth
 
+Imagine a single bacterium in a dish. Every hour it splits in two. After one hour there are 2; after two hours, 4; after three, 8.
 
-* So, we need some formula that can represent any process where the rate at which the number of things increases is proportional to number of things that there are.
+| Hour ($x$) | Bacteria | Added this hour |
+|:---:|:---:|:---:|
+| 0 | 1 | — |
+| 1 | 2 | 1 |
+| 2 | 4 | 2 |
+| 3 | 8 | 4 |
+| 4 | 16 | 8 |
+| 5 | 32 | 16 |
+| 6 | 64 | 32 |
+| 7 | 128 | 64 |
+| 10 | 1024 | 512 |
 
-* Show that with bacteria we have 
+Look at the "Added this hour" column. At every row, the number of new bacteria equals the number already there. The bigger the colony, the faster it grows — not just a little faster, but proportionally faster: double the colony, double the growth rate.
 
- Time      Number of bacteria    2^x
- ----      ------------------    ---
-  0         1                    2^0
-  1         2                    2^1
-  2         4                    2^2
-  3         8                    2^3 
-  4         16
-  5         32
-  6         64
-  7         128
-  8         256
-  9         512
-  10       1024
+> **What does "proportional" mean?**
+> Two quantities are proportional if one is always a fixed multiple of the other. Your speed is proportional to throttle position if doubling the throttle doubles the speed. Here, the growth rate of the colony is proportional to the size: double the bacteria, double the growth rate.
 
-So, for bacteria splitting into two the number of bacteria is given by $n = 2 ^ x$. You can easily convince yourself that a 
-bacteria that splits in three would develop as $n = 3 ^ x$.
+This isn't unique to bacteria. The same pattern — *rate of change proportional to current size* — shows up everywhere:
 
-So, probably, we want a formula like $n = a^x$, where $a$ is related to how fast the process develops at each time step.
+- **Epidemics**: each infected person passes the infection to several others. The more people are infected, the faster the infection spreads. This is why cases during the early stages of an epidemic — like Covid-19 in early 2020 — double in a fixed number of days.
+- **Radioactive decay**: each unstable atom has a fixed probability of decaying per second. The more atoms are present, the more decays happen. The population falls faster the bigger it is — proportional decay.
+- **Compound interest**: the larger your account balance, the more interest you earn each year. Your wealth grows at a rate proportional to itself.
 
-What is the constant of proportionality for the bacteria population:
+All of these follow the same underlying mathematical pattern, and all of them need the same tool to describe them.
 
-n = 2^x  
+## The $a^x$ family
 
-ln n = x in 2
-1/n dn/dx = ln 2
-dn/dx = (ln 2)n  
+The bacteria that split in two follow $n = 2^x$. Bacteria that split in three would follow $n = 3^x$. Any process where the rate of change is proportional to the current value can be written as:
 
-So, the constant of proportionality between the rate of change of $n$ and $n$ is $ln 2$.
+$$
+n = a^x
+$$
 
-More, generally, the constant of proportionality for $n = a^x$ is $ln a$.
+for some base $a$ that describes the speed of the process. Different bases, different processes.
 
-So, setting $a=e$ gives an expression where the constant of proportionlity is $e$.
+Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the constant of proportionality?
 
-In otherwords, in the same way as the value of $\pi$ arise from observing the area of a circle, $e$ arises by observing the value that must be raised to the power of x to achieve a process where the constant of proportionality is 1.0
+Let's estimate it for $n = 2^x$. At $x = 3$ there are $2^3 = 8$ bacteria. A short time later, at $x = 3.01$, there are $2^{3.01} \approx 8.056$. The growth rate over that tiny interval is:
 
+$$
+\frac{8.056 - 8.000}{0.01} \approx 5.55
+$$
 
+The value at $x = 3$ is 8 and the growth rate is about 5.55 — roughly 69% of the value.
 
-You can see this property in action with the diagram below. For any base $a$, the exponential $y = a^x$ has slope proportional to its value: $\frac{dy}{dx} = k \cdot y$, where $k = \ln(a)$. The grey curve is $y = e^x$ with $k = 1$. Drag the slider to match the red curve to the grey — that's the moment you've found Euler's number.
+Now try $x = 7$: there are $2^7 = 128$ bacteria. At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. Rate $\approx 89$. That's again about 69% of 128.
+
+The proportion is constant: for $n = 2^x$, the slope is always about 69% of the value, wherever you look. Let's call that constant ratio $k$:
+
+$$
+\text{slope} = k \cdot n
+$$
+
+For $n = 2^x$, $k \approx 0.69$.
+
+What about $n = 3^x$? At $x = 1$, $n = 3$. At $x = 1.01$, $3^{1.01} \approx 3.033$. Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
+
+- $a = 2$: $k \approx 0.69$ — slope is 69% of value
+- $a = 3$: $k \approx 1.10$ — slope is 110% of value
+
+$k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some base between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
+
+We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radious 1.0 in our [article on $\pi$](/articles/pi).
+
+## Finding $e$ with the diagram
+
+You can see this directly below. The grey curve is the target — an exponential where slope equals value everywhere. The red curve is $y = a^x$ for a base you control. The label on the red tangent line shows the value of $k$ (the ratio of slope to value) at $x = 1$.
+
+Drag the slider and watch $k$ change:
+
+- At $a = 2$, the red tangent label shows roughly $0.69 \times y$: slope less than value.
+- At $a = 3$, it shows roughly $1.10 \times y$: slope greater than value.
+- At exactly the right $a$, the label reads $1.00 \times y$ and the red curve coincides with the grey.
 
 <ExponentialBaseExplorer />
 
+You can close in on $e$ by bisection, just as Archimedes closed in on $\pi$ with more and more polygon sides:
+
+| Try | $k$ | Verdict |
+|:---:|:---:|:---:|
+| $a = 2.5$ | $< 1$ | too small |
+| $a = 2.8$ | $> 1$ | too big |
+| $a = 2.7$ | $< 1$ | too small |
+| $a = 2.75$ | $> 1$ | too big |
+| $a = 2.71$ | $< 1$ | too small |
+| $a = 2.72$ | $> 1$ | too big |
+
+We're converging on something near 2.718. But can we be more systematic about it?
+
+## Estimating $e$ — the compound interest squeeze
+
+There's a method for pinning down $e$ that's beautifully analogous to the polygon method for $\pi$.
+
+Imagine a bank paying 100% annual interest. If they compound **once** a year, you turn £1 into:
+
+$$
+\left(1 + 1\right)^1 = 2.000
+$$
+
+If they compound **twice** a year — 50% every six months:
+
+$$
+\left(1 + \frac{1}{2}\right)^2 = 2.250
+$$
+
+More generally, if they compound $n$ times per year, you get $\left(1 + \tfrac{1}{n}\right)^n$. As $n$ increases — quarterly, monthly, daily, every second — the amount grows. But it doesn't grow without limit: it converges upward towards a ceiling.
+
+That ceiling is $e$.
+
+Now for the upper bound. Instead of $n$ compounding periods, use $n + 1$ at the same rate per period. You're adding one extra period that shouldn't be there — so the result is too large, giving an overestimate of $e$. As $n$ increases, this overestimate shrinks downward, also converging to $e$.
+
+So $e$ is squeezed between a lower bound that rises and an upper bound that falls:
+
+$$
+\left(1 + \frac{1}{n}\right)^n \;<\; e \;<\; \left(1 + \frac{1}{n}\right)^{n+1}
+$$
+
+| $n$ | Lower bound | Upper bound | Gap |
+|:---:|:---:|:---:|:---:|
+| 1 | 2.000 | 4.000 | 2.000 |
+| 2 | 2.250 | 3.375 | 1.125 |
+| 4 | 2.441 | 3.052 | 0.611 |
+| 10 | 2.594 | 2.854 | 0.260 |
+| 100 | 2.705 | 2.732 | 0.027 |
+| 1 000 | 2.717 | 2.720 | 0.003 |
+| 10 000 | 2.7181 | 2.7184 | 0.0003 |
+
+By $n = 10{,}000$ we've pinned $e$ down to four decimal places:
+
+$$
+2.7181 < e < 2.7184
+$$
+
+Keep going — compound every millisecond, every nanosecond, *continuously* — and the two bounds meet at exactly:
+
+$$
+e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = 2.71828182845...
+$$
+
+And here's the remarkable thing: the constant you find by compounding infinitely often is *exactly* the same constant that makes slope equal value in the diagram. Two entirely different questions, converging on the same number. That's not a coincidence — it's a sign that $e$ is something fundamental.
+
+## $e$ is everywhere
+
+Once you know what $e$ is, you see it everywhere.
+
+Any quantity that grows or decays at a continuous rate proportional to its own size follows:
+
+$$
+A = A_0 \cdot e^{rt}
+$$
+
+where $A_0$ is the starting amount, $r$ is the growth rate, and $t$ is time. This single formula covers:
+
+- **Populations** growing at a constant continuous rate
+- **Radioactive decay** (with $r$ negative)
+- **Compound interest** in the continuous limit
+- **The cooling of a hot cup of tea** — the temperature drops at a rate proportional to how far above room temperature it is (Newton's law of cooling)
+- **The discharge of a capacitor** — charge leaks away at a rate proportional to how much remains
+
+The reason $e$ keeps appearing is exactly the property we found: for $y = e^x$, slope equals value everywhere. Any process driven by "rate proportional to current size" is secretly an exponential with base $e$.
+
+## $e$ is irrational — and stranger
+
+Like $\pi$, $e$ is **irrational** — it cannot be written as a fraction, and its decimal digits go on forever without repeating:
+
+$$
+e = 2.71828182845904523536...
+$$
+
+In fact, $e$ is even more unusual: it is **transcendental**, meaning it isn't the solution to any polynomial equation with integer coefficients. It can't be produced by any finite combination of ordinary algebra. It sits outside the reach of those tools entirely.
+
+We can express $e$ as an infinite sum that converges remarkably quickly:
+
+$$
+e = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \cdots
+$$
+
+> **What is $n!$?**
+> $n!$ — read "n factorial" — means $1 \times 2 \times 3 \times \cdots \times n$. So $4! = 1 \times 2 \times 3 \times 4 = 24$. The factorials in the denominators grow so fast that the terms shrink almost immediately.
+
+Just the first six terms give:
+
+$$
+1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} = 2.71\overline{6}...
+$$
+
+already within 0.002 of the true value. Compare that with $\pi$, where you need 96-sided polygons to get four decimal places. The series for $e$ is much faster to converge.
+
+## Euler's identity
+
+There is one more thing we'd be remiss to leave out. Often called the most beautiful equation in mathematics:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+This is **Euler's identity**, and it connects five of the most fundamental constants in all of mathematics — $e$, $i$ (the imaginary unit, $\sqrt{-1}$), $\pi$, 1 and 0 — in a single, astonishingly compact equation. The fact that these apparently unrelated constants are bound together like this is, to many mathematicians, one of the most startling facts in the whole subject.
+
+We'll save the full explanation for another article. For now, just notice that $e$ and $\pi$ — one found by asking about circles, the other by asking about growth — are mysteriously connected at a deep level.
+
+## Over to you
+
+Next time you see exponential growth mentioned — a virus spreading, a viral video going viral, a technology improving at pace — you now know what's really happening underneath. Each thing that exists is spawning more things, which spawn more things still. The whole process is governed by a number no one invented: $e = 2.71828...$
+
+Just like $\pi$, it was always there, waiting to be found.
+
+## Further reading
+
+- [**What's so special about Euler's number e?**](https://www.3blue1brown.com/lessons/eulers-number) — 3Blue1Brown's animated explanation of what makes $e$ the natural base for exponential growth.
+- [**An Intuitive Guide to Exponential Functions & e**](https://betterexplained.com/articles/an-intuitive-guide-to-exponential-functions-e/) — BetterExplained's approach: think of $e$ as the result of perfectly continuous growth.
+- [**e (mathematical constant)**](https://en.wikipedia.org/wiki/E_(mathematical_constant)) — Wikipedia's overview, including history, definitions, and the many places $e$ appears.
+- [**Proof that e is irrational**](https://en.wikipedia.org/wiki/Proof_that_e_is_irrational) — Euler's own proof, using the factorial series above.
+- [**Euler's identity**](https://www.youtube.com/watch?v=v0YEaeIClKY) — A short video on why $e^{i\pi} = -1$.
