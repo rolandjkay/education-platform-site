@@ -8,12 +8,17 @@ heroImage: "./images/e-article-hero.svg"
 ---
 
 import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseExplorer.astro';
+import BacteriaGrowthSimulation from '../../components/diagrams/BacteriaGrowthSimulation.astro';
 
-Most people have heard of $e$ — the number that starts 2.71828... It shows up in the formula for how populations grow, how radioactive atoms decay, how bank accounts compound, and in some of the deepest equations in physics. And yet, unlike $\pi$, it's rarely explained properly at school. It's just handed over as a button on your calculator.
+Most people have heard of $\pi$, even if only when doing geomtery at school. They even called a [film $\pi$](https://en.wikipedia.org/wiki/Pi_(film))! 
+Most people haven't heard of $\pi$'s lesser-known cousin $e$ though.
+$e$ is no less facinating, although it is a bit harder to get your head around. If you haven't already, go and read [our article](pi) on $\pi$; the concepts are similar, but $\pi$ is a little more intuitive.
 
-Just as with $\pi$, no one invented $e$. It's a property of the universe — a number that falls out naturally when you ask certain questions. And, just as you can estimate $\pi$ with a compass and a ruler, you can hunt down $e$ with nothing more than arithmetic and patience.
+$$
+e = 2.71828...
+$$
 
-The place to start isn't with a formula. It's with a bacterium.
+It shows up in the formula for how populations grow, how radioactive atoms decay and in how bank accounts compound and, just like $\pi$ it is a constant of the universe, that you can determine at home.
 
 ## When growth feeds on growth
 
@@ -36,35 +41,69 @@ Look at the "Added this hour" column. At every row, the number of new bacteria e
 > **What does "proportional" mean?**
 > Two quantities are proportional if one is always a fixed multiple of the other. Your speed is proportional to throttle position if doubling the throttle doubles the speed. Here, the growth rate of the colony is proportional to the size: double the bacteria, double the growth rate.
 
+<BacteriaGrowthSimulation />
+
+
 This isn't unique to bacteria. The same pattern — *rate of change proportional to current size* — shows up everywhere:
 
 - **Epidemics**: each infected person passes the infection to several others. The more people are infected, the faster the infection spreads. This is why cases during the early stages of an epidemic — like Covid-19 in early 2020 — double in a fixed number of days.
 - **Radioactive decay**: each unstable atom has a fixed probability of decaying per second. The more atoms are present, the more decays happen. The population falls faster the bigger it is — proportional decay.
 - **Compound interest**: the larger your account balance, the more interest you earn each year. Your wealth grows at a rate proportional to itself.
 
-All of these follow the same underlying mathematical pattern, and all of them need the same tool to describe them.
+All of these follow the same underlying mathematical pattern, and so it would be useful to have a formula that can describe any process where the rate of growth is equal to the number of things there are.
+
+
+## "Continuous" functions
+
+The number of bacteria in doesn't change continuous; one minute there are 32 and the next 64. Mathematically, though, it's easier to analyse
+functions that change smoothly. We can still use smooth -- we call them "continuous" -- functions for our population of bacteria, if we just agree
+to only look at the value of the funciton every 0.5 seconds, because saying there are 4.3345 bacteria doesn't mean anything.
+
 
 ## The $a^x$ family
 
-The bacteria that split in two follow $n = 2^x$. Bacteria that split in three would follow $n = 3^x$. Any process where the rate of change is proportional to the current value can be written as:
+Let's call the number of bacteria that we have $n$.
+
+The bacteria that split in two follow $n = 2^x$. Bacteria that split in three would follow $n = 3^x$. 
+Any process where the rate of change is proportional to the current value can be written as:
 
 $$
 n = a^x
 $$
 
-for some base $a$ that describes the speed of the process. Different bases, different processes.
+for some value $a$ that describes the speed of the process.
 
 Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the constant of proportionality?
 
-Let's estimate it for $n = 2^x$. At $x = 3$ there are $2^3 = 8$ bacteria. A short time later, at $x = 3.01$, there are $2^{3.01} \approx 8.056$. The growth rate over that tiny interval is:
+Looking at the table above, it looks like it should be 1.0, right? The change in the number of bacteria is equal to the number that we already
+had. The fact is, though, that that is only true from one generation to the next. We want a continuous function that gives the correct number of bacteria in each 
+generation, but also has a smooth range of intermediate values. We can see in the graph below that the slope of this function will be less 
+than 1.0
+
+TODO: insert the graph
+
+Let's estimate the constant of proportionality for $n = 2^x$. 
+
+At $x = 3$ there are $2^3 = 8$ bacteria. 
+
+A short time later, at $x = 3.01$, there are $2^{3.01} \approx 8.056$.
+
+> Saying we have 8.056 bacteria doesn't make any sense, but we don't 
+> mind because we agreed to only consider the value to represent the actual number of bacteria every 0.5s.
+
+The growth rate over that tiny interval is:
 
 $$
-\frac{8.056 - 8.000}{0.01} \approx 5.55
+\frac{\text{change in population size}}{\text{time passed}} = \frac{8.056 - 8.000}{0.01} \approx 5.55
 $$
 
 The value at $x = 3$ is 8 and the growth rate is about 5.55 — roughly 69% of the value.
 
-Now try $x = 7$: there are $2^7 = 128$ bacteria. At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. Rate $\approx 89$. That's again about 69% of 128.
+Now try $x = 7$: 
+
+There are $2^7 = 128$ bacteria. 
+
+At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. Rate $\approx 89$. That's again about 69% of 128.
 
 The proportion is constant: for $n = 2^x$, the slope is always about 69% of the value, wherever you look. Let's call that constant ratio $k$:
 
@@ -74,7 +113,13 @@ $$
 
 For $n = 2^x$, $k \approx 0.69$.
 
-What about $n = 3^x$? At $x = 1$, $n = 3$. At $x = 1.01$, $3^{1.01} \approx 3.033$. Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
+**What about $n = 3^x$?**
+
+At $x = 1$, $n = 3$. 
+
+At $x = 1.01$, $3^{1.01} \approx 3.033$. 
+
+Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
 
 - $a = 2$: $k \approx 0.69$ — slope is 69% of value
 - $a = 3$: $k \approx 1.10$ — slope is 110% of value
@@ -85,13 +130,17 @@ We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just a
 
 ## Finding $e$ with the diagram
 
-You can see this directly below. The grey curve is the target — an exponential where slope equals value everywhere. The red curve is $y = a^x$ for a base you control. The label on the red tangent line shows the value of $k$ (the ratio of slope to value) at $x = 1$.
+You can see this directly below. The grey curve is the target — an exponential where slope equals value everywhere. 
+The red curve is $y = a^x$ and you can control the value of $a$ with the slider.
+The label on the red tangent line shows the value of $k$ (the ratio of slope to value).
 
 Drag the slider and watch $k$ change:
 
 - At $a = 2$, the red tangent label shows roughly $0.69 \times y$: slope less than value.
 - At $a = 3$, it shows roughly $1.10 \times y$: slope greater than value.
 - At exactly the right $a$, the label reads $1.00 \times y$ and the red curve coincides with the grey.
+
+The value of $a$ that you find that gives $k = 1.0$ is the value of $e$. What value do you get?
 
 <ExponentialBaseExplorer />
 
@@ -108,27 +157,32 @@ You can close in on $e$ by bisection, just as Archimedes closed in on $\pi$ with
 
 We're converging on something near 2.718. But can we be more systematic about it?
 
-## Estimating $e$ — the compound interest squeeze
+## Estimating $e$ — Expanding on our bacteria example
 
-There's a method for pinning down $e$ that's beautifully analogous to the polygon method for $\pi$.
+TODO: Rewrite this as: each bacteria grows at a speed proportional to its size and then splits at the end of the hour, so that we can measure the weight of the total population in units of one newly split bacteria.
+S, y because a value that varies continuously with x, rather than jumping each time x increases by one hour.
 
-Imagine a bank paying 100% annual interest. If they compound **once** a year, you turn £1 into:
+There's a method for pinning down $e$ that's beautifully analogous to the polygon method for $\pi$ — and it brings us back to our bacteria.
 
-$$
-\left(1 + 1\right)^1 = 2.000
-$$
+Our bacteria double every hour: one splits into two. That's a discrete process — each split is an instantaneous event, happening once per hour. But what if we made the same growth more *continuous*, without changing the overall rate?
 
-If they compound **twice** a year — 50% every six months:
+Instead of each bacterium waiting a full hour and then doubling, imagine it splits into two bacteria of half size twice per hour. The per-split growth factor isn't 2 any more; it's $1 + \tfrac{1}{2} = 1.5$. But it happens twice, so after one hour:
 
 $$
 \left(1 + \frac{1}{2}\right)^2 = 2.250
 $$
 
-More generally, if they compound $n$ times per year, you get $\left(1 + \tfrac{1}{n}\right)^n$. As $n$ increases — quarterly, monthly, daily, every second — the amount grows. But it doesn't grow without limit: it converges upward towards a ceiling.
+The colony ends up slightly larger than 2 — because each early split starts compounding immediately. Now split four times per hour, growing by a factor of $1 + \tfrac{1}{4}$ each time:
+
+$$
+\left(1 + \frac{1}{4}\right)^4 \approx 2.441
+$$
+
+Even larger. In general, if the bacteria split $n$ times per hour — each time growing by a factor of $\left(1 + \tfrac{1}{n}\right)$ — the colony size after one hour is $\left(1 + \tfrac{1}{n}\right)^n$. As $n$ increases the splits become more and more frequent and more and more gradual, until in the limit the growth is perfectly continuous. But the colony doesn't grow without bound — it converges upward towards a ceiling.
 
 That ceiling is $e$.
 
-Now for the upper bound. Instead of $n$ compounding periods, use $n + 1$ at the same rate per period. You're adding one extra period that shouldn't be there — so the result is too large, giving an overestimate of $e$. As $n$ increases, this overestimate shrinks downward, also converging to $e$.
+For the upper bound, imagine we allow one extra splitting event beyond the $n$ we're entitled to — still at the same rate per split. The colony overshoots the true continuous limit and gives us an overestimate of $e$. As $n$ grows, that overestimate shrinks downward, also converging to $e$.
 
 So $e$ is squeezed between a lower bound that rises and an upper bound that falls:
 
@@ -136,7 +190,7 @@ $$
 \left(1 + \frac{1}{n}\right)^n \;<\; e \;<\; \left(1 + \frac{1}{n}\right)^{n+1}
 $$
 
-| $n$ | Lower bound | Upper bound | Gap |
+| Splits per hour ($n$) | Lower bound | Upper bound | Gap |
 |:---:|:---:|:---:|:---:|
 | 1 | 2.000 | 4.000 | 2.000 |
 | 2 | 2.250 | 3.375 | 1.125 |
@@ -146,19 +200,19 @@ $$
 | 1 000 | 2.717 | 2.720 | 0.003 |
 | 10 000 | 2.7181 | 2.7184 | 0.0003 |
 
-By $n = 10{,}000$ we've pinned $e$ down to four decimal places:
+By $n = 10{,}000$ splits per hour we've pinned $e$ down to four decimal places:
 
 $$
 2.7181 < e < 2.7184
 $$
 
-Keep going — compound every millisecond, every nanosecond, *continuously* — and the two bounds meet at exactly:
+Keep going — splits every second, every nanosecond, *continuously* — and the two bounds meet at exactly:
 
 $$
 e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = 2.71828182845...
 $$
 
-And here's the remarkable thing: the constant you find by compounding infinitely often is *exactly* the same constant that makes slope equal value in the diagram. Two entirely different questions, converging on the same number. That's not a coincidence — it's a sign that $e$ is something fundamental.
+And here's the remarkable thing: the constant you find by taking bacterial splitting to its continuous limit is *exactly* the same constant that makes slope equal value in the diagram above. Two entirely different questions — one about curves on a graph, one about how finely you chop up a growth process — converging on the same number. That's not a coincidence. It's a sign that $e$ is something fundamental.
 
 ## $e$ is everywhere
 
