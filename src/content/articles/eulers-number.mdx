@@ -124,7 +124,7 @@ Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.
 - $a = 2$: $k \approx 0.69$ — slope is 69% of value
 - $a = 3$: $k \approx 1.10$ — slope is 110% of value
 
-$k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some base between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
+$k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some value between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
 
 We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radious 1.0 in our [article on $\pi$](/articles/pi).
 
@@ -159,60 +159,95 @@ We're converging on something near 2.718. But can we be more systematic about it
 
 ## Estimating $e$ — Expanding on our bacteria example
 
-TODO: Rewrite this as: each bacteria grows at a speed proportional to its size and then splits at the end of the hour, so that we can measure the weight of the total population in units of one newly split bacteria.
-S, y because a value that varies continuously with x, rather than jumping each time x increases by one hour.
+Remember we talked about continuous functions above. We want to find a continuous function that doubles every second, so that it models 
+our bacteria population. We already know that doubling every second means our constant of proportionality $k=0.69$. That means 
+that our population is increasing at a speed of $kn(x)$.
 
-There's a method for pinning down $e$ that's beautifully analogous to the polygon method for $\pi$ — and it brings us back to our bacteria.
+Let's divide each second up into 
+$m$ equal parts. That's the same as saying each part lasts for $d = 1/m$ seconds; when $m=2$ each part lasts 0.5s; when $m=10$ each part lasts
+$0.1$ seconds, as so on.
 
-Our bacteria double every hour: one splits into two. That's a discrete process — each split is an instantaneous event, happening once per hour. But what if we made the same growth more *continuous*, without changing the overall rate?
+If the population is growing at a rate of $kn(x)$ per second then the population at $t+d$ will be $n(x) k \times d$ larger. 
+We can write this as
 
-Instead of each bacterium waiting a full hour and then doubling, imagine it splits into two bacteria of half size twice per hour. The per-split growth factor isn't 2 any more; it's $1 + \tfrac{1}{2} = 1.5$. But it happens twice, so after one hour:
+$$ 
+n(x + d) =  n(t) (1 + k\times d ) 
+$$
+
+and, since $d = 1/m$
+
+$$ 
+n\left(x + d\right) =  n(t) \left(1 + \frac{k}{m} \right) 
+$$
+
+To see how the population grows from $t$ to $t+d$, we multiply by $(1+k/m)$. If we want to see how it grows from $t$ to $t+2d$, we need to 
+multiply by $(1+k/m)$ twice, once to go from $t$ to $t+d$ and a second time to go from $t+d$ to $t+2d$. 
+
+If we want to go from $t$ to $t$ + one second, we need to multiply by $(1+k/m$) $m$ times, because there are $m$ parts in one second.
+
+$$ 
+n(x + 1) = n(x) \left(1 + \frac{k}{m} \right)^m
+$$
+
+So, we now have a way of giving the poluation $n$ values between the values of time of $1.0$ seconds, $2.0$, $3.0$ while respecteing two important considerations
+
+1) We don't change the value of $n$ at $t=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
+2) The slope is equal to $k \times n(t)$ at all the intermediate values.
+
+We can make $m$ as large as we like and the larger we make it to more continuous $n(t)$ will be. We can see that if we make it very large indeed 
+then we will have a continuous function where $\text{slope} = k \times n(t)$. In other words,
+
+$$
+    n(x + 1) = n(x) \times e^{k} \approx  n(x) \left(1 + \frac{k}{m}\right)^{m} 
+$$
+
+And so
+
+$$
+   e^{k} \approx \left(1 + \frac{k}{m}\right)^{m} 
+$$
+
+This equation works for any value of $k$, so let us chose $k=1$.
+
+
+$$
+   e \approx \left(1 + \frac{1}{m}\right)^{m} 
+$$
+
+
+We can get an etimate the value of $e$ by choosing a large value of $m$ and using the above equation. The larger we make $m$ the better our estimate will be.
+
+For example, with $m = 2$:
 
 $$
 \left(1 + \frac{1}{2}\right)^2 = 2.250
 $$
 
-The colony ends up slightly larger than 2 — because each early split starts compounding immediately. Now split four times per hour, growing by a factor of $1 + \tfrac{1}{4}$ each time:
+And with $m = 4$:
 
 $$
 \left(1 + \frac{1}{4}\right)^4 \approx 2.441
 $$
 
-Even larger. In general, if the bacteria split $n$ times per hour — each time growing by a factor of $\left(1 + \tfrac{1}{n}\right)$ — the colony size after one hour is $\left(1 + \tfrac{1}{n}\right)^n$. As $n$ increases the splits become more and more frequent and more and more gradual, until in the limit the growth is perfectly continuous. But the colony doesn't grow without bound — it converges upward towards a ceiling.
+Let's plot our estimate of $e$ for larger and larger values of $m$
 
-That ceiling is $e$.
+| $m$ | Estimate |
+|:---:|:---:|
+| 1 | 2.000 | 
+| 2 | 2.250 | 
+| 4 | 2.441 | 
+| 10 | 2.594 |
+| 100 | 2.705 |
+| 1 000 | 2.717 |
+| 10 000 | 2.7181 |
 
-For the upper bound, imagine we allow one extra splitting event beyond the $n$ we're entitled to — still at the same rate per split. The colony overshoots the true continuous limit and gives us an overestimate of $e$. As $n$ grows, that overestimate shrinks downward, also converging to $e$.
+TODO: Insert a graph showing our estimate of e on the y axis and m on the x axis and a horizontal dashed line labelled with the true value of e 
 
-So $e$ is squeezed between a lower bound that rises and an upper bound that falls:
+We can see in the graph that our estimate approaches, but never quite reaches a value...
 
-$$
-\left(1 + \frac{1}{n}\right)^n \;<\; e \;<\; \left(1 + \frac{1}{n}\right)^{n+1}
-$$
+$e = 2.7182818...$
 
-| Splits per hour ($n$) | Lower bound | Upper bound | Gap |
-|:---:|:---:|:---:|:---:|
-| 1 | 2.000 | 4.000 | 2.000 |
-| 2 | 2.250 | 3.375 | 1.125 |
-| 4 | 2.441 | 3.052 | 0.611 |
-| 10 | 2.594 | 2.854 | 0.260 |
-| 100 | 2.705 | 2.732 | 0.027 |
-| 1 000 | 2.717 | 2.720 | 0.003 |
-| 10 000 | 2.7181 | 2.7184 | 0.0003 |
-
-By $n = 10{,}000$ splits per hour we've pinned $e$ down to four decimal places:
-
-$$
-2.7181 < e < 2.7184
-$$
-
-Keep going — splits every second, every nanosecond, *continuously* — and the two bounds meet at exactly:
-
-$$
-e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = 2.71828182845...
-$$
-
-And here's the remarkable thing: the constant you find by taking bacterial splitting to its continuous limit is *exactly* the same constant that makes slope equal value in the diagram above. Two entirely different questions — one about curves on a graph, one about how finely you chop up a growth process — converging on the same number. That's not a coincidence. It's a sign that $e$ is something fundamental.
+You can estimate a value for $e$ as accuractely as you like , just by putting a large enough value into the above formula in your calculator.
 
 ## $e$ is everywhere
 
