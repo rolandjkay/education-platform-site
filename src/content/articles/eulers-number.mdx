@@ -79,11 +79,11 @@ for some value $a$ that describes the speed of the process.
 
 Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the fixed multiplier that connects the two?
 
-> **Quick note:** The "growth rate" is how fast the population is changing at a given moment — estimated as the change in population divided by the time elapsed, over a tiny slice of time. The "constant of proportionality" $k$ is the fixed multiplier that connects the growth rate to the current population size: $\text{growth rate} = k \times n$.
+> **Quick note:** The "growth rate" is how fast the population is changing at a given moment — estimated as the change in population divided by the time elapsed, over a tiny slice of time. The "constant of proportionality" $k$ is the fixed multiplier that connects the growth rate to the current population size: $\text{growth rate} = k \times n$. When we plot a function, the growth rate is equal to the slope of the curve.
 
 Looking at the table above, it looks like it should be 1.0, right? The change in the number of bacteria is equal to the number that we already
 had. The fact is, though, that that is only true from one generation to the next. We want a continuous function that gives the correct number of bacteria in each 
-generation, but also has a smooth range of intermediate values. We can see in the graph below that the slope of this function will be less than 
+generation. We can see in the graph below that the slope of this function will be less than 
 $1.0 \times n$, and so $k < 1.0$.
 
 <ExponentialSlopeGraph />
