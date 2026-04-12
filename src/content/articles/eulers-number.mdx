@@ -9,16 +9,18 @@ heroImage: "./images/e-article-hero.svg"
 
 import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseExplorer.astro';
 import BacteriaGrowthSimulation from '../../components/diagrams/BacteriaGrowthSimulation.astro';
+import ExponentialSlopeGraph from '../../components/diagrams/ExponentialSlopeGraph.astro';
+import EConvergenceGraph from '../../components/diagrams/EConvergenceGraph.astro';
 
-Most people have heard of $\pi$, even if only when doing geometry at school. They even called a [film $\pi$](https://en.wikipedia.org/wiki/Pi_(film))! 
-Most people haven't heard of $\pi$'s lesser-known cousin $e$ though.
-$e$ is no less fascinating, although it is a bit harder to get your head around. If you haven't already, go and read [our article](pi) on $\pi$; the concepts are similar, but $\pi$ is a little more intuitive.
+Most people have heard of $\pi$ — even if only as "that 3.14-something number" from school. Fewer people have heard of $\pi$'s lesser-known cousin $e$.
 
 $$
 e = 2.71828...
 $$
 
-It shows up in the formula for how populations grow, how radioactive atoms decay and in how bank accounts compound and, just like $\pi$ it is a constant of the universe, that you can determine at home.
+$e$ shows up in the formula for how populations grow, how radioactive atoms decay, and how bank accounts compound. Just like $\pi$, it isn't something mathematicians invented — it's a property of the universe, and you can determine its value at home.
+
+$e$ is a little harder to get your head around than $\pi$, so if you haven't already read [our article on $\pi$](/articles/pi), it's worth a look first — the ideas are similar, but $\pi$ gives you a gentler warm-up.
 
 ## When growth feeds on growth
 
@@ -52,12 +54,13 @@ This isn't unique to bacteria. The same pattern — *rate of change proportional
 
 All of these follow the same underlying mathematical pattern, and so it would be useful to have a formula that can describe any process where the rate of growth is equal to the number of things there are.
 
+OK, so we have our key insight. Now let's set up the maths to describe it.
 
-## "Continuous" functions
+## “Continuous” functions
 
 The number of bacteria doesn't change continuously; one minute there are 32 and the next 64. Mathematically, though, it's easier to analyse
 functions that change smoothly. We can still use smooth — we call them "continuous" — functions for our population of bacteria, if we just agree
-to only look at the value of the function every 0.5 seconds, because saying there are 4.3345 bacteria doesn't mean anything.
+to only look at the value of the function every second, because saying there are 4.3345 bacteria doesn't mean anything.
 
 
 ## The $a^x$ family
@@ -73,23 +76,27 @@ $$
 
 for some value $a$ that describes the speed of the process.
 
-Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the constant of proportionality?
+Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the fixed multiplier that connects the two?
+
+> **Quick note:** A "constant of proportionality" is just a fixed multiplier. If your speed is always exactly twice your throttle position, then 2 is the constant of proportionality between speed and throttle. Here, we're looking for the fixed multiplier between "how fast the population grows" and "how big the population already is".
 
 Looking at the table above, it looks like it should be 1.0, right? The change in the number of bacteria is equal to the number that we already
 had. The fact is, though, that that is only true from one generation to the next. We want a continuous function that gives the correct number of bacteria in each 
 generation, but also has a smooth range of intermediate values. We can see in the graph below that the slope of this function will be less 
 than 1.0
 
-TODO: insert the graph
+<ExponentialSlopeGraph />
 
-Let's estimate the constant of proportionality for $n = 2^x$. 
+Let's estimate the fixed multiplier for $n = 2^x$. 
+
+> **Quick note:** The "growth rate" just means how fast the population is growing at a particular moment. We estimate it by asking: how much does the population change over a tiny slice of time, divided by the length of that slice? The smaller the slice, the more accurate the estimate.
 
 At $x = 3$ there are $2^3 = 8$ bacteria. 
 
 A short time later, at $x = 3.01$, there are $2^{3.01} \approx 8.056$.
 
 > Saying we have 8.056 bacteria doesn't make any sense, but we don't 
-> mind because we agreed to only consider the value to represent the actual number of bacteria every 0.5s.
+> mind because we agreed to only consider the value to represent the actual number of bacteria every second.
 
 The growth rate over that tiny interval is:
 
@@ -99,13 +106,17 @@ $$
 
 The value at $x = 3$ is 8 and the growth rate is about 5.55 — roughly 69% of the value.
 
-Now try $x = 7$: 
+Now try $x = 7$:
 
-There are $2^7 = 128$ bacteria. 
+There are $2^7 = 128$ bacteria. At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. The growth rate over that interval is:
 
-At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. Rate $\approx 89$. That's again about 69% of 128.
+$$
+\frac{128.89 - 128.00}{0.01} \approx 89
+$$
 
-The proportion is constant: for $n = 2^x$, the slope is always about 69% of the value, wherever you look. Let's call that constant ratio $k$:
+That's again about 69% of 128.
+
+The proportion is constant: for $n = 2^x$, the slope is always about 69% of the value, wherever you look. In other words, for every 100 bacteria present right now, roughly 69 new ones will appear in the next unit of time. We call that fraction $k$:
 
 $$
 \text{slope} = k \cdot n
@@ -115,11 +126,13 @@ For $n = 2^x$, $k \approx 0.69$.
 
 **What about $n = 3^x$?**
 
-At $x = 1$, $n = 3$. 
+At $x = 1$, $n = 3$. At $x = 1.01$, $3^{1.01} \approx 3.033$. The growth rate over that interval is:
 
-At $x = 1.01$, $3^{1.01} \approx 3.033$. 
+$$
+\frac{3.033 - 3.000}{0.01} \approx 3.3
+$$
 
-Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
+That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
 
 - $a = 2$: $k \approx 0.69$ — slope is 69% of value
 - $a = 3$: $k \approx 1.10$ — slope is 110% of value
@@ -127,6 +140,8 @@ Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.
 $k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some value between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
 
 We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radius 1.0 in our [article on $\pi$](/articles/pi).
+
+So we know $e$ is somewhere between 2 and 3. Let's find it.
 
 ## Finding $e$ with the diagram
 
@@ -136,38 +151,46 @@ The label on the red tangent line shows the value of $k$ (the ratio of slope to 
 
 Drag the slider and watch $k$ change:
 
-- At $a = 2$, the red tangent label shows roughly $0.69 \times y$: slope less than value.
-- At $a = 3$, it shows roughly $1.10 \times y$: slope greater than value.
-- At exactly the right $a$, the label reads $1.00 \times y$ and the red curve coincides with the grey.
+- At $a = 2$, the red label shows $k = 0.69$ — the slope is only 69% of the value.
+- At $a = 3$, $k = 1.10$ — the slope overshoots.
+- Drag until the label reads $k = 1.00$: you've found $e$.
 
-The value of $a$ that you find that gives $k = 1.0$ is the value of $e$. What value do you get?
+The value of $a$ that gives $k = 1.00$ is the value of $e$. What value do you get?
 
 <ExponentialBaseExplorer />
 
 You can close in on $e$ by bisection, just as Archimedes closed in on $\pi$ with more and more polygon sides:
 
-| Try | $k$ | Verdict |
-|:---:|:---:|:---:|
-| $a = 2.5$ | $< 1$ | too small |
-| $a = 2.8$ | $> 1$ | too big |
-| $a = 2.7$ | $< 1$ | too small |
-| $a = 2.75$ | $> 1$ | too big |
-| $a = 2.71$ | $< 1$ | too small |
-| $a = 2.72$ | $> 1$ | too big |
+<table style="width:100%;text-align:center">
+  <thead>
+    <tr><th style="text-align:center">Round</th><th style="text-align:center">Try</th><th style="text-align:center">$k$</th><th style="text-align:center">Verdict</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>$a = 2.5$</td><td>&lt; 1</td><td>too small</td></tr>
+    <tr><td>1</td><td>$a = 2.8$</td><td>&gt; 1</td><td>too big</td></tr>
+    <tr style="background:rgba(99,102,241,0.08)"><td>2</td><td>$a = 2.7$</td><td>&lt; 1</td><td>too small</td></tr>
+    <tr style="background:rgba(99,102,241,0.08)"><td>2</td><td>$a = 2.75$</td><td>&gt; 1</td><td>too big</td></tr>
+    <tr><td>3</td><td>$a = 2.71$</td><td>&lt; 1</td><td>too small</td></tr>
+    <tr><td>3</td><td>$a = 2.72$</td><td>&gt; 1</td><td>too big</td></tr>
+  </tbody>
+</table>
 
 We're converging on something near 2.718. But can we be more systematic about it?
 
 ## Estimating $e$ — Expanding on our bacteria example
 
+> The next few paragraphs show *why* the formula works — feel free to skip ahead to the table if you're happy to take it on trust.
+
 Remember we talked about continuous functions above. We want to find a continuous function that doubles every second, so that it models 
 our bacteria population. We already know that doubling every second means our constant of proportionality $k=0.69$. That means 
-that our population is increasing at a speed of $kn(x)$.
+that the growth rate of our population is $kn(x)$.
 
 Let's divide each second up into 
 $m$ equal parts. That's the same as saying each part lasts for $d = 1/m$ seconds; when $m=2$ each part lasts 0.5s; when $m=10$ each part lasts
 $0.1$ seconds, and so on.
 
 If the population is growing at a rate of $kn(x)$ per second then the population at $x+d$ will be $n(x) k \times d$ larger. 
+In other words, the increase in the population is equal to the growth rate $\times$ time passed.
 We can write this as
 
 $$ 
@@ -189,13 +212,13 @@ $$
 n(x + 1) = n(x) \left(1 + \frac{k}{m} \right)^m
 $$
 
-So, we now have a way of giving the poluation $n$ values between the values of time of $1.0$ seconds, $2.0$, $3.0$ while respecteing two important considerations
+So, we now have a way of giving the population $m$ values between the values of time of $1.0$ seconds, $2.0$, $3.0$ while respecting two important considerations
 
 1) We don't change the value of $n$ at $x=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
-2) The slope is equal to $k \times n(x)$ at all the intermediate values.
+2) The growth rate is equal to $k \times n(x)$ at all the intermediate values.
 
 We can make $m$ as large as we like and the larger we make it the more continuous $n(x)$ will be. We can see that if we make it very large indeed 
-then we will have a continuous function where $\text{slope} = k \times n(x)$. In other words,
+then we will have a continuous function. In other words,
 
 $$
     n(x + 1) = n(x) \times e^{k} \approx  n(x) \left(1 + \frac{k}{m}\right)^{m} 
@@ -214,6 +237,8 @@ $$
    e \approx \left(1 + \frac{1}{m}\right)^{m} 
 $$
 
+
+In plain English: if you split each second into $m$ tiny intervals and let the population grow a little bit in each one, the total growth after one second gets closer and closer to $e$ as you make the intervals smaller.
 
 We can get an estimate of the value of $e$ by choosing a large value of $m$ and using the above equation. The larger we make $m$, the better our estimate will be.
 
@@ -241,7 +266,7 @@ Let's plot our estimate of $e$ for larger and larger values of $m$
 | 1 000 | 2.717 |
 | 10 000 | 2.7181 |
 
-TODO: Insert a graph showing our estimate of e on the y axis and m on the x axis and a horizontal dashed line labelled with the true value of e 
+<EConvergenceGraph />
 
 We can see in the graph that our estimate approaches, but never quite reaches a value...
 
@@ -253,7 +278,7 @@ You can estimate a value for $e$ as accurately as you like, just by putting a la
 
 Once you know what $e$ is, you see it everywhere.
 
-Any quantity that grows or decays at a continuous rate proportional to its own size follows:
+Any quantity that grows or decays at a continuous rate proportional to its own size follows the same pattern. Don't be put off by the notation — this just says that the amount after time $t$ is the starting amount multiplied by a growth factor that depends on $e$:
 
 $$
 A = A_0 \cdot e^{rt}
@@ -265,9 +290,9 @@ where $A_0$ is the starting amount, $r$ is the growth rate, and $t$ is time. Thi
 - **Radioactive decay** (with $r$ negative)
 - **Compound interest** in the continuous limit
 - **The cooling of a hot cup of tea** — the temperature drops at a rate proportional to how far above room temperature it is (Newton's law of cooling)
-- **The discharge of a capacitor** — charge leaks away at a rate proportional to how much remains
 
-The reason $e$ keeps appearing is exactly the property we found: for $y = e^x$, slope equals value everywhere. Any process driven by "rate proportional to current size" is secretly an exponential with base $e$.
+The reason $e$ keeps appearing is exactly the property we found: for $y = e^x$, slope equals value everywhere. 
+Any process driven by "rate proportional to current size" can de expressed using $e$.
 
 
 ## Over to you

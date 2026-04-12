@@ -1,0 +1,110 @@
+---
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    xLabel: 'm',
+    yLabel: 'Estimate of e',
+    eLabel: 'e = 2.718…',
+    caption: 'As m grows, (1 + 1/m)ᵐ converges on e from below, never quite reaching it.',
+  },
+};
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
+
+// Layout
+const W = 480, H = 310;
+const left = 65, right = 455, top = 25, bottom = 280;
+const cw = right - left, ch = bottom - top;
+
+// Log-scale x: log10(m) from 0 (m=1) to 4 (m=10000)
+// y from 1.9 to 2.80
+const yMin = 1.9, yMax = 2.80;
+
+const xS = (m: number) => left + Math.log10(m) / 4 * cw;
+const yS = (y: number) => bottom - (y - yMin) / (yMax - yMin) * ch;
+
+// Curve: (1 + 1/m)^m, log-sampled from m=1 to m=10000
+const curveD = Array.from({ length: 201 }, (_, i) => {
+  const logM = i / 200 * 4;          // 0 → 4
+  const m = Math.pow(10, logM);
+  const y = Math.pow(1 + 1 / m, m);
+  return `${i === 0 ? 'M' : 'L'}${xS(m).toFixed(1)},${yS(y).toFixed(1)}`;
+}).join(' ');
+
+const eValue = Math.E;
+const eY = yS(eValue);
+
+const xTicks = [1, 10, 100, 1000, 10000];
+const xTickLabels: Record<number, string> = { 1: '1', 10: '10', 100: '100', 1000: '1 000', 10000: '10 000' };
+const yTicks = [2.0, 2.2, 2.4, 2.6, 2.8];
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox={`0 0 ${W} ${H}`}
+       role="img" aria-label={t.caption}>
+
+    <!-- Grid lines -->
+    {xTicks.map(m => (
+      <line x1={xS(m)} y1={top} x2={xS(m)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
+    ))}
+    {yTicks.map(y => (
+      <line x1={left} y1={yS(y)} x2={right} y2={yS(y)} stroke="#e6e6e6" stroke-width="1" />
+    ))}
+
+    <!-- Axes -->
+    <line x1={left} y1={bottom} x2={right + 8} y2={bottom} stroke="#333" stroke-width="1.5" />
+    <line x1={left} y1={bottom} x2={left} y2={top - 8} stroke="#333" stroke-width="1.5" />
+
+    <!-- X-axis ticks & labels -->
+    {xTicks.map(m => (
+      <line x1={xS(m)} y1={bottom} x2={xS(m)} y2={bottom + 5} stroke="#333" stroke-width="1" />
+    ))}
+    {xTicks.map(m => (
+      <text x={xS(m)} y={bottom + 17} font-size="11" text-anchor="middle" fill="#333">{xTickLabels[m]}</text>
+    ))}
+
+    <!-- Y-axis ticks & labels -->
+    {yTicks.map(y => (
+      <line x1={left - 5} y1={yS(y)} x2={left} y2={yS(y)} stroke="#333" stroke-width="1" />
+    ))}
+    {yTicks.map(y => (
+      <text x={left - 8} y={yS(y) + 4} font-size="12" text-anchor="end" fill="#333">{y.toFixed(1)}</text>
+    ))}
+
+    <!-- Axis labels -->
+    <text x={(left + right) / 2} y={H - 2} font-size="13" text-anchor="middle" fill="#555">{t.xLabel}</text>
+    <text x="14" y={(top + bottom) / 2} font-size="13" text-anchor="middle" fill="#555"
+          transform={`rotate(-90,14,${(top + bottom) / 2})`}>{t.yLabel}</text>
+
+    <!-- e = 2.718 dashed horizontal line -->
+    <line x1={left} y1={eY} x2={right} y2={eY}
+          stroke="#6366f1" stroke-width="1.5" stroke-dasharray="8,5" />
+    <text x={left + 6} y={eY - 5} font-size="11" fill="#6366f1">{t.eLabel}</text>
+
+    <!-- Curve -->
+    <path d={curveD} stroke="#333" stroke-width="2.5" fill="none" />
+  </svg>
+  <figcaption>{t.caption}</figcaption>
+</figure>
+
+<style>
+  .diagram { margin: 2rem 0; }
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>

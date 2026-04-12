@@ -1,0 +1,123 @@
+---
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    xLabel: 'Hours (x)',
+    yLabel: 'Bacteria (n)',
+    chordLabel: 'k = 1  (naive)',
+    tangentLabel: 'k ≈ 0.69  (actual)',
+    caption: 'The slope of n = 2ˣ at any point is about 69% of its value — not 100%, as a naive reading of the table might suggest.',
+  },
+};
+const t = { ...labels.en, ...(labels[locale] ?? {}) };
+
+// Layout
+const W = 480, H = 310;
+const left = 65, right = 455, top = 25, bottom = 280;
+const cw = right - left, ch = bottom - top;
+
+const xS = (x: number) => left + x / 4 * cw;
+const yS = (y: number) => bottom - y / 16 * ch;
+
+// Curve n = 2^x for x in [0, 4]
+const curveD = Array.from({ length: 81 }, (_, i) => {
+  const x = i / 80 * 4;
+  return `${i === 0 ? 'M' : 'L'}${xS(x).toFixed(1)},${yS(Math.pow(2, x)).toFixed(1)}`;
+}).join(' ');
+
+// Both lines start at x=0, y=1 and extend to x=2.5
+const ln2 = Math.log(2);
+const x0 = 0, xEnd = 2.5;
+// "Naive" line: slope = 1 × value, so at x=0 slope=1 → y = 1 + 1*x
+const chord = (x: number) => 1 + x;
+// Actual tangent at x=0: slope = ln(2)*1 → y = 1 + ln2*x
+const tangent = (x: number) => 1 + ln2 * x;
+---
+
+<figure class="diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox={`0 0 ${W} ${H}`}
+       role="img" aria-label={t.caption}>
+
+    <!-- Grid lines -->
+    {[1, 2, 3, 4].map(x => (
+      <line x1={xS(x)} y1={top} x2={xS(x)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
+    ))}
+    {[4, 8, 12, 16].map(y => (
+      <line x1={left} y1={yS(y)} x2={right} y2={yS(y)} stroke="#e6e6e6" stroke-width="1" />
+    ))}
+
+    <!-- Axes -->
+    <line x1={left} y1={bottom} x2={right + 8} y2={bottom} stroke="#333" stroke-width="1.5" />
+    <line x1={left} y1={bottom} x2={left} y2={top - 8} stroke="#333" stroke-width="1.5" />
+
+    <!-- X-axis ticks -->
+    {[1, 2, 3, 4].map(x => (
+      <line x1={xS(x)} y1={bottom} x2={xS(x)} y2={bottom + 5} stroke="#333" stroke-width="1" />
+    ))}
+    {[1, 2, 3, 4].map(x => (
+      <text x={xS(x)} y={bottom + 17} font-size="12" text-anchor="middle" fill="#333">{x}</text>
+    ))}
+
+    <!-- Y-axis ticks -->
+    {[4, 8, 12, 16].map(y => (
+      <line x1={left - 5} y1={yS(y)} x2={left} y2={yS(y)} stroke="#333" stroke-width="1" />
+    ))}
+    {[4, 8, 12, 16].map(y => (
+      <text x={left - 8} y={yS(y) + 4} font-size="12" text-anchor="end" fill="#333">{y}</text>
+    ))}
+
+    <!-- Axis labels -->
+    <text x={(left + right) / 2} y={H - 2} font-size="13" text-anchor="middle" fill="#555">{t.xLabel}</text>
+    <text x="14" y={(top + bottom) / 2} font-size="13" text-anchor="middle" fill="#555"
+          transform={`rotate(-90,14,${(top + bottom) / 2})`}>{t.yLabel}</text>
+
+    <!-- "Naive" line k=1 (grey dashed) -->
+    <line x1={xS(x0)} y1={yS(chord(x0))}
+          x2={xS(xEnd)} y2={yS(chord(xEnd))}
+          stroke="#aaa" stroke-width="1.5" stroke-dasharray="6,4" />
+    <text x={xS(xEnd) + 6} y={yS(chord(xEnd)) + 4} font-size="11" fill="#999">{t.chordLabel}</text>
+
+    <!-- Actual tangent k≈0.69 (indigo dashed) -->
+    <line x1={xS(x0)} y1={yS(tangent(x0))}
+          x2={xS(xEnd)} y2={yS(tangent(xEnd))}
+          stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6,4" />
+    <text x={xS(xEnd) + 6} y={yS(tangent(xEnd)) + 4} font-size="11" fill="#6366f1">{t.tangentLabel}</text>
+
+    <!-- Curve -->
+    <path d={curveD} stroke="#333" stroke-width="2.5" fill="none" />
+
+    <!-- Discrete generation points -->
+    {[0, 1, 2, 3, 4].map(x => (
+      <circle cx={xS(x)} cy={yS(Math.pow(2, x))} r="4" fill="#d63030" stroke="white" stroke-width="1.5" />
+    ))}
+
+    <!-- Curve label -->
+    <text x={xS(3.35)} y={yS(Math.pow(2, 3.35)) - 10} font-size="13" fill="#333">
+      n = 2<tspan dy="-4" font-size="10">x</tspan>
+    </text>
+  </svg>
+  <figcaption>{t.caption}</figcaption>
+</figure>
+
+<style>
+  .diagram { margin: 2rem 0; }
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+  }
+  .diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>

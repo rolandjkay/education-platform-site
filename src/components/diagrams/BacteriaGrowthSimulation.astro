@@ -11,7 +11,7 @@ const { locale = 'en' } = Astro.props;
     <button id="bac-btn" class="bac-btn">Start simulation</button>
   </div>
   <figcaption>
-    One bacterium splits every 0.5 seconds. Notice how the population stays small for a
+    One bacterium splits every second. Notice how the population stays small for a
     long time — then suddenly explodes. That's exponential growth: slow at first, then
     overwhelming.
   </figcaption>
@@ -81,10 +81,11 @@ const { locale = 'en' } = Astro.props;
   const GPW = 282, GPH = 265;           // graph plot area width & height
 
   // ── Simulation constants ─────────────────────────────────────────────
-  const SPLIT_S  = 0.5;   // seconds per generation
-  const MAX_GEN  = 9;     // 9 doublings → 512 bacteria
-  const SIM_END  = MAX_GEN * SPLIT_S; // 4.5 s
-  const MAX_DISP = 512;   // max bacteria rendered in dish
+  const SPLIT_S   = 1.0;  // seconds per generation (model time)
+  const ANIM_SPEED = 2;   // run animation 2× faster than real time
+  const MAX_GEN   = 9;    // 9 doublings → 512 bacteria
+  const SIM_END   = MAX_GEN * SPLIT_S; // 9 s
+  const MAX_DISP  = 512;  // max bacteria rendered in dish
 
   // ── Bacterium factory & helpers ──────────────────────────────────────
   function bacR(count) {
@@ -247,7 +248,7 @@ const { locale = 'en' } = Astro.props;
       const y = gy(n);
       ctx.beginPath(); ctx.moveTo(GPX, y); ctx.lineTo(GPX + GPW, y); ctx.stroke();
     }
-    for (let t = 0; t <= SIM_END; t += 0.5) {
+    for (let t = 0; t <= SIM_END; t += 1) {
       const x = gx(t);
       ctx.beginPath(); ctx.moveTo(x, GPY); ctx.lineTo(x, GPY + GPH); ctx.stroke();
     }
@@ -362,7 +363,7 @@ const { locale = 'en' } = Astro.props;
     if (!running) return;
     if (lastTs !== null) {
       const dt = Math.min((ts - lastTs) / 1000, 0.05);
-      elapsed += dt;
+      elapsed += dt * ANIM_SPEED;
       const newGen = Math.floor(elapsed / SPLIT_S);
       if (newGen > generation) doSplit();
       phase = (elapsed % SPLIT_S) / SPLIT_S;
