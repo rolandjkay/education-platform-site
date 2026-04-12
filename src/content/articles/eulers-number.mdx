@@ -11,6 +11,7 @@ import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseEx
 import BacteriaGrowthSimulation from '../../components/diagrams/BacteriaGrowthSimulation.astro';
 import ExponentialSlopeGraph from '../../components/diagrams/ExponentialSlopeGraph.astro';
 import EConvergenceGraph from '../../components/diagrams/EConvergenceGraph.astro';
+import StaircaseConvergence from '../../components/diagrams/StaircaseConvergence.astro';
 
 Most people have heard of $\pi$ — even if only as "that 3.14-something number" from school. Fewer people have heard of $\pi$'s lesser-known cousin $e$.
 
@@ -222,6 +223,8 @@ So, we now have a way of giving the function $n(t)$  multiple values between the
 2) The growth rate is equal to $k \times n(t)$ at all the intermediate values.
 
 We can make $m$ as large as we like and the larger we make it the more continuous $n(t)$ will be. As $m$ grows, the staircase of tiny steps becomes indistinguishable from a smooth curve — and the total growth factor over one second settles on a fixed value:
+
+<StaircaseConvergence />
 
 $$
     n(t + 1) \approx n(t) \times \left(1 + \frac{k}{m}\right)^{m} 

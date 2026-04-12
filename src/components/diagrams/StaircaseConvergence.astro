@@ -1,0 +1,236 @@
+---
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    mLabel: '<em>m</em>&nbsp;=&nbsp;',
+    caption: 'Drag the slider to increase <em>m</em> — the number of sub-intervals per second. As <em>m</em> grows, the staircase approaches the smooth grey curve.',
+  },
+};
+const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
+---
+
+<figure class="diagram sc-diagram">
+  <svg id="sc-svg" xmlns="http://www.w3.org/2000/svg"
+       width="100%" viewBox="0 0 480 310"
+       role="img" aria-label={lbl.caption}>
+    <defs>
+      <clipPath id="sc-clip">
+        <rect x="55" y="25" width="400" height="255" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <div class="sc-controls">
+    <div class="sc-slider-row">
+      <button id="sc-play-btn" type="button" class="sc-play" aria-label="Play animation">&#9654;</button>
+      <label for="sc-m-slider"><span set:html={lbl.mLabel} /><strong id="sc-m-display">1</strong></label>
+      <input id="sc-m-slider" type="range" min="1" max="30" step="1" value="1" class="sc-range">
+    </div>
+  </div>
+
+  <figcaption set:html={lbl.caption} />
+</figure>
+
+<style>
+  .sc-diagram { margin: 2rem 0; }
+
+  .sc-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .sc-controls {
+    padding: 0.75rem 1rem 0.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .sc-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .sc-range {
+    flex: 1;
+    min-width: 160px;
+    accent-color: #6366f1;
+  }
+
+  .sc-play {
+    background: none;
+    border: 1.5px solid #6366f1;
+    color: #6366f1;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .sc-play:hover { background: rgba(99,102,241,0.08); }
+
+  .sc-diagram figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  const K = Math.log(2);  // ≈ 0.693
+
+  // Coordinate system (viewBox 0 0 480 310)
+  const PL = 55, PT = 25, PW = 400, PH = 255;
+  const T_MAX = 3, Y_MAX = 10;
+
+  const tx = (t: number) => PL + t / T_MAX * PW;
+  const ty = (y: number) => PT + PH - y / Y_MAX * PH;
+
+  const NS  = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('sc-svg');
+  if (!svg) return;
+
+  // Helpers
+  function mk(tag: string, attrs: Record<string, string | number>, parent: Element) {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v));
+    parent.appendChild(e);
+    return e;
+  }
+  function mkTxt(content: string | number, attrs: Record<string, string | number>, parent: Element) {
+    const e = mk('text', attrs, parent);
+    e.textContent = String(content);
+    return e;
+  }
+
+  // ── Grid ───────────────────────────────────────────────────────────
+  const grid = mk('g', { stroke: '#e6e6e6', 'stroke-width': '1' }, svg);
+  for (let t = 0; t <= T_MAX; t++)
+    mk('line', { x1: tx(t), y1: PT, x2: tx(t), y2: PT + PH }, grid);
+  for (let y = 2; y <= 8; y += 2)
+    mk('line', { x1: PL, y1: ty(y), x2: PL + PW, y2: ty(y) }, grid);
+
+  // ── Axes ───────────────────────────────────────────────────────────
+  const axes = mk('g', { stroke: '#333', 'stroke-width': '1.5' }, svg);
+  mk('line', { x1: PL, y1: ty(0), x2: PL + PW + 8, y2: ty(0) }, axes);   // t-axis
+  mk('line', { x1: PL, y1: PT + PH, x2: PL, y2: PT - 8 }, axes);         // n-axis
+
+  // ── Tick marks and labels ──────────────────────────────────────────
+  const tg = mk('g', { 'font-size': '12', fill: '#333' }, svg);
+  for (let t = 0; t <= T_MAX; t++) {
+    mk('line', { x1: tx(t), y1: ty(0), x2: tx(t), y2: ty(0) + 5, stroke: '#333', 'stroke-width': '1' }, tg);
+    mkTxt(t, { x: tx(t), y: ty(0) + 17, 'text-anchor': 'middle' }, tg);
+  }
+  for (let y = 2; y <= 8; y += 2) {
+    mk('line', { x1: PL - 5, y1: ty(y), x2: PL, y2: ty(y), stroke: '#333', 'stroke-width': '1' }, tg);
+    mkTxt(y, { x: PL - 8, y: ty(y) + 4, 'text-anchor': 'end' }, tg);
+  }
+
+  // Axis labels
+  mkTxt('t', { x: PL + PW + 14, y: ty(0) + 4, 'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#555' }, svg);
+  mkTxt('n(t)', { x: 14, y: (PT + PT + PH) / 2, 'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#555',
+    transform: `rotate(-90,14,${(PT + PT + PH) / 2})` }, svg);
+
+  // ── Smooth reference curve: 2^t (grey) ─────────────────────────────
+  const smoothPts: string[] = [];
+  for (let i = 0; i <= 200; i++) {
+    const t = i / 200 * T_MAX;
+    const y = Math.pow(2, t);
+    if (y > Y_MAX) break;
+    smoothPts.push(`${i === 0 ? 'M' : 'L'}${tx(t).toFixed(1)},${ty(y).toFixed(1)}`);
+  }
+  mk('path', {
+    d: smoothPts.join(' '),
+    fill: 'none', stroke: '#c0c0c0', 'stroke-width': '2.5',
+    'clip-path': 'url(#sc-clip)',
+  }, svg);
+
+  // Label on smooth curve
+  mkTxt('n = 2ᵗ', { x: tx(2.6), y: ty(Math.pow(2, 2.6)) - 10, 'font-size': '12', fill: '#aaa', 'text-anchor': 'middle' }, svg);
+
+  // ── Staircase path (dynamic, indigo) ───────────────────────────────
+  const stairPath = mk('path', {
+    d: '', fill: 'none', stroke: '#6366f1', 'stroke-width': '2',
+    'clip-path': 'url(#sc-clip)',
+  }, svg);
+
+  function updateStaircase(m: number) {
+    const factor = 1 + K / m;
+    const totalSteps = m * T_MAX;
+    let val = 1;
+    const parts = [`M${tx(0).toFixed(1)},${ty(1).toFixed(1)}`];
+
+    for (let i = 0; i < totalSteps; i++) {
+      const tNext = (i + 1) / m;
+      // Horizontal at current value
+      parts.push(`L${tx(tNext).toFixed(1)},${ty(val).toFixed(1)}`);
+      // Step up
+      val *= factor;
+      if (val > Y_MAX) break;
+      parts.push(`L${tx(tNext).toFixed(1)},${ty(val).toFixed(1)}`);
+    }
+
+    stairPath.setAttribute('d', parts.join(' '));
+    document.getElementById('sc-m-display')!.textContent = String(m);
+  }
+
+  // ── Slider ─────────────────────────────────────────────────────────
+  const slider = document.getElementById('sc-m-slider') as HTMLInputElement;
+  slider.addEventListener('input', function () {
+    updateStaircase(parseInt(this.value));
+    stopAnim();
+  });
+
+  // ── Play / pause ───────────────────────────────────────────────────
+  let animTimer: number | null = null;
+  const playBtn = document.getElementById('sc-play-btn')!;
+
+  function stopAnim() {
+    if (animTimer !== null) {
+      clearInterval(animTimer);
+      animTimer = null;
+      playBtn.innerHTML = '&#9654;';   // ▶
+    }
+  }
+
+  function startAnim() {
+    slider.value = '1';
+    updateStaircase(1);
+    playBtn.innerHTML = '&#9646;&#9646;'; // ⏸
+    animTimer = window.setInterval(() => {
+      let m = parseInt(slider.value) + 1;
+      if (m > 30) { stopAnim(); return; }
+      slider.value = String(m);
+      updateStaircase(m);
+    }, 250);
+  }
+
+  playBtn.addEventListener('click', () => {
+    animTimer !== null ? stopAnim() : startAnim();
+  });
+
+  // ── Initial render ─────────────────────────────────────────────────
+  updateStaircase(1);
+})();
+</script>
