@@ -14,11 +14,13 @@ const labels: Record<string, Record<string, string>> = {
   en: {
     sliderLabel:  '<em>a</em>&nbsp;=&nbsp;',
     formulaLabel: 'At&nbsp;t&nbsp;=&nbsp;1:&nbsp;&nbsp;slope&nbsp;of&nbsp;red&nbsp;=&nbsp;',
+    snapHint: '\u2190 matches grey (slope\u00A0=\u00A0e\u00A0\u2248\u00A02.718)',
     caption: 'Drag the slider to change the value of <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>t</sup>. The grey curve is y&nbsp;=&nbsp;e<sup>t</sup>. The lines show the tangent for both functions, giving the rate of growth at that point. The corresponding value of k is labelled.',
   },
   fr: {
     sliderLabel:  'Base <em>a</em>&nbsp;=&nbsp;',
     formulaLabel: 'En&nbsp;t&nbsp;=&nbsp;1&nbsp;:&nbsp;&nbsp;pente&nbsp;du&nbsp;rouge&nbsp;=&nbsp;',
+    snapHint: '\u2190 correspond \u00E0 la grise (pente\u00A0=\u00A0e\u00A0\u2248\u00A02,718)',
     caption: 'Faites glisser le curseur pour modifier la valeur de <em>a</em> de la courbe rouge y&nbsp;=&nbsp;a<sup>t</sup>. La courbe grise est y&nbsp;=&nbsp;e<sup>t</sup>. Les droites sont les tangentes aux deux courbes, indiquant le taux de croissance en ce point. La valeur correspondante de k est indiquée.',
   }
 };
@@ -28,7 +30,8 @@ const t = { ...labels.en, ...(labels[locale] ?? {}) };
 
 <figure class="diagram exp-diagram">
   <svg id="exp-svg" xmlns="http://www.w3.org/2000/svg"
-       width="100%" viewBox="0 0 500 300" preserveAspectRatio="xMinYMin meet">
+       width="100%" viewBox="0 0 500 300" preserveAspectRatio="xMinYMin meet"
+       data-snap-hint={t.snapHint}>
     <defs>
       <clipPath id="exp-plot-clip">
         <!-- Covers the plot region (PL=55, PT=15, PW=430, PH=245) -->
@@ -141,6 +144,7 @@ import { renderToString } from 'katex';
   const XHNS = 'http://www.w3.org/1999/xhtml';
   const svg  = document.getElementById('exp-svg');
   if (!svg) return;
+  const snapHintText = svg.dataset.snapHint || '';
 
   // Convenience helpers
   function mk(tag, attrs, parent) {
@@ -291,7 +295,7 @@ import { renderToString } from 'katex';
     document.getElementById('exp-a-display').textContent = isE ? 'e \u2248 2.718' : a.toFixed(2);
     document.getElementById('exp-k-display').textContent = isE ? 'e \u2248 2.718' : slope1.toFixed(2);
     const hint = document.getElementById('exp-snap-hint');
-    hint.textContent = isE ? '\u2190 matches grey (slope\u00A0=\u00A0e\u00A0\u2248\u00A02.718)' : '';
+    hint.textContent = isE ? snapHintText : '';
   }
 
   // ── Slider with snap-to-e ────────────────────────────────────────────
