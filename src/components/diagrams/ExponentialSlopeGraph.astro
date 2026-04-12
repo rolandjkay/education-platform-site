@@ -6,59 +6,59 @@ const { locale = 'en' } = Astro.props;
 
 const labels: Record<string, Record<string, string>> = {
   en: {
-    xLabel: 'seconds (x)',
+    tLabel: 'seconds (t)',
     yLabel: 'population',
     diagonalLabel: 'growth rate = 256 per sec.',
     tangentLabel: 'growth rate of continuous function is less than 256 per sec.',
-    deltaX: '1 second',
+    deltaT: '1 second',
     deltaN: '256',
-    caption: 'The line from x=8 to x=9 has growth rate of 256 per sec., matching the table. But the slope of the curve at x=8 is only about 69% of this value.',
+    caption: 'The line from t=8 to t=9 has growth rate of 256 per sec., matching the table. But the slope of the curve at t=8 is only about 69% of this value.',
   },
 };
-const t = { ...labels.en, ...(labels[locale] ?? {}) };
+const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
 
 // Layout
 const W = 480, H = 310;
 const left = 65, right = 455, top = 25, bottom = 280;
 const cw = right - left, ch = bottom - top;
 
-// x ∈ [7.5, 9.5],  y ∈ [0, 600]
-const xMin = 7.5, xMax = 9.5, yMax = 600;
-const xS = (x: number) => left + (x - xMin) / (xMax - xMin) * cw;
-const yS = (y: number) => bottom - y / yMax * ch;
+// t ∈ [7.5, 9.5],  n ∈ [0, 600]
+const tMin = 7.5, tMax = 9.5, yMax = 600;
+const tPos = (t: number) => left + (t - tMin) / (tMax - tMin) * cw;
+const yS   = (y: number) => bottom - y / yMax * ch;
 
 // Key points
-const x1 = 8,  n1 = 256;   // 2^8
-const x2 = 9,  n2 = 512;   // 2^9
-const p1 = { x: xS(x1), y: yS(n1) };   // left dot
-const p2 = { x: xS(x2), y: yS(n2) };   // right dot
-const bR = { x: xS(x2), y: yS(n1) };   // bottom-right of triangle (9, 256)
+const t1 = 8,  n1 = 256;   // 2^8
+const t2 = 9,  n2 = 512;   // 2^9
+const p1 = { x: tPos(t1), y: yS(n1) };   // left dot
+const p2 = { x: tPos(t2), y: yS(n2) };   // right dot
+const bR = { x: tPos(t2), y: yS(n1) };   // bottom-right of triangle (t=9, n=256)
 
-// Curve:  2^x, generated until it exits the top
+// Curve:  2^t, generated until it exits the top
 const curvePts: string[] = [];
 for (let i = 0; i <= 120; i++) {
-  const x = xMin + i / 120 * (xMax - xMin);
-  const y = Math.pow(2, x);
+  const time = tMin + i / 120 * (tMax - tMin);
+  const y = Math.pow(2, time);
   if (y > yMax) break;
-  curvePts.push(`${i === 0 ? 'M' : 'L'}${xS(x).toFixed(1)},${yS(y).toFixed(1)}`);
+  curvePts.push(`${i === 0 ? 'M' : 'L'}${tPos(time).toFixed(1)},${yS(y).toFixed(1)}`);
 }
 const curveD = curvePts.join(' ');
 
-// Tangent at x=8:  slope = ln(2) × 2^8 ≈ 177.4  (math units / hr)
+// Tangent at t=8:  slope = ln(2) × 2^8 ≈ 177.4  (bacteria / sec)
 const tangentSlope = Math.log(2) * n1;
-const tangentY = (x: number) => n1 + tangentSlope * (x - x1);
-const tx0 = 7.75, tx1 = 8.85;
-const tan0 = { x: xS(tx0), y: yS(tangentY(tx0)) };
-const tan1 = { x: xS(tx1), y: yS(tangentY(tx1)) };
+const tangentN = (time: number) => n1 + tangentSlope * (time - t1);
+const tt0 = 7.75, tt1 = 8.85;
+const tan0 = { x: tPos(tt0), y: yS(tangentN(tt0)) };
+const tan1 = { x: tPos(tt1), y: yS(tangentN(tt1)) };
 
-// Arrow tip — point on the tangent at x=7.87
-const arrTip = { x: xS(7.87), y: yS(tangentY(7.87)) };
+// Arrow tip — point on the tangent at t=7.87
+const arrTip = { x: tPos(7.87), y: yS(tangentN(7.87)) };
 // Label positioned in lower-left, arrow pointing up to tangent
 const arrFrom = { x: 132, y: 244 };   // arrow tail — fixed position
 const labelX = 132, labelY1 = 252, labelY2 = 268;  // label sits below the tail
 
 // Split tangentLabel into two roughly equal lines
-const tl = t.tangentLabel;
+const tl = lbl.tangentLabel;
 const splitAt = tl.lastIndexOf(' ', Math.floor(tl.length / 2));
 const tangentLine1 = tl.slice(0, splitAt);
 const tangentLine2 = tl.slice(splitAt + 1);
@@ -70,7 +70,7 @@ const diagAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
 
 <figure class="diagram">
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox={`0 0 ${W} ${H}`}
-       role="img" aria-label={t.caption}>
+       role="img" aria-label={lbl.caption}>
     <defs>
       <marker id="esg-arr" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
         <polygon points="0 0, 7 3, 0 6" fill="#6366f1" />
@@ -81,20 +81,20 @@ const diagAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     {[n1, n2].map(n => (
       <line x1={left} y1={yS(n)} x2={right} y2={yS(n)} stroke="#e6e6e6" stroke-width="1" />
     ))}
-    {[x1, x2].map(x => (
-      <line x1={xS(x)} y1={top} x2={xS(x)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
+    {[t1, t2].map(time => (
+      <line x1={tPos(time)} y1={top} x2={tPos(time)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
     ))}
 
     <!-- Axes -->
     <line x1={left} y1={bottom} x2={right + 8} y2={bottom} stroke="#333" stroke-width="1.5" />
     <line x1={left} y1={bottom} x2={left} y2={top - 8} stroke="#333" stroke-width="1.5" />
 
-    <!-- X-axis ticks & labels -->
-    {[x1, x2].map(x => (
-      <line x1={xS(x)} y1={bottom} x2={xS(x)} y2={bottom + 5} stroke="#333" stroke-width="1" />
+    <!-- T-axis ticks & labels -->
+    {[t1, t2].map(time => (
+      <line x1={tPos(time)} y1={bottom} x2={tPos(time)} y2={bottom + 5} stroke="#333" stroke-width="1" />
     ))}
-    {[x1, x2].map(x => (
-      <text x={xS(x)} y={bottom + 17} font-size="12" text-anchor="middle" fill="#333">{x}</text>
+    {[t1, t2].map(time => (
+      <text x={tPos(time)} y={bottom + 17} font-size="12" text-anchor="middle" fill="#333">{time}</text>
     ))}
 
     <!-- Y-axis ticks & labels -->
@@ -106,28 +106,28 @@ const diagAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     ))}
 
     <!-- Axis labels -->
-    <text x={(left + right) / 2} y={H - 2} font-size="13" text-anchor="middle" fill="#555">{t.xLabel}</text>
+    <text x={(left + right) / 2} y={H - 2} font-size="13" text-anchor="middle" fill="#555">{lbl.tLabel}</text>
     <text x="14" y={(top + bottom) / 2} font-size="13" text-anchor="middle" fill="#555"
-          transform={`rotate(-90,14,${(top + bottom) / 2})`}>{t.yLabel}</text>
+          transform={`rotate(-90,14,${(top + bottom) / 2})`}>{lbl.yLabel}</text>
 
     <!-- Triangle: horizontal base -->
     <line x1={p1.x} y1={p1.y} x2={bR.x} y2={bR.y}
           stroke="#bbb" stroke-width="1" stroke-dasharray="5,3" />
-    <text x={(p1.x + bR.x) / 2} y={p1.y + 15} font-size="11" text-anchor="middle" fill="#aaa">{t.deltaX}</text>
+    <text x={(p1.x + bR.x) / 2} y={p1.y + 15} font-size="11" text-anchor="middle" fill="#aaa">{lbl.deltaT}</text>
 
     <!-- Triangle: vertical right side -->
     <line x1={bR.x} y1={bR.y} x2={p2.x} y2={p2.y}
           stroke="#bbb" stroke-width="1" stroke-dasharray="5,3" />
-    <text x={bR.x + 7} y={(bR.y + p2.y) / 2 + 4} font-size="11" text-anchor="start" fill="#aaa">{t.deltaN}</text>
+    <text x={bR.x + 7} y={(bR.y + p2.y) / 2 + 4} font-size="11" text-anchor="start" fill="#aaa">{lbl.deltaN}</text>
 
-    <!-- Diagonal of triangle (the "k=1" line) -->
+    <!-- Diagonal of triangle -->
     <line x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke="#999" stroke-width="1.5" />
     <text x={diagMid.x} y={diagMid.y - 10} font-size="12" text-anchor="middle" fill="#888"
           transform={`rotate(${diagAngle.toFixed(1)},${diagMid.x.toFixed(1)},${diagMid.y.toFixed(1)})`}>
-      {t.diagonalLabel}
+      {lbl.diagonalLabel}
     </text>
 
-    <!-- Tangent at x=8 (indigo dashed, arrowhead at right end) -->
+    <!-- Tangent at t=8 (indigo dashed, arrowhead at right end) -->
     <line x1={tan0.x} y1={tan0.y} x2={tan1.x} y2={tan1.y}
           stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6,4"
           marker-end="url(#esg-arr)" />
@@ -143,11 +143,11 @@ const diagAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     <!-- Curve -->
     <path d={curveD} stroke="#333" stroke-width="2.5" fill="none" />
 
-    <!-- Dots at x=8 and x=9 -->
+    <!-- Dots at t=8 and t=9 -->
     <circle cx={p1.x} cy={p1.y} r="4.5" fill="#d63030" stroke="white" stroke-width="1.5" />
     <circle cx={p2.x} cy={p2.y} r="4.5" fill="#d63030" stroke="white" stroke-width="1.5" />
   </svg>
-  <figcaption>{t.caption}</figcaption>
+  <figcaption>{lbl.caption}</figcaption>
 </figure>
 
 <style>

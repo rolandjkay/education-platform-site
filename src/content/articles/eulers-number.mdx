@@ -26,7 +26,7 @@ $e$ is a little harder to get your head around than $\pi$, so if you haven't alr
 
 Imagine a single bacterium in a dish. Every hour it splits in two. After one hour there are 2; after two hours, 4; after three, 8.
 
-| Hour ($x$) | Bacteria | Added this hour |
+| Hour ($t$) | Bacteria | Added this hour |
 |:---:|:---:|:---:|
 | 0 | 1 | — |
 | 1 | 2 | 1 |
@@ -58,42 +58,41 @@ OK, so we have our key insight. Now let's set up the maths to describe it.
 
 ## “Continuous” functions
 
-The number of bacteria doesn't change continuously; one minute there are 32 and the next 64. Mathematically, though, it's easier to analyse
-functions that change smoothly. We can still use smooth — we call them "continuous" — functions for our population of bacteria, if we just agree
-to only look at the value of the function every second, because saying there are 4.3345 bacteria doesn't mean anything.
+The number of bacteria doesn't change continuously, that is to say, smoothly over time. Instead, one minute there are 32 and the next 64.
+Mathematically, though, it's easier to analyse continuously changing functions. We can still use 
+continuous functions for our population of bacteria, if we just agree to only look at the value of the function every second,
+because saying there are 4.3345 bacteria doesn't mean anything.
 
 
-## The $a^x$ family
+## The $a^t$ family
 
 Let's call the number of bacteria that we have $n$.
 
-The bacteria that split in two follow $n = 2^x$. Bacteria that split in three would follow $n = 3^x$. 
+The bacteria that split in two follow $n = 2^t$. Bacteria that split in three would follow $n = 3^t$. 
 Any process where the rate of change is proportional to the current value can be written as:
 
 $$
-n = a^x
+n = a^t
 $$
 
 for some value $a$ that describes the speed of the process.
 
 Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the fixed multiplier that connects the two?
 
-> **Quick note:** A "constant of proportionality" is just a fixed multiplier. If your speed is always exactly twice your throttle position, then 2 is the constant of proportionality between speed and throttle. Here, we're looking for the fixed multiplier between "how fast the population grows" and "how big the population already is".
+> **Quick note:** The "growth rate" is how fast the population is changing at a given moment — estimated as the change in population divided by the time elapsed, over a tiny slice of time. The "constant of proportionality" $k$ is the fixed multiplier that connects the growth rate to the current population size: $\text{growth rate} = k \times n$.
 
 Looking at the table above, it looks like it should be 1.0, right? The change in the number of bacteria is equal to the number that we already
 had. The fact is, though, that that is only true from one generation to the next. We want a continuous function that gives the correct number of bacteria in each 
-generation, but also has a smooth range of intermediate values. We can see in the graph below that the slope of this function will be less 
-than 1.0
+generation, but also has a smooth range of intermediate values. We can see in the graph below that the slope of this function will be less than 
+$1.0 \times n$, and so $k < 1.0$.
 
 <ExponentialSlopeGraph />
 
-Let's estimate the fixed multiplier for $n = 2^x$. 
+Let's estimate the fixed multiplier for $n = 2^t$. 
 
-> **Quick note:** The "growth rate" just means how fast the population is growing at a particular moment. We estimate it by asking: how much does the population change over a tiny slice of time, divided by the length of that slice? The smaller the slice, the more accurate the estimate.
+At $t = 3$ there are $2^3 = 8$ bacteria. 
 
-At $x = 3$ there are $2^3 = 8$ bacteria. 
-
-A short time later, at $x = 3.01$, there are $2^{3.01} \approx 8.056$.
+A short time later, at $t = 3.01$, there are $2^{3.01} \approx 8.056$.
 
 > Saying we have 8.056 bacteria doesn't make any sense, but we don't 
 > mind because we agreed to only consider the value to represent the actual number of bacteria every second.
@@ -104,11 +103,11 @@ $$
 \frac{\text{change in population size}}{\text{time passed}} = \frac{8.056 - 8.000}{0.01} \approx 5.55
 $$
 
-The value at $x = 3$ is 8 and the growth rate is about 5.55 — roughly 69% of the value.
+The value at $t = 3$ is 8 and the growth rate is about 5.55 — roughly 69% of the value.
 
-Now try $x = 7$:
+Now try $t = 7$:
 
-There are $2^7 = 128$ bacteria. At $x = 7.01$, roughly $2^{7.01} \approx 128.89$. The growth rate over that interval is:
+There are $2^7 = 128$ bacteria. At $t = 7.01$, roughly $2^{7.01} \approx 128.89$. The growth rate over that interval is:
 
 $$
 \frac{128.89 - 128.00}{0.01} \approx 89
@@ -116,28 +115,26 @@ $$
 
 That's again about 69% of 128.
 
-The proportion is constant: for $n = 2^x$, the slope is always about 69% of the value, wherever you look. In other words, for every 100 bacteria present right now, roughly 69 new ones will appear in the next unit of time. We call that fraction $k$:
+The proportion is constant: for $n = 2^t$, the slope is always about 69% of the value, wherever you look, and so, for $n = 2^t$
 
 $$
-\text{slope} = k \cdot n
+k \approx 0.69
 $$
 
-For $n = 2^x$, $k \approx 0.69$.
+**What about $n = 3^t$?**
 
-**What about $n = 3^x$?**
-
-At $x = 1$, $n = 3$. At $x = 1.01$, $3^{1.01} \approx 3.033$. The growth rate over that interval is:
+At $t = 1$, $n = 3$. At $t = 1.01$, $3^{1.01} \approx 3.033$. The growth rate over that interval is:
 
 $$
 \frac{3.033 - 3.000}{0.01} \approx 3.3
 $$
 
-That's about 110% of the value. For $n = 3^x$, $k \approx 1.10$.
+That's about 110% of the value. For $n = 3^t$, $k \approx 1.10$.
 
 - $a = 2$: $k \approx 0.69$ — slope is 69% of value
 - $a = 3$: $k \approx 1.10$ — slope is 110% of value
 
-$k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some value between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
+$k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some value of $a$ between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
 
 We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radius 1.0 in our [article on $\pi$](/articles/pi).
 
@@ -146,7 +143,7 @@ So we know $e$ is somewhere between 2 and 3. Let's find it.
 ## Finding $e$ with the diagram
 
 You can see this directly below. The grey curve is the target — an exponential where slope equals value everywhere. 
-The red curve is $y = a^x$ and you can control the value of $a$ with the slider.
+The red curve is $y = a^t$ and you can control the value of $a$ with the slider.
 The label on the red tangent line shows the value of $k$ (the ratio of slope to value).
 
 Drag the slider and watch $k$ change:
@@ -159,7 +156,8 @@ The value of $a$ that gives $k = 1.00$ is the value of $e$. What value do you ge
 
 <ExponentialBaseExplorer />
 
-You can close in on $e$ by bisection, just as Archimedes closed in on $\pi$ with more and more polygon sides:
+We know that e is greate than 2 and less than 3. You can close in on $e$, just as Archimedes closed in on $\pi$,
+by trying values a little bit greater than 2 and less than 3...
 
 <table style="width:100%;text-align:center">
   <thead>
@@ -183,45 +181,47 @@ We're converging on something near 2.718. But can we be more systematic about it
 
 Remember we talked about continuous functions above. We want to find a continuous function that doubles every second, so that it models 
 our bacteria population. We already know that doubling every second means our constant of proportionality $k=0.69$. That means 
-that the growth rate of our population is $kn(x)$.
+that the growth rate of our population is $kn(t)$.
+
+> $n(t)$ just means the size of the population at time $t$. So, $n(t+10)$ is the size ten seconds later than $t$.
 
 Let's divide each second up into 
-$m$ equal parts. That's the same as saying each part lasts for $d = 1/m$ seconds; when $m=2$ each part lasts 0.5s; when $m=10$ each part lasts
+$m$ equal parts. That's the same as saying each part lasts for $d = 1/m$ seconds; when $m=2$ each part lasts 0.5 seconds; when $m=10$ each part lasts
 $0.1$ seconds, and so on.
 
-If the population is growing at a rate of $kn(x)$ per second then the population at $x+d$ will be $n(x) k \times d$ larger. 
+If the population is growing at a rate of $k \times n(t)$ per second then the population at $t+d$ will be $n(t) \times k \times d$ larger. 
 In other words, the increase in the population is equal to the growth rate $\times$ time passed.
 We can write this as
 
 $$ 
-n(x + d) =  n(x) (1 + k\times d ) 
+n(t + d) =  n(t) \times (1 + k\times d ) 
 $$
 
 and, since $d = 1/m$
 
 $$ 
-n\left(x + d\right) =  n(x) \left(1 + \frac{k}{m} \right) 
+n\left(t + d\right) =  n(t) \times \left(1 + \frac{k}{m} \right) 
 $$
 
-To see how the population grows from $x$ to $x+d$, we multiply by $(1+k/m)$. If we want to see how it grows from $x$ to $x+2d$, we need to 
-multiply by $(1+k/m)$ twice, once to go from $x$ to $x+d$ and a second time to go from $x+d$ to $x+2d$. 
+To see how the population grows from $t$ to $t+d$, we multiply by $(1+k/m)$. If we want to see how it grows from $t$ to $t+2d$, we need to 
+multiply by $(1+k/m)$ twice, once to go from $t$ to $t+d$ and a second time to go from $t+d$ to $t+2d$. 
 
-If we want to go from $x$ to $x$ + one second, we need to multiply by $(1+k/m)$ $m$ times, because there are $m$ parts in one second.
+If we want to go from $t$ to $t$ + one second, we need to multiply by $(1+k/m)$ $m$ times, because there are $m$ parts in one second.
 
 $$ 
-n(x + 1) = n(x) \left(1 + \frac{k}{m} \right)^m
+n(t + 1) = n(t) \times \left(1 + \frac{k}{m} \right)^m
 $$
 
-So, we now have a way of giving the population $m$ values between the values of time of $1.0$ seconds, $2.0$, $3.0$ while respecting two important considerations
+So, we now have a way of giving the function $n(t)$  multiple values between the times  of $1.0$ seconds, $2.0$, $3.0$ while respecting two important considerations
 
-1) We don't change the value of $n$ at $x=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
-2) The growth rate is equal to $k \times n(x)$ at all the intermediate values.
+1) We don't change the value of $n(t)$ at $t=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
+2) The growth rate is equal to $k \times n(t)$ at all the intermediate values.
 
-We can make $m$ as large as we like and the larger we make it the more continuous $n(x)$ will be. We can see that if we make it very large indeed 
+We can make $m$ as large as we like and the larger we make it the more continuous $n(t)$ will be. We can see that if we make it very large indeed 
 then we will have a continuous function. In other words,
 
 $$
-    n(x + 1) = n(x) \times e^{k} \approx  n(x) \left(1 + \frac{k}{m}\right)^{m} 
+    n(t + 1) = n(t) \times e^{k} \approx  n(t) \times \left(1 + \frac{k}{m}\right)^{m} 
 $$
 
 And so
@@ -230,7 +230,7 @@ $$
    e^{k} \approx \left(1 + \frac{k}{m}\right)^{m} 
 $$
 
-This equation works for any value of $k$, so let us chose $k=1$.
+This equation works for any value of $k$, so let us choose $k=1$.
 
 
 $$
@@ -291,7 +291,7 @@ where $A_0$ is the starting amount, $r$ is the growth rate, and $t$ is time. Thi
 - **Compound interest** in the continuous limit
 - **The cooling of a hot cup of tea** — the temperature drops at a rate proportional to how far above room temperature it is (Newton's law of cooling)
 
-The reason $e$ keeps appearing is exactly the property we found: for $y = e^x$, slope equals value everywhere. 
+The reason $e$ keeps appearing is exactly the property we found: for $y = e^t$, slope equals value everywhere. 
 Any process driven by "rate proportional to current size" can de expressed using $e$.
 
 

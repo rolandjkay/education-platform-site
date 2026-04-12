@@ -78,7 +78,7 @@
         font-style="oblique"
         font-family="STIX Two Math, Cambria Math, Times New Roman, serif"
         filter="url(#textGlow)">
-    e<tspan dx="20" dy="-90" font-size="100">x</tspan>
+    e<tspan dx="20" dy="-90" font-size="100">t</tspan>
   </text>
 
 </svg>

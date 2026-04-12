@@ -40,11 +40,10 @@ const { locale = 'en' } = Astro.props;
   </div>
 
   <figcaption>
-    Drag the slider to change the base <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>x</sup>.
-    The grey curve is y&nbsp;=&nbsp;e<sup>x</sup>. Each tangent line is drawn at x&nbsp;=&nbsp;1, with its
-    slope labelled. For any exponential y&nbsp;=&nbsp;a<sup>x</sup>, the slope is proportional to the value:
-    dy/dx&nbsp;=&nbsp;ln(a)&nbsp;·&nbsp;y. Only when a&nbsp;=&nbsp;e does ln(a)&nbsp;=&nbsp;1,
-    making slope equal value everywhere — which is why the grey tangent is labelled slope&nbsp;=&nbsp;1.0.
+    Drag the slider to change the base <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>t</sup>.
+    The grey curve is y&nbsp;=&nbsp;e<sup>t</sup>. The lines show tangent line for both functions, which give the rate of growth at that point. 
+    The correpsonding value of k is labelled.
+ 
   </figcaption>
 </figure>
 
@@ -194,7 +193,7 @@ import { renderToString } from 'katex';
     mkTxt(yi, { x: tx(0)-6, y: ty(yi)+4, 'text-anchor': 'end' }, tg);
   }
   // Axis name labels
-  mkTxt('x', { x: PL+PW+6, y: ty(0)+4,  'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#444' }, tg);
+  mkTxt('t', { x: PL+PW+6, y: ty(0)+4,  'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#444' }, tg);
   mkTxt('y', { x: tx(0)+5, y: PT+12,    'font-size': '13', 'font-style': 'italic', 'font-family': 'serif', fill: '#444' }, tg);
 
   // ── Path sampler ────────────────────────────────────────────────────
@@ -219,7 +218,7 @@ import { renderToString } from 'katex';
     d: buildPath(Math.exp),
   }, svg);
 
-  // ── Grey tangent line at x = 1 (static) ────────────────────────────
+  // ── Grey tangent line at t = 1 (static) ────────────────────────────
   // e^x at x=1: y = e, slope = e.  Tangent extends ±0.65 in x.
   {
     const DX   = 0.65;
@@ -230,7 +229,7 @@ import { renderToString } from 'katex';
     mk('circle', { cx: tx(x0), cy: ty(y0), r: '4', fill: '#b0b0b0' }, g);
   }
 
-  // ── Red a^x curve (dynamic) ─────────────────────────────────────────
+  // ── Red t curve (dynamic) ─────────────────────────────────────────
   const redPath = mk('path', {
     fill: 'none', stroke: '#d63030', 'stroke-width': '2',
     'clip-path': 'url(#exp-plot-clip)',
@@ -246,7 +245,7 @@ import { renderToString } from 'katex';
   // Red dot moves vertically; its labels' y is updated in update().
   // tx(1) = 313, ty(E) ≈ 177.  Label x = 323 is past the tangent line
   // extent so labels never overlap either tangent segment.
-  mkFO(243, 162, renderToString('y = e^x',       { throwOnError: false }), '#999');
+  mkFO(243, 162, renderToString('y = e^t',       { throwOnError: false }), '#999');
   mkFO(243, 177, renderToString('k = 1.00', { throwOnError: false }), '#999');
   const { fo: redCurveFo, div: redCurveDiv } = mkFO(353, 184, '', '#d63030');
   const { fo: redSlopeFo, div: redSlopeDiv } = mkFO(353, 199, '', '#c02020');
@@ -274,11 +273,11 @@ import { renderToString } from 'katex';
     const redDotY = ty(a);
     redCurveFo.setAttribute('y', String(redDotY - 15));
     redSlopeFo.setAttribute('y', String(redDotY));
-    redCurveDiv.innerHTML = renderToString(isE ? 'y = e^x' : 'y = a^x', { throwOnError: false });
+    redCurveDiv.innerHTML = renderToString(isE ? 'y = a^t' : 'y = a^t', { throwOnError: false });
     redSlopeDiv.innerHTML = renderToString('k = ' + k.toFixed(2), { throwOnError: false });
 
     // Control-panel readout
-    const slope1 = k * a; // dy/dx of a^x at x=1
+    const slope1 = k * a; // dy/dx of a^t at t=1
     document.getElementById('exp-a-display').textContent = isE ? 'e \u2248 2.718' : a.toFixed(2);
     document.getElementById('exp-k-display').textContent = isE ? 'e \u2248 2.718' : slope1.toFixed(2);
     const hint = document.getElementById('exp-snap-hint');
