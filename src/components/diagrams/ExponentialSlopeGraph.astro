@@ -57,9 +57,14 @@ const arrTip = { x: tPos(7.87), y: yS(tangentN(7.87)) };
 const arrFrom = { x: 132, y: 244 };   // arrow tail — fixed position
 const labelX = 132, labelY1 = 252, labelY2 = 268;  // label sits below the tail
 
-// Split tangentLabel into two roughly equal lines
+// Split tangentLabel at the space nearest to the midpoint
 const tl = lbl.tangentLabel;
-const splitAt = tl.lastIndexOf(' ', Math.floor(tl.length / 2));
+const mid = Math.floor(tl.length / 2);
+const before = tl.lastIndexOf(' ', mid);
+const after  = tl.indexOf(' ', mid);
+const splitAt = after === -1 ? before
+              : before === -1 ? after
+              : (mid - before <= after - mid) ? before : after;
 const tangentLine1 = tl.slice(0, splitAt);
 const tangentLine2 = tl.slice(splitAt + 1);
 
