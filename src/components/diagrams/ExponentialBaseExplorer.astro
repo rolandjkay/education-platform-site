@@ -246,10 +246,10 @@ import { renderToString } from 'katex';
   // Red dot moves vertically; its labels' y is updated in update().
   // tx(1) = 313, ty(E) ≈ 177.  Label x = 323 is past the tangent line
   // extent so labels never overlap either tangent segment.
-  mkFO(323, 162, renderToString('y = e^x',       { throwOnError: false }), '#bbb');
-  mkFO(323, 177, renderToString('1.00 \\times y', { throwOnError: false }), '#999');
-  const { fo: redCurveFo, div: redCurveDiv } = mkFO(323, 184, '', '#d63030');
-  const { fo: redSlopeFo, div: redSlopeDiv } = mkFO(323, 199, '', '#c02020');
+  mkFO(243, 162, renderToString('y = e^x',       { throwOnError: false }), '#999');
+  mkFO(243, 177, renderToString('k = 1.00', { throwOnError: false }), '#999');
+  const { fo: redCurveFo, div: redCurveDiv } = mkFO(353, 184, '', '#d63030');
+  const { fo: redSlopeFo, div: redSlopeDiv } = mkFO(353, 199, '', '#c02020');
 
   // ── Update function (called on each slider change) ──────────────────
   function update(a) {
@@ -275,7 +275,7 @@ import { renderToString } from 'katex';
     redCurveFo.setAttribute('y', String(redDotY - 15));
     redSlopeFo.setAttribute('y', String(redDotY));
     redCurveDiv.innerHTML = renderToString(isE ? 'y = e^x' : 'y = a^x', { throwOnError: false });
-    redSlopeDiv.innerHTML = renderToString(k.toFixed(2) + ' \\times y', { throwOnError: false });
+    redSlopeDiv.innerHTML = renderToString('k = ' + k.toFixed(2), { throwOnError: false });
 
     // Control-panel readout
     const slope1 = k * a; // dy/dx of a^x at x=1

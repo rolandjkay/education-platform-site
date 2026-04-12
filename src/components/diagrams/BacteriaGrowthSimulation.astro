@@ -82,13 +82,14 @@ const { locale = 'en' } = Astro.props;
 
   // ── Simulation constants ─────────────────────────────────────────────
   const SPLIT_S  = 0.5;   // seconds per generation
-  const MAX_GEN  = 8;     // 8 doublings → 256 bacteria
-  const SIM_END  = MAX_GEN * SPLIT_S; // 4.0 s
-  const MAX_DISP = 64;    // max bacteria rendered in dish
+  const MAX_GEN  = 9;     // 9 doublings → 512 bacteria
+  const SIM_END  = MAX_GEN * SPLIT_S; // 4.5 s
+  const MAX_DISP = 512;   // max bacteria rendered in dish
 
   // ── Bacterium factory & helpers ──────────────────────────────────────
   function bacR(count) {
-    return Math.max(4, Math.round(22 / Math.sqrt(Math.min(count, MAX_DISP))));
+    // The larger this number    \/ the larger the first bacteria will be
+    return Math.max(3, Math.round(1 / Math.sqrt(Math.min(count, MAX_DISP))));
   }
 
   function makeBac(x, y, angle) {
@@ -130,7 +131,7 @@ const { locale = 'en' } = Astro.props;
   }
 
   // ── Graph coordinate helpers (linear y-scale, 0–256) ────────────────
-  const Y_MAX = 256;
+  const Y_MAX = 512;
   function gx(t) { return GPX + (t / SIM_END) * GPW; }
   function gy(n) { return GPY + GPH - (n / Y_MAX) * GPH; }
 
@@ -197,18 +198,10 @@ const { locale = 'en' } = Astro.props;
   function drawBacteria() {
     const n = bacs.length;
     const r = bacR(n);
-    const atCap = n >= MAX_DISP;
-
-    let sx, sy, birthS;
-    if (atCap) {
-      const pulse = 1 + 0.07 * Math.sin(phase * Math.PI * 2);
-      sx = pulse; sy = pulse; birthS = 1;
-    } else {
-      birthS = Math.min(1, phase / 0.10 + 0.25);
-      const p = Math.max(0, (phase - 0.70) / 0.30);
-      sx = 1 + p * 0.85;
-      sy = 1 / sx;
-    }
+    const birthS = Math.min(1, phase / 0.10 + 0.25);
+    const p = Math.max(0, (phase - 0.70) / 0.30);
+    const sx = 1 + p * 0.85;
+    const sy = 1 / sx;
 
     for (const b of bacs) {
       ctx.save();
@@ -250,7 +243,7 @@ const { locale = 'en' } = Astro.props;
     // Grid
     ctx.strokeStyle = '#e6e6e6';
     ctx.lineWidth = 1;
-    for (const n of [64, 128, 192, 256]) {
+    for (const n of [128, 256, 384, 512]) {
       const y = gy(n);
       ctx.beginPath(); ctx.moveTo(GPX, y); ctx.lineTo(GPX + GPW, y); ctx.stroke();
     }
@@ -304,7 +297,7 @@ const { locale = 'en' } = Astro.props;
     ctx.strokeStyle = '#555';
     ctx.lineWidth = 1;
     ctx.textAlign = 'right';
-    for (const n of [0, 64, 128, 192, 256]) {
+    for (const n of [0, 128, 256, 384, 512]) {
       const y = gy(n);
       ctx.beginPath(); ctx.moveTo(GPX - 4, y); ctx.lineTo(GPX, y); ctx.stroke();
       ctx.fillText(String(n), GPX - 6, y + 3.5);
