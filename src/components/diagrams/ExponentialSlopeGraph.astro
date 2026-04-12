@@ -8,11 +8,11 @@ const labels: Record<string, Record<string, string>> = {
   en: {
     tLabel: 'seconds (t)',
     yLabel: 'population',
-    diagonalLabel: 'growth rate = 256 per sec.',
-    tangentLabel: 'growth rate of continuous function is less than 256 per sec.',
+    diagonalLabel: 'slope = 256 per sec.',
+    tangentLabel: 'slope of continuous function is less than 256 per sec.',
     deltaT: '1 second',
     deltaN: '256',
-    caption: 'The line from t=8 to t=9 has growth rate of 256 per sec., matching the table. But the slope of the curve at t=8 is only about 69% of this value.',
+    caption: 'The line from t=8 to t=9 has slope of 256 per sec., matching the table. But the slope of the curve at t=8 is only about 69% of this value.',
   },
 };
 const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
