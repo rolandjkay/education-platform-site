@@ -14,6 +14,15 @@ const labels: Record<string, Record<string, string>> = {
     deltaN: '256',
     caption: 'The line from t=8 to t=9 has slope of 256 per sec., matching the table. But the slope of the curve at t=8 is only about 69% of this value.',
   },
+  fr: {
+    tLabel: 'secondes (t)',
+    yLabel: 'population',
+    diagonalLabel: 'pente = 256 par sec.',
+    tangentLabel: 'la pente de la fonction continue est inférieure à 256 par sec.',
+    deltaT: '1 seconde',
+    deltaN: '256',
+    caption: 'La droite de t=8 à t=9 a une pente de 256 par sec., comme dans le tableau. Mais la pente de la courbe en t=8 ne vaut qu\'environ 69 % de cette valeur.',
+  },
 };
 const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
 

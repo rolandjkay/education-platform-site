@@ -3,18 +3,46 @@ interface Props {
   locale?: string;
 }
 const { locale = 'en' } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    startBtn: 'Start simulation',
+    restartBtn: 'Restart',
+    caption: 'One bacterium splits every second. Notice how the population stays small for a long time — then suddenly explodes. That\'s exponential growth: slow at first, then overwhelming.',
+    petriDish: 'Petri dish',
+    bacterium: 'bacterium',
+    bacteria: 'bacteria',
+    generation: 'Generation',
+    time: 'time',
+    bacteriaAxis: 'bacteria',
+    popTitle: 'Population over time',
+    theoretical: 'theoretical',
+    actual: 'actual',
+  },
+  fr: {
+    startBtn: 'Lancer la simulation',
+    restartBtn: 'Recommencer',
+    caption: 'Une bactérie se divise chaque seconde. Remarquez comme la population reste faible pendant longtemps, puis explose soudainement. C\'est la croissance exponentielle : lente au début, puis écrasante.',
+    petriDish: 'Boîte de Petri',
+    bacterium: 'bactérie',
+    bacteria: 'bactéries',
+    generation: 'Génération',
+    time: 'temps',
+    bacteriaAxis: 'bactéries',
+    popTitle: 'Population au fil du temps',
+    theoretical: 'théorique',
+    actual: 'réelle',
+  },
+};
+const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
 ---
 
 <figure class="diagram bac-diagram">
-  <canvas id="bac-canvas" width="600" height="345"></canvas>
+  <canvas id="bac-canvas" width="600" height="345" data-labels={JSON.stringify(lbl)}></canvas>
   <div class="bac-controls">
-    <button id="bac-btn" class="bac-btn">Start simulation</button>
+    <button id="bac-btn" class="bac-btn">{lbl.startBtn}</button>
   </div>
-  <figcaption>
-    One bacterium splits every second. Notice how the population stays small for a
-    long time — then suddenly explodes. That's exponential growth: slow at first, then
-    overwhelming.
-  </figcaption>
+  <figcaption>{lbl.caption}</figcaption>
 </figure>
 
 <style>
@@ -67,6 +95,7 @@ const { locale = 'en' } = Astro.props;
   if (!(canvas instanceof HTMLCanvasElement)) return;
   const ctx = canvas.getContext('2d');
   const btn = document.getElementById('bac-btn');
+  const lbl = JSON.parse(canvas.dataset.labels || '{}');
 
   // ── DPR-aware sizing ─────────────────────────────────────────────────
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -193,7 +222,7 @@ const { locale = 'en' } = Astro.props;
     ctx.font = '12px system-ui, sans-serif';
     ctx.fillStyle = '#777';
     ctx.textAlign = 'center';
-    ctx.fillText('Petri dish', DCX, DCY - DR - 6);
+    ctx.fillText(lbl.petriDish, DCX, DCY - DR - 6);
   }
 
   function drawBacteria() {
@@ -225,15 +254,15 @@ const { locale = 'en' } = Astro.props;
     }
 
     const label = realCount > MAX_DISP
-      ? `${realCount.toLocaleString()} bacteria`
-      : `${realCount} ${realCount === 1 ? 'bacterium' : 'bacteria'}`;
+      ? `${realCount.toLocaleString()} ${lbl.bacteria}`
+      : `${realCount} ${realCount === 1 ? lbl.bacterium : lbl.bacteria}`;
     ctx.textAlign = 'center';
     ctx.font = 'bold 13px system-ui, sans-serif';
     ctx.fillStyle = '#2e6e2e';
     ctx.fillText(label, DCX, DCY + DR + 20);
     ctx.font = '11px system-ui, sans-serif';
     ctx.fillStyle = '#888';
-    ctx.fillText(`Generation ${generation}`, DCX, DCY + DR + 34);
+    ctx.fillText(`${lbl.generation} ${generation}`, DCX, DCY + DR + 34);
   }
 
   function drawGraph() {
@@ -316,18 +345,18 @@ const { locale = 'en' } = Astro.props;
     ctx.font = 'italic 11px system-ui, sans-serif';
     ctx.fillStyle = '#666';
     ctx.textAlign = 'center';
-    ctx.fillText('time', GPX + GPW / 2, GPY + GPH + 25);
+    ctx.fillText(lbl.time, GPX + GPW / 2, GPY + GPH + 25);
     ctx.save();
     ctx.translate(GPX - 34, GPY + GPH / 2);
     ctx.rotate(-Math.PI / 2);
-    ctx.fillText('bacteria', 0, 0);
+    ctx.fillText(lbl.bacteriaAxis, 0, 0);
     ctx.restore();
 
     // Panel title
     ctx.font = '12px system-ui, sans-serif';
     ctx.fillStyle = '#777';
     ctx.textAlign = 'center';
-    ctx.fillText('Population over time', GPX + GPW / 2, GPY - 6);
+    ctx.fillText(lbl.popTitle, GPX + GPW / 2, GPY - 6);
 
     // Legend (top-left of graph area)
     ctx.save();
@@ -339,7 +368,7 @@ const { locale = 'en' } = Astro.props;
     ctx.font = '10px system-ui, sans-serif';
     ctx.fillStyle = '#888';
     ctx.textAlign = 'left';
-    ctx.fillText('theoretical', GPX + 27, GPY + 15);
+    ctx.fillText(lbl.theoretical, GPX + 27, GPY + 15);
 
     ctx.save();
     ctx.strokeStyle = '#2e8a2e';
@@ -347,7 +376,7 @@ const { locale = 'en' } = Astro.props;
     ctx.beginPath(); ctx.moveTo(GPX + 5, GPY + 27); ctx.lineTo(GPX + 24, GPY + 27); ctx.stroke();
     ctx.restore();
     ctx.fillStyle = '#888';
-    ctx.fillText('actual', GPX + 27, GPY + 30);
+    ctx.fillText(lbl.actual, GPX + 27, GPY + 30);
   }
 
   function draw() {
@@ -372,7 +401,7 @@ const { locale = 'en' } = Astro.props;
     draw();
     if (elapsed > SIM_END + SPLIT_S * 0.5) {
       running = false;
-      btn.textContent = 'Restart';
+      btn.textContent = lbl.restartBtn;
       draw();
       return;
     }

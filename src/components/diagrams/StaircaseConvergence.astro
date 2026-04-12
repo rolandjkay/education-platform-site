@@ -9,6 +9,10 @@ const labels: Record<string, Record<string, string>> = {
     mLabel: '<em>m</em>&nbsp;=&nbsp;',
     caption: 'Drag the slider to increase <em>m</em> — the number of sub-intervals per second. As <em>m</em> grows, the staircase approaches the smooth grey curve.',
   },
+  fr: {
+    mLabel: '<em>m</em>&nbsp;=&nbsp;',
+    caption: 'Déplacez le curseur pour augmenter <em>m</em> — le nombre de sous-intervalles par seconde. À mesure que <em>m</em> augmente, l\'escalier se rapproche de la courbe grise lisse.',
+  },
 };
 const lbl = { ...labels.en, ...(labels[locale] ?? {}) };
 ---

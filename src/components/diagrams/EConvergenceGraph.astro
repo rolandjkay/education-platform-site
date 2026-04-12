@@ -11,6 +11,12 @@ const labels: Record<string, Record<string, string>> = {
     eLabel: 'e = 2.718…',
     caption: 'As m grows, (1 + 1/m)ᵐ converges on e from below, never quite reaching it.',
   },
+  fr: {
+    xLabel: 'm',
+    yLabel: 'Estimation de e',
+    eLabel: 'e = 2,718…',
+    caption: 'À mesure que m augmente, (1 + 1/m)ᵐ converge vers e par en dessous, sans jamais l\'atteindre.',
+  },
 };
 const t = { ...labels.en, ...(labels[locale] ?? {}) };
 
