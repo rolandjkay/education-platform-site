@@ -10,9 +10,9 @@ heroImage: "./images/e-article-hero.svg"
 import ExponentialBaseExplorer from '../../components/diagrams/ExponentialBaseExplorer.astro';
 import BacteriaGrowthSimulation from '../../components/diagrams/BacteriaGrowthSimulation.astro';
 
-Most people have heard of $\pi$, even if only when doing geomtery at school. They even called a [film $\pi$](https://en.wikipedia.org/wiki/Pi_(film))! 
+Most people have heard of $\pi$, even if only when doing geometry at school. They even called a [film $\pi$](https://en.wikipedia.org/wiki/Pi_(film))! 
 Most people haven't heard of $\pi$'s lesser-known cousin $e$ though.
-$e$ is no less facinating, although it is a bit harder to get your head around. If you haven't already, go and read [our article](pi) on $\pi$; the concepts are similar, but $\pi$ is a little more intuitive.
+$e$ is no less fascinating, although it is a bit harder to get your head around. If you haven't already, go and read [our article](pi) on $\pi$; the concepts are similar, but $\pi$ is a little more intuitive.
 
 $$
 e = 2.71828...
@@ -55,9 +55,9 @@ All of these follow the same underlying mathematical pattern, and so it would be
 
 ## "Continuous" functions
 
-The number of bacteria in doesn't change continuous; one minute there are 32 and the next 64. Mathematically, though, it's easier to analyse
-functions that change smoothly. We can still use smooth -- we call them "continuous" -- functions for our population of bacteria, if we just agree
-to only look at the value of the funciton every 0.5 seconds, because saying there are 4.3345 bacteria doesn't mean anything.
+The number of bacteria doesn't change continuously; one minute there are 32 and the next 64. Mathematically, though, it's easier to analyse
+functions that change smoothly. We can still use smooth — we call them "continuous" — functions for our population of bacteria, if we just agree
+to only look at the value of the function every 0.5 seconds, because saying there are 4.3345 bacteria doesn't mean anything.
 
 
 ## The $a^x$ family
@@ -126,7 +126,7 @@ Rate $\approx 3.3$. That's about 110% of the value. For $n = 3^x$, $k \approx 1.
 
 $k$ is less than 1 when $a = 2$ and greater than 1 when $a = 3$. Since $k$ changes continuously as $a$ changes, there must be some value between 2 and 3 where $k = 1$ exactly: where the slope equals the value at every point on the curve.
 
-We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radious 1.0 in our [article on $\pi$](/articles/pi).
+We're going to call the value of $a$ at which $k = 1$ by the name $e$ — just as we gave the name [$\pi$](/articles/pi) to the area of a circle of radius 1.0 in our [article on $\pi$](/articles/pi).
 
 ## Finding $e$ with the diagram
 
@@ -165,25 +165,25 @@ that our population is increasing at a speed of $kn(x)$.
 
 Let's divide each second up into 
 $m$ equal parts. That's the same as saying each part lasts for $d = 1/m$ seconds; when $m=2$ each part lasts 0.5s; when $m=10$ each part lasts
-$0.1$ seconds, as so on.
+$0.1$ seconds, and so on.
 
-If the population is growing at a rate of $kn(x)$ per second then the population at $t+d$ will be $n(x) k \times d$ larger. 
+If the population is growing at a rate of $kn(x)$ per second then the population at $x+d$ will be $n(x) k \times d$ larger. 
 We can write this as
 
 $$ 
-n(x + d) =  n(t) (1 + k\times d ) 
+n(x + d) =  n(x) (1 + k\times d ) 
 $$
 
 and, since $d = 1/m$
 
 $$ 
-n\left(x + d\right) =  n(t) \left(1 + \frac{k}{m} \right) 
+n\left(x + d\right) =  n(x) \left(1 + \frac{k}{m} \right) 
 $$
 
-To see how the population grows from $t$ to $t+d$, we multiply by $(1+k/m)$. If we want to see how it grows from $t$ to $t+2d$, we need to 
-multiply by $(1+k/m)$ twice, once to go from $t$ to $t+d$ and a second time to go from $t+d$ to $t+2d$. 
+To see how the population grows from $x$ to $x+d$, we multiply by $(1+k/m)$. If we want to see how it grows from $x$ to $x+2d$, we need to 
+multiply by $(1+k/m)$ twice, once to go from $x$ to $x+d$ and a second time to go from $x+d$ to $x+2d$. 
 
-If we want to go from $t$ to $t$ + one second, we need to multiply by $(1+k/m$) $m$ times, because there are $m$ parts in one second.
+If we want to go from $x$ to $x$ + one second, we need to multiply by $(1+k/m)$ $m$ times, because there are $m$ parts in one second.
 
 $$ 
 n(x + 1) = n(x) \left(1 + \frac{k}{m} \right)^m
@@ -191,11 +191,11 @@ $$
 
 So, we now have a way of giving the poluation $n$ values between the values of time of $1.0$ seconds, $2.0$, $3.0$ while respecteing two important considerations
 
-1) We don't change the value of $n$ at $t=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
-2) The slope is equal to $k \times n(t)$ at all the intermediate values.
+1) We don't change the value of $n$ at $x=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
+2) The slope is equal to $k \times n(x)$ at all the intermediate values.
 
-We can make $m$ as large as we like and the larger we make it to more continuous $n(t)$ will be. We can see that if we make it very large indeed 
-then we will have a continuous function where $\text{slope} = k \times n(t)$. In other words,
+We can make $m$ as large as we like and the larger we make it the more continuous $n(x)$ will be. We can see that if we make it very large indeed 
+then we will have a continuous function where $\text{slope} = k \times n(x)$. In other words,
 
 $$
     n(x + 1) = n(x) \times e^{k} \approx  n(x) \left(1 + \frac{k}{m}\right)^{m} 
@@ -215,7 +215,7 @@ $$
 $$
 
 
-We can get an etimate the value of $e$ by choosing a large value of $m$ and using the above equation. The larger we make $m$ the better our estimate will be.
+We can get an estimate of the value of $e$ by choosing a large value of $m$ and using the above equation. The larger we make $m$, the better our estimate will be.
 
 For example, with $m = 2$:
 
@@ -247,7 +247,7 @@ We can see in the graph that our estimate approaches, but never quite reaches a 
 
 $e = 2.7182818...$
 
-You can estimate a value for $e$ as accuractely as you like , just by putting a large enough value into the above formula in your calculator.
+You can estimate a value for $e$ as accurately as you like, just by putting a large enough value into the above formula in your calculator.
 
 ## $e$ is everywhere
 
