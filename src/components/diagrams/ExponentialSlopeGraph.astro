@@ -6,11 +6,13 @@ const { locale = 'en' } = Astro.props;
 
 const labels: Record<string, Record<string, string>> = {
   en: {
-    xLabel: 'Hours (x)',
-    yLabel: 'Bacteria (n)',
-    chordLabel: 'k = 1  (naive)',
-    tangentLabel: 'k ≈ 0.69  (actual)',
-    caption: 'The slope of n = 2ˣ at any point is about 69% of its value — not 100%, as a naive reading of the table might suggest.',
+    xLabel: 'seconds (x)',
+    yLabel: 'population',
+    diagonalLabel: 'growth rate = 256 per sec.',
+    tangentLabel: 'growth rate of continuous function is less than 256 per sec.',
+    deltaX: '1 second',
+    deltaN: '256',
+    caption: 'The chord from x=8 to x=9 has k = Δn/n = 1, matching the table. But the instantaneous slope of the curve at x=8 is only about 69% of the value there.',
   },
 };
 const t = { ...labels.en, ...(labels[locale] ?? {}) };
@@ -20,54 +22,87 @@ const W = 480, H = 310;
 const left = 65, right = 455, top = 25, bottom = 280;
 const cw = right - left, ch = bottom - top;
 
-const xS = (x: number) => left + x / 4 * cw;
-const yS = (y: number) => bottom - y / 16 * ch;
+// x ∈ [7.5, 9.5],  y ∈ [0, 600]
+const xMin = 7.5, xMax = 9.5, yMax = 600;
+const xS = (x: number) => left + (x - xMin) / (xMax - xMin) * cw;
+const yS = (y: number) => bottom - y / yMax * ch;
 
-// Curve n = 2^x for x in [0, 4]
-const curveD = Array.from({ length: 81 }, (_, i) => {
-  const x = i / 80 * 4;
-  return `${i === 0 ? 'M' : 'L'}${xS(x).toFixed(1)},${yS(Math.pow(2, x)).toFixed(1)}`;
-}).join(' ');
+// Key points
+const x1 = 8,  n1 = 256;   // 2^8
+const x2 = 9,  n2 = 512;   // 2^9
+const p1 = { x: xS(x1), y: yS(n1) };   // left dot
+const p2 = { x: xS(x2), y: yS(n2) };   // right dot
+const bR = { x: xS(x2), y: yS(n1) };   // bottom-right of triangle (9, 256)
 
-// Both lines start at x=0, y=1 and extend to x=2.5
-const ln2 = Math.log(2);
-const x0 = 0, xEnd = 2.5;
-// "Naive" line: slope = 1 × value, so at x=0 slope=1 → y = 1 + 1*x
-const chord = (x: number) => 1 + x;
-// Actual tangent at x=0: slope = ln(2)*1 → y = 1 + ln2*x
-const tangent = (x: number) => 1 + ln2 * x;
+// Curve:  2^x, generated until it exits the top
+const curvePts: string[] = [];
+for (let i = 0; i <= 120; i++) {
+  const x = xMin + i / 120 * (xMax - xMin);
+  const y = Math.pow(2, x);
+  if (y > yMax) break;
+  curvePts.push(`${i === 0 ? 'M' : 'L'}${xS(x).toFixed(1)},${yS(y).toFixed(1)}`);
+}
+const curveD = curvePts.join(' ');
+
+// Tangent at x=8:  slope = ln(2) × 2^8 ≈ 177.4  (math units / hr)
+const tangentSlope = Math.log(2) * n1;
+const tangentY = (x: number) => n1 + tangentSlope * (x - x1);
+const tx0 = 7.75, tx1 = 8.85;
+const tan0 = { x: xS(tx0), y: yS(tangentY(tx0)) };
+const tan1 = { x: xS(tx1), y: yS(tangentY(tx1)) };
+
+// Arrow tip — point on the tangent at x=7.87
+const arrTip = { x: xS(7.87), y: yS(tangentY(7.87)) };
+// Label positioned in lower-left, arrow pointing up to tangent
+const arrFrom = { x: 132, y: 244 };   // arrow tail — fixed position
+const labelX = 132, labelY1 = 252, labelY2 = 268;  // label sits below the tail
+
+// Split tangentLabel into two roughly equal lines
+const tl = t.tangentLabel;
+const splitAt = tl.lastIndexOf(' ', Math.floor(tl.length / 2));
+const tangentLine1 = tl.slice(0, splitAt);
+const tangentLine2 = tl.slice(splitAt + 1);
+
+// Diagonal midpoint and angle for label
+const diagMid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+const diagAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
 ---
 
 <figure class="diagram">
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox={`0 0 ${W} ${H}`}
        role="img" aria-label={t.caption}>
+    <defs>
+      <marker id="esg-arr" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 7 3, 0 6" fill="#6366f1" />
+      </marker>
+    </defs>
 
     <!-- Grid lines -->
-    {[1, 2, 3, 4].map(x => (
-      <line x1={xS(x)} y1={top} x2={xS(x)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
+    {[n1, n2].map(n => (
+      <line x1={left} y1={yS(n)} x2={right} y2={yS(n)} stroke="#e6e6e6" stroke-width="1" />
     ))}
-    {[4, 8, 12, 16].map(y => (
-      <line x1={left} y1={yS(y)} x2={right} y2={yS(y)} stroke="#e6e6e6" stroke-width="1" />
+    {[x1, x2].map(x => (
+      <line x1={xS(x)} y1={top} x2={xS(x)} y2={bottom} stroke="#e6e6e6" stroke-width="1" />
     ))}
 
     <!-- Axes -->
     <line x1={left} y1={bottom} x2={right + 8} y2={bottom} stroke="#333" stroke-width="1.5" />
     <line x1={left} y1={bottom} x2={left} y2={top - 8} stroke="#333" stroke-width="1.5" />
 
-    <!-- X-axis ticks -->
-    {[1, 2, 3, 4].map(x => (
+    <!-- X-axis ticks & labels -->
+    {[x1, x2].map(x => (
       <line x1={xS(x)} y1={bottom} x2={xS(x)} y2={bottom + 5} stroke="#333" stroke-width="1" />
     ))}
-    {[1, 2, 3, 4].map(x => (
+    {[x1, x2].map(x => (
       <text x={xS(x)} y={bottom + 17} font-size="12" text-anchor="middle" fill="#333">{x}</text>
     ))}
 
-    <!-- Y-axis ticks -->
-    {[4, 8, 12, 16].map(y => (
-      <line x1={left - 5} y1={yS(y)} x2={left} y2={yS(y)} stroke="#333" stroke-width="1" />
+    <!-- Y-axis ticks & labels -->
+    {[n1, n2].map(n => (
+      <line x1={left - 5} y1={yS(n)} x2={left} y2={yS(n)} stroke="#333" stroke-width="1" />
     ))}
-    {[4, 8, 12, 16].map(y => (
-      <text x={left - 8} y={yS(y) + 4} font-size="12" text-anchor="end" fill="#333">{y}</text>
+    {[n1, n2].map(n => (
+      <text x={left - 8} y={yS(n) + 4} font-size="12" text-anchor="end" fill="#333">{n}</text>
     ))}
 
     <!-- Axis labels -->
@@ -75,30 +110,42 @@ const tangent = (x: number) => 1 + ln2 * x;
     <text x="14" y={(top + bottom) / 2} font-size="13" text-anchor="middle" fill="#555"
           transform={`rotate(-90,14,${(top + bottom) / 2})`}>{t.yLabel}</text>
 
-    <!-- "Naive" line k=1 (grey dashed) -->
-    <line x1={xS(x0)} y1={yS(chord(x0))}
-          x2={xS(xEnd)} y2={yS(chord(xEnd))}
-          stroke="#aaa" stroke-width="1.5" stroke-dasharray="6,4" />
-    <text x={xS(xEnd) + 6} y={yS(chord(xEnd)) + 4} font-size="11" fill="#999">{t.chordLabel}</text>
+    <!-- Triangle: horizontal base -->
+    <line x1={p1.x} y1={p1.y} x2={bR.x} y2={bR.y}
+          stroke="#bbb" stroke-width="1" stroke-dasharray="5,3" />
+    <text x={(p1.x + bR.x) / 2} y={p1.y + 15} font-size="11" text-anchor="middle" fill="#aaa">{t.deltaX}</text>
 
-    <!-- Actual tangent k≈0.69 (indigo dashed) -->
-    <line x1={xS(x0)} y1={yS(tangent(x0))}
-          x2={xS(xEnd)} y2={yS(tangent(xEnd))}
-          stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6,4" />
-    <text x={xS(xEnd) + 6} y={yS(tangent(xEnd)) + 4} font-size="11" fill="#6366f1">{t.tangentLabel}</text>
+    <!-- Triangle: vertical right side -->
+    <line x1={bR.x} y1={bR.y} x2={p2.x} y2={p2.y}
+          stroke="#bbb" stroke-width="1" stroke-dasharray="5,3" />
+    <text x={bR.x + 7} y={(bR.y + p2.y) / 2 + 4} font-size="11" text-anchor="start" fill="#aaa">{t.deltaN}</text>
+
+    <!-- Diagonal of triangle (the "k=1" line) -->
+    <line x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke="#999" stroke-width="1.5" />
+    <text x={diagMid.x} y={diagMid.y - 10} font-size="12" text-anchor="middle" fill="#888"
+          transform={`rotate(${diagAngle.toFixed(1)},${diagMid.x.toFixed(1)},${diagMid.y.toFixed(1)})`}>
+      {t.diagonalLabel}
+    </text>
+
+    <!-- Tangent at x=8 (indigo dashed, arrowhead at right end) -->
+    <line x1={tan0.x} y1={tan0.y} x2={tan1.x} y2={tan1.y}
+          stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6,4"
+          marker-end="url(#esg-arr)" />
+
+    <!-- Arrow from label to tangent -->
+    <line x1={arrFrom.x} y1={arrFrom.y} x2={arrTip.x} y2={arrTip.y}
+          stroke="#6366f1" stroke-width="1" marker-end="url(#esg-arr)" />
+    <text font-size="12" text-anchor="start" fill="#6366f1">
+      <tspan x={labelX} y={labelY1}>{tangentLine1}</tspan>
+      <tspan x={labelX} y={labelY2}>{tangentLine2}</tspan>
+    </text>
 
     <!-- Curve -->
     <path d={curveD} stroke="#333" stroke-width="2.5" fill="none" />
 
-    <!-- Discrete generation points -->
-    {[0, 1, 2, 3, 4].map(x => (
-      <circle cx={xS(x)} cy={yS(Math.pow(2, x))} r="4" fill="#d63030" stroke="white" stroke-width="1.5" />
-    ))}
-
-    <!-- Curve label -->
-    <text x={xS(3.35)} y={yS(Math.pow(2, 3.35)) - 10} font-size="13" fill="#333">
-      n = 2<tspan dy="-4" font-size="10">x</tspan>
-    </text>
+    <!-- Dots at x=8 and x=9 -->
+    <circle cx={p1.x} cy={p1.y} r="4.5" fill="#d63030" stroke="white" stroke-width="1.5" />
+    <circle cx={p2.x} cy={p2.y} r="4.5" fill="#d63030" stroke="white" stroke-width="1.5" />
   </svg>
   <figcaption>{t.caption}</figcaption>
 </figure>
