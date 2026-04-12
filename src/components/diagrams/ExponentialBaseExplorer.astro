@@ -12,45 +12,15 @@ const { locale = 'en' } = Astro.props;
 
 const labels: Record<string, Record<string, string>> = {
   en: {
-    sliderLabel:  'Base <em>a</em>&nbsp;=&nbsp;',
+    sliderLabel:  '<em>a</em>&nbsp;=&nbsp;',
     formulaLabel: 'At&nbsp;t&nbsp;=&nbsp;1:&nbsp;&nbsp;slope&nbsp;of&nbsp;red&nbsp;=&nbsp;',
-    caption: 'Drag the slider to change the base <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>t</sup>. The grey curve is y&nbsp;=&nbsp;e<sup>t</sup>. The lines show the tangent for both functions, giving the rate of growth at that point. The corresponding value of k is labelled.',
+    caption: 'Drag the slider to change the value of <em>a</em> of the red curve y&nbsp;=&nbsp;a<sup>t</sup>. The grey curve is y&nbsp;=&nbsp;e<sup>t</sup>. The lines show the tangent for both functions, giving the rate of growth at that point. The corresponding value of k is labelled.',
   },
   fr: {
     sliderLabel:  'Base <em>a</em>&nbsp;=&nbsp;',
     formulaLabel: 'En&nbsp;t&nbsp;=&nbsp;1&nbsp;:&nbsp;&nbsp;pente&nbsp;du&nbsp;rouge&nbsp;=&nbsp;',
-    caption: 'Faites glisser le curseur pour modifier la base <em>a</em> de la courbe rouge y&nbsp;=&nbsp;a<sup>t</sup>. La courbe grise est y&nbsp;=&nbsp;e<sup>t</sup>. Les droites sont les tangentes aux deux courbes, indiquant le taux de croissance en ce point. La valeur correspondante de k est indiquée.',
-  },
-  de: {
-    sliderLabel:  'Basis <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 'Bei&nbsp;t&nbsp;=&nbsp;1:&nbsp;&nbsp;Steigung&nbsp;der&nbsp;roten&nbsp;Kurve&nbsp;=&nbsp;',
-    caption: 'Verschieben Sie den Regler, um die Basis <em>a</em> der roten Kurve y&nbsp;=&nbsp;a<sup>t</sup> zu ändern. Die graue Kurve ist y&nbsp;=&nbsp;e<sup>t</sup>. Die Geraden zeigen die Tangenten beider Funktionen und geben die Wachstumsrate an diesem Punkt an. Der entsprechende Wert von k ist beschriftet.',
-  },
-  es: {
-    sliderLabel:  'Base <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 'En&nbsp;t&nbsp;=&nbsp;1:&nbsp;&nbsp;pendiente&nbsp;roja&nbsp;=&nbsp;',
-    caption: 'Arrastra el control para cambiar la base <em>a</em> de la curva roja y&nbsp;=&nbsp;a<sup>t</sup>. La curva gris es y&nbsp;=&nbsp;e<sup>t</sup>. Las líneas muestran la tangente de ambas funciones, que dan la tasa de crecimiento en ese punto. El valor correspondiente de k está etiquetado.',
-  },
-  it: {
-    sliderLabel:  'Base <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 'Per&nbsp;t&nbsp;=&nbsp;1:&nbsp;&nbsp;pendenza&nbsp;della&nbsp;rossa&nbsp;=&nbsp;',
-    caption: 'Trascina il cursore per cambiare la base <em>a</em> della curva rossa y&nbsp;=&nbsp;a<sup>t</sup>. La curva grigia è y&nbsp;=&nbsp;e<sup>t</sup>. Le rette mostrano la tangente per entrambe le funzioni, indicando il tasso di crescita in quel punto. Il valore corrispondente di k è indicato.',
-  },
-  ja: {
-    sliderLabel:  '底数 <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 't&nbsp;=&nbsp;1 のとき：赤の傾き&nbsp;=&nbsp;',
-    caption: 'スライダーをドラッグして、赤い曲線 y&nbsp;=&nbsp;a<sup>t</sup> の底数 <em>a</em> を変更します。灰色の曲線は y&nbsp;=&nbsp;e<sup>t</sup> です。直線は両方の関数の接線を示しており、その点での成長率を表します。対応する k の値が表示されています。',
-  },
-  'zh-CN': {
-    sliderLabel:  '底数 <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 't&nbsp;=&nbsp;1 处：红色斜率&nbsp;=&nbsp;',
-    caption: '拖动滑块以改变红色曲线 y&nbsp;=&nbsp;a<sup>t</sup> 的底数 <em>a</em>。灰色曲线为 y&nbsp;=&nbsp;e<sup>t</sup>。直线显示两个函数的切线，表示该点的增长率。对应的 k 值已标出。',
-  },
-  'zh-TW': {
-    sliderLabel:  '底數 <em>a</em>&nbsp;=&nbsp;',
-    formulaLabel: 't&nbsp;=&nbsp;1 處：紅色斜率&nbsp;=&nbsp;',
-    caption: '拖動滑桿以改變紅色曲線 y&nbsp;=&nbsp;a<sup>t</sup> 的底數 <em>a</em>。灰色曲線為 y&nbsp;=&nbsp;e<sup>t</sup>。直線顯示兩個函數的切線，表示該點的增長率。對應的 k 值已標出。',
-  },
+    caption: 'Faites glisser le curseur pour modifier la valeur de <em>a</em> de la courbe rouge y&nbsp;=&nbsp;a<sup>t</sup>. La courbe grise est y&nbsp;=&nbsp;e<sup>t</sup>. Les droites sont les tangentes aux deux courbes, indiquant le taux de croissance en ce point. La valeur correspondante de k est indiquée.',
+  }
 };
 
 const t = { ...labels.en, ...(labels[locale] ?? {}) };

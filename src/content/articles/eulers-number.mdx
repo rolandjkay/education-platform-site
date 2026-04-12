@@ -36,6 +36,8 @@ Imagine a single bacterium in a dish. Every hour it splits in two. After one hou
 | 5 | 32 | 16 |
 | 6 | 64 | 32 |
 | 7 | 128 | 64 |
+| 8 | 256 | 128 |
+| 9 | 512 | 256 |
 | 10 | 1024 | 512 |
 
 Look at the "Added this hour" column. At every row, the number of new bacteria equals the number already there. The bigger the colony, the faster it grows — not just a little faster, but proportionally faster: double the colony, double the growth rate.
@@ -58,7 +60,7 @@ OK, so we have our key insight. Now let's set up the maths to describe it.
 
 ## “Continuous” functions
 
-The number of bacteria doesn't change continuously, that is to say, smoothly over time. Instead, one minute there are 32 and the next 64.
+The number of bacteria doesn't change continuously — that is to say, smoothly — over time. Instead, one minute there are 32 and the next 64.
 Mathematically, though, it's easier to analyse continuously changing functions. We can still use 
 continuous functions for our population of bacteria, if we just agree to only look at the value of the function every second,
 because saying there are 4.3345 bacteria doesn't mean anything.
@@ -77,9 +79,11 @@ $$
 
 for some value $a$ that describes the speed of the process.
 
-Now here's the key question. We said the growth rate of the bacteria is proportional to their number. What's the fixed multiplier that connects the two?
+Now here's the key question. We said the growth rate of the bacteria is proportional to their number.
 
-> **Quick note:** The "growth rate" is how fast the population is changing at a given moment — estimated as the change in population divided by the time elapsed, over a tiny slice of time. The "constant of proportionality" $k$ is the fixed multiplier that connects the growth rate to the current population size: $\text{growth rate} = k \times n$. When we plot a function, the growth rate is equal to the slope of the curve.
+> **Quick note:** The "growth rate" is how fast the population is changing at a given moment — estimated as the change in population divided by the time elapsed, over a tiny slice of time. The "constant of proportionality" $k$ is the fixed multiplier that connects the growth rate to the current population size: growth rate = $k \times n$. When we plot a function, the growth rate at any point is the slope of the curve at that point.
+
+So what's the fixed multiplier that connects the growth rate to the population size?
 
 Looking at the table above, it looks like it should be 1.0, right? The change in the number of bacteria is equal to the number that we already
 had. The fact is, though, that that is only true from one generation to the next. We want a continuous function that gives the correct number of bacteria in each 
@@ -156,7 +160,7 @@ The value of $a$ that gives $k = 1.00$ is the value of $e$. What value do you ge
 
 <ExponentialBaseExplorer />
 
-We know that e is greate than 2 and less than 3. You can close in on $e$, just as Archimedes closed in on $\pi$,
+We know that e is greater than 2 and less than 3. You can close in on $e$, just as Archimedes closed in on $\pi$ (as we saw in [our article on $\pi$](/articles/pi)),
 by trying values a little bit greater than 2 and less than 3...
 
 <table style="width:100%;text-align:center">
@@ -217,18 +221,19 @@ So, we now have a way of giving the function $n(t)$  multiple values between the
 1) We don't change the value of $n(t)$ at $t=1.0, 2.0, 3.0, 4.0$, so this equation still models the bacteria population
 2) The growth rate is equal to $k \times n(t)$ at all the intermediate values.
 
-We can make $m$ as large as we like and the larger we make it the more continuous $n(t)$ will be. We can see that if we make it very large indeed 
-then we will have a continuous function. In other words,
+We can make $m$ as large as we like and the larger we make it the more continuous $n(t)$ will be. As $m$ grows, the staircase of tiny steps becomes indistinguishable from a smooth curve — and the total growth factor over one second settles on a fixed value:
 
 $$
-    n(t + 1) = n(t) \times e^{k} \approx  n(t) \times \left(1 + \frac{k}{m}\right)^{m} 
+    n(t + 1) \approx n(t) \times \left(1 + \frac{k}{m}\right)^{m} 
 $$
 
-And so
+The larger we make $m$, the closer this gets to a fixed value — and that value is exactly $e^k$. So
 
 $$
    e^{k} \approx \left(1 + \frac{k}{m}\right)^{m} 
 $$
+
+and the approximation gets better the larger $m$ is.
 
 This equation works for any value of $k$, so let us choose $k=1$.
 
@@ -292,7 +297,7 @@ where $A_0$ is the starting amount, $r$ is the growth rate, and $t$ is time. Thi
 - **The cooling of a hot cup of tea** — the temperature drops at a rate proportional to how far above room temperature it is (Newton's law of cooling)
 
 The reason $e$ keeps appearing is exactly the property we found: for $y = e^t$, slope equals value everywhere. 
-Any process driven by "rate proportional to current size" can de expressed using $e$.
+Any process driven by "rate proportional to current size" can be expressed using $e$.
 
 
 ## Over to you
